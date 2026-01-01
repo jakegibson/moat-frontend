@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1034667801398",
+    "project_id": "staging-warrantyhive-16532",
+    "storage_bucket": "staging-warrantyhive-16532.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1034667801398:android:950d0815106f92f75a5197",
+        "android_client_info": {
+          "package_name": "com.warrantyhive.staging"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSm2R6RhBBHCbrr3GpjgfGgxiCOxflC0w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

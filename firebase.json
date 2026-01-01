@@ -1,0 +1,86 @@
+{
+  "hosting": {
+    "target": "moatapp",
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "/index.html",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-store, no-cache, must-revalidate"
+          }
+        ]
+      }
+    ]
+  },
+  "flutter": {
+    "platforms": {
+      "ios": {
+        "buildConfigurations": {
+          "Debug-staging": {
+            "projectId": "staging-warrantyhive-16532",
+            "appId": "1:12484345459:ios:26c1e7102786112f543406",
+            "uploadDebugSymbols": false,
+            "fileOutput": "ios/Runner/GoogleService-Info.plist"
+          },
+          "Profile-staging": {
+            "projectId": "staging-warrantyhive-16532",
+            "appId": "1:12484345459:ios:26c1e7102786112f543406",
+            "uploadDebugSymbols": false,
+            "fileOutput": "ios/Runner/GoogleService-Info.plist"
+          },
+          "Release-staging": {
+            "projectId": "staging-warrantyhive-16532",
+            "appId": "1:12484345459:ios:26c1e7102786112f543406",
+            "uploadDebugSymbols": false,
+            "fileOutput": "ios/Runner/GoogleService-Info.plist"
+          },
+          "Debug-prod": {
+            "projectId": "warrantyhive",
+            "appId": "1:12484345459:ios:26c1e7102786112f543406",
+            "uploadDebugSymbols": false,
+            "fileOutput": "ios/flavors/prod/GoogleService-Info.plist"
+          },
+          "Profile-prod": {
+            "projectId": "warrantyhive",
+            "appId": "1:12484345459:ios:26c1e7102786112f543406",
+            "uploadDebugSymbols": false,
+            "fileOutput": "ios/flavors/prod/GoogleService-Info.plist"
+          },
+          "Release-prod": {
+            "projectId": "warrantyhive",
+            "appId": "1:12484345459:ios:26c1e7102786112f543406",
+            "uploadDebugSymbols": false,
+            "fileOutput": "ios/flavors/prod/GoogleService-Info.plist"
+          }
+        },
+        "default": {
+          "projectId": "warrantyhive",
+          "appId": "1:12484345459:ios:26c1e7102786112f543406",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "warrantyhive",
+          "configurations": {
+            "ios": "1:12484345459:ios:26c1e7102786112f543406"
+          }
+        }
+      }
+    }
+  }
+}

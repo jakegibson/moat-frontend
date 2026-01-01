@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "12484345459",
+    "project_id": "warrantyhive",
+    "storage_bucket": "warrantyhive.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12484345459:android:0ca338378d0d9038543406",
+        "android_client_info": {
+          "package_name": "com.warrantyhive.warrantyhive"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDit_WT3gfDIWncYq3vQRvH416eb3Fd5kU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

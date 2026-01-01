@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "warrantyhive",
+    "staging": "staging-warrantyhive-16532",
+    "prod": "warrantyhive"
+  },
+  "targets": {
+    "warrantyhive": {
+      "hosting": {
+        "moatapp": [
+          "moatapp"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
