@@ -9,14 +9,12 @@ import '../../../core/routing/routes.dart';
 import '../../../core/styles/app_colors.dart';
 import '../../../core/styles/app_sizes.dart';
 import '../../../core/styles/app_text_styles.dart';
-import '../../../core/utils/date_formatter.dart';
 import '../data/task_models.dart';
 import '../state/task_state.dart';
 import '../widgets/assignee_table_card.dart';
 import '../widgets/filter_search_bar.dart';
 import '../widgets/mobile_ticket_card.dart';
 import '../widgets/ticket_filter_bar.dart';
-import '../widgets/ticket_status_badge.dart';
 import '../widgets/tickets_stat_card.dart';
 import '../widgets/time_in_queue_bar.dart';
 import '../widgets/type_badge.dart';
@@ -294,144 +292,344 @@ class _TicketListScreenState extends State<TicketListScreen> {
 
   Widget _buildDesktopContent(List<TaskWithDetails> tasks, bool isLoading) {
     final today = DateTime.now();
+    final totalPages = (_state.totalCount.value / 25).ceil();
+    final currentPage = (_state.currentOffset.value / 25).floor() + 1;
 
-    return Column(
-      children: [
-        Expanded(
-          child: DataTable2(
-            scrollController: _scrollController,
-            columnSpacing: 12,
-            horizontalMargin: AppSizes.spacingXL,
-            minWidth: 900,
-            dividerThickness: 0,
-            headingRowHeight: 48,
-            dataRowHeight: 72,
-            headingRowColor: WidgetStateProperty.all(AppColors.bgSecondary),
-            columns: [
-              DataColumn2(
-                label: Text('Ticket', style: AppTextStyles.textSMSemibold),
-                size: ColumnSize.L,
+    return Padding(
+      padding: EdgeInsets.all(AppSizes.spacing4XL),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(AppSizes.radiusLG),
+        child: Container(
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(AppSizes.radiusLG),
+            border: Border.all(
+              color: AppColors.borderSecondary,
+              width: 1.0,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0x0D0A0D12), // Figma: shadow-xs
+                blurRadius: 2,
+                offset: const Offset(0, 1),
               ),
-              DataColumn2(
-                label: Text('Type', style: AppTextStyles.textSMSemibold),
-                size: ColumnSize.S,
-              ),
-              DataColumn2(
-                label: Text('Status', style: AppTextStyles.textSMSemibold),
-                size: ColumnSize.S,
-              ),
-              DataColumn2(
-                label: Text('Location', style: AppTextStyles.textSMSemibold),
-                size: ColumnSize.M,
-              ),
-              DataColumn2(
-                label: Text('Due Date', style: AppTextStyles.textSMSemibold),
-                size: ColumnSize.S,
-              ),
-              DataColumn2(
-                label: Text('Time in Queue', style: AppTextStyles.textSMSemibold),
-                size: ColumnSize.M,
-              ),
-              DataColumn2(
-                label: Text('Assignee', style: AppTextStyles.textSMSemibold),
-                size: ColumnSize.M,
-              ),
-            ],
-            rows: [
-              ...tasks.map((task) {
-                return DataRow2(
-                  onTap: () => context.goToTicket(task.externalId ?? task.id),
-                  cells: [
-                    // Ticket ID and Title
-                    DataCell(
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            task.externalId ?? task.id.substring(0, 8),
-                            style: AppTextStyles.textSMSemibold,
-                          ),
-                          Text(
-                            task.title ?? 'Untitled',
-                            style: AppTextStyles.textSMSecondary,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Type Badge
-                    DataCell(
-                      TypeBadge(type: task.taskType),
-                    ),
-                    // Status
-                    DataCell(
-                      TicketStatusBadge(status: task.status),
-                    ),
-                    // Location
-                    DataCell(
-                      Text(
-                        task.locationName ?? '-',
-                        style: AppTextStyles.textSMSecondary,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    // Due Date
-                    DataCell(
-                      Text(
-                        task.dueDate != null
-                            ? DateFormatter.formatFriendlyDate(
-                                dateTime: task.dueDate!,
-                                short: true,
-                              )
-                            : '-',
-                        style: AppTextStyles.textSMSecondary,
-                      ),
-                    ),
-                    // Time in Queue
-                    DataCell(
-                      SizedBox(
-                        width: 120,
-                        child: TimeInQueueBar(
-                          scheduledDate: task.scheduledDate,
-                          today: today,
-                        ),
-                      ),
-                    ),
-                    // Assignee
-                    DataCell(
-                      AssigneeTableCard(
-                        name: task.assigneeName,
-                        jobTitle: null,
-                        photoUrl: null,
-                      ),
-                    ),
-                  ],
-                );
-              }),
-              if (isLoading)
-                DataRow2(
-                  cells: List.generate(
-                    7,
-                    (index) => DataCell(
-                      index == 3
-                          ? Center(
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  AppColors.accentButton,
-                                ),
-                              ),
-                            )
-                          : const SizedBox(),
-                    ),
-                  ),
-                ),
             ],
           ),
+          clipBehavior: Clip.antiAlias,
+          child: Column(
+            children: [
+              // Table
+              Expanded(
+                child: DataTable2(
+                  scrollController: _scrollController,
+                  columnSpacing: 12,
+                  horizontalMargin: AppSizes.spacing3XL,
+                  minWidth: 900,
+                  dividerThickness: 0,
+                  headingRowHeight: 44,
+                  dataRowHeight: 72,
+                  headingRowColor: WidgetStateProperty.all(AppColors.bgSecondary),
+                  headingTextStyle: AppTextStyles.textXSSemibold,
+                  border: TableBorder(
+                    horizontalInside: BorderSide(
+                      color: AppColors.borderSecondary,
+                      width: 1.0,
+                    ),
+                  ),
+                  columns: [
+                  DataColumn2(
+                    label: _buildColumnHeader('Task', sortable: true),
+                    size: ColumnSize.L,
+                    onSort: (columnIndex, ascending) => _handleSort('title', ascending),
+                  ),
+                  DataColumn2(
+                    label: _buildColumnHeader('Location', sortable: true),
+                    size: ColumnSize.M,
+                    onSort: (columnIndex, ascending) => _handleSort('location', ascending),
+                  ),
+                  DataColumn2(
+                    label: _buildColumnHeader('Type', sortable: true),
+                    size: ColumnSize.S,
+                    onSort: (columnIndex, ascending) => _handleSort('taskType', ascending),
+                  ),
+                  DataColumn2(
+                    label: _buildColumnHeader('Assignee', sortable: true),
+                    size: ColumnSize.M,
+                    onSort: (columnIndex, ascending) => _handleSort('assignee', ascending),
+                  ),
+                  DataColumn2(
+                    label: _buildColumnHeader('Time in Queue', sortable: true),
+                    size: ColumnSize.M,
+                    onSort: (columnIndex, ascending) => _handleSort('scheduledDate', ascending),
+                  ),
+                ],
+                rows: [
+                    ...tasks.map((task) {
+                      return DataRow2(
+                        onTap: () => context.goToTicket(task.externalId ?? task.id),
+                        cells: [
+                          // Task: Title + Description
+                          DataCell(
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  task.title,
+                                  style: AppTextStyles.textSMMedium,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Text(
+                                  task.description ?? '',
+                                  style: AppTextStyles.textSMTertiary,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
+                          ),
+                          // Location + Sublocation
+                          DataCell(
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  task.locationName ?? '-',
+                                  style: AppTextStyles.textSMMedium,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                if (task.specificLocation != null)
+                                  Text(
+                                    task.specificLocation!,
+                                    style: AppTextStyles.textSMTertiary,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                              ],
+                            ),
+                          ),
+                          // Type Badge
+                          DataCell(TypeBadge(type: task.taskType)),
+                          // Assignee
+                          DataCell(
+                            AssigneeTableCard(
+                              name: task.assigneeName,
+                              jobTitle: null,
+                              photoUrl: null,
+                            ),
+                          ),
+                          // Time in Queue
+                          DataCell(
+                            SizedBox(
+                              width: 140,
+                              child: TimeInQueueBar(
+                                scheduledDate: task.scheduledDate,
+                                today: today,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    }),
+                    if (isLoading)
+                      DataRow2(
+                        cells: List.generate(
+                          5,
+                          (index) => DataCell(
+                            index == 2
+                                ? Center(
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        AppColors.accentButton,
+                                      ),
+                                    ),
+                                  )
+                                : const SizedBox(),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            // Pagination
+            Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: AppSizes.spacing3XL,
+                vertical: AppSizes.spacingLG,
+              ),
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(color: AppColors.borderSecondary),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Previous button
+                  _buildPaginationButton(
+                    label: 'Previous',
+                    icon: Icons.arrow_back,
+                    onPressed: currentPage > 1
+                        ? () => _state.goToPage(currentPage - 1)
+                        : null,
+                  ),
+                  // Page numbers
+                  Row(
+                    children: _buildPageNumbers(currentPage, totalPages),
+                  ),
+                  // Next button
+                  _buildPaginationButton(
+                    label: 'Next',
+                    icon: Icons.arrow_forward,
+                    iconAfter: true,
+                    onPressed: currentPage < totalPages
+                        ? () => _state.goToPage(currentPage + 1)
+                        : null,
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
+      ),
+      ),
+    );
+  }
+
+  Widget _buildPaginationButton({
+    required String label,
+    required IconData icon,
+    bool iconAfter = false,
+    VoidCallback? onPressed,
+  }) {
+    final isDisabled = onPressed == null;
+    final color = isDisabled ? AppColors.fgQuaternary : AppColors.textPrimary;
+
+    return InkWell(
+      onTap: onPressed,
+      borderRadius: BorderRadius.circular(AppSizes.radiusFull),
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: AppSizes.spacingLG,
+          vertical: AppSizes.spacingMD,
+        ),
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColors.borderSecondary),
+          borderRadius: BorderRadius.circular(AppSizes.radiusFull),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (!iconAfter) ...[
+              Icon(icon, size: 16, color: color),
+              SizedBox(width: AppSizes.spacingXS),
+            ],
+            Text(
+              label,
+              style: AppTextStyles.textSMSemibold.copyWith(color: color),
+            ),
+            if (iconAfter) ...[
+              SizedBox(width: AppSizes.spacingXS),
+              Icon(icon, size: 16, color: color),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  List<Widget> _buildPageNumbers(int currentPage, int totalPages) {
+    final pages = <Widget>[];
+    final maxVisiblePages = 7;
+
+    int startPage = 1;
+    int endPage = totalPages;
+
+    if (totalPages > maxVisiblePages) {
+      startPage = (currentPage - 3).clamp(1, totalPages - maxVisiblePages + 1);
+      endPage = (startPage + maxVisiblePages - 1).clamp(maxVisiblePages, totalPages);
+    }
+
+    for (int i = startPage; i <= endPage; i++) {
+      final isCurrentPage = i == currentPage;
+      pages.add(
+        InkWell(
+          onTap: isCurrentPage ? null : () => _state.goToPage(i),
+          borderRadius: BorderRadius.circular(AppSizes.radiusMD),
+          child: Container(
+            width: 40,
+            height: 40,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: isCurrentPage ? AppColors.bgSecondary : Colors.transparent,
+              borderRadius: BorderRadius.circular(AppSizes.radiusMD),
+            ),
+            child: Text(
+              '$i',
+              style: AppTextStyles.textSMMedium.copyWith(
+                color: isCurrentPage
+                    ? AppColors.textSecondary
+                    : AppColors.textTertiary,
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    return pages;
+  }
+
+  /// Build column header with sort indicator - matches v0 style
+  Widget _buildColumnHeader(String label, {bool sortable = false}) {
+    final isCurrentSort = _state.sortBy.value == _getSortField(label);
+    final isAscending = _state.sortOrder.value == 'asc';
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          label,
+          style: AppTextStyles.textXSSemibold,
+        ),
+        if (sortable) ...[
+          const SizedBox(width: 4),
+          Icon(
+            isCurrentSort
+                ? (isAscending ? Icons.arrow_drop_up : Icons.arrow_drop_down)
+                : Icons.arrow_drop_down,
+            size: 18,
+            color: isCurrentSort ? AppColors.black : AppColors.gray,
+          ),
+        ],
       ],
+    );
+  }
+
+  String _getSortField(String label) {
+    switch (label) {
+      case 'Task':
+        return 'title';
+      case 'Location':
+        return 'location';
+      case 'Type':
+        return 'taskType';
+      case 'Assignee':
+        return 'assignee';
+      case 'Time in Queue':
+        return 'scheduledDate';
+      default:
+        return '';
+    }
+  }
+
+  void _handleSort(String field, bool ascending) {
+    _state.applyFilters(
+      sort: field,
+      order: ascending ? 'asc' : 'desc',
     );
   }
 

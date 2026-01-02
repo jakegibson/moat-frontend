@@ -41,18 +41,20 @@ class TypeBadge extends StatelessWidget {
           AppColors.utilityBlue50,
         );
       case TaskType.maintenance:
+        // Figma design uses green for Maintenance badges
         return (
           'Maintenance',
-          AppColors.utilityPurple700,
-          AppColors.utilityPurple200,
-          AppColors.utilityPurple50,
+          AppColors.utilityGreen700,
+          AppColors.utilityGreen200,
+          AppColors.utilityGreen50,
         );
       case TaskType.warranty:
+        // Figma design uses red/error colors for Warranty badges
         return (
           'Warranty',
-          AppColors.utilityOrange700,
-          AppColors.utilityOrange200,
-          AppColors.utilityOrange50,
+          AppColors.utilityError700,
+          AppColors.utilityError200,
+          AppColors.utilityError50,
         );
       case TaskType.other:
       default:

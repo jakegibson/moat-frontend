@@ -70,7 +70,8 @@ class TimeInQueueBar extends StatelessWidget {
           child: Container(
             height: 8,
             decoration: BoxDecoration(
-              color: Colors.grey.shade300,
+              // Match Figma design: use bgQuaternary for bar background
+              color: AppColors.bgQuaternary,
               borderRadius: BorderRadius.circular(4),
             ),
             child: FractionallySizedBox(

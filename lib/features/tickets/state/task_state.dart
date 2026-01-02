@@ -267,6 +267,14 @@ class TaskState {
     await fetchTasks();
   }
 
+  /// Go to specific page (1-indexed)
+  Future<void> goToPage(int page) async {
+    if (isLoading.value) return;
+    final offset = (page - 1) * _pageSize;
+    currentOffset.value = offset;
+    await fetchTasks(refresh: true);
+  }
+
   /// Apply filters and refresh
   void applyFilters({
     List<TaskStatus>? statuses,

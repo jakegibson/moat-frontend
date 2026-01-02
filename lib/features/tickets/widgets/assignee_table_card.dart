@@ -20,44 +20,45 @@ class AssigneeTableCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(AppSizes.spacingLG),
-      child: Row(
-        children: [
-          name != null
-              ? ProfileAvatar(name: name!, size: 32.0, photoUrl: photoUrl)
-              : SvgPicture.asset(
-                'assets/icons/icon-empty-profile.svg',
-                height: 32.0,
+    // Figma design: Avatar (24px) + Name + Job Title, no chevron in table
+    return Row(
+      children: [
+        name != null
+            ? ProfileAvatar(name: name!, size: 24.0, photoUrl: photoUrl)
+            : SvgPicture.asset(
+              'assets/icons/icon-empty-profile.svg',
+              height: 24.0,
+              colorFilter: ColorFilter.mode(
+                AppColors.fgQuaternary,
+                BlendMode.srcIn,
               ),
-          SizedBox(width: AppSizes.spacingLG),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+            ),
+        SizedBox(width: AppSizes.spacingLG),
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name ?? 'Unassigned',
+                style:
+                    name != null
+                        ? AppTextStyles.textSMMedium
+                        : AppTextStyles.textSMTertiary,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
+              if (jobTitle != null && jobTitle!.isNotEmpty)
                 Text(
-                  name ?? 'Unassigned',
-                  style:
-                      name != null
-                          ? AppTextStyles.body
-                          : AppTextStyles.textXSSecondary,
+                  jobTitle!,
+                  style: AppTextStyles.textXSTertiary,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
-                if (jobTitle != null)
-                  Text(
-                    jobTitle!,
-                    style: AppTextStyles.textXSTertiary,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  ),
-              ],
-            ),
+            ],
           ),
-          Icon(Icons.chevron_right, color: AppColors.fgQuaternary, size: 18.0),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

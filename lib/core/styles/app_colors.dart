@@ -104,12 +104,16 @@ class AppColors {
   static const utilityGreyBlue500 = Color(0xFF4E5BA6);
   static const utilityGreen500 = Color(0xFF16B364);
   static const utilityGreen700 = Color(0xFF087443);
+  static const utilityGreen200 = Color(0xFFAAF0C4);
+  static const utilityGreen50 = Color(0xFFECFDF3);
   static const utilityYellow300 = Color(0xFFFDE272);
   static const utilityYellow400 = Color(0xFFFAC515);
   static const utilityOrangeDark300 = Color(0xFFFF9C66);
   static const utilityOrangeDark400 = Color(0xFFFF692E);
   static const utilityError500 = Color(0xFFF04438);
   static const utilityError700 = Color(0xFFB42318);
+  static const utilityError200 = Color(0xFFFECDCA);
+  static const utilityError50 = Color(0xFFFEF3F2);
   static const utilityOrange700 = Color(0xFFB93815);
   static const utilityOrange500 = Color(0xFFEF6820);
   static const utilityOrange200 = Color(0xFFF9DBAF);
