@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../../../core/di/injection.dart';
 import '../data/task_models.dart';
-import '../state/task_state.dart';
+import '../state/task_detail_state.dart';
 import '../widgets/ticket_status_badge.dart';
 import '../widgets/ticket_activity_view.dart';
 import '../widgets/comment_input.dart';
@@ -22,13 +22,13 @@ class TicketDetailScreen extends StatefulWidget {
 
 class _TicketDetailScreenState extends State<TicketDetailScreen>
     with SingleTickerProviderStateMixin {
-  late final TaskState _state;
+  late final TaskDetailState _state;
   late final TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _state = getIt<TaskState>();
+    _state = getIt<TaskDetailState>();
     _tabController = TabController(length: 2, vsync: this);
     _loadTask();
   }
@@ -41,7 +41,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen>
   @override
   void dispose() {
     _tabController.dispose();
-    _state.clearSelectedTask();
+    _state.clear();
     super.dispose();
   }
 
@@ -51,7 +51,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen>
       appBar: _buildAppBar(context),
       body: Watch((context) {
         final task = _state.selectedTask.value;
-        final isLoading = _state.isLoadingDetails.value;
+        final isLoading = _state.isLoading.value;
         final error = _state.error.value;
 
         if (isLoading && task == null) {

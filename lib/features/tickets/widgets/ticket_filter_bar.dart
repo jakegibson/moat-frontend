@@ -6,7 +6,7 @@ import '../../../core/styles/app_colors.dart';
 import '../../../core/styles/app_sizes.dart';
 import '../../../core/styles/app_text_styles.dart';
 import '../data/task_models.dart';
-import '../state/task_state.dart';
+import '../state/task_list_state.dart';
 
 class TicketFilterBar extends StatefulWidget {
   const TicketFilterBar({super.key});
@@ -16,7 +16,7 @@ class TicketFilterBar extends StatefulWidget {
 }
 
 class _TicketFilterBarState extends State<TicketFilterBar> {
-  late final TaskState _state;
+  late final TaskListState _state;
 
   final List<String> _filterOptions = [
     'My Tickets',
@@ -29,7 +29,7 @@ class _TicketFilterBarState extends State<TicketFilterBar> {
   @override
   void initState() {
     super.initState();
-    _state = getIt<TaskState>();
+    _state = getIt<TaskListState>();
     _state.loadFilterOptions();
   }
 

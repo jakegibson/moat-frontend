@@ -21,7 +21,6 @@ import '../../features/tickets/data/task_client.dart' as _i127;
 import '../../features/tickets/state/task_detail_state.dart' as _i327;
 import '../../features/tickets/state/task_list_state.dart' as _i369;
 import '../../features/tickets/state/task_metrics_state.dart' as _i695;
-import '../../features/tickets/state/task_state.dart' as _i815;
 import '../auth/firebase_auth_service.dart' as _i491;
 import '../transport/task_service_client.dart' as _i83;
 import 'transport_module.dart' as _i718;
@@ -63,11 +62,6 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.lazySingleton<_i695.TaskMetricsState>(
         () => _i695.TaskMetricsState(gh<_i127.TaskClient>()));
-    gh.lazySingleton<_i815.TaskState>(() => _i815.TaskState(
-          gh<_i369.TaskListState>(),
-          gh<_i327.TaskDetailState>(),
-          gh<_i695.TaskMetricsState>(),
-        ));
     return this;
   }
 }

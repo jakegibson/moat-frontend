@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../../../core/di/injection.dart';
 import '../data/task_models.dart';
-import '../state/task_state.dart';
+import '../state/task_detail_state.dart';
 
 class TicketActivityView extends StatefulWidget {
   final String taskId;
@@ -16,12 +16,12 @@ class TicketActivityView extends StatefulWidget {
 }
 
 class _TicketActivityViewState extends State<TicketActivityView> {
-  late final TaskState _state;
+  late final TaskDetailState _state;
 
   @override
   void initState() {
     super.initState();
-    _state = getIt<TaskState>();
+    _state = getIt<TaskDetailState>();
     _state.fetchTaskActivity(widget.taskId);
   }
 
@@ -29,7 +29,7 @@ class _TicketActivityViewState extends State<TicketActivityView> {
   Widget build(BuildContext context) {
     return Watch((context) {
       final activity = _state.taskActivity.value;
-      final isLoading = _state.isLoadingDetails.value;
+      final isLoading = _state.isLoading.value;
 
       if (isLoading && activity.isEmpty) {
         return const Center(child: CircularProgressIndicator());

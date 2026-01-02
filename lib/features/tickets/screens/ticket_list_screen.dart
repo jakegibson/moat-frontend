@@ -10,7 +10,8 @@ import '../../../core/styles/app_colors.dart';
 import '../../../core/styles/app_sizes.dart';
 import '../../../core/styles/app_text_styles.dart';
 import '../data/task_models.dart';
-import '../state/task_state.dart';
+import '../state/task_list_state.dart';
+import '../state/task_metrics_state.dart';
 import '../widgets/assignee_table_card.dart';
 import '../widgets/filter_search_bar.dart';
 import '../widgets/mobile_ticket_card.dart';
@@ -28,15 +29,17 @@ class TicketListScreen extends StatefulWidget {
 }
 
 class _TicketListScreenState extends State<TicketListScreen> {
-  late final TaskState _state;
+  late final TaskListState _listState;
+  late final TaskMetricsState _metricsState;
   final _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    _state = getIt<TaskState>();
-    _state.fetchTasks(refresh: true);
-    _state.fetchMetrics();
+    _listState = getIt<TaskListState>();
+    _metricsState = getIt<TaskMetricsState>();
+    _listState.fetchTasks(refresh: true);
+    _metricsState.fetchMetrics();
     _scrollController.addListener(_onScroll);
   }
 
@@ -49,7 +52,7 @@ class _TicketListScreenState extends State<TicketListScreen> {
   void _onScroll() {
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent - 200) {
-      _state.loadMore();
+      _listState.loadMore();
     }
   }
 
@@ -95,9 +98,9 @@ class _TicketListScreenState extends State<TicketListScreen> {
               middleWidget: !isMobile ? _buildStatCardsRow() : null,
               searchWidget: FilterSearchBar(
                 onSearch: (query) {
-                  _state.applyFilters(search: query);
+                  _listState.applyFilters(search: query);
                 },
-                initialValue: _state.searchQuery.value,
+                initialValue: _listState.searchQuery.value,
               ),
             ),
           ),
@@ -117,34 +120,34 @@ class _TicketListScreenState extends State<TicketListScreen> {
           Expanded(
             child: TicketsStatCard(
               title: 'Total Tickets',
-              value: _state.metricsTotal.value.toDouble(),
-              changeValue: _state.metricsTotalLastMonth.value.toDouble(),
-              chartValues: _state.weeklyOpenTickets.value,
+              value: _metricsState.total.value.toDouble(),
+              changeValue: _metricsState.totalLastMonth.value.toDouble(),
+              chartValues: _metricsState.weeklyOpenTickets.value,
             ),
           ),
           SizedBox(width: AppSizes.spacingLG),
           Expanded(
             child: TicketsStatCard(
               title: 'Ave Time to Close',
-              value: _state.metricsAvgTimeToClose.value > 0
-                  ? _state.metricsAvgTimeToClose.value / 24
+              value: _metricsState.avgTimeToClose.value > 0
+                  ? _metricsState.avgTimeToClose.value / 24
                   : null,
               valueLabel: 'days',
               decimalPlaces: 1,
-              changeValue: _state.metricsTimeToCloseChange.value ?? 0,
-              chartValues: _state.weeklyTimeToClose.value,
+              changeValue: _metricsState.timeToCloseChange.value ?? 0,
+              chartValues: _metricsState.weeklyTimeToClose.value,
             ),
           ),
           SizedBox(width: AppSizes.spacingLG),
           Expanded(
             child: TicketsStatCard(
               title: 'Ave Response Time',
-              value: _state.metricsAvgResponseTime.value > 0
-                  ? _state.metricsAvgResponseTime.value
+              value: _metricsState.avgResponseTime.value > 0
+                  ? _metricsState.avgResponseTime.value
                   : null,
               valueLabel: 'hours',
-              changeValue: _state.metricsResponseTimeChange.value ?? 0,
-              chartValues: _state.weeklyResponseTimes.value,
+              changeValue: _metricsState.responseTimeChange.value ?? 0,
+              chartValues: _metricsState.weeklyResponseTimes.value,
             ),
           ),
         ],
@@ -154,9 +157,9 @@ class _TicketListScreenState extends State<TicketListScreen> {
 
   Widget _buildContent(BuildContext context, bool isMobile) {
     return Watch((context) {
-      final tasks = _state.tasks.value;
-      final isLoading = _state.isLoading.value;
-      final error = _state.error.value;
+      final tasks = _listState.tasks.value;
+      final isLoading = _listState.isLoading.value;
+      final error = _listState.error.value;
 
       if (error != null && tasks.isEmpty) {
         return Center(
@@ -177,7 +180,7 @@ class _TicketListScreenState extends State<TicketListScreen> {
               Text(error.message, textAlign: TextAlign.center),
               const SizedBox(height: 16),
               RoundedActionButton(
-                onPressed: () => _state.fetchTasks(refresh: true),
+                onPressed: () => _listState.fetchTasks(refresh: true),
                 text: 'Retry',
                 backgroundColor: AppColors.accentButton,
                 textStyle: AppTextStyles.textSMSemiboldWhite,
@@ -224,29 +227,29 @@ class _TicketListScreenState extends State<TicketListScreen> {
               children: [
                 TicketsStatCard(
                   title: 'Total Tickets',
-                  value: _state.metricsTotal.value.toDouble(),
-                  changeValue: _state.metricsTotalLastMonth.value.toDouble(),
+                  value: _metricsState.total.value.toDouble(),
+                  changeValue: _metricsState.totalLastMonth.value.toDouble(),
                   width: 240.0,
                 ),
                 SizedBox(width: AppSizes.spacingLG),
                 TicketsStatCard(
                   title: 'Ave Time to Close',
-                  value: _state.metricsAvgTimeToClose.value > 0
-                      ? _state.metricsAvgTimeToClose.value / 24
+                  value: _metricsState.avgTimeToClose.value > 0
+                      ? _metricsState.avgTimeToClose.value / 24
                       : null,
                   valueLabel: 'days',
                   decimalPlaces: 1,
-                  changeValue: _state.metricsTimeToCloseChange.value ?? 0,
+                  changeValue: _metricsState.timeToCloseChange.value ?? 0,
                   width: 240.0,
                 ),
                 SizedBox(width: AppSizes.spacingLG),
                 TicketsStatCard(
                   title: 'Ave Response Time',
-                  value: _state.metricsAvgResponseTime.value > 0
-                      ? _state.metricsAvgResponseTime.value
+                  value: _metricsState.avgResponseTime.value > 0
+                      ? _metricsState.avgResponseTime.value
                       : null,
                   valueLabel: 'hours',
-                  changeValue: _state.metricsResponseTimeChange.value ?? 0,
+                  changeValue: _metricsState.responseTimeChange.value ?? 0,
                   width: 240.0,
                 ),
               ],
@@ -292,8 +295,8 @@ class _TicketListScreenState extends State<TicketListScreen> {
 
   Widget _buildDesktopContent(List<TaskWithDetails> tasks, bool isLoading) {
     final today = DateTime.now();
-    final totalPages = (_state.totalCount.value / 25).ceil();
-    final currentPage = (_state.currentOffset.value / 25).floor() + 1;
+    final totalPages = (_listState.totalCount.value / 25).ceil();
+    final currentPage = (_listState.currentOffset.value / 25).floor() + 1;
 
     return Padding(
       padding: EdgeInsets.all(AppSizes.spacing4XL),
@@ -473,7 +476,7 @@ class _TicketListScreenState extends State<TicketListScreen> {
                     label: 'Previous',
                     icon: Icons.arrow_back,
                     onPressed: currentPage > 1
-                        ? () => _state.goToPage(currentPage - 1)
+                        ? () => _listState.goToPage(currentPage - 1)
                         : null,
                   ),
                   // Page numbers
@@ -486,7 +489,7 @@ class _TicketListScreenState extends State<TicketListScreen> {
                     icon: Icons.arrow_forward,
                     iconAfter: true,
                     onPressed: currentPage < totalPages
-                        ? () => _state.goToPage(currentPage + 1)
+                        ? () => _listState.goToPage(currentPage + 1)
                         : null,
                   ),
                 ],
@@ -557,7 +560,7 @@ class _TicketListScreenState extends State<TicketListScreen> {
       final isCurrentPage = i == currentPage;
       pages.add(
         InkWell(
-          onTap: isCurrentPage ? null : () => _state.goToPage(i),
+          onTap: isCurrentPage ? null : () => _listState.goToPage(i),
           borderRadius: BorderRadius.circular(AppSizes.radiusMD),
           child: Container(
             width: 40,
@@ -585,8 +588,8 @@ class _TicketListScreenState extends State<TicketListScreen> {
 
   /// Build column header with sort indicator - matches v0 style
   Widget _buildColumnHeader(String label, {bool sortable = false}) {
-    final isCurrentSort = _state.sortBy.value == _getSortField(label);
-    final isAscending = _state.sortOrder.value == 'asc';
+    final isCurrentSort = _listState.sortBy.value == _getSortField(label);
+    final isAscending = _listState.sortOrder.value == 'asc';
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -627,7 +630,7 @@ class _TicketListScreenState extends State<TicketListScreen> {
   }
 
   void _handleSort(String field, bool ascending) {
-    _state.applyFilters(
+    _listState.applyFilters(
       sort: field,
       order: ascending ? 'asc' : 'desc',
     );
@@ -636,7 +639,7 @@ class _TicketListScreenState extends State<TicketListScreen> {
   Future<void> _handleCreateTicket() async {
     final result = await CreateTicketDrawer.show(context);
     if (result == true) {
-      _state.fetchTasks(refresh: true);
+      _listState.fetchTasks(refresh: true);
     }
   }
 }
