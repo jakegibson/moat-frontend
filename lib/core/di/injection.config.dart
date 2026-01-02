@@ -18,6 +18,9 @@ import '../../features/assets/state/assets_state.dart' as _i19;
 import '../../features/auth/data/auth_client.dart' as _i573;
 import '../../features/auth/state/auth_state.dart' as _i813;
 import '../../features/tickets/data/task_client.dart' as _i127;
+import '../../features/tickets/state/task_detail_state.dart' as _i327;
+import '../../features/tickets/state/task_list_state.dart' as _i369;
+import '../../features/tickets/state/task_metrics_state.dart' as _i695;
 import '../../features/tickets/state/task_state.dart' as _i815;
 import '../auth/firebase_auth_service.dart' as _i491;
 import '../transport/task_service_client.dart' as _i83;
@@ -50,9 +53,20 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i491.FirebaseAuthService>(),
           gh<_i573.AuthClient>(),
         ));
-    gh.lazySingleton<_i815.TaskState>(() => _i815.TaskState(
+    gh.lazySingleton<_i369.TaskListState>(() => _i369.TaskListState(
           gh<_i127.TaskClient>(),
           gh<_i813.AuthState>(),
+        ));
+    gh.lazySingleton<_i327.TaskDetailState>(() => _i327.TaskDetailState(
+          gh<_i127.TaskClient>(),
+          gh<_i369.TaskListState>(),
+        ));
+    gh.lazySingleton<_i695.TaskMetricsState>(
+        () => _i695.TaskMetricsState(gh<_i127.TaskClient>()));
+    gh.lazySingleton<_i815.TaskState>(() => _i815.TaskState(
+          gh<_i369.TaskListState>(),
+          gh<_i327.TaskDetailState>(),
+          gh<_i695.TaskMetricsState>(),
         ));
     return this;
   }
