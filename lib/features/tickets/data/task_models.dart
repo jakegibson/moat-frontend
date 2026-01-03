@@ -729,6 +729,7 @@ class TaskActivity extends Equatable {
   final CommentAuthor? changedBy;
   final String? notes;
   final Map<String, dynamic>? changes;
+  final List<TaskAttachment> attachments;
   final TaskComment? comment;
   final DateTime createdAt;
 
@@ -739,6 +740,7 @@ class TaskActivity extends Equatable {
     this.changedBy,
     this.notes,
     this.changes,
+    this.attachments = const [],
     this.comment,
     required this.createdAt,
   });
@@ -772,6 +774,10 @@ class TaskActivity extends Equatable {
           : null,
       notes: json['notes'] as String?,
       changes: json['changes'] as Map<String, dynamic>?,
+      attachments: (json['attachments'] as List<dynamic>?)
+              ?.map((e) => TaskAttachment.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
       comment: json['comment'] != null
           ? TaskComment.fromJson(json['comment'] as Map<String, dynamic>)
           : null,
@@ -787,6 +793,7 @@ class TaskActivity extends Equatable {
         changedBy,
         notes,
         changes,
+        attachments,
         comment,
         createdAt,
       ];
@@ -1165,6 +1172,21 @@ class TaskAttachment extends Equatable {
     required this.url,
     required this.createdAt,
   });
+
+  factory TaskAttachment.fromJson(Map<String, dynamic> json) {
+    return TaskAttachment(
+      id: json['id'] as String,
+      fileName: json['fileName'] as String? ?? json['file_name'] as String? ?? 'Unknown',
+      contentType: json['contentType'] as String? ?? json['content_type'] as String? ?? 'application/octet-stream',
+      sizeBytes: json['sizeBytes'] as int? ?? json['size_bytes'] as int? ?? 0,
+      url: json['url'] as String? ?? '',
+      createdAt: json['createdAt'] != null
+          ? DateTime.parse(json['createdAt'] as String)
+          : json['created_at'] != null
+              ? DateTime.parse(json['created_at'] as String)
+              : DateTime.now(),
+    );
+  }
 
   String get formattedSize {
     if (sizeBytes < 1024) {

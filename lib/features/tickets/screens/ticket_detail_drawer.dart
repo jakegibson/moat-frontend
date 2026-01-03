@@ -70,6 +70,8 @@ class _TicketDetailDrawerState extends State<TicketDetailDrawer> {
   late final TaskDetailState _state;
   int _selectedTabIndex = 0; // 0 = Details, 1 = Activity
   Widget? _activeOverlay;
+  bool _activityFetched = false;
+  bool _isSubmittingComment = false;
 
   @override
   void initState() {
@@ -84,6 +86,13 @@ class _TicketDetailDrawerState extends State<TicketDetailDrawer> {
 
   void _loadAttachments(String taskId) {
     _state.fetchAttachments(taskId);
+  }
+
+  void _loadActivity(String taskId) {
+    if (!_activityFetched) {
+      _activityFetched = true;
+      _state.fetchTaskActivity(taskId);
+    }
   }
 
   @override
@@ -211,16 +220,23 @@ class _TicketDetailDrawerState extends State<TicketDetailDrawer> {
       children: [
         // Header (like MainDrawerHeader)
         _buildHeader(task),
-        // Tab navigation
-        _TabNavigation(
-          selectedIndex: _selectedTabIndex,
-          onTabSelected: (index) {
-            setState(() {
-              _selectedTabIndex = index;
-            });
-          },
-          activityCount: 0, // TODO: Implement activity count
-        ),
+        // Tab navigation with activity count from state
+        Watch((context) {
+          final activityCount = _state.taskActivity.value.length;
+          return _TabNavigation(
+            selectedIndex: _selectedTabIndex,
+            onTabSelected: (index) {
+              setState(() {
+                _selectedTabIndex = index;
+              });
+              // Load activity when switching to Activity tab
+              if (index == 1) {
+                _loadActivity(task.id);
+              }
+            },
+            activityCount: activityCount > 0 ? activityCount : null,
+          );
+        }),
         // Content
         Expanded(
           child: _selectedTabIndex == 0
@@ -695,17 +711,153 @@ class _TicketDetailDrawerState extends State<TicketDetailDrawer> {
   }
 
   Widget _buildActivityTab(TaskWithDetails task) {
-    // Activity tab placeholder
-    return const Center(
-      child: Text(
-        'Activity coming soon',
-        style: TextStyle(
-          fontFamily: 'Inter',
-          fontSize: 14,
-          color: _Colors.textTertiary,
+    // Ensure activity is loaded
+    _loadActivity(task.id);
+
+    return Column(
+      children: [
+        // Activity list
+        Expanded(
+          child: Watch((context) {
+            final activity = _state.taskActivity.value;
+            final isLoading = _state.isLoading.value;
+
+            if (isLoading && activity.isEmpty) {
+              return const Center(
+                child: CircularProgressIndicator(color: _Colors.accentBlue),
+              );
+            }
+
+            // Filter activities using centralized logic (like v0)
+            final filteredActivity = activity.where(_shouldDisplayActivity).toList();
+
+            if (filteredActivity.isEmpty) {
+              return const Center(
+                child: Text(
+                  'No activity yet',
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 14,
+                    color: _Colors.textTertiary,
+                  ),
+                ),
+              );
+            }
+
+            // Group by date (oldest first for proper display)
+            final groupedActivities = _groupActivitiesByDate(filteredActivity);
+
+            return ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              reverse: true, // Newest at bottom like a chat
+              itemCount: groupedActivities.length,
+              itemBuilder: (context, sectionIndex) {
+                final reversedIndex = groupedActivities.length - 1 - sectionIndex;
+                final dateKey = groupedActivities.keys.elementAt(reversedIndex);
+                final activities = groupedActivities[dateKey]!;
+
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Date header
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12, top: 8),
+                      child: Center(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: _Colors.bgSecondary,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            dateKey,
+                            style: const TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: _Colors.textTertiary,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    // Activities for this date
+                    ...activities.map((item) {
+                      final isLast = item == activities.last && reversedIndex == groupedActivities.length - 1;
+                      return _ActivityItemWidget(
+                        activity: item,
+                        isLast: isLast,
+                      );
+                    }),
+                  ],
+                );
+              },
+            );
+          }),
         ),
-      ),
+        // Comment input at bottom
+        _CommentInputSection(
+          isLoading: _isSubmittingComment,
+          onSubmit: (content) async {
+            setState(() => _isSubmittingComment = true);
+            await _state.createComment(
+              taskId: task.id,
+              content: content,
+            );
+            setState(() => _isSubmittingComment = false);
+          },
+        ),
+      ],
     );
+  }
+
+  /// Filter activities for display (like v0's shouldDisplayActivity)
+  bool _shouldDisplayActivity(TaskActivity activity) {
+    // Filter 1: attachment_uploaded events are shown in Photos section, not activity feed
+    if (activity.eventType == 'attachment_uploaded') {
+      return false;
+    }
+
+    // Filter 2: comment_added events must have a valid comment
+    if (activity.eventType == 'comment_added') {
+      if (activity.comment == null) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  /// Group activities by date
+  Map<String, List<TaskActivity>> _groupActivitiesByDate(List<TaskActivity> activities) {
+    final grouped = <String, List<TaskActivity>>{};
+
+    // Reverse so oldest activities are first (newest at bottom in chat style)
+    final reversedActivities = activities.reversed.toList();
+
+    for (final activity in reversedActivities) {
+      final dateKey = _formatActivityDate(activity.createdAt);
+      grouped.putIfAbsent(dateKey, () => []).add(activity);
+    }
+
+    return grouped;
+  }
+
+  /// Format date as "Today", "Yesterday", or "Mon DD"
+  String _formatActivityDate(DateTime dateTime) {
+    final localTime = dateTime.isUtc ? dateTime.toLocal() : dateTime;
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final yesterday = today.subtract(const Duration(days: 1));
+    final activityDate = DateTime(localTime.year, localTime.month, localTime.day);
+
+    if (activityDate == today) {
+      return 'Today';
+    } else if (activityDate == yesterday) {
+      return 'Yesterday';
+    } else {
+      return DateFormat('MMM d').format(localTime);
+    }
   }
 
   Widget _buildBottomButton(TaskWithDetails task) {
@@ -1634,6 +1786,459 @@ class _ReassignDialogState extends State<_ReassignDialog> {
                   ),
                 ),
               ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Activity item widget - displays a single activity entry
+class _ActivityItemWidget extends StatelessWidget {
+  final TaskActivity activity;
+  final bool isLast;
+
+  const _ActivityItemWidget({
+    required this.activity,
+    required this.isLast,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final timeFormat = DateFormat('MMM d, h:mm a');
+
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Timeline indicator
+          SizedBox(
+            width: 40,
+            child: Column(
+              children: [
+                Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                    color: _getEventColor(),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    _getEventIcon(),
+                    size: 16,
+                    color: Colors.white,
+                  ),
+                ),
+                if (!isLast)
+                  Expanded(
+                    child: Container(
+                      width: 2,
+                      color: _Colors.borderSecondary,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 12),
+          // Content
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Event title and timestamp
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          _getEventDescription(),
+                          style: const TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: _Colors.textPrimary,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        timeFormat.format(activity.createdAt.toLocal()),
+                        style: const TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 12,
+                          color: _Colors.textTertiary,
+                        ),
+                      ),
+                    ],
+                  ),
+                  // Changed by
+                  if (activity.changedBy != null) ...[
+                    const SizedBox(height: 4),
+                    Text(
+                      'by ${activity.changedBy!.name}',
+                      style: const TextStyle(
+                        fontFamily: 'Inter',
+                        fontSize: 12,
+                        color: _Colors.textTertiary,
+                      ),
+                    ),
+                  ],
+                  // Notes
+                  if (activity.notes != null && activity.notes!.isNotEmpty) ...[
+                    const SizedBox(height: 8),
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: _Colors.bgSecondary,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        activity.notes!,
+                        style: const TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 13,
+                          color: _Colors.textSecondary,
+                        ),
+                      ),
+                    ),
+                  ],
+                  // Comment content
+                  if (activity.comment != null) ...[
+                    const SizedBox(height: 8),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: _Colors.accentBlueBg,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (activity.comment!.createdBy != null) ...[
+                            Text(
+                              activity.comment!.createdBy!.name,
+                              style: const TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: _Colors.accentBlue,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                          ],
+                          Text(
+                            activity.comment!.content,
+                            style: const TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 14,
+                              color: _Colors.textPrimary,
+                            ),
+                          ),
+                          if (activity.comment!.edited) ...[
+                            const SizedBox(height: 4),
+                            Text(
+                              '(edited)',
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: 11,
+                                fontStyle: FontStyle.italic,
+                                color: _Colors.textTertiary,
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                  ],
+                  // Attachments
+                  if (activity.attachments.isNotEmpty) ...[
+                    const SizedBox(height: 8),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: activity.attachments.map((attachment) {
+                        return Container(
+                          width: 80,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            color: _Colors.bgSecondary,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: _Colors.borderSecondary),
+                          ),
+                          child: attachment.isImage && attachment.url.isNotEmpty
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(7),
+                                  child: Image.network(
+                                    attachment.url,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (_, __, ___) => Center(
+                                      child: Icon(
+                                        attachment.fileIcon,
+                                        color: _Colors.textTertiary,
+                                        size: 24,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : Center(
+                                  child: Icon(
+                                    attachment.fileIcon,
+                                    color: _Colors.textTertiary,
+                                    size: 24,
+                                  ),
+                                ),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Color _getEventColor() {
+    switch (activity.eventType) {
+      case 'created':
+        return _Colors.statusCreated;
+      case 'status_changed':
+        return _Colors.statusInProgress;
+      case 'assigned':
+      case 'reassigned':
+      case 'claimed':
+        return const Color(0xFF9333EA); // Purple
+      case 'comment_added':
+        return _Colors.statusResolved;
+      default:
+        return _Colors.textTertiary;
+    }
+  }
+
+  IconData _getEventIcon() {
+    switch (activity.eventType) {
+      case 'created':
+        return Icons.add;
+      case 'status_changed':
+        return Icons.swap_horiz;
+      case 'assigned':
+        return Icons.person_add;
+      case 'reassigned':
+        return Icons.people;
+      case 'claimed':
+        return Icons.person;
+      case 'comment_added':
+        return Icons.comment;
+      default:
+        return Icons.info_outline;
+    }
+  }
+
+  String _getEventDescription() {
+    switch (activity.eventType) {
+      case 'created':
+        return 'Ticket created';
+      case 'status_changed':
+        // Extract status change details from changes map
+        final statusChange = activity.changes?['status'] as Map<String, dynamic>?;
+        if (statusChange != null) {
+          final newStatus = statusChange['new'] as String?;
+          if (newStatus != null) {
+            return 'Status changed to ${_formatStatus(newStatus)}';
+          }
+        }
+        return 'Status changed';
+      case 'assigned':
+        final assigneeChange = activity.changes?['assignee_name'] as Map<String, dynamic>?;
+        if (assigneeChange != null) {
+          final newAssignee = assigneeChange['new'] as String?;
+          if (newAssignee != null) {
+            return 'Assigned to $newAssignee';
+          }
+        }
+        return 'Assigned';
+      case 'reassigned':
+        final assigneeChange = activity.changes?['assignee_name'] as Map<String, dynamic>?;
+        if (assigneeChange != null) {
+          final newAssignee = assigneeChange['new'] as String?;
+          if (newAssignee != null) {
+            return 'Reassigned to $newAssignee';
+          }
+        }
+        return 'Reassigned';
+      case 'claimed':
+        return 'Ticket claimed';
+      case 'comment_added':
+        return 'Comment added';
+      case 'task_def_updated':
+        // Handle field updates
+        if (activity.changes != null && activity.changes!.isNotEmpty) {
+          final changeKey = activity.changes!.keys.first;
+          switch (changeKey) {
+            case 'title':
+              return 'Title updated';
+            case 'description':
+              return 'Description updated';
+            case 'location_id':
+              return 'Location changed';
+            case 'specific_location':
+              return 'Area updated';
+            default:
+              return 'Details updated';
+          }
+        }
+        return 'Details updated';
+      default:
+        return activity.eventDisplayName;
+    }
+  }
+
+  String _formatStatus(String status) {
+    switch (status.toLowerCase()) {
+      case 'created':
+        return 'Open';
+      case 'in_progress':
+        return 'In Progress';
+      case 'on_hold':
+        return 'On Hold';
+      case 'resolved':
+        return 'Resolved';
+      default:
+        return status;
+    }
+  }
+}
+
+/// Comment input section at the bottom of the activity tab
+class _CommentInputSection extends StatefulWidget {
+  final bool isLoading;
+  final Future<void> Function(String content) onSubmit;
+
+  const _CommentInputSection({
+    required this.isLoading,
+    required this.onSubmit,
+  });
+
+  @override
+  State<_CommentInputSection> createState() => _CommentInputSectionState();
+}
+
+class _CommentInputSectionState extends State<_CommentInputSection> {
+  final _controller = TextEditingController();
+  final _focusNode = FocusNode();
+  bool _hasContent = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(_onTextChanged);
+  }
+
+  @override
+  void dispose() {
+    _controller.removeListener(_onTextChanged);
+    _controller.dispose();
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  void _onTextChanged() {
+    final hasContent = _controller.text.trim().isNotEmpty;
+    if (hasContent != _hasContent) {
+      setState(() => _hasContent = hasContent);
+    }
+  }
+
+  Future<void> _handleSubmit() async {
+    final content = _controller.text.trim();
+    if (content.isEmpty || widget.isLoading) return;
+
+    await widget.onSubmit(content);
+    _controller.clear();
+    _focusNode.requestFocus();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: const BoxDecoration(
+        color: _Colors.bgPrimary,
+        border: Border(
+          top: BorderSide(color: _Colors.borderSecondary),
+        ),
+      ),
+      child: SafeArea(
+        top: false,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: _Colors.borderPrimary),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: TextField(
+                  controller: _controller,
+                  focusNode: _focusNode,
+                  maxLines: 3,
+                  minLines: 1,
+                  enabled: !widget.isLoading,
+                  style: const TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 14,
+                    color: _Colors.textPrimary,
+                  ),
+                  decoration: const InputDecoration(
+                    hintText: 'Add a comment...',
+                    hintStyle: TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 14,
+                      color: _Colors.textTertiary,
+                    ),
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 10,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 12),
+            GestureDetector(
+              onTap: _hasContent && !widget.isLoading ? _handleSubmit : null,
+              child: Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: _hasContent && !widget.isLoading
+                      ? _Colors.accentBlue
+                      : _Colors.bgSecondary,
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: widget.isLoading
+                    ? const Center(
+                        child: SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
+                        ),
+                      )
+                    : Icon(
+                        Icons.send,
+                        size: 20,
+                        color: _hasContent ? Colors.white : _Colors.textTertiary,
+                      ),
+              ),
             ),
           ],
         ),
