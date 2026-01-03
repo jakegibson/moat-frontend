@@ -230,12 +230,14 @@ class TaskDetailState {
     required String taskId,
     required String content,
     List<String>? mentionedMemberIds,
+    List<String>? attachmentIds,
   }) async {
     final result = await _client
         .createComment(
           taskId: taskId,
           content: content,
           mentionedMemberIds: mentionedMemberIds,
+          attachmentIds: attachmentIds,
         )
         .toResult();
 

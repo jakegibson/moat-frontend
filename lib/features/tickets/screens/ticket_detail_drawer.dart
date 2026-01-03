@@ -1,9 +1,15 @@
+import 'dart:typed_data';
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:html' as html show FileUploadInputElement, FileReader, document;
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:signals/signals_flutter.dart';
 
+import '../../../common_widgets/attachment_upload_widget.dart';
 import '../../../common_widgets/right_side_drawer.dart';
 import '../../../core/di/injection.dart';
+import '../../auth/state/auth_state.dart';
 import '../data/task_models.dart';
 import '../state/task_detail_state.dart';
 import '../widgets/assignee_dropdown.dart';
@@ -68,15 +74,20 @@ class TicketDetailDrawer extends StatefulWidget {
 
 class _TicketDetailDrawerState extends State<TicketDetailDrawer> {
   late final TaskDetailState _state;
+  late final AuthState _authState;
   int _selectedTabIndex = 0; // 0 = Details, 1 = Activity
   Widget? _activeOverlay;
   bool _activityFetched = false;
   bool _isSubmittingComment = false;
 
+  /// Current user's member ID (for activity alignment)
+  String? get _currentUserId => _authState.user?.id;
+
   @override
   void initState() {
     super.initState();
     _state = getIt<TaskDetailState>();
+    _authState = getIt<AuthState>();
     _loadTask();
   }
 
@@ -759,24 +770,20 @@ class _TicketDetailDrawerState extends State<TicketDetailDrawer> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Date header
+                    // Date header (plain centered text like v0)
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 12, top: 8),
+                      padding: EdgeInsets.only(
+                        bottom: 16,
+                        top: reversedIndex > 0 ? 24 : 8,
+                      ),
                       child: Center(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                          decoration: BoxDecoration(
-                            color: _Colors.bgSecondary,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Text(
-                            dateKey,
-                            style: const TextStyle(
-                              fontFamily: 'Inter',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: _Colors.textTertiary,
-                            ),
+                        child: Text(
+                          dateKey,
+                          style: const TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: _Colors.textSecondary,
                           ),
                         ),
                       ),
@@ -787,6 +794,7 @@ class _TicketDetailDrawerState extends State<TicketDetailDrawer> {
                       return _ActivityItemWidget(
                         activity: item,
                         isLast: isLast,
+                        currentUserId: _currentUserId,
                       );
                     }),
                   ],
@@ -797,15 +805,18 @@ class _TicketDetailDrawerState extends State<TicketDetailDrawer> {
         ),
         // Comment input at bottom
         _CommentInputSection(
+          taskId: task.id,
           isLoading: _isSubmittingComment,
-          onSubmit: (content) async {
+          onSubmit: (content, attachmentIds) async {
             setState(() => _isSubmittingComment = true);
             await _state.createComment(
               taskId: task.id,
               content: content,
+              attachmentIds: attachmentIds,
             );
             setState(() => _isSubmittingComment = false);
           },
+          state: _state,
         ),
       ],
     );
@@ -1794,307 +1805,359 @@ class _ReassignDialogState extends State<_ReassignDialog> {
   }
 }
 
-/// Activity item widget - displays a single activity entry
+/// Activity item widget - displays a single activity entry with chat-bubble style (like v0)
 class _ActivityItemWidget extends StatelessWidget {
   final TaskActivity activity;
   final bool isLast;
+  final String? currentUserId;
 
   const _ActivityItemWidget({
     required this.activity,
     required this.isLast,
+    this.currentUserId,
   });
+
+  /// Check if this activity is from the current user
+  bool get _isCurrentUser {
+    if (currentUserId == null) return false;
+    // For comments, check the comment's createdBy
+    if (activity.eventType == 'comment_added' && activity.comment?.createdBy != null) {
+      return activity.comment!.createdBy!.id == currentUserId;
+    }
+    // For other events, check changedBy
+    return activity.changedBy?.id == currentUserId;
+  }
+
+  /// Get the user name for display
+  String get _userName {
+    if (activity.eventType == 'comment_added' && activity.comment?.createdBy != null) {
+      return activity.comment!.createdBy!.name;
+    }
+    return activity.changedBy?.name ?? 'Moat';
+  }
+
+  /// Check if this is a system event (auto-assignment)
+  bool get _isSystemEvent {
+    return activity.eventType == 'claimed' ||
+        (activity.eventType == 'assigned' && activity.changedBy == null);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final timeFormat = DateFormat('MMM d, h:mm a');
+    // Route to specific builders based on event type
+    switch (activity.eventType) {
+      case 'comment_added':
+        if (activity.comment == null) return const SizedBox.shrink();
+        return _buildCommentItem();
+      case 'status_changed':
+        return _buildStatusUpdateItem();
+      case 'created':
+        return _buildCreatedItem();
+      case 'assigned':
+      case 'reassigned':
+      case 'claimed':
+        return _buildAssignmentItem();
+      case 'task_def_updated':
+        return _buildFieldUpdateItem();
+      default:
+        return _buildCreatedItem();
+    }
+  }
 
-    return IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Timeline indicator
-          SizedBox(
-            width: 40,
-            child: Column(
-              children: [
-                Container(
-                  width: 32,
-                  height: 32,
-                  decoration: BoxDecoration(
-                    color: _getEventColor(),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    _getEventIcon(),
-                    size: 16,
-                    color: Colors.white,
-                  ),
-                ),
-                if (!isLast)
-                  Expanded(
-                    child: Container(
-                      width: 2,
-                      color: _Colors.borderSecondary,
-                    ),
-                  ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 12),
-          // Content
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Event title and timestamp
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          _getEventDescription(),
-                          style: const TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: _Colors.textPrimary,
-                          ),
-                        ),
-                      ),
-                      Text(
-                        timeFormat.format(activity.createdAt.toLocal()),
-                        style: const TextStyle(
-                          fontFamily: 'Inter',
-                          fontSize: 12,
-                          color: _Colors.textTertiary,
-                        ),
-                      ),
-                    ],
-                  ),
-                  // Changed by
-                  if (activity.changedBy != null) ...[
-                    const SizedBox(height: 4),
-                    Text(
-                      'by ${activity.changedBy!.name}',
-                      style: const TextStyle(
-                        fontFamily: 'Inter',
-                        fontSize: 12,
-                        color: _Colors.textTertiary,
-                      ),
-                    ),
-                  ],
-                  // Notes
-                  if (activity.notes != null && activity.notes!.isNotEmpty) ...[
-                    const SizedBox(height: 8),
-                    Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: _Colors.bgSecondary,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        activity.notes!,
-                        style: const TextStyle(
-                          fontFamily: 'Inter',
-                          fontSize: 13,
-                          color: _Colors.textSecondary,
-                        ),
-                      ),
-                    ),
-                  ],
-                  // Comment content
-                  if (activity.comment != null) ...[
-                    const SizedBox(height: 8),
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: _Colors.accentBlueBg,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (activity.comment!.createdBy != null) ...[
-                            Text(
-                              activity.comment!.createdBy!.name,
-                              style: const TextStyle(
-                                fontFamily: 'Inter',
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                color: _Colors.accentBlue,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                          ],
-                          Text(
-                            activity.comment!.content,
-                            style: const TextStyle(
-                              fontFamily: 'Inter',
-                              fontSize: 14,
-                              color: _Colors.textPrimary,
-                            ),
-                          ),
-                          if (activity.comment!.edited) ...[
-                            const SizedBox(height: 4),
-                            Text(
-                              '(edited)',
-                              style: TextStyle(
-                                fontFamily: 'Inter',
-                                fontSize: 11,
-                                fontStyle: FontStyle.italic,
-                                color: _Colors.textTertiary,
-                              ),
-                            ),
-                          ],
-                        ],
-                      ),
-                    ),
-                  ],
-                  // Attachments
-                  if (activity.attachments.isNotEmpty) ...[
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: activity.attachments.map((attachment) {
-                        return Container(
-                          width: 80,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            color: _Colors.bgSecondary,
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: _Colors.borderSecondary),
-                          ),
-                          child: attachment.isImage && attachment.url.isNotEmpty
-                              ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(7),
-                                  child: Image.network(
-                                    attachment.url,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (_, __, ___) => Center(
-                                      child: Icon(
-                                        attachment.fileIcon,
-                                        color: _Colors.textTertiary,
-                                        size: 24,
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : Center(
-                                  child: Icon(
-                                    attachment.fileIcon,
-                                    color: _Colors.textTertiary,
-                                    size: 24,
-                                  ),
-                                ),
-                        );
-                      }).toList(),
-                    ),
-                  ],
-                ],
+  /// Builds a created ticket activity item
+  Widget _buildCreatedItem() {
+    return _ActivityBubble(
+      isCurrentUser: _isCurrentUser,
+      userName: _userName,
+      timestamp: activity.createdAt,
+      isSystemUser: false,
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: 'Created',
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: _isCurrentUser ? _Colors.textWhite : _Colors.textPrimary,
               ),
             ),
-          ),
-        ],
+            TextSpan(
+              text: ' ticket',
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontSize: 14,
+                color: _isCurrentUser ? _Colors.textWhite : _Colors.textPrimary,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Color _getEventColor() {
-    switch (activity.eventType) {
-      case 'created':
-        return _Colors.statusCreated;
-      case 'status_changed':
-        return _Colors.statusInProgress;
-      case 'assigned':
-      case 'reassigned':
-      case 'claimed':
-        return const Color(0xFF9333EA); // Purple
-      case 'comment_added':
-        return _Colors.statusResolved;
-      default:
-        return _Colors.textTertiary;
-    }
+  /// Builds an assignment activity item
+  Widget _buildAssignmentItem() {
+    // Extract assignee name from changes
+    final assigneeNameChange = activity.changes?['assignee_name'] as Map<String, dynamic>?;
+    final assigneeName = assigneeNameChange?['new'] as String? ?? 'Assigned User';
+    final isAutoAssigned = _isSystemEvent;
+
+    return _ActivityBubble(
+      isCurrentUser: isAutoAssigned ? false : _isCurrentUser,
+      userName: isAutoAssigned ? 'Moat' : _userName,
+      timestamp: activity.createdAt,
+      isSystemUser: isAutoAssigned,
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: isAutoAssigned ? 'Auto-Assigned' : 'Assigned',
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: (isAutoAssigned || !_isCurrentUser) ? _Colors.textPrimary : _Colors.textWhite,
+              ),
+            ),
+            TextSpan(
+              text: ' to $assigneeName',
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontSize: 14,
+                color: (isAutoAssigned || !_isCurrentUser) ? _Colors.textPrimary : _Colors.textWhite,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
-  IconData _getEventIcon() {
-    switch (activity.eventType) {
-      case 'created':
-        return Icons.add;
-      case 'status_changed':
-        return Icons.swap_horiz;
-      case 'assigned':
-        return Icons.person_add;
-      case 'reassigned':
-        return Icons.people;
-      case 'claimed':
-        return Icons.person;
-      case 'comment_added':
-        return Icons.comment;
-      default:
-        return Icons.info_outline;
-    }
+  /// Builds a status update activity item
+  Widget _buildStatusUpdateItem() {
+    final statusChange = activity.changes?['status'] as Map<String, dynamic>?;
+    final newStatusStr = statusChange?['new'] as String?;
+    if (newStatusStr == null) return const SizedBox.shrink();
+
+    final resolutionTypeChange = activity.changes?['resolution_type'] as Map<String, dynamic>?;
+    final resolutionTypeStr = resolutionTypeChange?['new'] as String?;
+
+    final hasContent = (activity.notes != null && activity.notes!.isNotEmpty) ||
+        activity.attachments.isNotEmpty;
+
+    return _ActivityBubble(
+      isCurrentUser: _isCurrentUser,
+      userName: _userName,
+      timestamp: activity.createdAt,
+      isSystemUser: false,
+      hasAttachedContent: hasContent,
+      attachedContent: hasContent
+          ? _buildNotesAndAttachments(activity.notes, activity.attachments)
+          : null,
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: 'Changed status',
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: _isCurrentUser ? _Colors.textWhite : _Colors.textPrimary,
+              ),
+            ),
+            TextSpan(
+              text: ' to ${_formatStatus(newStatusStr)}${resolutionTypeStr != null ? ' / ${_formatResolutionType(resolutionTypeStr)}' : ''}',
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontSize: 14,
+                color: _isCurrentUser ? _Colors.textWhite : _Colors.textPrimary,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
-  String _getEventDescription() {
-    switch (activity.eventType) {
-      case 'created':
-        return 'Ticket created';
-      case 'status_changed':
-        // Extract status change details from changes map
-        final statusChange = activity.changes?['status'] as Map<String, dynamic>?;
-        if (statusChange != null) {
-          final newStatus = statusChange['new'] as String?;
-          if (newStatus != null) {
-            return 'Status changed to ${_formatStatus(newStatus)}';
-          }
-        }
-        return 'Status changed';
-      case 'assigned':
-        final assigneeChange = activity.changes?['assignee_name'] as Map<String, dynamic>?;
-        if (assigneeChange != null) {
-          final newAssignee = assigneeChange['new'] as String?;
-          if (newAssignee != null) {
-            return 'Assigned to $newAssignee';
-          }
-        }
-        return 'Assigned';
-      case 'reassigned':
-        final assigneeChange = activity.changes?['assignee_name'] as Map<String, dynamic>?;
-        if (assigneeChange != null) {
-          final newAssignee = assigneeChange['new'] as String?;
-          if (newAssignee != null) {
-            return 'Reassigned to $newAssignee';
-          }
-        }
-        return 'Reassigned';
-      case 'claimed':
-        return 'Ticket claimed';
-      case 'comment_added':
-        return 'Comment added';
-      case 'task_def_updated':
-        // Handle field updates
-        if (activity.changes != null && activity.changes!.isNotEmpty) {
-          final changeKey = activity.changes!.keys.first;
-          switch (changeKey) {
-            case 'title':
-              return 'Title updated';
-            case 'description':
-              return 'Description updated';
-            case 'location_id':
-              return 'Location changed';
-            case 'specific_location':
-              return 'Area updated';
-            default:
-              return 'Details updated';
-          }
-        }
-        return 'Details updated';
-      default:
-        return activity.eventDisplayName;
+  /// Builds a comment activity item
+  Widget _buildCommentItem() {
+    final comment = activity.comment!;
+    final hasAttachments = activity.attachments.isNotEmpty;
+
+    return _ActivityBubble(
+      isCurrentUser: _isCurrentUser,
+      userName: comment.createdBy?.name ?? _userName,
+      timestamp: activity.createdAt,
+      isSystemUser: false,
+      isComment: true,
+      // Attachments go in white container below bubble (like status updates)
+      hasAttachedContent: hasAttachments,
+      attachedContent: hasAttachments
+          ? Padding(
+              padding: const EdgeInsets.all(12),
+              child: _buildAttachmentGallery(activity.attachments),
+            )
+          : null,
+      child: Text(
+        comment.content,
+        style: TextStyle(
+          fontFamily: 'Inter',
+          fontSize: 14,
+          color: _isCurrentUser ? _Colors.textWhite : _Colors.textPrimary,
+        ),
+      ),
+    );
+  }
+
+  /// Builds a field update activity item
+  Widget _buildFieldUpdateItem() {
+    if (activity.changes == null || activity.changes!.isEmpty) {
+      return const SizedBox.shrink();
     }
+
+    final changeKey = activity.changes!.keys.first;
+    final changeData = activity.changes![changeKey] as Map<String, dynamic>?;
+    if (changeData == null) return const SizedBox.shrink();
+
+    final oldValue = changeData['old'] as String?;
+    final newValue = changeData['new'] as String?;
+    if (newValue == null) return const SizedBox.shrink();
+
+    String fieldLabel;
+    switch (changeKey) {
+      case 'title':
+        fieldLabel = 'Title';
+        break;
+      case 'description':
+        fieldLabel = 'Description';
+        break;
+      case 'location_id':
+        fieldLabel = 'Location';
+        break;
+      case 'specific_location':
+        fieldLabel = 'Area';
+        break;
+      default:
+        fieldLabel = changeKey;
+    }
+
+    return _ActivityBubble(
+      isCurrentUser: _isCurrentUser,
+      userName: _userName,
+      timestamp: activity.createdAt,
+      isSystemUser: false,
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: 'Edited $fieldLabel',
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: _isCurrentUser ? _Colors.textWhite : _Colors.textPrimary,
+              ),
+            ),
+            if (oldValue != null)
+              TextSpan(
+                text: ' from "$oldValue"',
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 14,
+                  color: _isCurrentUser ? _Colors.textWhite : _Colors.textPrimary,
+                ),
+              ),
+            TextSpan(
+              text: ' to "$newValue"',
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontSize: 14,
+                color: _isCurrentUser ? _Colors.textWhite : _Colors.textPrimary,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Builds a notes and attachments container for status updates
+  Widget _buildNotesAndAttachments(String? notes, List<TaskAttachment> attachments) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (notes != null && notes.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Text(
+              notes,
+              style: const TextStyle(
+                fontFamily: 'Inter',
+                fontSize: 14,
+                color: _Colors.textPrimary,
+              ),
+            ),
+          ),
+        if (attachments.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: _buildAttachmentGallery(attachments),
+          ),
+      ],
+    );
+  }
+
+  /// Builds an attachment gallery
+  Widget _buildAttachmentGallery(List<TaskAttachment> attachments) {
+    return SizedBox(
+      height: 100,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: attachments.asMap().entries.map((entry) {
+            final attachment = entry.value;
+            return Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: _Colors.bgSecondary,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: _Colors.borderSecondary),
+                ),
+                child: attachment.isImage && attachment.url.isNotEmpty
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(7),
+                        child: Image.network(
+                          attachment.url,
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) => Center(
+                            child: Icon(
+                              attachment.fileIcon,
+                              color: _Colors.textTertiary,
+                              size: 24,
+                            ),
+                          ),
+                        ),
+                      )
+                    : Center(
+                        child: Icon(
+                          attachment.fileIcon,
+                          color: _Colors.textTertiary,
+                          size: 24,
+                        ),
+                      ),
+              ),
+            );
+          }).toList(),
+        ),
+      ),
+    );
   }
 
   String _formatStatus(String status) {
@@ -2111,16 +2174,250 @@ class _ActivityItemWidget extends StatelessWidget {
         return status;
     }
   }
+
+  String _formatResolutionType(String type) {
+    switch (type.toLowerCase()) {
+      case 'completed':
+        return 'Completed';
+      case 'non_issue':
+        return 'Non-Issue';
+      case 'duplicate':
+        return 'Duplicate';
+      case 'will_not_fix':
+        return 'Will Not Fix';
+      default:
+        return type;
+    }
+  }
 }
 
-/// Comment input section at the bottom of the activity tab
+/// Chat bubble wrapper that handles alignment and styling (like v0)
+class _ActivityBubble extends StatelessWidget {
+  final bool isCurrentUser;
+  final String userName;
+  final DateTime timestamp;
+  final bool isSystemUser;
+  final Widget child;
+  final bool hasAttachedContent;
+  final Widget? attachedContent;
+  final bool isComment;
+
+  const _ActivityBubble({
+    required this.isCurrentUser,
+    required this.userName,
+    required this.timestamp,
+    required this.isSystemUser,
+    required this.child,
+    this.hasAttachedContent = false,
+    this.attachedContent,
+    this.isComment = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final timeFormat = DateFormat('h:mma');
+    final formattedTime = timeFormat.format(timestamp.toLocal()).toLowerCase();
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Container(
+        width: double.infinity,
+        alignment: isCurrentUser ? Alignment.centerRight : Alignment.centerLeft,
+        child: Column(
+          crossAxisAlignment: isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          children: [
+            // Line 1: Name + Timestamp (name omitted for current user)
+            Padding(
+              padding: EdgeInsets.only(
+                left: (!isCurrentUser && !isSystemUser) ? 32.0 + 8 : (isSystemUser ? 32.0 + 8 : 0),
+                right: isCurrentUser ? 0 : 0,
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Only show name for non-current users
+                  if (!isCurrentUser || isSystemUser) ...[
+                    Text(
+                      userName,
+                      style: const TextStyle(
+                        fontFamily: 'Inter',
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: _Colors.textTertiary,
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                  ],
+                  Text(
+                    formattedTime,
+                    style: const TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 12,
+                      color: _Colors.textTertiary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 4),
+            // Line 2: Avatar + Bubble
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Avatar on left for non-current users
+                if (!isCurrentUser) ...[
+                  _UserAvatar(
+                    userName: userName,
+                    isSystemUser: isSystemUser,
+                  ),
+                  const SizedBox(width: 8),
+                ],
+                // Bubble content
+                Flexible(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 300),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        // Main bubble
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                          decoration: BoxDecoration(
+                            color: isCurrentUser ? _Colors.textPrimary : _Colors.bgSecondary,
+                            borderRadius: _getBubbleRadius(hasContent: hasAttachedContent),
+                          ),
+                          child: child,
+                        ),
+                        // Attached content below bubble (white container for notes/attachments)
+                        if (hasAttachedContent && attachedContent != null)
+                          Container(
+                            decoration: BoxDecoration(
+                              color: _Colors.bgPrimary,
+                              border: Border.all(color: _Colors.borderSecondary),
+                              borderRadius: isCurrentUser
+                                  ? const BorderRadius.only(
+                                      bottomLeft: Radius.circular(16),
+                                    )
+                                  : const BorderRadius.only(
+                                      bottomRight: Radius.circular(16),
+                                    ),
+                            ),
+                            child: attachedContent,
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  BorderRadius _getBubbleRadius({bool hasContent = false}) {
+    if (hasContent) {
+      // Top-only radius when there's attached content below
+      return const BorderRadius.only(
+        topLeft: Radius.circular(16),
+        topRight: Radius.circular(16),
+      );
+    }
+
+    // Speech bubble corners - missing one corner based on alignment
+    if (isCurrentUser) {
+      return const BorderRadius.only(
+        topLeft: Radius.circular(16),
+        topRight: Radius.circular(16),
+        bottomLeft: Radius.circular(16),
+        // No bottom-right = speech bubble pointing right
+      );
+    } else {
+      return const BorderRadius.only(
+        topLeft: Radius.circular(16),
+        topRight: Radius.circular(16),
+        bottomRight: Radius.circular(16),
+        // No bottom-left = speech bubble pointing left
+      );
+    }
+  }
+}
+
+/// User avatar for activity items
+class _UserAvatar extends StatelessWidget {
+  final String userName;
+  final bool isSystemUser;
+
+  const _UserAvatar({
+    required this.userName,
+    this.isSystemUser = false,
+  });
+
+  String _getInitials() {
+    final parts = userName.trim().split(' ');
+    if (parts.isEmpty || parts[0].isEmpty) return '?';
+    if (parts.length == 1) return parts[0][0].toUpperCase();
+    return '${parts[0][0]}${parts[parts.length - 1][0]}'.toUpperCase();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (isSystemUser) {
+      // System user (Moat) - use settings icon
+      return Container(
+        width: 32,
+        height: 32,
+        decoration: const BoxDecoration(
+          color: _Colors.utilityBlue500,
+          shape: BoxShape.circle,
+        ),
+        child: const Center(
+          child: Icon(
+            Icons.settings_suggest,
+            color: _Colors.textWhite,
+            size: 16,
+          ),
+        ),
+      );
+    }
+
+    return Container(
+      width: 32,
+      height: 32,
+      decoration: const BoxDecoration(
+        color: _Colors.utilityBlue500,
+        shape: BoxShape.circle,
+      ),
+      child: Center(
+        child: Text(
+          _getInitials(),
+          style: const TextStyle(
+            fontFamily: 'Inter',
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: _Colors.textWhite,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Comment input section at the bottom of the activity tab (matches v0 parity)
 class _CommentInputSection extends StatefulWidget {
+  final String taskId;
   final bool isLoading;
-  final Future<void> Function(String content) onSubmit;
+  final Future<void> Function(String content, List<String>? attachmentIds) onSubmit;
+  final TaskDetailState state;
 
   const _CommentInputSection({
+    required this.taskId,
     required this.isLoading,
     required this.onSubmit,
+    required this.state,
   });
 
   @override
@@ -2130,7 +2427,8 @@ class _CommentInputSection extends StatefulWidget {
 class _CommentInputSectionState extends State<_CommentInputSection> {
   final _controller = TextEditingController();
   final _focusNode = FocusNode();
-  bool _hasContent = false;
+  final List<AttachmentUploadState> _pendingAttachments = [];
+  bool _isUploading = false;
 
   @override
   void initState() {
@@ -2147,102 +2445,539 @@ class _CommentInputSectionState extends State<_CommentInputSection> {
   }
 
   void _onTextChanged() {
-    final hasContent = _controller.text.trim().isNotEmpty;
-    if (hasContent != _hasContent) {
-      setState(() => _hasContent = hasContent);
+    setState(() {});
+  }
+
+  /// Handle image picker - uses HTML5 file input for web (like v0)
+  void _handleImagePicker() {
+    final input = html.FileUploadInputElement()
+      ..accept = 'image/jpeg,image/png,image/gif,image/webp,image/heic,image/heif,application/pdf'
+      ..multiple = false
+      ..style.display = 'none';
+
+    input.onChange.listen((e) async {
+      final files = input.files;
+      if (files != null && files.isNotEmpty) {
+        final file = files.first;
+        try {
+          final reader = html.FileReader();
+          reader.readAsArrayBuffer(file);
+          await reader.onLoadEnd.first;
+
+          if (reader.result != null) {
+            final bytes = reader.result as Uint8List;
+            final fileName = file.name;
+            final extension = _getFileExtension(fileName);
+            final mimeType = _getMimeTypeFromExtension(extension);
+
+            _addFileToUpload(
+              bytes: bytes,
+              fileName: fileName,
+              mimeType: mimeType,
+            );
+          }
+        } catch (e) {
+          _showErrorSnackBar('Error reading file: $e');
+        }
+      }
+      input.remove();
+    });
+
+    html.document.body!.append(input);
+    input.click();
+  }
+
+  String _getFileExtension(String fileName) {
+    final parts = fileName.split('.');
+    return parts.length > 1 ? parts.last.toLowerCase() : '';
+  }
+
+  String _getMimeTypeFromExtension(String extension) {
+    switch (extension.toLowerCase()) {
+      case 'jpg':
+      case 'jpeg':
+        return 'image/jpeg';
+      case 'png':
+        return 'image/png';
+      case 'gif':
+        return 'image/gif';
+      case 'webp':
+        return 'image/webp';
+      case 'heic':
+      case 'heif':
+        return 'image/heic';
+      case 'pdf':
+        return 'application/pdf';
+      default:
+        return 'application/octet-stream';
+    }
+  }
+
+  void _addFileToUpload({
+    required Uint8List bytes,
+    required String fileName,
+    required String mimeType,
+  }) {
+    // Validate file size (max 10MB)
+    const maxSize = 10 * 1024 * 1024;
+    if (bytes.length > maxSize) {
+      _showErrorSnackBar('File too large (max 10MB)');
+      return;
+    }
+
+    // Validate file type
+    const supportedTypes = [
+      'image/jpeg',
+      'image/png',
+      'image/gif',
+      'image/webp',
+      'image/heic',
+      'application/pdf',
+    ];
+    if (!supportedTypes.contains(mimeType)) {
+      _showErrorSnackBar('Unsupported file type. Supported: JPEG, PNG, GIF, WebP, HEIC, PDF');
+      return;
+    }
+
+    final localId = '${DateTime.now().millisecondsSinceEpoch}_${fileName.hashCode}';
+    final uploadState = AttachmentUploadState(
+      localId: localId,
+      fileName: fileName,
+      bytes: bytes,
+      mimeType: mimeType,
+      sizeBytes: bytes.length,
+      status: UploadStatus.pending,
+    );
+
+    setState(() {
+      _pendingAttachments.add(uploadState);
+    });
+  }
+
+  void _removeAttachment(String localId) {
+    setState(() {
+      _pendingAttachments.removeWhere((a) => a.localId == localId);
+    });
+  }
+
+  void _showErrorSnackBar(String message) {
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
 
   Future<void> _handleSubmit() async {
     final content = _controller.text.trim();
-    if (content.isEmpty || widget.isLoading) return;
+    if (content.isEmpty && _pendingAttachments.isEmpty) return;
+    if (widget.isLoading || _isUploading) return;
 
-    await widget.onSubmit(content);
-    _controller.clear();
-    _focusNode.requestFocus();
+    setState(() => _isUploading = true);
+
+    try {
+      // Upload all pending attachments first
+      final attachmentIds = <String>[];
+      for (var i = 0; i < _pendingAttachments.length; i++) {
+        final attachment = _pendingAttachments[i];
+        if (attachment.status == UploadStatus.pending) {
+          // Update status to uploading
+          setState(() {
+            _pendingAttachments[i] = attachment.copyWith(status: UploadStatus.uploading);
+          });
+
+          // Upload via state
+          final result = await widget.state.uploadAttachment(
+            taskId: widget.taskId,
+            fileName: attachment.fileName,
+            contentType: attachment.mimeType,
+            sizeBytes: attachment.sizeBytes,
+            bytes: attachment.bytes.toList(),
+          );
+
+          result.when(
+            ok: (uploaded) {
+              setState(() {
+                _pendingAttachments[i] = attachment.copyWith(
+                  status: UploadStatus.completed,
+                  uploadedAttachmentId: uploaded.id,
+                );
+              });
+              attachmentIds.add(uploaded.id);
+            },
+            error: (e) {
+              setState(() {
+                _pendingAttachments[i] = attachment.copyWith(
+                  status: UploadStatus.failed,
+                  errorMessage: e.message,
+                );
+              });
+            },
+          );
+        } else if (attachment.status == UploadStatus.completed &&
+            attachment.uploadedAttachmentId != null) {
+          attachmentIds.add(attachment.uploadedAttachmentId!);
+        }
+      }
+
+      // Check for failed uploads
+      final failedUploads = _pendingAttachments.where((a) => a.status == UploadStatus.failed);
+      if (failedUploads.isNotEmpty) {
+        _showErrorSnackBar('Some attachments failed to upload. Please retry or remove them.');
+        return;
+      }
+
+      // Submit comment with attachment IDs
+      await widget.onSubmit(content, attachmentIds.isNotEmpty ? attachmentIds : null);
+
+      // Clear on success
+      _controller.clear();
+      setState(() {
+        _pendingAttachments.clear();
+      });
+      _focusNode.requestFocus();
+    } finally {
+      if (mounted) {
+        setState(() => _isUploading = false);
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: const BoxDecoration(
-        color: _Colors.bgPrimary,
-        border: Border(
-          top: BorderSide(color: _Colors.borderSecondary),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: _Colors.borderPrimary),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: TextField(
-                  controller: _controller,
-                  focusNode: _focusNode,
-                  maxLines: 3,
-                  minLines: 1,
-                  enabled: !widget.isLoading,
-                  style: const TextStyle(
-                    fontFamily: 'Inter',
-                    fontSize: 14,
-                    color: _Colors.textPrimary,
-                  ),
-                  decoration: const InputDecoration(
-                    hintText: 'Add a comment...',
-                    hintStyle: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 14,
-                      color: _Colors.textTertiary,
-                    ),
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 10,
-                    ),
-                  ),
-                ),
+    final isProcessing = widget.isLoading || _isUploading;
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // Attachment preview section (above input, like v0)
+        if (_pendingAttachments.isNotEmpty)
+          Container(
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+            decoration: const BoxDecoration(
+              color: _Colors.bgPrimary,
+              border: Border(
+                top: BorderSide(color: _Colors.borderSecondary),
               ),
             ),
-            const SizedBox(width: 12),
-            GestureDetector(
-              onTap: _hasContent && !widget.isLoading ? _handleSubmit : null,
-              child: Container(
-                width: 44,
-                height: 44,
-                decoration: BoxDecoration(
-                  color: _hasContent && !widget.isLoading
-                      ? _Colors.accentBlue
-                      : _Colors.bgSecondary,
-                  borderRadius: BorderRadius.circular(22),
-                ),
-                child: widget.isLoading
-                    ? const Center(
-                        child: SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            color: Colors.white,
-                          ),
-                        ),
-                      )
-                    : Icon(
-                        Icons.send,
-                        size: 20,
-                        color: _hasContent ? Colors.white : _Colors.textTertiary,
+            child: Column(
+              children: _pendingAttachments.map((attachment) {
+                return _PendingAttachmentThumbnail(
+                  upload: attachment,
+                  onRetry: () {
+                    final index = _pendingAttachments.indexWhere((a) => a.localId == attachment.localId);
+                    if (index != -1) {
+                      setState(() {
+                        _pendingAttachments[index] = attachment.copyWith(
+                          status: UploadStatus.pending,
+                          errorMessage: null,
+                        );
+                      });
+                    }
+                  },
+                  onDelete: () => _removeAttachment(attachment.localId),
+                );
+              }).toList(),
+            ),
+          ),
+        // Input field
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: _Colors.bgPrimary,
+            border: _pendingAttachments.isEmpty
+                ? const Border(top: BorderSide(color: _Colors.borderSecondary))
+                : null,
+          ),
+          child: SafeArea(
+            top: false,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                // Text input - no border (like v0)
+                Expanded(
+                  child: TextField(
+                    controller: _controller,
+                    focusNode: _focusNode,
+                    maxLines: null,
+                    enabled: !isProcessing,
+                    textInputAction: TextInputAction.send,
+                    onSubmitted: (_) => _handleSubmit(),
+                    style: const TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 14,
+                      color: _Colors.textPrimary,
+                    ),
+                    decoration: const InputDecoration(
+                      hintText: 'Write a message...',
+                      hintStyle: TextStyle(
+                        fontFamily: 'Inter',
+                        fontSize: 14,
+                        color: _Colors.textTertiary,
                       ),
+                      border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 12,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 4),
+                // Image picker button (like v0)
+                InkWell(
+                  onTap: isProcessing ? null : _handleImagePicker,
+                  borderRadius: BorderRadius.circular(100),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Icon(
+                      Icons.image_outlined,
+                      size: 24,
+                      color: isProcessing ? _Colors.borderSecondary : _Colors.textTertiary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 4),
+                // Send button - circular with arrow-up icon (like v0)
+                GestureDetector(
+                  onTap: isProcessing ? null : _handleSubmit,
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: const BoxDecoration(
+                      color: _Colors.textPrimary,
+                      shape: BoxShape.circle,
+                    ),
+                    child: isProcessing
+                        ? const Center(
+                            child: SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: Colors.white,
+                              ),
+                            ),
+                          )
+                        : const Icon(
+                            Icons.arrow_upward,
+                            size: 20,
+                            color: _Colors.textWhite,
+                          ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// Pending attachment thumbnail for the comment input (like v0)
+class _PendingAttachmentThumbnail extends StatelessWidget {
+  final AttachmentUploadState upload;
+  final VoidCallback onRetry;
+  final VoidCallback onDelete;
+
+  const _PendingAttachmentThumbnail({
+    required this.upload,
+    required this.onRetry,
+    required this.onDelete,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final isFailed = upload.status == UploadStatus.failed;
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: isFailed ? Colors.red.shade300 : _Colors.borderPrimary,
+          width: isFailed ? 2 : 1,
+        ),
+        borderRadius: BorderRadius.circular(8),
+        color: _Colors.bgPrimary,
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              // Status icon
+              _buildStatusIcon(),
+              const SizedBox(width: 12),
+              // File info
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      upload.fileName,
+                      style: const TextStyle(
+                        fontFamily: 'Inter',
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: _Colors.textPrimary,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      _buildMetadataText(),
+                      style: const TextStyle(
+                        fontFamily: 'Inter',
+                        fontSize: 12,
+                        color: _Colors.textTertiary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Delete button
+              const SizedBox(width: 12),
+              GestureDetector(
+                onTap: onDelete,
+                child: const Icon(
+                  Icons.delete_outline,
+                  size: 20,
+                  color: _Colors.textTertiary,
+                ),
+              ),
+            ],
+          ),
+          // Progress bar (only for uploading)
+          if (upload.status == UploadStatus.uploading) ...[
+            const SizedBox(height: 8),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: const LinearProgressIndicator(
+                backgroundColor: _Colors.bgSecondary,
+                valueColor: AlwaysStoppedAnimation<Color>(_Colors.textPrimary),
+                minHeight: 4,
               ),
             ),
           ],
-        ),
+          // Error message and retry link
+          if (isFailed && upload.errorMessage != null) ...[
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                const SizedBox(width: 68),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        upload.errorMessage!,
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 12,
+                          color: Colors.red.shade700,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      GestureDetector(
+                        onTap: onRetry,
+                        child: const Text(
+                          'Try again',
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: _Colors.textPrimary,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ],
       ),
     );
+  }
+
+  String _buildMetadataText() {
+    final size = _formatFileSize(upload.sizeBytes);
+    if (upload.status == UploadStatus.uploading) {
+      return '$size • uploading...';
+    } else if (upload.status == UploadStatus.completed) {
+      return '$size • 100%';
+    }
+    return size;
+  }
+
+  String _formatFileSize(int bytes) {
+    if (bytes < 1024) return '$bytes B';
+    if (bytes < 1024 * 1024) return '${(bytes / 1024).toStringAsFixed(1)} KB';
+    return '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB';
+  }
+
+  Widget _buildStatusIcon() {
+    switch (upload.status) {
+      case UploadStatus.pending:
+        return Container(
+          width: 56,
+          height: 56,
+          decoration: BoxDecoration(
+            color: const Color(0xFFEFF6FF),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: upload.mimeType == 'application/pdf'
+              ? const Icon(Icons.picture_as_pdf, color: Color(0xFF2563EB), size: 28)
+              : const Icon(Icons.image, color: Color(0xFF2563EB), size: 28),
+        );
+      case UploadStatus.uploading:
+        return Container(
+          width: 56,
+          height: 56,
+          decoration: BoxDecoration(
+            color: const Color(0xFFEFF6FF),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: const Center(
+            child: SizedBox(
+              width: 24,
+              height: 24,
+              child: CircularProgressIndicator(
+                strokeWidth: 2.5,
+                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF2563EB)),
+              ),
+            ),
+          ),
+        );
+      case UploadStatus.completed:
+        return Container(
+          width: 56,
+          height: 56,
+          decoration: BoxDecoration(
+            color: Colors.green.shade50,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(Icons.check_circle, color: Colors.green.shade700, size: 28),
+        );
+      case UploadStatus.failed:
+        return Container(
+          width: 56,
+          height: 56,
+          decoration: BoxDecoration(
+            color: Colors.red.shade50,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(Icons.error_outline, color: Colors.red.shade700, size: 28),
+        );
+    }
   }
 }

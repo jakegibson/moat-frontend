@@ -312,6 +312,7 @@ class TaskClient {
     required String taskId,
     required String content,
     List<String>? mentionedMemberIds,
+    List<String>? attachmentIds,
   }) async {
     final request = pb.CreateCommentRequest(
       taskId: taskId,
@@ -320,6 +321,10 @@ class TaskClient {
 
     if (mentionedMemberIds != null && mentionedMemberIds.isNotEmpty) {
       request.mentionedMemberIds.addAll(mentionedMemberIds);
+    }
+
+    if (attachmentIds != null && attachmentIds.isNotEmpty) {
+      request.attachmentIds.addAll(attachmentIds);
     }
 
     final response = await _rpc.createComment(request);
@@ -879,6 +884,7 @@ class TaskClient {
           p.hasChangedBy() ? _fromProtoCommentAuthor(p.changedBy) : null,
       notes: p.hasNotes() ? p.notes : null,
       changes: _fromProtoStruct(p.hasChanges() ? p.changes : null),
+      attachments: p.attachments.map(_fromProtoTaskAttachment).toList(),
       comment: p.hasComment() ? _fromProtoTaskComment(p.comment) : null,
       createdAt: _fromTimestamp(p.createdAt),
     );
