@@ -125,7 +125,7 @@ class _TicketListScreenState extends State<TicketListScreen> {
               chartValues: _metricsState.weeklyOpenTickets.value,
             ),
           ),
-          SizedBox(width: AppSizes.spacingLG),
+          SizedBox(width: AppSizes.spacingXL), // 16px per Figma
           Expanded(
             child: TicketsStatCard(
               title: 'Ave Time to Close',
@@ -138,7 +138,7 @@ class _TicketListScreenState extends State<TicketListScreen> {
               chartValues: _metricsState.weeklyTimeToClose.value,
             ),
           ),
-          SizedBox(width: AppSizes.spacingLG),
+          SizedBox(width: AppSizes.spacingXL), // 16px per Figma
           Expanded(
             child: TicketsStatCard(
               title: 'Ave Response Time',
@@ -330,7 +330,7 @@ class _TicketListScreenState extends State<TicketListScreen> {
                   minWidth: 900,
                   dividerThickness: 0,
                   headingRowHeight: 44,
-                  dataRowHeight: 72,
+                  dataRowHeight: AppSizes.tableRowHeight, // 64px per Figma
                   headingRowColor: WidgetStateProperty.all(AppColors.bgSecondary),
                   headingTextStyle: AppTextStyles.textXSSemibold,
                   border: TableBorder(

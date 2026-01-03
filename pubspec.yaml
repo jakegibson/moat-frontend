@@ -23,7 +23,7 @@ dependencies:
 
   # ConnectRPC
   connectrpc: ^1.0.0
-  protobuf: ^3.1.0
+  protobuf: ^4.0.0
   fixnum: ^1.1.0
 
   # Firebase (Auth)
@@ -57,6 +57,8 @@ dependencies:
 
 dev_dependencies:
   flutter_test:
+    sdk: flutter
+  integration_test:
     sdk: flutter
   flutter_lints: ^5.0.0
   build_runner: ^2.4.14

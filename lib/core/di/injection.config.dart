@@ -22,6 +22,8 @@ import '../../features/tickets/state/task_detail_state.dart' as _i327;
 import '../../features/tickets/state/task_list_state.dart' as _i369;
 import '../../features/tickets/state/task_metrics_state.dart' as _i695;
 import '../auth/firebase_auth_service.dart' as _i491;
+import '../transport/notification_service_client.dart' as _i245;
+import '../transport/organization_service_client.dart' as _i487;
 import '../transport/task_service_client.dart' as _i83;
 import 'transport_module.dart' as _i718;
 
@@ -42,6 +44,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i691.Transport>(() => transportModule.transport);
     gh.lazySingleton<_i274.AssetsClient>(() => _i274.AssetsClient());
     gh.lazySingleton<_i573.AuthClient>(() => _i573.AuthClient());
+    gh.lazySingleton<_i245.NotificationServiceClient>(
+        () => _i245.NotificationServiceClient(gh<_i691.Transport>()));
+    gh.lazySingleton<_i487.OrganizationServiceClient>(
+        () => _i487.OrganizationServiceClient(gh<_i691.Transport>()));
     gh.lazySingleton<_i83.TaskServiceClient>(
         () => _i83.TaskServiceClient(gh<_i691.Transport>()));
     gh.lazySingleton<_i19.AssetsState>(

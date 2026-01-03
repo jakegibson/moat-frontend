@@ -482,6 +482,74 @@ class TaskServiceClient {
     );
   }
 
+  Future<TaskAttachment> updateAttachment(UpdateAttachmentRequest request) {
+    return _client.unary(
+      Spec<UpdateAttachmentRequest, TaskAttachment>(
+        '$_service/UpdateAttachment',
+        StreamType.unary,
+        UpdateAttachmentRequest.create,
+        TaskAttachment.create,
+      ),
+      request,
+    );
+  }
+
+  // ===== Task Definition Attachments =====
+
+  Future<GetAttachmentUploadUrlResponse> getTaskDefAttachmentUploadUrl(
+      GetTaskDefAttachmentUploadUrlRequest request) {
+    return _client.unary(
+      Spec<GetTaskDefAttachmentUploadUrlRequest,
+          GetAttachmentUploadUrlResponse>(
+        '$_service/GetTaskDefAttachmentUploadUrl',
+        StreamType.unary,
+        GetTaskDefAttachmentUploadUrlRequest.create,
+        GetAttachmentUploadUrlResponse.create,
+      ),
+      request,
+    );
+  }
+
+  Future<TaskAttachment> confirmTaskDefAttachmentUpload(
+      ConfirmTaskDefAttachmentUploadRequest request) {
+    return _client.unary(
+      Spec<ConfirmTaskDefAttachmentUploadRequest, TaskAttachment>(
+        '$_service/ConfirmTaskDefAttachmentUpload',
+        StreamType.unary,
+        ConfirmTaskDefAttachmentUploadRequest.create,
+        TaskAttachment.create,
+      ),
+      request,
+    );
+  }
+
+  Future<ListTaskAttachmentsResponse> listTaskDefAttachments(
+      ListTaskDefAttachmentsRequest request) {
+    return _client.unary(
+      Spec<ListTaskDefAttachmentsRequest, ListTaskAttachmentsResponse>(
+        '$_service/ListTaskDefAttachments',
+        StreamType.unary,
+        ListTaskDefAttachmentsRequest.create,
+        ListTaskAttachmentsResponse.create,
+        idempotency: Idempotency.noSideEffects,
+      ),
+      request,
+    );
+  }
+
+  Future<DeleteAttachmentResponse> deleteTaskDefAttachment(
+      DeleteTaskDefAttachmentRequest request) {
+    return _client.unary(
+      Spec<DeleteTaskDefAttachmentRequest, DeleteAttachmentResponse>(
+        '$_service/DeleteTaskDefAttachment',
+        StreamType.unary,
+        DeleteTaskDefAttachmentRequest.create,
+        DeleteAttachmentResponse.create,
+      ),
+      request,
+    );
+  }
+
   // ============================================================================
   // Recurrence RPCs
   // ============================================================================

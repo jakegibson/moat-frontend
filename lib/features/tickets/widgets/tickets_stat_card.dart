@@ -54,7 +54,7 @@ class TicketsStatCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.radiusXL),
-        border: Border.all(color: AppColors.borderSecondary, width: 1.25),
+        border: Border.all(color: AppColors.borderSecondary, width: 1.0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

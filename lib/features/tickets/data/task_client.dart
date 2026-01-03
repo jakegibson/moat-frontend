@@ -1032,6 +1032,78 @@ class TaskClient {
     await _rpc.deleteAttachment(request);
   }
 
+  /// Update attachment metadata (caption, display order)
+  Future<TaskAttachment> updateAttachment({
+    required String id,
+    String? caption,
+    int? displayOrder,
+  }) async {
+    final request = pb.UpdateAttachmentRequest(
+      id: id,
+      caption: caption,
+      displayOrder: displayOrder,
+    );
+    final response = await _rpc.updateAttachment(request);
+    return _fromProtoTaskAttachment(response);
+  }
+
+  // ============================================================================
+  // Task Definition Attachment Methods
+  // ============================================================================
+
+  /// Get a presigned URL for uploading an attachment to a task definition
+  Future<AttachmentUploadUrl> getTaskDefAttachmentUploadUrl({
+    required String taskDefId,
+    required String fileName,
+    required String contentType,
+    int sizeBytes = 0,
+  }) async {
+    final request = pb.GetTaskDefAttachmentUploadUrlRequest(
+      taskDefId: taskDefId,
+      fileName: fileName,
+      contentType: contentType,
+      sizeBytes: fixnum.Int64(sizeBytes),
+    );
+    final response = await _rpc.getTaskDefAttachmentUploadUrl(request);
+    return AttachmentUploadUrl(
+      uploadUrl: response.uploadUrl,
+      attachmentId: response.attachmentId,
+      expiresAt: _fromTimestamp(response.expiresAt),
+    );
+  }
+
+  /// Confirm that a task definition attachment was uploaded successfully
+  Future<TaskAttachment> confirmTaskDefAttachmentUpload({
+    required String attachmentId,
+    required String taskDefId,
+  }) async {
+    final request = pb.ConfirmTaskDefAttachmentUploadRequest(
+      attachmentId: attachmentId,
+      taskDefId: taskDefId,
+    );
+    final response = await _rpc.confirmTaskDefAttachmentUpload(request);
+    return _fromProtoTaskAttachment(response);
+  }
+
+  /// List all attachments for a task definition
+  Future<List<TaskAttachment>> listTaskDefAttachments(String taskDefId) async {
+    final request = pb.ListTaskDefAttachmentsRequest(taskDefId: taskDefId);
+    final response = await _rpc.listTaskDefAttachments(request);
+    return response.attachments.map(_fromProtoTaskAttachment).toList();
+  }
+
+  /// Delete an attachment from a task definition
+  Future<void> deleteTaskDefAttachment({
+    required String taskDefId,
+    required String attachmentId,
+  }) async {
+    final request = pb.DeleteTaskDefAttachmentRequest(
+      taskDefId: taskDefId,
+      attachmentId: attachmentId,
+    );
+    await _rpc.deleteTaskDefAttachment(request);
+  }
+
   static TaskAttachment _fromProtoTaskAttachment(pb.TaskAttachment p) {
     return TaskAttachment(
       id: p.id,
@@ -1074,8 +1146,9 @@ class TaskClient {
 
     final response = await _rpc.previewRecurrenceOccurrences(request);
     return RecurrencePreview(
-      occurrences:
-          response.occurrences.map((ts) => _fromTimestamp(ts)).toList(),
+      occurrences: response.occurrences
+          .map((ts) => _fromTimestamp(ts as Timestamp))
+          .toList(),
       description: response.hasDescription() ? response.description : null,
     );
   }

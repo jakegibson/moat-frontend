@@ -15,24 +15,24 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'auth.pb.dart' as $0;
+import 'auth.pb.dart' as $2;
 import 'auth.pbjson.dart';
 
 export 'auth.pb.dart';
 
 abstract class AuthServiceBase extends $pb.GeneratedService {
-  $async.Future<$0.GetCurrentUserResponse> getCurrentUser($pb.ServerContext ctx, $0.GetCurrentUserRequest request);
+  $async.Future<$2.GetCurrentUserResponse> getCurrentUser($pb.ServerContext ctx, $2.GetCurrentUserRequest request);
 
   $pb.GeneratedMessage createRequest($core.String methodName) {
     switch (methodName) {
-      case 'GetCurrentUser': return $0.GetCurrentUserRequest();
+      case 'GetCurrentUser': return $2.GetCurrentUserRequest();
       default: throw $core.ArgumentError('Unknown method: $methodName');
     }
   }
 
   $async.Future<$pb.GeneratedMessage> handleCall($pb.ServerContext ctx, $core.String methodName, $pb.GeneratedMessage request) {
     switch (methodName) {
-      case 'GetCurrentUser': return this.getCurrentUser(ctx, request as $0.GetCurrentUserRequest);
+      case 'GetCurrentUser': return this.getCurrentUser(ctx, request as $2.GetCurrentUserRequest);
       default: throw $core.ArgumentError('Unknown method: $methodName');
     }
   }

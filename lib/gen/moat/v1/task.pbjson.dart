@@ -13,8 +13,8 @@ import 'dart:convert' as $convert;
 import 'dart:core' as $core;
 import 'dart:typed_data' as $typed_data;
 
-import '../../google/protobuf/struct.pbjson.dart' as $2;
-import '../../google/protobuf/timestamp.pbjson.dart' as $1;
+import '../../google/protobuf/struct.pbjson.dart' as $3;
+import '../../google/protobuf/timestamp.pbjson.dart' as $0;
 
 @$core.Deprecated('Use taskTypeDescriptor instead')
 const TaskType$json = {
@@ -1047,6 +1047,84 @@ const DeleteAttachmentResponse$json = {
 final $typed_data.Uint8List deleteAttachmentResponseDescriptor = $convert.base64Decode(
     'ChhEZWxldGVBdHRhY2htZW50UmVzcG9uc2U=');
 
+@$core.Deprecated('Use updateAttachmentRequestDescriptor instead')
+const UpdateAttachmentRequest$json = {
+  '1': 'UpdateAttachmentRequest',
+  '2': [
+    {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+    {'1': 'caption', '3': 2, '4': 1, '5': 9, '9': 0, '10': 'caption', '17': true},
+    {'1': 'display_order', '3': 3, '4': 1, '5': 5, '9': 1, '10': 'displayOrder', '17': true},
+  ],
+  '8': [
+    {'1': '_caption'},
+    {'1': '_display_order'},
+  ],
+};
+
+/// Descriptor for `UpdateAttachmentRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List updateAttachmentRequestDescriptor = $convert.base64Decode(
+    'ChdVcGRhdGVBdHRhY2htZW50UmVxdWVzdBIOCgJpZBgBIAEoCVICaWQSHQoHY2FwdGlvbhgCIA'
+    'EoCUgAUgdjYXB0aW9uiAEBEigKDWRpc3BsYXlfb3JkZXIYAyABKAVIAVIMZGlzcGxheU9yZGVy'
+    'iAEBQgoKCF9jYXB0aW9uQhAKDl9kaXNwbGF5X29yZGVy');
+
+@$core.Deprecated('Use getTaskDefAttachmentUploadUrlRequestDescriptor instead')
+const GetTaskDefAttachmentUploadUrlRequest$json = {
+  '1': 'GetTaskDefAttachmentUploadUrlRequest',
+  '2': [
+    {'1': 'task_def_id', '3': 1, '4': 1, '5': 9, '10': 'taskDefId'},
+    {'1': 'file_name', '3': 2, '4': 1, '5': 9, '10': 'fileName'},
+    {'1': 'content_type', '3': 3, '4': 1, '5': 9, '10': 'contentType'},
+    {'1': 'size_bytes', '3': 4, '4': 1, '5': 3, '10': 'sizeBytes'},
+  ],
+};
+
+/// Descriptor for `GetTaskDefAttachmentUploadUrlRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getTaskDefAttachmentUploadUrlRequestDescriptor = $convert.base64Decode(
+    'CiRHZXRUYXNrRGVmQXR0YWNobWVudFVwbG9hZFVybFJlcXVlc3QSHgoLdGFza19kZWZfaWQYAS'
+    'ABKAlSCXRhc2tEZWZJZBIbCglmaWxlX25hbWUYAiABKAlSCGZpbGVOYW1lEiEKDGNvbnRlbnRf'
+    'dHlwZRgDIAEoCVILY29udGVudFR5cGUSHQoKc2l6ZV9ieXRlcxgEIAEoA1IJc2l6ZUJ5dGVz');
+
+@$core.Deprecated('Use confirmTaskDefAttachmentUploadRequestDescriptor instead')
+const ConfirmTaskDefAttachmentUploadRequest$json = {
+  '1': 'ConfirmTaskDefAttachmentUploadRequest',
+  '2': [
+    {'1': 'attachment_id', '3': 1, '4': 1, '5': 9, '10': 'attachmentId'},
+    {'1': 'task_def_id', '3': 2, '4': 1, '5': 9, '10': 'taskDefId'},
+  ],
+};
+
+/// Descriptor for `ConfirmTaskDefAttachmentUploadRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List confirmTaskDefAttachmentUploadRequestDescriptor = $convert.base64Decode(
+    'CiVDb25maXJtVGFza0RlZkF0dGFjaG1lbnRVcGxvYWRSZXF1ZXN0EiMKDWF0dGFjaG1lbnRfaW'
+    'QYASABKAlSDGF0dGFjaG1lbnRJZBIeCgt0YXNrX2RlZl9pZBgCIAEoCVIJdGFza0RlZklk');
+
+@$core.Deprecated('Use listTaskDefAttachmentsRequestDescriptor instead')
+const ListTaskDefAttachmentsRequest$json = {
+  '1': 'ListTaskDefAttachmentsRequest',
+  '2': [
+    {'1': 'task_def_id', '3': 1, '4': 1, '5': 9, '10': 'taskDefId'},
+  ],
+};
+
+/// Descriptor for `ListTaskDefAttachmentsRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List listTaskDefAttachmentsRequestDescriptor = $convert.base64Decode(
+    'Ch1MaXN0VGFza0RlZkF0dGFjaG1lbnRzUmVxdWVzdBIeCgt0YXNrX2RlZl9pZBgBIAEoCVIJdG'
+    'Fza0RlZklk');
+
+@$core.Deprecated('Use deleteTaskDefAttachmentRequestDescriptor instead')
+const DeleteTaskDefAttachmentRequest$json = {
+  '1': 'DeleteTaskDefAttachmentRequest',
+  '2': [
+    {'1': 'task_def_id', '3': 1, '4': 1, '5': 9, '10': 'taskDefId'},
+    {'1': 'attachment_id', '3': 2, '4': 1, '5': 9, '10': 'attachmentId'},
+  ],
+};
+
+/// Descriptor for `DeleteTaskDefAttachmentRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List deleteTaskDefAttachmentRequestDescriptor = $convert.base64Decode(
+    'Ch5EZWxldGVUYXNrRGVmQXR0YWNobWVudFJlcXVlc3QSHgoLdGFza19kZWZfaWQYASABKAlSCX'
+    'Rhc2tEZWZJZBIjCg1hdHRhY2htZW50X2lkGAIgASgJUgxhdHRhY2htZW50SWQ=');
+
 @$core.Deprecated('Use createCommentRequestDescriptor instead')
 const CreateCommentRequest$json = {
   '1': 'CreateCommentRequest',
@@ -2030,6 +2108,11 @@ const $core.Map<$core.String, $core.dynamic> TaskServiceBase$json = {
     {'1': 'ConfirmAttachmentUpload', '2': '.moat.v1.ConfirmAttachmentUploadRequest', '3': '.moat.v1.TaskAttachment'},
     {'1': 'ListTaskAttachments', '2': '.moat.v1.ListTaskAttachmentsRequest', '3': '.moat.v1.ListTaskAttachmentsResponse'},
     {'1': 'DeleteAttachment', '2': '.moat.v1.DeleteAttachmentRequest', '3': '.moat.v1.DeleteAttachmentResponse'},
+    {'1': 'UpdateAttachment', '2': '.moat.v1.UpdateAttachmentRequest', '3': '.moat.v1.TaskAttachment'},
+    {'1': 'GetTaskDefAttachmentUploadUrl', '2': '.moat.v1.GetTaskDefAttachmentUploadUrlRequest', '3': '.moat.v1.GetAttachmentUploadUrlResponse'},
+    {'1': 'ConfirmTaskDefAttachmentUpload', '2': '.moat.v1.ConfirmTaskDefAttachmentUploadRequest', '3': '.moat.v1.TaskAttachment'},
+    {'1': 'ListTaskDefAttachments', '2': '.moat.v1.ListTaskDefAttachmentsRequest', '3': '.moat.v1.ListTaskAttachmentsResponse'},
+    {'1': 'DeleteTaskDefAttachment', '2': '.moat.v1.DeleteTaskDefAttachmentRequest', '3': '.moat.v1.DeleteAttachmentResponse'},
     {'1': 'ValidateRecurrenceRule', '2': '.moat.v1.ValidateRecurrenceRuleRequest', '3': '.moat.v1.ValidateRecurrenceRuleResponse'},
     {'1': 'PreviewRecurrenceOccurrences', '2': '.moat.v1.PreviewRecurrenceOccurrencesRequest', '3': '.moat.v1.PreviewRecurrenceOccurrencesResponse'},
     {'1': 'CreateRecurrenceRule', '2': '.moat.v1.CreateRecurrenceRuleRequest', '3': '.moat.v1.CreateRecurrenceRuleResponse'},
@@ -2044,11 +2127,11 @@ const $core.Map<$core.String, $core.dynamic> TaskServiceBase$json = {
 @$core.Deprecated('Use taskServiceDescriptor instead')
 const $core.Map<$core.String, $core.Map<$core.String, $core.dynamic>> TaskServiceBase$messageJson = {
   '.moat.v1.CreateTaskDefRequest': CreateTaskDefRequest$json,
-  '.google.protobuf.Timestamp': $1.Timestamp$json,
-  '.google.protobuf.Struct': $2.Struct$json,
-  '.google.protobuf.Struct.FieldsEntry': $2.Struct_FieldsEntry$json,
-  '.google.protobuf.Value': $2.Value$json,
-  '.google.protobuf.ListValue': $2.ListValue$json,
+  '.google.protobuf.Timestamp': $0.Timestamp$json,
+  '.google.protobuf.Struct': $3.Struct$json,
+  '.google.protobuf.Struct.FieldsEntry': $3.Struct_FieldsEntry$json,
+  '.google.protobuf.Value': $3.Value$json,
+  '.google.protobuf.ListValue': $3.ListValue$json,
   '.moat.v1.TaskDef': TaskDef$json,
   '.moat.v1.GetTaskDefRequest': GetTaskDefRequest$json,
   '.moat.v1.UpdateTaskDefRequest': UpdateTaskDefRequest$json,
@@ -2117,6 +2200,11 @@ const $core.Map<$core.String, $core.Map<$core.String, $core.dynamic>> TaskServic
   '.moat.v1.ListTaskAttachmentsResponse': ListTaskAttachmentsResponse$json,
   '.moat.v1.DeleteAttachmentRequest': DeleteAttachmentRequest$json,
   '.moat.v1.DeleteAttachmentResponse': DeleteAttachmentResponse$json,
+  '.moat.v1.UpdateAttachmentRequest': UpdateAttachmentRequest$json,
+  '.moat.v1.GetTaskDefAttachmentUploadUrlRequest': GetTaskDefAttachmentUploadUrlRequest$json,
+  '.moat.v1.ConfirmTaskDefAttachmentUploadRequest': ConfirmTaskDefAttachmentUploadRequest$json,
+  '.moat.v1.ListTaskDefAttachmentsRequest': ListTaskDefAttachmentsRequest$json,
+  '.moat.v1.DeleteTaskDefAttachmentRequest': DeleteTaskDefAttachmentRequest$json,
   '.moat.v1.ValidateRecurrenceRuleRequest': ValidateRecurrenceRuleRequest$json,
   '.moat.v1.ValidateRecurrenceRuleResponse': ValidateRecurrenceRuleResponse$json,
   '.moat.v1.PreviewRecurrenceOccurrencesRequest': PreviewRecurrenceOccurrencesRequest$json,
@@ -2187,20 +2275,29 @@ final $typed_data.Uint8List taskServiceDescriptor = $convert.base64Decode(
     'cXVlc3QaFy5tb2F0LnYxLlRhc2tBdHRhY2htZW50EmAKE0xpc3RUYXNrQXR0YWNobWVudHMSIy'
     '5tb2F0LnYxLkxpc3RUYXNrQXR0YWNobWVudHNSZXF1ZXN0GiQubW9hdC52MS5MaXN0VGFza0F0'
     'dGFjaG1lbnRzUmVzcG9uc2USVwoQRGVsZXRlQXR0YWNobWVudBIgLm1vYXQudjEuRGVsZXRlQX'
-    'R0YWNobWVudFJlcXVlc3QaIS5tb2F0LnYxLkRlbGV0ZUF0dGFjaG1lbnRSZXNwb25zZRJpChZW'
-    'YWxpZGF0ZVJlY3VycmVuY2VSdWxlEiYubW9hdC52MS5WYWxpZGF0ZVJlY3VycmVuY2VSdWxlUm'
-    'VxdWVzdBonLm1vYXQudjEuVmFsaWRhdGVSZWN1cnJlbmNlUnVsZVJlc3BvbnNlEnsKHFByZXZp'
-    'ZXdSZWN1cnJlbmNlT2NjdXJyZW5jZXMSLC5tb2F0LnYxLlByZXZpZXdSZWN1cnJlbmNlT2NjdX'
-    'JyZW5jZXNSZXF1ZXN0Gi0ubW9hdC52MS5QcmV2aWV3UmVjdXJyZW5jZU9jY3VycmVuY2VzUmVz'
-    'cG9uc2USYwoUQ3JlYXRlUmVjdXJyZW5jZVJ1bGUSJC5tb2F0LnYxLkNyZWF0ZVJlY3VycmVuY2'
-    'VSdWxlUmVxdWVzdBolLm1vYXQudjEuQ3JlYXRlUmVjdXJyZW5jZVJ1bGVSZXNwb25zZRJdChJC'
-    'dWxrQ3JlYXRlVGFza0RlZnMSIi5tb2F0LnYxLkJ1bGtDcmVhdGVUYXNrRGVmc1JlcXVlc3QaIy'
-    '5tb2F0LnYxLkJ1bGtDcmVhdGVUYXNrRGVmc1Jlc3BvbnNlEl0KEkJ1bGtVcGRhdGVUYXNrRGVm'
-    'cxIiLm1vYXQudjEuQnVsa1VwZGF0ZVRhc2tEZWZzUmVxdWVzdBojLm1vYXQudjEuQnVsa1VwZG'
-    'F0ZVRhc2tEZWZzUmVzcG9uc2USXQoSQnVsa0RlbGV0ZVRhc2tEZWZzEiIubW9hdC52MS5CdWxr'
-    'RGVsZXRlVGFza0RlZnNSZXF1ZXN0GiMubW9hdC52MS5CdWxrRGVsZXRlVGFza0RlZnNSZXNwb2'
-    '5zZRJjChRCdWxrVXBkYXRlVGFza1N0YXR1cxIkLm1vYXQudjEuQnVsa1VwZGF0ZVRhc2tTdGF0'
-    'dXNSZXF1ZXN0GiUubW9hdC52MS5CdWxrVXBkYXRlVGFza1N0YXR1c1Jlc3BvbnNlEloKEUdldF'
-    'Rhc2tEZWZIaXN0b3J5EiEubW9hdC52MS5HZXRUYXNrRGVmSGlzdG9yeVJlcXVlc3QaIi5tb2F0'
-    'LnYxLkdldFRhc2tEZWZIaXN0b3J5UmVzcG9uc2U=');
+    'R0YWNobWVudFJlcXVlc3QaIS5tb2F0LnYxLkRlbGV0ZUF0dGFjaG1lbnRSZXNwb25zZRJNChBV'
+    'cGRhdGVBdHRhY2htZW50EiAubW9hdC52MS5VcGRhdGVBdHRhY2htZW50UmVxdWVzdBoXLm1vYX'
+    'QudjEuVGFza0F0dGFjaG1lbnQSdwodR2V0VGFza0RlZkF0dGFjaG1lbnRVcGxvYWRVcmwSLS5t'
+    'b2F0LnYxLkdldFRhc2tEZWZBdHRhY2htZW50VXBsb2FkVXJsUmVxdWVzdBonLm1vYXQudjEuR2'
+    'V0QXR0YWNobWVudFVwbG9hZFVybFJlc3BvbnNlEmkKHkNvbmZpcm1UYXNrRGVmQXR0YWNobWVu'
+    'dFVwbG9hZBIuLm1vYXQudjEuQ29uZmlybVRhc2tEZWZBdHRhY2htZW50VXBsb2FkUmVxdWVzdB'
+    'oXLm1vYXQudjEuVGFza0F0dGFjaG1lbnQSZgoWTGlzdFRhc2tEZWZBdHRhY2htZW50cxImLm1v'
+    'YXQudjEuTGlzdFRhc2tEZWZBdHRhY2htZW50c1JlcXVlc3QaJC5tb2F0LnYxLkxpc3RUYXNrQX'
+    'R0YWNobWVudHNSZXNwb25zZRJlChdEZWxldGVUYXNrRGVmQXR0YWNobWVudBInLm1vYXQudjEu'
+    'RGVsZXRlVGFza0RlZkF0dGFjaG1lbnRSZXF1ZXN0GiEubW9hdC52MS5EZWxldGVBdHRhY2htZW'
+    '50UmVzcG9uc2USaQoWVmFsaWRhdGVSZWN1cnJlbmNlUnVsZRImLm1vYXQudjEuVmFsaWRhdGVS'
+    'ZWN1cnJlbmNlUnVsZVJlcXVlc3QaJy5tb2F0LnYxLlZhbGlkYXRlUmVjdXJyZW5jZVJ1bGVSZX'
+    'Nwb25zZRJ7ChxQcmV2aWV3UmVjdXJyZW5jZU9jY3VycmVuY2VzEiwubW9hdC52MS5QcmV2aWV3'
+    'UmVjdXJyZW5jZU9jY3VycmVuY2VzUmVxdWVzdBotLm1vYXQudjEuUHJldmlld1JlY3VycmVuY2'
+    'VPY2N1cnJlbmNlc1Jlc3BvbnNlEmMKFENyZWF0ZVJlY3VycmVuY2VSdWxlEiQubW9hdC52MS5D'
+    'cmVhdGVSZWN1cnJlbmNlUnVsZVJlcXVlc3QaJS5tb2F0LnYxLkNyZWF0ZVJlY3VycmVuY2VSdW'
+    'xlUmVzcG9uc2USXQoSQnVsa0NyZWF0ZVRhc2tEZWZzEiIubW9hdC52MS5CdWxrQ3JlYXRlVGFz'
+    'a0RlZnNSZXF1ZXN0GiMubW9hdC52MS5CdWxrQ3JlYXRlVGFza0RlZnNSZXNwb25zZRJdChJCdW'
+    'xrVXBkYXRlVGFza0RlZnMSIi5tb2F0LnYxLkJ1bGtVcGRhdGVUYXNrRGVmc1JlcXVlc3QaIy5t'
+    'b2F0LnYxLkJ1bGtVcGRhdGVUYXNrRGVmc1Jlc3BvbnNlEl0KEkJ1bGtEZWxldGVUYXNrRGVmcx'
+    'IiLm1vYXQudjEuQnVsa0RlbGV0ZVRhc2tEZWZzUmVxdWVzdBojLm1vYXQudjEuQnVsa0RlbGV0'
+    'ZVRhc2tEZWZzUmVzcG9uc2USYwoUQnVsa1VwZGF0ZVRhc2tTdGF0dXMSJC5tb2F0LnYxLkJ1bG'
+    'tVcGRhdGVUYXNrU3RhdHVzUmVxdWVzdBolLm1vYXQudjEuQnVsa1VwZGF0ZVRhc2tTdGF0dXNS'
+    'ZXNwb25zZRJaChFHZXRUYXNrRGVmSGlzdG9yeRIhLm1vYXQudjEuR2V0VGFza0RlZkhpc3Rvcn'
+    'lSZXF1ZXN0GiIubW9hdC52MS5HZXRUYXNrRGVmSGlzdG9yeVJlc3BvbnNl');
 

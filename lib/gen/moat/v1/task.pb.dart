@@ -15,8 +15,8 @@ import 'dart:core' as $core;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import '../../google/protobuf/struct.pb.dart' as $2;
-import '../../google/protobuf/timestamp.pb.dart' as $1;
+import '../../google/protobuf/struct.pb.dart' as $3;
+import '../../google/protobuf/timestamp.pb.dart' as $0;
 import 'task.pbenum.dart';
 
 export 'task.pbenum.dart';
@@ -33,14 +33,14 @@ class TaskDef extends $pb.GeneratedMessage {
     $core.String? description,
     $core.bool? isEnabled,
     $core.String? recurrenceRule,
-    $1.Timestamp? recurrenceStart,
-    $1.Timestamp? recurrenceEnd,
-    $1.Timestamp? nextRunAt,
+    $0.Timestamp? recurrenceStart,
+    $0.Timestamp? recurrenceEnd,
+    $0.Timestamp? nextRunAt,
     $core.String? taskId,
     $core.String? specificLocation,
-    $2.Struct? details,
-    $1.Timestamp? createdAt,
-    $1.Timestamp? updatedAt,
+    $3.Struct? details,
+    $0.Timestamp? createdAt,
+    $0.Timestamp? updatedAt,
   }) {
     final $result = create();
     if (id != null) {
@@ -114,14 +114,14 @@ class TaskDef extends $pb.GeneratedMessage {
     ..aOS(8, _omitFieldNames ? '' : 'description')
     ..aOB(9, _omitFieldNames ? '' : 'isEnabled')
     ..aOS(10, _omitFieldNames ? '' : 'recurrenceRule')
-    ..aOM<$1.Timestamp>(11, _omitFieldNames ? '' : 'recurrenceStart', subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(12, _omitFieldNames ? '' : 'recurrenceEnd', subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(13, _omitFieldNames ? '' : 'nextRunAt', subBuilder: $1.Timestamp.create)
+    ..aOM<$0.Timestamp>(11, _omitFieldNames ? '' : 'recurrenceStart', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(12, _omitFieldNames ? '' : 'recurrenceEnd', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(13, _omitFieldNames ? '' : 'nextRunAt', subBuilder: $0.Timestamp.create)
     ..aOS(14, _omitFieldNames ? '' : 'taskId')
     ..aOS(15, _omitFieldNames ? '' : 'specificLocation')
-    ..aOM<$2.Struct>(16, _omitFieldNames ? '' : 'details', subBuilder: $2.Struct.create)
-    ..aOM<$1.Timestamp>(17, _omitFieldNames ? '' : 'createdAt', subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(18, _omitFieldNames ? '' : 'updatedAt', subBuilder: $1.Timestamp.create)
+    ..aOM<$3.Struct>(16, _omitFieldNames ? '' : 'details', subBuilder: $3.Struct.create)
+    ..aOM<$0.Timestamp>(17, _omitFieldNames ? '' : 'createdAt', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(18, _omitFieldNames ? '' : 'updatedAt', subBuilder: $0.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -238,37 +238,37 @@ class TaskDef extends $pb.GeneratedMessage {
   void clearRecurrenceRule() => clearField(10);
 
   @$pb.TagNumber(11)
-  $1.Timestamp get recurrenceStart => $_getN(10);
+  $0.Timestamp get recurrenceStart => $_getN(10);
   @$pb.TagNumber(11)
-  set recurrenceStart($1.Timestamp v) { setField(11, v); }
+  set recurrenceStart($0.Timestamp v) { setField(11, v); }
   @$pb.TagNumber(11)
   $core.bool hasRecurrenceStart() => $_has(10);
   @$pb.TagNumber(11)
   void clearRecurrenceStart() => clearField(11);
   @$pb.TagNumber(11)
-  $1.Timestamp ensureRecurrenceStart() => $_ensure(10);
+  $0.Timestamp ensureRecurrenceStart() => $_ensure(10);
 
   @$pb.TagNumber(12)
-  $1.Timestamp get recurrenceEnd => $_getN(11);
+  $0.Timestamp get recurrenceEnd => $_getN(11);
   @$pb.TagNumber(12)
-  set recurrenceEnd($1.Timestamp v) { setField(12, v); }
+  set recurrenceEnd($0.Timestamp v) { setField(12, v); }
   @$pb.TagNumber(12)
   $core.bool hasRecurrenceEnd() => $_has(11);
   @$pb.TagNumber(12)
   void clearRecurrenceEnd() => clearField(12);
   @$pb.TagNumber(12)
-  $1.Timestamp ensureRecurrenceEnd() => $_ensure(11);
+  $0.Timestamp ensureRecurrenceEnd() => $_ensure(11);
 
   @$pb.TagNumber(13)
-  $1.Timestamp get nextRunAt => $_getN(12);
+  $0.Timestamp get nextRunAt => $_getN(12);
   @$pb.TagNumber(13)
-  set nextRunAt($1.Timestamp v) { setField(13, v); }
+  set nextRunAt($0.Timestamp v) { setField(13, v); }
   @$pb.TagNumber(13)
   $core.bool hasNextRunAt() => $_has(12);
   @$pb.TagNumber(13)
   void clearNextRunAt() => clearField(13);
   @$pb.TagNumber(13)
-  $1.Timestamp ensureNextRunAt() => $_ensure(12);
+  $0.Timestamp ensureNextRunAt() => $_ensure(12);
 
   /// For one-time tasks, the ID of the immediately created task.
   @$pb.TagNumber(14)
@@ -292,37 +292,37 @@ class TaskDef extends $pb.GeneratedMessage {
 
   /// Task-specific configuration as JSON.
   @$pb.TagNumber(16)
-  $2.Struct get details => $_getN(15);
+  $3.Struct get details => $_getN(15);
   @$pb.TagNumber(16)
-  set details($2.Struct v) { setField(16, v); }
+  set details($3.Struct v) { setField(16, v); }
   @$pb.TagNumber(16)
   $core.bool hasDetails() => $_has(15);
   @$pb.TagNumber(16)
   void clearDetails() => clearField(16);
   @$pb.TagNumber(16)
-  $2.Struct ensureDetails() => $_ensure(15);
+  $3.Struct ensureDetails() => $_ensure(15);
 
   @$pb.TagNumber(17)
-  $1.Timestamp get createdAt => $_getN(16);
+  $0.Timestamp get createdAt => $_getN(16);
   @$pb.TagNumber(17)
-  set createdAt($1.Timestamp v) { setField(17, v); }
+  set createdAt($0.Timestamp v) { setField(17, v); }
   @$pb.TagNumber(17)
   $core.bool hasCreatedAt() => $_has(16);
   @$pb.TagNumber(17)
   void clearCreatedAt() => clearField(17);
   @$pb.TagNumber(17)
-  $1.Timestamp ensureCreatedAt() => $_ensure(16);
+  $0.Timestamp ensureCreatedAt() => $_ensure(16);
 
   @$pb.TagNumber(18)
-  $1.Timestamp get updatedAt => $_getN(17);
+  $0.Timestamp get updatedAt => $_getN(17);
   @$pb.TagNumber(18)
-  set updatedAt($1.Timestamp v) { setField(18, v); }
+  set updatedAt($0.Timestamp v) { setField(18, v); }
   @$pb.TagNumber(18)
   $core.bool hasUpdatedAt() => $_has(17);
   @$pb.TagNumber(18)
   void clearUpdatedAt() => clearField(18);
   @$pb.TagNumber(18)
-  $1.Timestamp ensureUpdatedAt() => $_ensure(17);
+  $0.Timestamp ensureUpdatedAt() => $_ensure(17);
 }
 
 class CreateTaskDefRequest extends $pb.GeneratedMessage {
@@ -335,10 +335,10 @@ class CreateTaskDefRequest extends $pb.GeneratedMessage {
     $core.String? description,
     $core.bool? isEnabled,
     $core.String? recurrenceRule,
-    $1.Timestamp? recurrenceStart,
-    $1.Timestamp? recurrenceEnd,
+    $0.Timestamp? recurrenceStart,
+    $0.Timestamp? recurrenceEnd,
     $core.String? specificLocation,
-    $2.Struct? details,
+    $3.Struct? details,
   }) {
     final $result = create();
     if (assetId != null) {
@@ -392,10 +392,10 @@ class CreateTaskDefRequest extends $pb.GeneratedMessage {
     ..aOS(6, _omitFieldNames ? '' : 'description')
     ..aOB(7, _omitFieldNames ? '' : 'isEnabled')
     ..aOS(8, _omitFieldNames ? '' : 'recurrenceRule')
-    ..aOM<$1.Timestamp>(9, _omitFieldNames ? '' : 'recurrenceStart', subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(10, _omitFieldNames ? '' : 'recurrenceEnd', subBuilder: $1.Timestamp.create)
+    ..aOM<$0.Timestamp>(9, _omitFieldNames ? '' : 'recurrenceStart', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(10, _omitFieldNames ? '' : 'recurrenceEnd', subBuilder: $0.Timestamp.create)
     ..aOS(11, _omitFieldNames ? '' : 'specificLocation')
-    ..aOM<$2.Struct>(12, _omitFieldNames ? '' : 'details', subBuilder: $2.Struct.create)
+    ..aOM<$3.Struct>(12, _omitFieldNames ? '' : 'details', subBuilder: $3.Struct.create)
     ..hasRequiredFields = false
   ;
 
@@ -493,26 +493,26 @@ class CreateTaskDefRequest extends $pb.GeneratedMessage {
   void clearRecurrenceRule() => clearField(8);
 
   @$pb.TagNumber(9)
-  $1.Timestamp get recurrenceStart => $_getN(8);
+  $0.Timestamp get recurrenceStart => $_getN(8);
   @$pb.TagNumber(9)
-  set recurrenceStart($1.Timestamp v) { setField(9, v); }
+  set recurrenceStart($0.Timestamp v) { setField(9, v); }
   @$pb.TagNumber(9)
   $core.bool hasRecurrenceStart() => $_has(8);
   @$pb.TagNumber(9)
   void clearRecurrenceStart() => clearField(9);
   @$pb.TagNumber(9)
-  $1.Timestamp ensureRecurrenceStart() => $_ensure(8);
+  $0.Timestamp ensureRecurrenceStart() => $_ensure(8);
 
   @$pb.TagNumber(10)
-  $1.Timestamp get recurrenceEnd => $_getN(9);
+  $0.Timestamp get recurrenceEnd => $_getN(9);
   @$pb.TagNumber(10)
-  set recurrenceEnd($1.Timestamp v) { setField(10, v); }
+  set recurrenceEnd($0.Timestamp v) { setField(10, v); }
   @$pb.TagNumber(10)
   $core.bool hasRecurrenceEnd() => $_has(9);
   @$pb.TagNumber(10)
   void clearRecurrenceEnd() => clearField(10);
   @$pb.TagNumber(10)
-  $1.Timestamp ensureRecurrenceEnd() => $_ensure(9);
+  $0.Timestamp ensureRecurrenceEnd() => $_ensure(9);
 
   @$pb.TagNumber(11)
   $core.String get specificLocation => $_getSZ(10);
@@ -524,15 +524,15 @@ class CreateTaskDefRequest extends $pb.GeneratedMessage {
   void clearSpecificLocation() => clearField(11);
 
   @$pb.TagNumber(12)
-  $2.Struct get details => $_getN(11);
+  $3.Struct get details => $_getN(11);
   @$pb.TagNumber(12)
-  set details($2.Struct v) { setField(12, v); }
+  set details($3.Struct v) { setField(12, v); }
   @$pb.TagNumber(12)
   $core.bool hasDetails() => $_has(11);
   @$pb.TagNumber(12)
   void clearDetails() => clearField(12);
   @$pb.TagNumber(12)
-  $2.Struct ensureDetails() => $_ensure(11);
+  $3.Struct ensureDetails() => $_ensure(11);
 }
 
 class GetTaskDefRequest extends $pb.GeneratedMessage {
@@ -593,10 +593,10 @@ class UpdateTaskDefRequest extends $pb.GeneratedMessage {
     $core.String? description,
     $core.bool? isEnabled,
     $core.String? recurrenceRule,
-    $1.Timestamp? recurrenceStart,
-    $1.Timestamp? recurrenceEnd,
+    $0.Timestamp? recurrenceStart,
+    $0.Timestamp? recurrenceEnd,
     $core.String? specificLocation,
-    $2.Struct? details,
+    $3.Struct? details,
     $core.String? fileId,
     $core.String? locationId,
   }) {
@@ -650,10 +650,10 @@ class UpdateTaskDefRequest extends $pb.GeneratedMessage {
     ..aOS(4, _omitFieldNames ? '' : 'description')
     ..aOB(5, _omitFieldNames ? '' : 'isEnabled')
     ..aOS(6, _omitFieldNames ? '' : 'recurrenceRule')
-    ..aOM<$1.Timestamp>(7, _omitFieldNames ? '' : 'recurrenceStart', subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(8, _omitFieldNames ? '' : 'recurrenceEnd', subBuilder: $1.Timestamp.create)
+    ..aOM<$0.Timestamp>(7, _omitFieldNames ? '' : 'recurrenceStart', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(8, _omitFieldNames ? '' : 'recurrenceEnd', subBuilder: $0.Timestamp.create)
     ..aOS(9, _omitFieldNames ? '' : 'specificLocation')
-    ..aOM<$2.Struct>(10, _omitFieldNames ? '' : 'details', subBuilder: $2.Struct.create)
+    ..aOM<$3.Struct>(10, _omitFieldNames ? '' : 'details', subBuilder: $3.Struct.create)
     ..aOS(11, _omitFieldNames ? '' : 'fileId')
     ..aOS(12, _omitFieldNames ? '' : 'locationId')
     ..hasRequiredFields = false
@@ -735,26 +735,26 @@ class UpdateTaskDefRequest extends $pb.GeneratedMessage {
   void clearRecurrenceRule() => clearField(6);
 
   @$pb.TagNumber(7)
-  $1.Timestamp get recurrenceStart => $_getN(6);
+  $0.Timestamp get recurrenceStart => $_getN(6);
   @$pb.TagNumber(7)
-  set recurrenceStart($1.Timestamp v) { setField(7, v); }
+  set recurrenceStart($0.Timestamp v) { setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasRecurrenceStart() => $_has(6);
   @$pb.TagNumber(7)
   void clearRecurrenceStart() => clearField(7);
   @$pb.TagNumber(7)
-  $1.Timestamp ensureRecurrenceStart() => $_ensure(6);
+  $0.Timestamp ensureRecurrenceStart() => $_ensure(6);
 
   @$pb.TagNumber(8)
-  $1.Timestamp get recurrenceEnd => $_getN(7);
+  $0.Timestamp get recurrenceEnd => $_getN(7);
   @$pb.TagNumber(8)
-  set recurrenceEnd($1.Timestamp v) { setField(8, v); }
+  set recurrenceEnd($0.Timestamp v) { setField(8, v); }
   @$pb.TagNumber(8)
   $core.bool hasRecurrenceEnd() => $_has(7);
   @$pb.TagNumber(8)
   void clearRecurrenceEnd() => clearField(8);
   @$pb.TagNumber(8)
-  $1.Timestamp ensureRecurrenceEnd() => $_ensure(7);
+  $0.Timestamp ensureRecurrenceEnd() => $_ensure(7);
 
   @$pb.TagNumber(9)
   $core.String get specificLocation => $_getSZ(8);
@@ -766,15 +766,15 @@ class UpdateTaskDefRequest extends $pb.GeneratedMessage {
   void clearSpecificLocation() => clearField(9);
 
   @$pb.TagNumber(10)
-  $2.Struct get details => $_getN(9);
+  $3.Struct get details => $_getN(9);
   @$pb.TagNumber(10)
-  set details($2.Struct v) { setField(10, v); }
+  set details($3.Struct v) { setField(10, v); }
   @$pb.TagNumber(10)
   $core.bool hasDetails() => $_has(9);
   @$pb.TagNumber(10)
   void clearDetails() => clearField(10);
   @$pb.TagNumber(10)
-  $2.Struct ensureDetails() => $_ensure(9);
+  $3.Struct ensureDetails() => $_ensure(9);
 
   @$pb.TagNumber(11)
   $core.String get fileId => $_getSZ(10);
@@ -1108,15 +1108,15 @@ class Task extends $pb.GeneratedMessage {
     $core.String? assignedRoleId,
     $core.String? requestedById,
     $core.String? assignedById,
-    $1.Timestamp? scheduledDate,
-    $1.Timestamp? dueDate,
-    $1.Timestamp? completedDate,
+    $0.Timestamp? scheduledDate,
+    $0.Timestamp? dueDate,
+    $0.Timestamp? completedDate,
     TaskStatus? status,
     ResolutionType? resolutionType,
     $core.String? externalId,
-    $2.Struct? details,
-    $1.Timestamp? createdAt,
-    $1.Timestamp? updatedAt,
+    $3.Struct? details,
+    $0.Timestamp? createdAt,
+    $0.Timestamp? updatedAt,
     $core.String? floorLocation,
     $core.String? serviceArea,
     $core.String? specificLocation,
@@ -1213,15 +1213,15 @@ class Task extends $pb.GeneratedMessage {
     ..aOS(4, _omitFieldNames ? '' : 'assignedRoleId')
     ..aOS(5, _omitFieldNames ? '' : 'requestedById')
     ..aOS(6, _omitFieldNames ? '' : 'assignedById')
-    ..aOM<$1.Timestamp>(7, _omitFieldNames ? '' : 'scheduledDate', subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(8, _omitFieldNames ? '' : 'dueDate', subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(9, _omitFieldNames ? '' : 'completedDate', subBuilder: $1.Timestamp.create)
+    ..aOM<$0.Timestamp>(7, _omitFieldNames ? '' : 'scheduledDate', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(8, _omitFieldNames ? '' : 'dueDate', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(9, _omitFieldNames ? '' : 'completedDate', subBuilder: $0.Timestamp.create)
     ..e<TaskStatus>(10, _omitFieldNames ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: TaskStatus.TASK_STATUS_UNSPECIFIED, valueOf: TaskStatus.valueOf, enumValues: TaskStatus.values)
     ..e<ResolutionType>(11, _omitFieldNames ? '' : 'resolutionType', $pb.PbFieldType.OE, defaultOrMaker: ResolutionType.RESOLUTION_TYPE_UNSPECIFIED, valueOf: ResolutionType.valueOf, enumValues: ResolutionType.values)
     ..aOS(12, _omitFieldNames ? '' : 'externalId')
-    ..aOM<$2.Struct>(13, _omitFieldNames ? '' : 'details', subBuilder: $2.Struct.create)
-    ..aOM<$1.Timestamp>(14, _omitFieldNames ? '' : 'createdAt', subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(15, _omitFieldNames ? '' : 'updatedAt', subBuilder: $1.Timestamp.create)
+    ..aOM<$3.Struct>(13, _omitFieldNames ? '' : 'details', subBuilder: $3.Struct.create)
+    ..aOM<$0.Timestamp>(14, _omitFieldNames ? '' : 'createdAt', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(15, _omitFieldNames ? '' : 'updatedAt', subBuilder: $0.Timestamp.create)
     ..aOS(16, _omitFieldNames ? '' : 'floorLocation')
     ..aOS(17, _omitFieldNames ? '' : 'serviceArea')
     ..aOS(18, _omitFieldNames ? '' : 'specificLocation')
@@ -1310,37 +1310,37 @@ class Task extends $pb.GeneratedMessage {
   void clearAssignedById() => clearField(6);
 
   @$pb.TagNumber(7)
-  $1.Timestamp get scheduledDate => $_getN(6);
+  $0.Timestamp get scheduledDate => $_getN(6);
   @$pb.TagNumber(7)
-  set scheduledDate($1.Timestamp v) { setField(7, v); }
+  set scheduledDate($0.Timestamp v) { setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasScheduledDate() => $_has(6);
   @$pb.TagNumber(7)
   void clearScheduledDate() => clearField(7);
   @$pb.TagNumber(7)
-  $1.Timestamp ensureScheduledDate() => $_ensure(6);
+  $0.Timestamp ensureScheduledDate() => $_ensure(6);
 
   @$pb.TagNumber(8)
-  $1.Timestamp get dueDate => $_getN(7);
+  $0.Timestamp get dueDate => $_getN(7);
   @$pb.TagNumber(8)
-  set dueDate($1.Timestamp v) { setField(8, v); }
+  set dueDate($0.Timestamp v) { setField(8, v); }
   @$pb.TagNumber(8)
   $core.bool hasDueDate() => $_has(7);
   @$pb.TagNumber(8)
   void clearDueDate() => clearField(8);
   @$pb.TagNumber(8)
-  $1.Timestamp ensureDueDate() => $_ensure(7);
+  $0.Timestamp ensureDueDate() => $_ensure(7);
 
   @$pb.TagNumber(9)
-  $1.Timestamp get completedDate => $_getN(8);
+  $0.Timestamp get completedDate => $_getN(8);
   @$pb.TagNumber(9)
-  set completedDate($1.Timestamp v) { setField(9, v); }
+  set completedDate($0.Timestamp v) { setField(9, v); }
   @$pb.TagNumber(9)
   $core.bool hasCompletedDate() => $_has(8);
   @$pb.TagNumber(9)
   void clearCompletedDate() => clearField(9);
   @$pb.TagNumber(9)
-  $1.Timestamp ensureCompletedDate() => $_ensure(8);
+  $0.Timestamp ensureCompletedDate() => $_ensure(8);
 
   @$pb.TagNumber(10)
   TaskStatus get status => $_getN(9);
@@ -1371,37 +1371,37 @@ class Task extends $pb.GeneratedMessage {
   void clearExternalId() => clearField(12);
 
   @$pb.TagNumber(13)
-  $2.Struct get details => $_getN(12);
+  $3.Struct get details => $_getN(12);
   @$pb.TagNumber(13)
-  set details($2.Struct v) { setField(13, v); }
+  set details($3.Struct v) { setField(13, v); }
   @$pb.TagNumber(13)
   $core.bool hasDetails() => $_has(12);
   @$pb.TagNumber(13)
   void clearDetails() => clearField(13);
   @$pb.TagNumber(13)
-  $2.Struct ensureDetails() => $_ensure(12);
+  $3.Struct ensureDetails() => $_ensure(12);
 
   @$pb.TagNumber(14)
-  $1.Timestamp get createdAt => $_getN(13);
+  $0.Timestamp get createdAt => $_getN(13);
   @$pb.TagNumber(14)
-  set createdAt($1.Timestamp v) { setField(14, v); }
+  set createdAt($0.Timestamp v) { setField(14, v); }
   @$pb.TagNumber(14)
   $core.bool hasCreatedAt() => $_has(13);
   @$pb.TagNumber(14)
   void clearCreatedAt() => clearField(14);
   @$pb.TagNumber(14)
-  $1.Timestamp ensureCreatedAt() => $_ensure(13);
+  $0.Timestamp ensureCreatedAt() => $_ensure(13);
 
   @$pb.TagNumber(15)
-  $1.Timestamp get updatedAt => $_getN(14);
+  $0.Timestamp get updatedAt => $_getN(14);
   @$pb.TagNumber(15)
-  set updatedAt($1.Timestamp v) { setField(15, v); }
+  set updatedAt($0.Timestamp v) { setField(15, v); }
   @$pb.TagNumber(15)
   $core.bool hasUpdatedAt() => $_has(14);
   @$pb.TagNumber(15)
   void clearUpdatedAt() => clearField(15);
   @$pb.TagNumber(15)
-  $1.Timestamp ensureUpdatedAt() => $_ensure(14);
+  $0.Timestamp ensureUpdatedAt() => $_ensure(14);
 
   /// Joined fields
   @$pb.TagNumber(16)
@@ -1496,15 +1496,15 @@ class TaskWithDetails extends $pb.GeneratedMessage {
     $core.String? assignedRoleId,
     $core.String? requestedById,
     $core.String? assignedById,
-    $1.Timestamp? scheduledDate,
-    $1.Timestamp? dueDate,
-    $1.Timestamp? completedDate,
+    $0.Timestamp? scheduledDate,
+    $0.Timestamp? dueDate,
+    $0.Timestamp? completedDate,
     TaskStatus? status,
     ResolutionType? resolutionType,
     $core.String? externalId,
-    $2.Struct? details,
-    $1.Timestamp? createdAt,
-    $1.Timestamp? updatedAt,
+    $3.Struct? details,
+    $0.Timestamp? createdAt,
+    $0.Timestamp? updatedAt,
     $core.String? floorLocation,
     $core.String? serviceArea,
     $core.String? specificLocation,
@@ -1520,7 +1520,7 @@ class TaskWithDetails extends $pb.GeneratedMessage {
     $core.String? locationId,
     $core.String? locationName,
     $core.String? assetId,
-    $1.Timestamp? taskDefCreatedAt,
+    $0.Timestamp? taskDefCreatedAt,
   }) {
     final $result = create();
     if (id != null) {
@@ -1629,15 +1629,15 @@ class TaskWithDetails extends $pb.GeneratedMessage {
     ..aOS(4, _omitFieldNames ? '' : 'assignedRoleId')
     ..aOS(5, _omitFieldNames ? '' : 'requestedById')
     ..aOS(6, _omitFieldNames ? '' : 'assignedById')
-    ..aOM<$1.Timestamp>(7, _omitFieldNames ? '' : 'scheduledDate', subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(8, _omitFieldNames ? '' : 'dueDate', subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(9, _omitFieldNames ? '' : 'completedDate', subBuilder: $1.Timestamp.create)
+    ..aOM<$0.Timestamp>(7, _omitFieldNames ? '' : 'scheduledDate', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(8, _omitFieldNames ? '' : 'dueDate', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(9, _omitFieldNames ? '' : 'completedDate', subBuilder: $0.Timestamp.create)
     ..e<TaskStatus>(10, _omitFieldNames ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: TaskStatus.TASK_STATUS_UNSPECIFIED, valueOf: TaskStatus.valueOf, enumValues: TaskStatus.values)
     ..e<ResolutionType>(11, _omitFieldNames ? '' : 'resolutionType', $pb.PbFieldType.OE, defaultOrMaker: ResolutionType.RESOLUTION_TYPE_UNSPECIFIED, valueOf: ResolutionType.valueOf, enumValues: ResolutionType.values)
     ..aOS(12, _omitFieldNames ? '' : 'externalId')
-    ..aOM<$2.Struct>(13, _omitFieldNames ? '' : 'details', subBuilder: $2.Struct.create)
-    ..aOM<$1.Timestamp>(14, _omitFieldNames ? '' : 'createdAt', subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(15, _omitFieldNames ? '' : 'updatedAt', subBuilder: $1.Timestamp.create)
+    ..aOM<$3.Struct>(13, _omitFieldNames ? '' : 'details', subBuilder: $3.Struct.create)
+    ..aOM<$0.Timestamp>(14, _omitFieldNames ? '' : 'createdAt', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(15, _omitFieldNames ? '' : 'updatedAt', subBuilder: $0.Timestamp.create)
     ..aOS(16, _omitFieldNames ? '' : 'floorLocation')
     ..aOS(17, _omitFieldNames ? '' : 'serviceArea')
     ..aOS(18, _omitFieldNames ? '' : 'specificLocation')
@@ -1653,7 +1653,7 @@ class TaskWithDetails extends $pb.GeneratedMessage {
     ..aOS(28, _omitFieldNames ? '' : 'locationId')
     ..aOS(29, _omitFieldNames ? '' : 'locationName')
     ..aOS(30, _omitFieldNames ? '' : 'assetId')
-    ..aOM<$1.Timestamp>(31, _omitFieldNames ? '' : 'taskDefCreatedAt', subBuilder: $1.Timestamp.create)
+    ..aOM<$0.Timestamp>(31, _omitFieldNames ? '' : 'taskDefCreatedAt', subBuilder: $0.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -1733,37 +1733,37 @@ class TaskWithDetails extends $pb.GeneratedMessage {
   void clearAssignedById() => clearField(6);
 
   @$pb.TagNumber(7)
-  $1.Timestamp get scheduledDate => $_getN(6);
+  $0.Timestamp get scheduledDate => $_getN(6);
   @$pb.TagNumber(7)
-  set scheduledDate($1.Timestamp v) { setField(7, v); }
+  set scheduledDate($0.Timestamp v) { setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasScheduledDate() => $_has(6);
   @$pb.TagNumber(7)
   void clearScheduledDate() => clearField(7);
   @$pb.TagNumber(7)
-  $1.Timestamp ensureScheduledDate() => $_ensure(6);
+  $0.Timestamp ensureScheduledDate() => $_ensure(6);
 
   @$pb.TagNumber(8)
-  $1.Timestamp get dueDate => $_getN(7);
+  $0.Timestamp get dueDate => $_getN(7);
   @$pb.TagNumber(8)
-  set dueDate($1.Timestamp v) { setField(8, v); }
+  set dueDate($0.Timestamp v) { setField(8, v); }
   @$pb.TagNumber(8)
   $core.bool hasDueDate() => $_has(7);
   @$pb.TagNumber(8)
   void clearDueDate() => clearField(8);
   @$pb.TagNumber(8)
-  $1.Timestamp ensureDueDate() => $_ensure(7);
+  $0.Timestamp ensureDueDate() => $_ensure(7);
 
   @$pb.TagNumber(9)
-  $1.Timestamp get completedDate => $_getN(8);
+  $0.Timestamp get completedDate => $_getN(8);
   @$pb.TagNumber(9)
-  set completedDate($1.Timestamp v) { setField(9, v); }
+  set completedDate($0.Timestamp v) { setField(9, v); }
   @$pb.TagNumber(9)
   $core.bool hasCompletedDate() => $_has(8);
   @$pb.TagNumber(9)
   void clearCompletedDate() => clearField(9);
   @$pb.TagNumber(9)
-  $1.Timestamp ensureCompletedDate() => $_ensure(8);
+  $0.Timestamp ensureCompletedDate() => $_ensure(8);
 
   @$pb.TagNumber(10)
   TaskStatus get status => $_getN(9);
@@ -1793,37 +1793,37 @@ class TaskWithDetails extends $pb.GeneratedMessage {
   void clearExternalId() => clearField(12);
 
   @$pb.TagNumber(13)
-  $2.Struct get details => $_getN(12);
+  $3.Struct get details => $_getN(12);
   @$pb.TagNumber(13)
-  set details($2.Struct v) { setField(13, v); }
+  set details($3.Struct v) { setField(13, v); }
   @$pb.TagNumber(13)
   $core.bool hasDetails() => $_has(12);
   @$pb.TagNumber(13)
   void clearDetails() => clearField(13);
   @$pb.TagNumber(13)
-  $2.Struct ensureDetails() => $_ensure(12);
+  $3.Struct ensureDetails() => $_ensure(12);
 
   @$pb.TagNumber(14)
-  $1.Timestamp get createdAt => $_getN(13);
+  $0.Timestamp get createdAt => $_getN(13);
   @$pb.TagNumber(14)
-  set createdAt($1.Timestamp v) { setField(14, v); }
+  set createdAt($0.Timestamp v) { setField(14, v); }
   @$pb.TagNumber(14)
   $core.bool hasCreatedAt() => $_has(13);
   @$pb.TagNumber(14)
   void clearCreatedAt() => clearField(14);
   @$pb.TagNumber(14)
-  $1.Timestamp ensureCreatedAt() => $_ensure(13);
+  $0.Timestamp ensureCreatedAt() => $_ensure(13);
 
   @$pb.TagNumber(15)
-  $1.Timestamp get updatedAt => $_getN(14);
+  $0.Timestamp get updatedAt => $_getN(14);
   @$pb.TagNumber(15)
-  set updatedAt($1.Timestamp v) { setField(15, v); }
+  set updatedAt($0.Timestamp v) { setField(15, v); }
   @$pb.TagNumber(15)
   $core.bool hasUpdatedAt() => $_has(14);
   @$pb.TagNumber(15)
   void clearUpdatedAt() => clearField(15);
   @$pb.TagNumber(15)
-  $1.Timestamp ensureUpdatedAt() => $_ensure(14);
+  $0.Timestamp ensureUpdatedAt() => $_ensure(14);
 
   /// Joined fields
   @$pb.TagNumber(16)
@@ -1964,15 +1964,15 @@ class TaskWithDetails extends $pb.GeneratedMessage {
   void clearAssetId() => clearField(30);
 
   @$pb.TagNumber(31)
-  $1.Timestamp get taskDefCreatedAt => $_getN(30);
+  $0.Timestamp get taskDefCreatedAt => $_getN(30);
   @$pb.TagNumber(31)
-  set taskDefCreatedAt($1.Timestamp v) { setField(31, v); }
+  set taskDefCreatedAt($0.Timestamp v) { setField(31, v); }
   @$pb.TagNumber(31)
   $core.bool hasTaskDefCreatedAt() => $_has(30);
   @$pb.TagNumber(31)
   void clearTaskDefCreatedAt() => clearField(31);
   @$pb.TagNumber(31)
-  $1.Timestamp ensureTaskDefCreatedAt() => $_ensure(30);
+  $0.Timestamp ensureTaskDefCreatedAt() => $_ensure(30);
 }
 
 class CreateTaskRequest extends $pb.GeneratedMessage {
@@ -1981,9 +1981,9 @@ class CreateTaskRequest extends $pb.GeneratedMessage {
     $core.String? assigneeId,
     $core.String? assignedRoleId,
     $core.String? requestedById,
-    $1.Timestamp? scheduledDate,
-    $1.Timestamp? dueDate,
-    $2.Struct? details,
+    $0.Timestamp? scheduledDate,
+    $0.Timestamp? dueDate,
+    $3.Struct? details,
   }) {
     final $result = create();
     if (taskDefId != null) {
@@ -2018,9 +2018,9 @@ class CreateTaskRequest extends $pb.GeneratedMessage {
     ..aOS(2, _omitFieldNames ? '' : 'assigneeId')
     ..aOS(3, _omitFieldNames ? '' : 'assignedRoleId')
     ..aOS(4, _omitFieldNames ? '' : 'requestedById')
-    ..aOM<$1.Timestamp>(5, _omitFieldNames ? '' : 'scheduledDate', subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(6, _omitFieldNames ? '' : 'dueDate', subBuilder: $1.Timestamp.create)
-    ..aOM<$2.Struct>(7, _omitFieldNames ? '' : 'details', subBuilder: $2.Struct.create)
+    ..aOM<$0.Timestamp>(5, _omitFieldNames ? '' : 'scheduledDate', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(6, _omitFieldNames ? '' : 'dueDate', subBuilder: $0.Timestamp.create)
+    ..aOM<$3.Struct>(7, _omitFieldNames ? '' : 'details', subBuilder: $3.Struct.create)
     ..hasRequiredFields = false
   ;
 
@@ -2082,37 +2082,37 @@ class CreateTaskRequest extends $pb.GeneratedMessage {
   void clearRequestedById() => clearField(4);
 
   @$pb.TagNumber(5)
-  $1.Timestamp get scheduledDate => $_getN(4);
+  $0.Timestamp get scheduledDate => $_getN(4);
   @$pb.TagNumber(5)
-  set scheduledDate($1.Timestamp v) { setField(5, v); }
+  set scheduledDate($0.Timestamp v) { setField(5, v); }
   @$pb.TagNumber(5)
   $core.bool hasScheduledDate() => $_has(4);
   @$pb.TagNumber(5)
   void clearScheduledDate() => clearField(5);
   @$pb.TagNumber(5)
-  $1.Timestamp ensureScheduledDate() => $_ensure(4);
+  $0.Timestamp ensureScheduledDate() => $_ensure(4);
 
   @$pb.TagNumber(6)
-  $1.Timestamp get dueDate => $_getN(5);
+  $0.Timestamp get dueDate => $_getN(5);
   @$pb.TagNumber(6)
-  set dueDate($1.Timestamp v) { setField(6, v); }
+  set dueDate($0.Timestamp v) { setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasDueDate() => $_has(5);
   @$pb.TagNumber(6)
   void clearDueDate() => clearField(6);
   @$pb.TagNumber(6)
-  $1.Timestamp ensureDueDate() => $_ensure(5);
+  $0.Timestamp ensureDueDate() => $_ensure(5);
 
   @$pb.TagNumber(7)
-  $2.Struct get details => $_getN(6);
+  $3.Struct get details => $_getN(6);
   @$pb.TagNumber(7)
-  set details($2.Struct v) { setField(7, v); }
+  set details($3.Struct v) { setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasDetails() => $_has(6);
   @$pb.TagNumber(7)
   void clearDetails() => clearField(7);
   @$pb.TagNumber(7)
-  $2.Struct ensureDetails() => $_ensure(6);
+  $3.Struct ensureDetails() => $_ensure(6);
 }
 
 class GetTaskRequest extends $pb.GeneratedMessage {
@@ -2220,9 +2220,9 @@ class UpdateTaskRequest extends $pb.GeneratedMessage {
     $core.String? id,
     $core.String? assigneeId,
     $core.String? assignedRoleId,
-    $1.Timestamp? scheduledDate,
-    $1.Timestamp? dueDate,
-    $2.Struct? details,
+    $0.Timestamp? scheduledDate,
+    $0.Timestamp? dueDate,
+    $3.Struct? details,
     $core.String? notes,
   }) {
     final $result = create();
@@ -2257,9 +2257,9 @@ class UpdateTaskRequest extends $pb.GeneratedMessage {
     ..aOS(1, _omitFieldNames ? '' : 'id')
     ..aOS(2, _omitFieldNames ? '' : 'assigneeId')
     ..aOS(3, _omitFieldNames ? '' : 'assignedRoleId')
-    ..aOM<$1.Timestamp>(4, _omitFieldNames ? '' : 'scheduledDate', subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(5, _omitFieldNames ? '' : 'dueDate', subBuilder: $1.Timestamp.create)
-    ..aOM<$2.Struct>(6, _omitFieldNames ? '' : 'details', subBuilder: $2.Struct.create)
+    ..aOM<$0.Timestamp>(4, _omitFieldNames ? '' : 'scheduledDate', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(5, _omitFieldNames ? '' : 'dueDate', subBuilder: $0.Timestamp.create)
+    ..aOM<$3.Struct>(6, _omitFieldNames ? '' : 'details', subBuilder: $3.Struct.create)
     ..aOS(7, _omitFieldNames ? '' : 'notes')
     ..hasRequiredFields = false
   ;
@@ -2313,37 +2313,37 @@ class UpdateTaskRequest extends $pb.GeneratedMessage {
   void clearAssignedRoleId() => clearField(3);
 
   @$pb.TagNumber(4)
-  $1.Timestamp get scheduledDate => $_getN(3);
+  $0.Timestamp get scheduledDate => $_getN(3);
   @$pb.TagNumber(4)
-  set scheduledDate($1.Timestamp v) { setField(4, v); }
+  set scheduledDate($0.Timestamp v) { setField(4, v); }
   @$pb.TagNumber(4)
   $core.bool hasScheduledDate() => $_has(3);
   @$pb.TagNumber(4)
   void clearScheduledDate() => clearField(4);
   @$pb.TagNumber(4)
-  $1.Timestamp ensureScheduledDate() => $_ensure(3);
+  $0.Timestamp ensureScheduledDate() => $_ensure(3);
 
   @$pb.TagNumber(5)
-  $1.Timestamp get dueDate => $_getN(4);
+  $0.Timestamp get dueDate => $_getN(4);
   @$pb.TagNumber(5)
-  set dueDate($1.Timestamp v) { setField(5, v); }
+  set dueDate($0.Timestamp v) { setField(5, v); }
   @$pb.TagNumber(5)
   $core.bool hasDueDate() => $_has(4);
   @$pb.TagNumber(5)
   void clearDueDate() => clearField(5);
   @$pb.TagNumber(5)
-  $1.Timestamp ensureDueDate() => $_ensure(4);
+  $0.Timestamp ensureDueDate() => $_ensure(4);
 
   @$pb.TagNumber(6)
-  $2.Struct get details => $_getN(5);
+  $3.Struct get details => $_getN(5);
   @$pb.TagNumber(6)
-  set details($2.Struct v) { setField(6, v); }
+  set details($3.Struct v) { setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasDetails() => $_has(5);
   @$pb.TagNumber(6)
   void clearDetails() => clearField(6);
   @$pb.TagNumber(6)
-  $2.Struct ensureDetails() => $_ensure(5);
+  $3.Struct ensureDetails() => $_ensure(5);
 
   @$pb.TagNumber(7)
   $core.String get notes => $_getSZ(6);
@@ -2598,18 +2598,18 @@ class ListTasksRequest extends $pb.GeneratedMessage {
     $core.Iterable<$core.String>? locationIds,
     $core.Iterable<TaskType>? taskTypes,
     $core.String? search,
-    $1.Timestamp? fromDate,
-    $1.Timestamp? toDate,
+    $0.Timestamp? fromDate,
+    $0.Timestamp? toDate,
     $core.bool? isOverdue,
     $core.bool? filterUnassigned,
     $core.String? sortBy,
     $core.String? sortOrder,
     $core.int? limit,
     $core.int? offset,
-    $1.Timestamp? scheduledDateFrom,
-    $1.Timestamp? scheduledDateTo,
-    $1.Timestamp? dueDateFrom,
-    $1.Timestamp? dueDateTo,
+    $0.Timestamp? scheduledDateFrom,
+    $0.Timestamp? scheduledDateTo,
+    $0.Timestamp? dueDateFrom,
+    $0.Timestamp? dueDateTo,
     $core.bool? filterNoAssigner,
     $core.bool? filterNoRequester,
   }) {
@@ -2699,18 +2699,18 @@ class ListTasksRequest extends $pb.GeneratedMessage {
     ..pPS(7, _omitFieldNames ? '' : 'locationIds')
     ..pc<TaskType>(8, _omitFieldNames ? '' : 'taskTypes', $pb.PbFieldType.KE, valueOf: TaskType.valueOf, enumValues: TaskType.values, defaultEnumValue: TaskType.TASK_TYPE_UNSPECIFIED)
     ..aOS(9, _omitFieldNames ? '' : 'search')
-    ..aOM<$1.Timestamp>(10, _omitFieldNames ? '' : 'fromDate', subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(11, _omitFieldNames ? '' : 'toDate', subBuilder: $1.Timestamp.create)
+    ..aOM<$0.Timestamp>(10, _omitFieldNames ? '' : 'fromDate', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(11, _omitFieldNames ? '' : 'toDate', subBuilder: $0.Timestamp.create)
     ..aOB(12, _omitFieldNames ? '' : 'isOverdue')
     ..aOB(13, _omitFieldNames ? '' : 'filterUnassigned')
     ..aOS(14, _omitFieldNames ? '' : 'sortBy')
     ..aOS(15, _omitFieldNames ? '' : 'sortOrder')
     ..a<$core.int>(16, _omitFieldNames ? '' : 'limit', $pb.PbFieldType.O3)
     ..a<$core.int>(17, _omitFieldNames ? '' : 'offset', $pb.PbFieldType.O3)
-    ..aOM<$1.Timestamp>(18, _omitFieldNames ? '' : 'scheduledDateFrom', subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(19, _omitFieldNames ? '' : 'scheduledDateTo', subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(20, _omitFieldNames ? '' : 'dueDateFrom', subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(21, _omitFieldNames ? '' : 'dueDateTo', subBuilder: $1.Timestamp.create)
+    ..aOM<$0.Timestamp>(18, _omitFieldNames ? '' : 'scheduledDateFrom', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(19, _omitFieldNames ? '' : 'scheduledDateTo', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(20, _omitFieldNames ? '' : 'dueDateFrom', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(21, _omitFieldNames ? '' : 'dueDateTo', subBuilder: $0.Timestamp.create)
     ..aOB(22, _omitFieldNames ? '' : 'filterNoAssigner')
     ..aOB(23, _omitFieldNames ? '' : 'filterNoRequester')
     ..hasRequiredFields = false
@@ -2771,26 +2771,26 @@ class ListTasksRequest extends $pb.GeneratedMessage {
   void clearSearch() => clearField(9);
 
   @$pb.TagNumber(10)
-  $1.Timestamp get fromDate => $_getN(9);
+  $0.Timestamp get fromDate => $_getN(9);
   @$pb.TagNumber(10)
-  set fromDate($1.Timestamp v) { setField(10, v); }
+  set fromDate($0.Timestamp v) { setField(10, v); }
   @$pb.TagNumber(10)
   $core.bool hasFromDate() => $_has(9);
   @$pb.TagNumber(10)
   void clearFromDate() => clearField(10);
   @$pb.TagNumber(10)
-  $1.Timestamp ensureFromDate() => $_ensure(9);
+  $0.Timestamp ensureFromDate() => $_ensure(9);
 
   @$pb.TagNumber(11)
-  $1.Timestamp get toDate => $_getN(10);
+  $0.Timestamp get toDate => $_getN(10);
   @$pb.TagNumber(11)
-  set toDate($1.Timestamp v) { setField(11, v); }
+  set toDate($0.Timestamp v) { setField(11, v); }
   @$pb.TagNumber(11)
   $core.bool hasToDate() => $_has(10);
   @$pb.TagNumber(11)
   void clearToDate() => clearField(11);
   @$pb.TagNumber(11)
-  $1.Timestamp ensureToDate() => $_ensure(10);
+  $0.Timestamp ensureToDate() => $_ensure(10);
 
   @$pb.TagNumber(12)
   $core.bool get isOverdue => $_getBF(11);
@@ -2848,48 +2848,48 @@ class ListTasksRequest extends $pb.GeneratedMessage {
 
   /// Additional date range filters
   @$pb.TagNumber(18)
-  $1.Timestamp get scheduledDateFrom => $_getN(17);
+  $0.Timestamp get scheduledDateFrom => $_getN(17);
   @$pb.TagNumber(18)
-  set scheduledDateFrom($1.Timestamp v) { setField(18, v); }
+  set scheduledDateFrom($0.Timestamp v) { setField(18, v); }
   @$pb.TagNumber(18)
   $core.bool hasScheduledDateFrom() => $_has(17);
   @$pb.TagNumber(18)
   void clearScheduledDateFrom() => clearField(18);
   @$pb.TagNumber(18)
-  $1.Timestamp ensureScheduledDateFrom() => $_ensure(17);
+  $0.Timestamp ensureScheduledDateFrom() => $_ensure(17);
 
   @$pb.TagNumber(19)
-  $1.Timestamp get scheduledDateTo => $_getN(18);
+  $0.Timestamp get scheduledDateTo => $_getN(18);
   @$pb.TagNumber(19)
-  set scheduledDateTo($1.Timestamp v) { setField(19, v); }
+  set scheduledDateTo($0.Timestamp v) { setField(19, v); }
   @$pb.TagNumber(19)
   $core.bool hasScheduledDateTo() => $_has(18);
   @$pb.TagNumber(19)
   void clearScheduledDateTo() => clearField(19);
   @$pb.TagNumber(19)
-  $1.Timestamp ensureScheduledDateTo() => $_ensure(18);
+  $0.Timestamp ensureScheduledDateTo() => $_ensure(18);
 
   @$pb.TagNumber(20)
-  $1.Timestamp get dueDateFrom => $_getN(19);
+  $0.Timestamp get dueDateFrom => $_getN(19);
   @$pb.TagNumber(20)
-  set dueDateFrom($1.Timestamp v) { setField(20, v); }
+  set dueDateFrom($0.Timestamp v) { setField(20, v); }
   @$pb.TagNumber(20)
   $core.bool hasDueDateFrom() => $_has(19);
   @$pb.TagNumber(20)
   void clearDueDateFrom() => clearField(20);
   @$pb.TagNumber(20)
-  $1.Timestamp ensureDueDateFrom() => $_ensure(19);
+  $0.Timestamp ensureDueDateFrom() => $_ensure(19);
 
   @$pb.TagNumber(21)
-  $1.Timestamp get dueDateTo => $_getN(20);
+  $0.Timestamp get dueDateTo => $_getN(20);
   @$pb.TagNumber(21)
-  set dueDateTo($1.Timestamp v) { setField(21, v); }
+  set dueDateTo($0.Timestamp v) { setField(21, v); }
   @$pb.TagNumber(21)
   $core.bool hasDueDateTo() => $_has(20);
   @$pb.TagNumber(21)
   void clearDueDateTo() => clearField(21);
   @$pb.TagNumber(21)
-  $1.Timestamp ensureDueDateTo() => $_ensure(20);
+  $0.Timestamp ensureDueDateTo() => $_ensure(20);
 
   /// Filter for tasks with no assigner
   @$pb.TagNumber(22)
@@ -3110,7 +3110,7 @@ class ListTasksResponse extends $pb.GeneratedMessage {
 
 class WeeklyMetricDataPoint extends $pb.GeneratedMessage {
   factory WeeklyMetricDataPoint({
-    $1.Timestamp? weekStart,
+    $0.Timestamp? weekStart,
     $core.double? averageHours,
     $core.int? taskCount,
   }) {
@@ -3131,7 +3131,7 @@ class WeeklyMetricDataPoint extends $pb.GeneratedMessage {
   factory WeeklyMetricDataPoint.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'WeeklyMetricDataPoint', package: const $pb.PackageName(_omitMessageNames ? '' : 'moat.v1'), createEmptyInstance: create)
-    ..aOM<$1.Timestamp>(1, _omitFieldNames ? '' : 'weekStart', subBuilder: $1.Timestamp.create)
+    ..aOM<$0.Timestamp>(1, _omitFieldNames ? '' : 'weekStart', subBuilder: $0.Timestamp.create)
     ..a<$core.double>(2, _omitFieldNames ? '' : 'averageHours', $pb.PbFieldType.OD)
     ..a<$core.int>(3, _omitFieldNames ? '' : 'taskCount', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
@@ -3159,15 +3159,15 @@ class WeeklyMetricDataPoint extends $pb.GeneratedMessage {
   static WeeklyMetricDataPoint? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $1.Timestamp get weekStart => $_getN(0);
+  $0.Timestamp get weekStart => $_getN(0);
   @$pb.TagNumber(1)
-  set weekStart($1.Timestamp v) { setField(1, v); }
+  set weekStart($0.Timestamp v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasWeekStart() => $_has(0);
   @$pb.TagNumber(1)
   void clearWeekStart() => clearField(1);
   @$pb.TagNumber(1)
-  $1.Timestamp ensureWeekStart() => $_ensure(0);
+  $0.Timestamp ensureWeekStart() => $_ensure(0);
 
   @$pb.TagNumber(2)
   $core.double get averageHours => $_getN(1);
@@ -3190,7 +3190,7 @@ class WeeklyMetricDataPoint extends $pb.GeneratedMessage {
 
 class WeeklyCountDataPoint extends $pb.GeneratedMessage {
   factory WeeklyCountDataPoint({
-    $1.Timestamp? weekStart,
+    $0.Timestamp? weekStart,
     $core.int? count,
   }) {
     final $result = create();
@@ -3207,7 +3207,7 @@ class WeeklyCountDataPoint extends $pb.GeneratedMessage {
   factory WeeklyCountDataPoint.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'WeeklyCountDataPoint', package: const $pb.PackageName(_omitMessageNames ? '' : 'moat.v1'), createEmptyInstance: create)
-    ..aOM<$1.Timestamp>(1, _omitFieldNames ? '' : 'weekStart', subBuilder: $1.Timestamp.create)
+    ..aOM<$0.Timestamp>(1, _omitFieldNames ? '' : 'weekStart', subBuilder: $0.Timestamp.create)
     ..a<$core.int>(2, _omitFieldNames ? '' : 'count', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
@@ -3234,15 +3234,15 @@ class WeeklyCountDataPoint extends $pb.GeneratedMessage {
   static WeeklyCountDataPoint? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $1.Timestamp get weekStart => $_getN(0);
+  $0.Timestamp get weekStart => $_getN(0);
   @$pb.TagNumber(1)
-  set weekStart($1.Timestamp v) { setField(1, v); }
+  set weekStart($0.Timestamp v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasWeekStart() => $_has(0);
   @$pb.TagNumber(1)
   void clearWeekStart() => clearField(1);
   @$pb.TagNumber(1)
-  $1.Timestamp ensureWeekStart() => $_ensure(0);
+  $0.Timestamp ensureWeekStart() => $_ensure(0);
 
   @$pb.TagNumber(2)
   $core.int get count => $_getIZ(1);
@@ -3264,9 +3264,9 @@ class TaskComment extends $pb.GeneratedMessage {
     $core.Iterable<TaskAttachment>? attachments,
     $core.Iterable<CommentEditHistory>? editHistory,
     $core.bool? edited,
-    $1.Timestamp? editedAt,
-    $1.Timestamp? createdAt,
-    $1.Timestamp? updatedAt,
+    $0.Timestamp? editedAt,
+    $0.Timestamp? createdAt,
+    $0.Timestamp? updatedAt,
   }) {
     final $result = create();
     if (id != null) {
@@ -3317,9 +3317,9 @@ class TaskComment extends $pb.GeneratedMessage {
     ..pc<TaskAttachment>(6, _omitFieldNames ? '' : 'attachments', $pb.PbFieldType.PM, subBuilder: TaskAttachment.create)
     ..pc<CommentEditHistory>(7, _omitFieldNames ? '' : 'editHistory', $pb.PbFieldType.PM, subBuilder: CommentEditHistory.create)
     ..aOB(8, _omitFieldNames ? '' : 'edited')
-    ..aOM<$1.Timestamp>(9, _omitFieldNames ? '' : 'editedAt', subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(10, _omitFieldNames ? '' : 'createdAt', subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(11, _omitFieldNames ? '' : 'updatedAt', subBuilder: $1.Timestamp.create)
+    ..aOM<$0.Timestamp>(9, _omitFieldNames ? '' : 'editedAt', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(10, _omitFieldNames ? '' : 'createdAt', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(11, _omitFieldNames ? '' : 'updatedAt', subBuilder: $0.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -3401,37 +3401,37 @@ class TaskComment extends $pb.GeneratedMessage {
   void clearEdited() => clearField(8);
 
   @$pb.TagNumber(9)
-  $1.Timestamp get editedAt => $_getN(8);
+  $0.Timestamp get editedAt => $_getN(8);
   @$pb.TagNumber(9)
-  set editedAt($1.Timestamp v) { setField(9, v); }
+  set editedAt($0.Timestamp v) { setField(9, v); }
   @$pb.TagNumber(9)
   $core.bool hasEditedAt() => $_has(8);
   @$pb.TagNumber(9)
   void clearEditedAt() => clearField(9);
   @$pb.TagNumber(9)
-  $1.Timestamp ensureEditedAt() => $_ensure(8);
+  $0.Timestamp ensureEditedAt() => $_ensure(8);
 
   @$pb.TagNumber(10)
-  $1.Timestamp get createdAt => $_getN(9);
+  $0.Timestamp get createdAt => $_getN(9);
   @$pb.TagNumber(10)
-  set createdAt($1.Timestamp v) { setField(10, v); }
+  set createdAt($0.Timestamp v) { setField(10, v); }
   @$pb.TagNumber(10)
   $core.bool hasCreatedAt() => $_has(9);
   @$pb.TagNumber(10)
   void clearCreatedAt() => clearField(10);
   @$pb.TagNumber(10)
-  $1.Timestamp ensureCreatedAt() => $_ensure(9);
+  $0.Timestamp ensureCreatedAt() => $_ensure(9);
 
   @$pb.TagNumber(11)
-  $1.Timestamp get updatedAt => $_getN(10);
+  $0.Timestamp get updatedAt => $_getN(10);
   @$pb.TagNumber(11)
-  set updatedAt($1.Timestamp v) { setField(11, v); }
+  set updatedAt($0.Timestamp v) { setField(11, v); }
   @$pb.TagNumber(11)
   $core.bool hasUpdatedAt() => $_has(10);
   @$pb.TagNumber(11)
   void clearUpdatedAt() => clearField(11);
   @$pb.TagNumber(11)
-  $1.Timestamp ensureUpdatedAt() => $_ensure(10);
+  $0.Timestamp ensureUpdatedAt() => $_ensure(10);
 }
 
 class MentionedMember extends $pb.GeneratedMessage {
@@ -3593,7 +3593,7 @@ class CommentAuthor extends $pb.GeneratedMessage {
 class CommentEditHistory extends $pb.GeneratedMessage {
   factory CommentEditHistory({
     $core.String? previousContent,
-    $1.Timestamp? editedAt,
+    $0.Timestamp? editedAt,
     $core.String? editedById,
     $core.String? editedByName,
   }) {
@@ -3618,7 +3618,7 @@ class CommentEditHistory extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CommentEditHistory', package: const $pb.PackageName(_omitMessageNames ? '' : 'moat.v1'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'previousContent')
-    ..aOM<$1.Timestamp>(2, _omitFieldNames ? '' : 'editedAt', subBuilder: $1.Timestamp.create)
+    ..aOM<$0.Timestamp>(2, _omitFieldNames ? '' : 'editedAt', subBuilder: $0.Timestamp.create)
     ..aOS(3, _omitFieldNames ? '' : 'editedById')
     ..aOS(4, _omitFieldNames ? '' : 'editedByName')
     ..hasRequiredFields = false
@@ -3655,15 +3655,15 @@ class CommentEditHistory extends $pb.GeneratedMessage {
   void clearPreviousContent() => clearField(1);
 
   @$pb.TagNumber(2)
-  $1.Timestamp get editedAt => $_getN(1);
+  $0.Timestamp get editedAt => $_getN(1);
   @$pb.TagNumber(2)
-  set editedAt($1.Timestamp v) { setField(2, v); }
+  set editedAt($0.Timestamp v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasEditedAt() => $_has(1);
   @$pb.TagNumber(2)
   void clearEditedAt() => clearField(2);
   @$pb.TagNumber(2)
-  $1.Timestamp ensureEditedAt() => $_ensure(1);
+  $0.Timestamp ensureEditedAt() => $_ensure(1);
 
   @$pb.TagNumber(3)
   $core.String get editedById => $_getSZ(2);
@@ -3691,7 +3691,7 @@ class TaskAttachment extends $pb.GeneratedMessage {
     $core.String? contentType,
     $fixnum.Int64? sizeBytes,
     $core.String? url,
-    $1.Timestamp? createdAt,
+    $0.Timestamp? createdAt,
   }) {
     final $result = create();
     if (id != null) {
@@ -3724,7 +3724,7 @@ class TaskAttachment extends $pb.GeneratedMessage {
     ..aOS(3, _omitFieldNames ? '' : 'contentType')
     ..aInt64(4, _omitFieldNames ? '' : 'sizeBytes')
     ..aOS(5, _omitFieldNames ? '' : 'url')
-    ..aOM<$1.Timestamp>(6, _omitFieldNames ? '' : 'createdAt', subBuilder: $1.Timestamp.create)
+    ..aOM<$0.Timestamp>(6, _omitFieldNames ? '' : 'createdAt', subBuilder: $0.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -3795,15 +3795,15 @@ class TaskAttachment extends $pb.GeneratedMessage {
   void clearUrl() => clearField(5);
 
   @$pb.TagNumber(6)
-  $1.Timestamp get createdAt => $_getN(5);
+  $0.Timestamp get createdAt => $_getN(5);
   @$pb.TagNumber(6)
-  set createdAt($1.Timestamp v) { setField(6, v); }
+  set createdAt($0.Timestamp v) { setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasCreatedAt() => $_has(5);
   @$pb.TagNumber(6)
   void clearCreatedAt() => clearField(6);
   @$pb.TagNumber(6)
-  $1.Timestamp ensureCreatedAt() => $_ensure(5);
+  $0.Timestamp ensureCreatedAt() => $_ensure(5);
 }
 
 class GetAttachmentUploadUrlRequest extends $pb.GeneratedMessage {
@@ -3902,7 +3902,7 @@ class GetAttachmentUploadUrlResponse extends $pb.GeneratedMessage {
   factory GetAttachmentUploadUrlResponse({
     $core.String? uploadUrl,
     $core.String? attachmentId,
-    $1.Timestamp? expiresAt,
+    $0.Timestamp? expiresAt,
   }) {
     final $result = create();
     if (uploadUrl != null) {
@@ -3923,7 +3923,7 @@ class GetAttachmentUploadUrlResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetAttachmentUploadUrlResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'moat.v1'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'uploadUrl')
     ..aOS(2, _omitFieldNames ? '' : 'attachmentId')
-    ..aOM<$1.Timestamp>(3, _omitFieldNames ? '' : 'expiresAt', subBuilder: $1.Timestamp.create)
+    ..aOM<$0.Timestamp>(3, _omitFieldNames ? '' : 'expiresAt', subBuilder: $0.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -3967,15 +3967,15 @@ class GetAttachmentUploadUrlResponse extends $pb.GeneratedMessage {
   void clearAttachmentId() => clearField(2);
 
   @$pb.TagNumber(3)
-  $1.Timestamp get expiresAt => $_getN(2);
+  $0.Timestamp get expiresAt => $_getN(2);
   @$pb.TagNumber(3)
-  set expiresAt($1.Timestamp v) { setField(3, v); }
+  set expiresAt($0.Timestamp v) { setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasExpiresAt() => $_has(2);
   @$pb.TagNumber(3)
   void clearExpiresAt() => clearField(3);
   @$pb.TagNumber(3)
-  $1.Timestamp ensureExpiresAt() => $_ensure(2);
+  $0.Timestamp ensureExpiresAt() => $_ensure(2);
 }
 
 class ConfirmAttachmentUploadRequest extends $pb.GeneratedMessage {
@@ -4230,6 +4230,355 @@ class DeleteAttachmentResponse extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static DeleteAttachmentResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeleteAttachmentResponse>(create);
   static DeleteAttachmentResponse? _defaultInstance;
+}
+
+class UpdateAttachmentRequest extends $pb.GeneratedMessage {
+  factory UpdateAttachmentRequest({
+    $core.String? id,
+    $core.String? caption,
+    $core.int? displayOrder,
+  }) {
+    final $result = create();
+    if (id != null) {
+      $result.id = id;
+    }
+    if (caption != null) {
+      $result.caption = caption;
+    }
+    if (displayOrder != null) {
+      $result.displayOrder = displayOrder;
+    }
+    return $result;
+  }
+  UpdateAttachmentRequest._() : super();
+  factory UpdateAttachmentRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UpdateAttachmentRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'UpdateAttachmentRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'moat.v1'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'id')
+    ..aOS(2, _omitFieldNames ? '' : 'caption')
+    ..a<$core.int>(3, _omitFieldNames ? '' : 'displayOrder', $pb.PbFieldType.O3)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UpdateAttachmentRequest clone() => UpdateAttachmentRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UpdateAttachmentRequest copyWith(void Function(UpdateAttachmentRequest) updates) => super.copyWith((message) => updates(message as UpdateAttachmentRequest)) as UpdateAttachmentRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static UpdateAttachmentRequest create() => UpdateAttachmentRequest._();
+  UpdateAttachmentRequest createEmptyInstance() => create();
+  static $pb.PbList<UpdateAttachmentRequest> createRepeated() => $pb.PbList<UpdateAttachmentRequest>();
+  @$core.pragma('dart2js:noInline')
+  static UpdateAttachmentRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateAttachmentRequest>(create);
+  static UpdateAttachmentRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get caption => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set caption($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasCaption() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearCaption() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get displayOrder => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set displayOrder($core.int v) { $_setSignedInt32(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasDisplayOrder() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearDisplayOrder() => clearField(3);
+}
+
+/// Task Definition Attachment Messages
+class GetTaskDefAttachmentUploadUrlRequest extends $pb.GeneratedMessage {
+  factory GetTaskDefAttachmentUploadUrlRequest({
+    $core.String? taskDefId,
+    $core.String? fileName,
+    $core.String? contentType,
+    $fixnum.Int64? sizeBytes,
+  }) {
+    final $result = create();
+    if (taskDefId != null) {
+      $result.taskDefId = taskDefId;
+    }
+    if (fileName != null) {
+      $result.fileName = fileName;
+    }
+    if (contentType != null) {
+      $result.contentType = contentType;
+    }
+    if (sizeBytes != null) {
+      $result.sizeBytes = sizeBytes;
+    }
+    return $result;
+  }
+  GetTaskDefAttachmentUploadUrlRequest._() : super();
+  factory GetTaskDefAttachmentUploadUrlRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetTaskDefAttachmentUploadUrlRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetTaskDefAttachmentUploadUrlRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'moat.v1'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'taskDefId')
+    ..aOS(2, _omitFieldNames ? '' : 'fileName')
+    ..aOS(3, _omitFieldNames ? '' : 'contentType')
+    ..aInt64(4, _omitFieldNames ? '' : 'sizeBytes')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetTaskDefAttachmentUploadUrlRequest clone() => GetTaskDefAttachmentUploadUrlRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetTaskDefAttachmentUploadUrlRequest copyWith(void Function(GetTaskDefAttachmentUploadUrlRequest) updates) => super.copyWith((message) => updates(message as GetTaskDefAttachmentUploadUrlRequest)) as GetTaskDefAttachmentUploadUrlRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetTaskDefAttachmentUploadUrlRequest create() => GetTaskDefAttachmentUploadUrlRequest._();
+  GetTaskDefAttachmentUploadUrlRequest createEmptyInstance() => create();
+  static $pb.PbList<GetTaskDefAttachmentUploadUrlRequest> createRepeated() => $pb.PbList<GetTaskDefAttachmentUploadUrlRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetTaskDefAttachmentUploadUrlRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetTaskDefAttachmentUploadUrlRequest>(create);
+  static GetTaskDefAttachmentUploadUrlRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get taskDefId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set taskDefId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasTaskDefId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearTaskDefId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get fileName => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set fileName($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasFileName() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearFileName() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get contentType => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set contentType($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasContentType() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearContentType() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $fixnum.Int64 get sizeBytes => $_getI64(3);
+  @$pb.TagNumber(4)
+  set sizeBytes($fixnum.Int64 v) { $_setInt64(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasSizeBytes() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearSizeBytes() => clearField(4);
+}
+
+class ConfirmTaskDefAttachmentUploadRequest extends $pb.GeneratedMessage {
+  factory ConfirmTaskDefAttachmentUploadRequest({
+    $core.String? attachmentId,
+    $core.String? taskDefId,
+  }) {
+    final $result = create();
+    if (attachmentId != null) {
+      $result.attachmentId = attachmentId;
+    }
+    if (taskDefId != null) {
+      $result.taskDefId = taskDefId;
+    }
+    return $result;
+  }
+  ConfirmTaskDefAttachmentUploadRequest._() : super();
+  factory ConfirmTaskDefAttachmentUploadRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ConfirmTaskDefAttachmentUploadRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ConfirmTaskDefAttachmentUploadRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'moat.v1'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'attachmentId')
+    ..aOS(2, _omitFieldNames ? '' : 'taskDefId')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ConfirmTaskDefAttachmentUploadRequest clone() => ConfirmTaskDefAttachmentUploadRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ConfirmTaskDefAttachmentUploadRequest copyWith(void Function(ConfirmTaskDefAttachmentUploadRequest) updates) => super.copyWith((message) => updates(message as ConfirmTaskDefAttachmentUploadRequest)) as ConfirmTaskDefAttachmentUploadRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static ConfirmTaskDefAttachmentUploadRequest create() => ConfirmTaskDefAttachmentUploadRequest._();
+  ConfirmTaskDefAttachmentUploadRequest createEmptyInstance() => create();
+  static $pb.PbList<ConfirmTaskDefAttachmentUploadRequest> createRepeated() => $pb.PbList<ConfirmTaskDefAttachmentUploadRequest>();
+  @$core.pragma('dart2js:noInline')
+  static ConfirmTaskDefAttachmentUploadRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ConfirmTaskDefAttachmentUploadRequest>(create);
+  static ConfirmTaskDefAttachmentUploadRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get attachmentId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set attachmentId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasAttachmentId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAttachmentId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get taskDefId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set taskDefId($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasTaskDefId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearTaskDefId() => clearField(2);
+}
+
+class ListTaskDefAttachmentsRequest extends $pb.GeneratedMessage {
+  factory ListTaskDefAttachmentsRequest({
+    $core.String? taskDefId,
+  }) {
+    final $result = create();
+    if (taskDefId != null) {
+      $result.taskDefId = taskDefId;
+    }
+    return $result;
+  }
+  ListTaskDefAttachmentsRequest._() : super();
+  factory ListTaskDefAttachmentsRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ListTaskDefAttachmentsRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ListTaskDefAttachmentsRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'moat.v1'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'taskDefId')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ListTaskDefAttachmentsRequest clone() => ListTaskDefAttachmentsRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ListTaskDefAttachmentsRequest copyWith(void Function(ListTaskDefAttachmentsRequest) updates) => super.copyWith((message) => updates(message as ListTaskDefAttachmentsRequest)) as ListTaskDefAttachmentsRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static ListTaskDefAttachmentsRequest create() => ListTaskDefAttachmentsRequest._();
+  ListTaskDefAttachmentsRequest createEmptyInstance() => create();
+  static $pb.PbList<ListTaskDefAttachmentsRequest> createRepeated() => $pb.PbList<ListTaskDefAttachmentsRequest>();
+  @$core.pragma('dart2js:noInline')
+  static ListTaskDefAttachmentsRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ListTaskDefAttachmentsRequest>(create);
+  static ListTaskDefAttachmentsRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get taskDefId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set taskDefId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasTaskDefId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearTaskDefId() => clearField(1);
+}
+
+class DeleteTaskDefAttachmentRequest extends $pb.GeneratedMessage {
+  factory DeleteTaskDefAttachmentRequest({
+    $core.String? taskDefId,
+    $core.String? attachmentId,
+  }) {
+    final $result = create();
+    if (taskDefId != null) {
+      $result.taskDefId = taskDefId;
+    }
+    if (attachmentId != null) {
+      $result.attachmentId = attachmentId;
+    }
+    return $result;
+  }
+  DeleteTaskDefAttachmentRequest._() : super();
+  factory DeleteTaskDefAttachmentRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory DeleteTaskDefAttachmentRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'DeleteTaskDefAttachmentRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'moat.v1'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'taskDefId')
+    ..aOS(2, _omitFieldNames ? '' : 'attachmentId')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  DeleteTaskDefAttachmentRequest clone() => DeleteTaskDefAttachmentRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  DeleteTaskDefAttachmentRequest copyWith(void Function(DeleteTaskDefAttachmentRequest) updates) => super.copyWith((message) => updates(message as DeleteTaskDefAttachmentRequest)) as DeleteTaskDefAttachmentRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static DeleteTaskDefAttachmentRequest create() => DeleteTaskDefAttachmentRequest._();
+  DeleteTaskDefAttachmentRequest createEmptyInstance() => create();
+  static $pb.PbList<DeleteTaskDefAttachmentRequest> createRepeated() => $pb.PbList<DeleteTaskDefAttachmentRequest>();
+  @$core.pragma('dart2js:noInline')
+  static DeleteTaskDefAttachmentRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeleteTaskDefAttachmentRequest>(create);
+  static DeleteTaskDefAttachmentRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get taskDefId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set taskDefId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasTaskDefId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearTaskDefId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get attachmentId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set attachmentId($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasAttachmentId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearAttachmentId() => clearField(2);
 }
 
 class CreateCommentRequest extends $pb.GeneratedMessage {
@@ -4609,10 +4958,10 @@ class TaskActivity extends $pb.GeneratedMessage {
     $core.String? eventType,
     CommentAuthor? changedBy,
     $core.String? notes,
-    $2.Struct? changes,
+    $3.Struct? changes,
     $core.Iterable<TaskAttachment>? attachments,
     TaskComment? comment,
-    $1.Timestamp? createdAt,
+    $0.Timestamp? createdAt,
   }) {
     final $result = create();
     if (id != null) {
@@ -4654,10 +5003,10 @@ class TaskActivity extends $pb.GeneratedMessage {
     ..aOS(3, _omitFieldNames ? '' : 'eventType')
     ..aOM<CommentAuthor>(4, _omitFieldNames ? '' : 'changedBy', subBuilder: CommentAuthor.create)
     ..aOS(5, _omitFieldNames ? '' : 'notes')
-    ..aOM<$2.Struct>(6, _omitFieldNames ? '' : 'changes', subBuilder: $2.Struct.create)
+    ..aOM<$3.Struct>(6, _omitFieldNames ? '' : 'changes', subBuilder: $3.Struct.create)
     ..pc<TaskAttachment>(7, _omitFieldNames ? '' : 'attachments', $pb.PbFieldType.PM, subBuilder: TaskAttachment.create)
     ..aOM<TaskComment>(8, _omitFieldNames ? '' : 'comment', subBuilder: TaskComment.create)
-    ..aOM<$1.Timestamp>(9, _omitFieldNames ? '' : 'createdAt', subBuilder: $1.Timestamp.create)
+    ..aOM<$0.Timestamp>(9, _omitFieldNames ? '' : 'createdAt', subBuilder: $0.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -4730,15 +5079,15 @@ class TaskActivity extends $pb.GeneratedMessage {
   void clearNotes() => clearField(5);
 
   @$pb.TagNumber(6)
-  $2.Struct get changes => $_getN(5);
+  $3.Struct get changes => $_getN(5);
   @$pb.TagNumber(6)
-  set changes($2.Struct v) { setField(6, v); }
+  set changes($3.Struct v) { setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasChanges() => $_has(5);
   @$pb.TagNumber(6)
   void clearChanges() => clearField(6);
   @$pb.TagNumber(6)
-  $2.Struct ensureChanges() => $_ensure(5);
+  $3.Struct ensureChanges() => $_ensure(5);
 
   @$pb.TagNumber(7)
   $core.List<TaskAttachment> get attachments => $_getList(6);
@@ -4756,15 +5105,15 @@ class TaskActivity extends $pb.GeneratedMessage {
   TaskComment ensureComment() => $_ensure(7);
 
   @$pb.TagNumber(9)
-  $1.Timestamp get createdAt => $_getN(8);
+  $0.Timestamp get createdAt => $_getN(8);
   @$pb.TagNumber(9)
-  set createdAt($1.Timestamp v) { setField(9, v); }
+  set createdAt($0.Timestamp v) { setField(9, v); }
   @$pb.TagNumber(9)
   $core.bool hasCreatedAt() => $_has(8);
   @$pb.TagNumber(9)
   void clearCreatedAt() => clearField(9);
   @$pb.TagNumber(9)
-  $1.Timestamp ensureCreatedAt() => $_ensure(8);
+  $0.Timestamp ensureCreatedAt() => $_ensure(8);
 }
 
 class GetTaskActivityRequest extends $pb.GeneratedMessage {
@@ -4911,12 +5260,12 @@ class AssignmentRule extends $pb.GeneratedMessage {
     $core.String? description,
     $core.bool? isActive,
     $core.int? priority,
-    $2.Struct? conditions,
+    $3.Struct? conditions,
     AssignmentTargetType? assignmentType,
     AssignmentMethod? assignmentMethod,
     $core.String? createdBy,
-    $1.Timestamp? createdAt,
-    $1.Timestamp? updatedAt,
+    $0.Timestamp? createdAt,
+    $0.Timestamp? updatedAt,
   }) {
     final $result = create();
     if (id != null) {
@@ -4968,12 +5317,12 @@ class AssignmentRule extends $pb.GeneratedMessage {
     ..aOS(4, _omitFieldNames ? '' : 'description')
     ..aOB(5, _omitFieldNames ? '' : 'isActive')
     ..a<$core.int>(6, _omitFieldNames ? '' : 'priority', $pb.PbFieldType.O3)
-    ..aOM<$2.Struct>(7, _omitFieldNames ? '' : 'conditions', subBuilder: $2.Struct.create)
+    ..aOM<$3.Struct>(7, _omitFieldNames ? '' : 'conditions', subBuilder: $3.Struct.create)
     ..e<AssignmentTargetType>(8, _omitFieldNames ? '' : 'assignmentType', $pb.PbFieldType.OE, defaultOrMaker: AssignmentTargetType.ASSIGNMENT_TARGET_TYPE_UNSPECIFIED, valueOf: AssignmentTargetType.valueOf, enumValues: AssignmentTargetType.values)
     ..e<AssignmentMethod>(9, _omitFieldNames ? '' : 'assignmentMethod', $pb.PbFieldType.OE, defaultOrMaker: AssignmentMethod.ASSIGNMENT_METHOD_UNSPECIFIED, valueOf: AssignmentMethod.valueOf, enumValues: AssignmentMethod.values)
     ..aOS(10, _omitFieldNames ? '' : 'createdBy')
-    ..aOM<$1.Timestamp>(11, _omitFieldNames ? '' : 'createdAt', subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(12, _omitFieldNames ? '' : 'updatedAt', subBuilder: $1.Timestamp.create)
+    ..aOM<$0.Timestamp>(11, _omitFieldNames ? '' : 'createdAt', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(12, _omitFieldNames ? '' : 'updatedAt', subBuilder: $0.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -5054,15 +5403,15 @@ class AssignmentRule extends $pb.GeneratedMessage {
 
   /// Conditions: task_types, location_ids, asset_types (division codes), role_names, member_ids
   @$pb.TagNumber(7)
-  $2.Struct get conditions => $_getN(6);
+  $3.Struct get conditions => $_getN(6);
   @$pb.TagNumber(7)
-  set conditions($2.Struct v) { setField(7, v); }
+  set conditions($3.Struct v) { setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasConditions() => $_has(6);
   @$pb.TagNumber(7)
   void clearConditions() => clearField(7);
   @$pb.TagNumber(7)
-  $2.Struct ensureConditions() => $_ensure(6);
+  $3.Struct ensureConditions() => $_ensure(6);
 
   @$pb.TagNumber(8)
   AssignmentTargetType get assignmentType => $_getN(7);
@@ -5092,26 +5441,26 @@ class AssignmentRule extends $pb.GeneratedMessage {
   void clearCreatedBy() => clearField(10);
 
   @$pb.TagNumber(11)
-  $1.Timestamp get createdAt => $_getN(10);
+  $0.Timestamp get createdAt => $_getN(10);
   @$pb.TagNumber(11)
-  set createdAt($1.Timestamp v) { setField(11, v); }
+  set createdAt($0.Timestamp v) { setField(11, v); }
   @$pb.TagNumber(11)
   $core.bool hasCreatedAt() => $_has(10);
   @$pb.TagNumber(11)
   void clearCreatedAt() => clearField(11);
   @$pb.TagNumber(11)
-  $1.Timestamp ensureCreatedAt() => $_ensure(10);
+  $0.Timestamp ensureCreatedAt() => $_ensure(10);
 
   @$pb.TagNumber(12)
-  $1.Timestamp get updatedAt => $_getN(11);
+  $0.Timestamp get updatedAt => $_getN(11);
   @$pb.TagNumber(12)
-  set updatedAt($1.Timestamp v) { setField(12, v); }
+  set updatedAt($0.Timestamp v) { setField(12, v); }
   @$pb.TagNumber(12)
   $core.bool hasUpdatedAt() => $_has(11);
   @$pb.TagNumber(12)
   void clearUpdatedAt() => clearField(12);
   @$pb.TagNumber(12)
-  $1.Timestamp ensureUpdatedAt() => $_ensure(11);
+  $0.Timestamp ensureUpdatedAt() => $_ensure(11);
 }
 
 class CreateAssignmentRuleRequest extends $pb.GeneratedMessage {
@@ -5120,7 +5469,7 @@ class CreateAssignmentRuleRequest extends $pb.GeneratedMessage {
     $core.String? description,
     $core.bool? isActive,
     $core.int? priority,
-    $2.Struct? conditions,
+    $3.Struct? conditions,
     AssignmentTargetType? assignmentType,
     AssignmentMethod? assignmentMethod,
   }) {
@@ -5157,7 +5506,7 @@ class CreateAssignmentRuleRequest extends $pb.GeneratedMessage {
     ..aOS(2, _omitFieldNames ? '' : 'description')
     ..aOB(3, _omitFieldNames ? '' : 'isActive')
     ..a<$core.int>(4, _omitFieldNames ? '' : 'priority', $pb.PbFieldType.O3)
-    ..aOM<$2.Struct>(5, _omitFieldNames ? '' : 'conditions', subBuilder: $2.Struct.create)
+    ..aOM<$3.Struct>(5, _omitFieldNames ? '' : 'conditions', subBuilder: $3.Struct.create)
     ..e<AssignmentTargetType>(6, _omitFieldNames ? '' : 'assignmentType', $pb.PbFieldType.OE, defaultOrMaker: AssignmentTargetType.ASSIGNMENT_TARGET_TYPE_UNSPECIFIED, valueOf: AssignmentTargetType.valueOf, enumValues: AssignmentTargetType.values)
     ..e<AssignmentMethod>(7, _omitFieldNames ? '' : 'assignmentMethod', $pb.PbFieldType.OE, defaultOrMaker: AssignmentMethod.ASSIGNMENT_METHOD_UNSPECIFIED, valueOf: AssignmentMethod.valueOf, enumValues: AssignmentMethod.values)
     ..hasRequiredFields = false
@@ -5221,15 +5570,15 @@ class CreateAssignmentRuleRequest extends $pb.GeneratedMessage {
   void clearPriority() => clearField(4);
 
   @$pb.TagNumber(5)
-  $2.Struct get conditions => $_getN(4);
+  $3.Struct get conditions => $_getN(4);
   @$pb.TagNumber(5)
-  set conditions($2.Struct v) { setField(5, v); }
+  set conditions($3.Struct v) { setField(5, v); }
   @$pb.TagNumber(5)
   $core.bool hasConditions() => $_has(4);
   @$pb.TagNumber(5)
   void clearConditions() => clearField(5);
   @$pb.TagNumber(5)
-  $2.Struct ensureConditions() => $_ensure(4);
+  $3.Struct ensureConditions() => $_ensure(4);
 
   @$pb.TagNumber(6)
   AssignmentTargetType get assignmentType => $_getN(5);
@@ -5257,7 +5606,7 @@ class UpdateAssignmentRuleRequest extends $pb.GeneratedMessage {
     $core.String? description,
     $core.bool? isActive,
     $core.int? priority,
-    $2.Struct? conditions,
+    $3.Struct? conditions,
     AssignmentTargetType? assignmentType,
     AssignmentMethod? assignmentMethod,
   }) {
@@ -5298,7 +5647,7 @@ class UpdateAssignmentRuleRequest extends $pb.GeneratedMessage {
     ..aOS(3, _omitFieldNames ? '' : 'description')
     ..aOB(4, _omitFieldNames ? '' : 'isActive')
     ..a<$core.int>(5, _omitFieldNames ? '' : 'priority', $pb.PbFieldType.O3)
-    ..aOM<$2.Struct>(6, _omitFieldNames ? '' : 'conditions', subBuilder: $2.Struct.create)
+    ..aOM<$3.Struct>(6, _omitFieldNames ? '' : 'conditions', subBuilder: $3.Struct.create)
     ..e<AssignmentTargetType>(7, _omitFieldNames ? '' : 'assignmentType', $pb.PbFieldType.OE, defaultOrMaker: AssignmentTargetType.ASSIGNMENT_TARGET_TYPE_UNSPECIFIED, valueOf: AssignmentTargetType.valueOf, enumValues: AssignmentTargetType.values)
     ..e<AssignmentMethod>(8, _omitFieldNames ? '' : 'assignmentMethod', $pb.PbFieldType.OE, defaultOrMaker: AssignmentMethod.ASSIGNMENT_METHOD_UNSPECIFIED, valueOf: AssignmentMethod.valueOf, enumValues: AssignmentMethod.values)
     ..hasRequiredFields = false
@@ -5371,15 +5720,15 @@ class UpdateAssignmentRuleRequest extends $pb.GeneratedMessage {
   void clearPriority() => clearField(5);
 
   @$pb.TagNumber(6)
-  $2.Struct get conditions => $_getN(5);
+  $3.Struct get conditions => $_getN(5);
   @$pb.TagNumber(6)
-  set conditions($2.Struct v) { setField(6, v); }
+  set conditions($3.Struct v) { setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasConditions() => $_has(5);
   @$pb.TagNumber(6)
   void clearConditions() => clearField(6);
   @$pb.TagNumber(6)
-  $2.Struct ensureConditions() => $_ensure(5);
+  $3.Struct ensureConditions() => $_ensure(5);
 
   @$pb.TagNumber(7)
   AssignmentTargetType get assignmentType => $_getN(6);
@@ -6332,8 +6681,8 @@ class TaskDefStatistics extends $pb.GeneratedMessage {
     $core.String? taskDefId,
     $core.int? activeTasksCount,
     $core.int? completedTasksCount,
-    $1.Timestamp? lastCompletedAt,
-    $1.Timestamp? nextScheduledAt,
+    $0.Timestamp? lastCompletedAt,
+    $0.Timestamp? nextScheduledAt,
     $core.double? completionRate,
     $core.double? avgCompletionTimeHours,
   }) {
@@ -6369,8 +6718,8 @@ class TaskDefStatistics extends $pb.GeneratedMessage {
     ..aOS(1, _omitFieldNames ? '' : 'taskDefId')
     ..a<$core.int>(2, _omitFieldNames ? '' : 'activeTasksCount', $pb.PbFieldType.O3)
     ..a<$core.int>(3, _omitFieldNames ? '' : 'completedTasksCount', $pb.PbFieldType.O3)
-    ..aOM<$1.Timestamp>(4, _omitFieldNames ? '' : 'lastCompletedAt', subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(5, _omitFieldNames ? '' : 'nextScheduledAt', subBuilder: $1.Timestamp.create)
+    ..aOM<$0.Timestamp>(4, _omitFieldNames ? '' : 'lastCompletedAt', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(5, _omitFieldNames ? '' : 'nextScheduledAt', subBuilder: $0.Timestamp.create)
     ..a<$core.double>(6, _omitFieldNames ? '' : 'completionRate', $pb.PbFieldType.OD)
     ..a<$core.double>(7, _omitFieldNames ? '' : 'avgCompletionTimeHours', $pb.PbFieldType.OD)
     ..hasRequiredFields = false
@@ -6425,26 +6774,26 @@ class TaskDefStatistics extends $pb.GeneratedMessage {
   void clearCompletedTasksCount() => clearField(3);
 
   @$pb.TagNumber(4)
-  $1.Timestamp get lastCompletedAt => $_getN(3);
+  $0.Timestamp get lastCompletedAt => $_getN(3);
   @$pb.TagNumber(4)
-  set lastCompletedAt($1.Timestamp v) { setField(4, v); }
+  set lastCompletedAt($0.Timestamp v) { setField(4, v); }
   @$pb.TagNumber(4)
   $core.bool hasLastCompletedAt() => $_has(3);
   @$pb.TagNumber(4)
   void clearLastCompletedAt() => clearField(4);
   @$pb.TagNumber(4)
-  $1.Timestamp ensureLastCompletedAt() => $_ensure(3);
+  $0.Timestamp ensureLastCompletedAt() => $_ensure(3);
 
   @$pb.TagNumber(5)
-  $1.Timestamp get nextScheduledAt => $_getN(4);
+  $0.Timestamp get nextScheduledAt => $_getN(4);
   @$pb.TagNumber(5)
-  set nextScheduledAt($1.Timestamp v) { setField(5, v); }
+  set nextScheduledAt($0.Timestamp v) { setField(5, v); }
   @$pb.TagNumber(5)
   $core.bool hasNextScheduledAt() => $_has(4);
   @$pb.TagNumber(5)
   void clearNextScheduledAt() => clearField(5);
   @$pb.TagNumber(5)
-  $1.Timestamp ensureNextScheduledAt() => $_ensure(4);
+  $0.Timestamp ensureNextScheduledAt() => $_ensure(4);
 
   @$pb.TagNumber(6)
   $core.double get completionRate => $_getN(5);
@@ -7000,7 +7349,7 @@ class ValidateRecurrenceRuleResponse extends $pb.GeneratedMessage {
 class PreviewRecurrenceOccurrencesRequest extends $pb.GeneratedMessage {
   factory PreviewRecurrenceOccurrencesRequest({
     $core.String? rule,
-    $1.Timestamp? startDate,
+    $0.Timestamp? startDate,
     $core.int? count,
   }) {
     final $result = create();
@@ -7021,7 +7370,7 @@ class PreviewRecurrenceOccurrencesRequest extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'PreviewRecurrenceOccurrencesRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'moat.v1'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'rule')
-    ..aOM<$1.Timestamp>(2, _omitFieldNames ? '' : 'startDate', subBuilder: $1.Timestamp.create)
+    ..aOM<$0.Timestamp>(2, _omitFieldNames ? '' : 'startDate', subBuilder: $0.Timestamp.create)
     ..a<$core.int>(3, _omitFieldNames ? '' : 'count', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
@@ -7057,15 +7406,15 @@ class PreviewRecurrenceOccurrencesRequest extends $pb.GeneratedMessage {
   void clearRule() => clearField(1);
 
   @$pb.TagNumber(2)
-  $1.Timestamp get startDate => $_getN(1);
+  $0.Timestamp get startDate => $_getN(1);
   @$pb.TagNumber(2)
-  set startDate($1.Timestamp v) { setField(2, v); }
+  set startDate($0.Timestamp v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasStartDate() => $_has(1);
   @$pb.TagNumber(2)
   void clearStartDate() => clearField(2);
   @$pb.TagNumber(2)
-  $1.Timestamp ensureStartDate() => $_ensure(1);
+  $0.Timestamp ensureStartDate() => $_ensure(1);
 
   @$pb.TagNumber(3)
   $core.int get count => $_getIZ(2);
@@ -7079,7 +7428,7 @@ class PreviewRecurrenceOccurrencesRequest extends $pb.GeneratedMessage {
 
 class PreviewRecurrenceOccurrencesResponse extends $pb.GeneratedMessage {
   factory PreviewRecurrenceOccurrencesResponse({
-    $core.Iterable<$1.Timestamp>? occurrences,
+    $core.Iterable<$0.Timestamp>? occurrences,
     $core.String? description,
   }) {
     final $result = create();
@@ -7096,7 +7445,7 @@ class PreviewRecurrenceOccurrencesResponse extends $pb.GeneratedMessage {
   factory PreviewRecurrenceOccurrencesResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'PreviewRecurrenceOccurrencesResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'moat.v1'), createEmptyInstance: create)
-    ..pc<$1.Timestamp>(1, _omitFieldNames ? '' : 'occurrences', $pb.PbFieldType.PM, subBuilder: $1.Timestamp.create)
+    ..pc<$0.Timestamp>(1, _omitFieldNames ? '' : 'occurrences', $pb.PbFieldType.PM, subBuilder: $0.Timestamp.create)
     ..aOS(2, _omitFieldNames ? '' : 'description')
     ..hasRequiredFields = false
   ;
@@ -7123,7 +7472,7 @@ class PreviewRecurrenceOccurrencesResponse extends $pb.GeneratedMessage {
   static PreviewRecurrenceOccurrencesResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<$1.Timestamp> get occurrences => $_getList(0);
+  $core.List<$0.Timestamp> get occurrences => $_getList(0);
 
   /// Human-readable description of the rule
   @$pb.TagNumber(2)
@@ -7144,7 +7493,7 @@ class CreateRecurrenceRuleRequest extends $pb.GeneratedMessage {
     $core.int? byMonthDay,
     $core.int? byMonth,
     $core.int? count,
-    $1.Timestamp? until,
+    $0.Timestamp? until,
   }) {
     final $result = create();
     if (frequency != null) {
@@ -7181,7 +7530,7 @@ class CreateRecurrenceRuleRequest extends $pb.GeneratedMessage {
     ..a<$core.int>(4, _omitFieldNames ? '' : 'byMonthDay', $pb.PbFieldType.O3)
     ..a<$core.int>(5, _omitFieldNames ? '' : 'byMonth', $pb.PbFieldType.O3)
     ..a<$core.int>(6, _omitFieldNames ? '' : 'count', $pb.PbFieldType.O3)
-    ..aOM<$1.Timestamp>(7, _omitFieldNames ? '' : 'until', subBuilder: $1.Timestamp.create)
+    ..aOM<$0.Timestamp>(7, _omitFieldNames ? '' : 'until', subBuilder: $0.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -7261,15 +7610,15 @@ class CreateRecurrenceRuleRequest extends $pb.GeneratedMessage {
 
   /// End date (optional - either count or until, not both)
   @$pb.TagNumber(7)
-  $1.Timestamp get until => $_getN(6);
+  $0.Timestamp get until => $_getN(6);
   @$pb.TagNumber(7)
-  set until($1.Timestamp v) { setField(7, v); }
+  set until($0.Timestamp v) { setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasUntil() => $_has(6);
   @$pb.TagNumber(7)
   void clearUntil() => clearField(7);
   @$pb.TagNumber(7)
-  $1.Timestamp ensureUntil() => $_ensure(6);
+  $0.Timestamp ensureUntil() => $_ensure(6);
 }
 
 class CreateRecurrenceRuleResponse extends $pb.GeneratedMessage {
@@ -7347,10 +7696,10 @@ class BulkCreateTaskDefsRequest extends $pb.GeneratedMessage {
     $core.String? description,
     $core.bool? isEnabled,
     $core.String? recurrenceRule,
-    $1.Timestamp? recurrenceStart,
-    $1.Timestamp? recurrenceEnd,
+    $0.Timestamp? recurrenceStart,
+    $0.Timestamp? recurrenceEnd,
     $core.String? specificLocation,
-    $2.Struct? details,
+    $3.Struct? details,
   }) {
     final $result = create();
     if (assetIds != null) {
@@ -7400,10 +7749,10 @@ class BulkCreateTaskDefsRequest extends $pb.GeneratedMessage {
     ..aOS(5, _omitFieldNames ? '' : 'description')
     ..aOB(6, _omitFieldNames ? '' : 'isEnabled')
     ..aOS(7, _omitFieldNames ? '' : 'recurrenceRule')
-    ..aOM<$1.Timestamp>(8, _omitFieldNames ? '' : 'recurrenceStart', subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(9, _omitFieldNames ? '' : 'recurrenceEnd', subBuilder: $1.Timestamp.create)
+    ..aOM<$0.Timestamp>(8, _omitFieldNames ? '' : 'recurrenceStart', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(9, _omitFieldNames ? '' : 'recurrenceEnd', subBuilder: $0.Timestamp.create)
     ..aOS(10, _omitFieldNames ? '' : 'specificLocation')
-    ..aOM<$2.Struct>(11, _omitFieldNames ? '' : 'details', subBuilder: $2.Struct.create)
+    ..aOM<$3.Struct>(11, _omitFieldNames ? '' : 'details', subBuilder: $3.Struct.create)
     ..hasRequiredFields = false
   ;
 
@@ -7488,26 +7837,26 @@ class BulkCreateTaskDefsRequest extends $pb.GeneratedMessage {
   void clearRecurrenceRule() => clearField(7);
 
   @$pb.TagNumber(8)
-  $1.Timestamp get recurrenceStart => $_getN(7);
+  $0.Timestamp get recurrenceStart => $_getN(7);
   @$pb.TagNumber(8)
-  set recurrenceStart($1.Timestamp v) { setField(8, v); }
+  set recurrenceStart($0.Timestamp v) { setField(8, v); }
   @$pb.TagNumber(8)
   $core.bool hasRecurrenceStart() => $_has(7);
   @$pb.TagNumber(8)
   void clearRecurrenceStart() => clearField(8);
   @$pb.TagNumber(8)
-  $1.Timestamp ensureRecurrenceStart() => $_ensure(7);
+  $0.Timestamp ensureRecurrenceStart() => $_ensure(7);
 
   @$pb.TagNumber(9)
-  $1.Timestamp get recurrenceEnd => $_getN(8);
+  $0.Timestamp get recurrenceEnd => $_getN(8);
   @$pb.TagNumber(9)
-  set recurrenceEnd($1.Timestamp v) { setField(9, v); }
+  set recurrenceEnd($0.Timestamp v) { setField(9, v); }
   @$pb.TagNumber(9)
   $core.bool hasRecurrenceEnd() => $_has(8);
   @$pb.TagNumber(9)
   void clearRecurrenceEnd() => clearField(9);
   @$pb.TagNumber(9)
-  $1.Timestamp ensureRecurrenceEnd() => $_ensure(8);
+  $0.Timestamp ensureRecurrenceEnd() => $_ensure(8);
 
   @$pb.TagNumber(10)
   $core.String get specificLocation => $_getSZ(9);
@@ -7519,15 +7868,15 @@ class BulkCreateTaskDefsRequest extends $pb.GeneratedMessage {
   void clearSpecificLocation() => clearField(10);
 
   @$pb.TagNumber(11)
-  $2.Struct get details => $_getN(10);
+  $3.Struct get details => $_getN(10);
   @$pb.TagNumber(11)
-  set details($2.Struct v) { setField(11, v); }
+  set details($3.Struct v) { setField(11, v); }
   @$pb.TagNumber(11)
   $core.bool hasDetails() => $_has(10);
   @$pb.TagNumber(11)
   void clearDetails() => clearField(11);
   @$pb.TagNumber(11)
-  $2.Struct ensureDetails() => $_ensure(10);
+  $3.Struct ensureDetails() => $_ensure(10);
 }
 
 class BulkCreateTaskDefsResponse extends $pb.GeneratedMessage {
@@ -8129,10 +8478,10 @@ class TaskDefHistoryEntry extends $pb.GeneratedMessage {
     $core.String? id,
     $core.String? taskDefId,
     $core.String? changeType,
-    $2.Struct? changes,
+    $3.Struct? changes,
     $core.String? changedById,
     $core.String? changedByName,
-    $1.Timestamp? createdAt,
+    $0.Timestamp? createdAt,
   }) {
     final $result = create();
     if (id != null) {
@@ -8166,10 +8515,10 @@ class TaskDefHistoryEntry extends $pb.GeneratedMessage {
     ..aOS(1, _omitFieldNames ? '' : 'id')
     ..aOS(2, _omitFieldNames ? '' : 'taskDefId')
     ..aOS(3, _omitFieldNames ? '' : 'changeType')
-    ..aOM<$2.Struct>(4, _omitFieldNames ? '' : 'changes', subBuilder: $2.Struct.create)
+    ..aOM<$3.Struct>(4, _omitFieldNames ? '' : 'changes', subBuilder: $3.Struct.create)
     ..aOS(5, _omitFieldNames ? '' : 'changedById')
     ..aOS(6, _omitFieldNames ? '' : 'changedByName')
-    ..aOM<$1.Timestamp>(7, _omitFieldNames ? '' : 'createdAt', subBuilder: $1.Timestamp.create)
+    ..aOM<$0.Timestamp>(7, _omitFieldNames ? '' : 'createdAt', subBuilder: $0.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -8222,15 +8571,15 @@ class TaskDefHistoryEntry extends $pb.GeneratedMessage {
   void clearChangeType() => clearField(3);
 
   @$pb.TagNumber(4)
-  $2.Struct get changes => $_getN(3);
+  $3.Struct get changes => $_getN(3);
   @$pb.TagNumber(4)
-  set changes($2.Struct v) { setField(4, v); }
+  set changes($3.Struct v) { setField(4, v); }
   @$pb.TagNumber(4)
   $core.bool hasChanges() => $_has(3);
   @$pb.TagNumber(4)
   void clearChanges() => clearField(4);
   @$pb.TagNumber(4)
-  $2.Struct ensureChanges() => $_ensure(3);
+  $3.Struct ensureChanges() => $_ensure(3);
 
   @$pb.TagNumber(5)
   $core.String get changedById => $_getSZ(4);
@@ -8251,15 +8600,15 @@ class TaskDefHistoryEntry extends $pb.GeneratedMessage {
   void clearChangedByName() => clearField(6);
 
   @$pb.TagNumber(7)
-  $1.Timestamp get createdAt => $_getN(6);
+  $0.Timestamp get createdAt => $_getN(6);
   @$pb.TagNumber(7)
-  set createdAt($1.Timestamp v) { setField(7, v); }
+  set createdAt($0.Timestamp v) { setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasCreatedAt() => $_has(6);
   @$pb.TagNumber(7)
   void clearCreatedAt() => clearField(7);
   @$pb.TagNumber(7)
-  $1.Timestamp ensureCreatedAt() => $_ensure(6);
+  $0.Timestamp ensureCreatedAt() => $_ensure(6);
 }
 
 class TaskServiceApi {
@@ -8367,6 +8716,21 @@ class TaskServiceApi {
   ;
   $async.Future<DeleteAttachmentResponse> deleteAttachment($pb.ClientContext? ctx, DeleteAttachmentRequest request) =>
     _client.invoke<DeleteAttachmentResponse>(ctx, 'TaskService', 'DeleteAttachment', request, DeleteAttachmentResponse())
+  ;
+  $async.Future<TaskAttachment> updateAttachment($pb.ClientContext? ctx, UpdateAttachmentRequest request) =>
+    _client.invoke<TaskAttachment>(ctx, 'TaskService', 'UpdateAttachment', request, TaskAttachment())
+  ;
+  $async.Future<GetAttachmentUploadUrlResponse> getTaskDefAttachmentUploadUrl($pb.ClientContext? ctx, GetTaskDefAttachmentUploadUrlRequest request) =>
+    _client.invoke<GetAttachmentUploadUrlResponse>(ctx, 'TaskService', 'GetTaskDefAttachmentUploadUrl', request, GetAttachmentUploadUrlResponse())
+  ;
+  $async.Future<TaskAttachment> confirmTaskDefAttachmentUpload($pb.ClientContext? ctx, ConfirmTaskDefAttachmentUploadRequest request) =>
+    _client.invoke<TaskAttachment>(ctx, 'TaskService', 'ConfirmTaskDefAttachmentUpload', request, TaskAttachment())
+  ;
+  $async.Future<ListTaskAttachmentsResponse> listTaskDefAttachments($pb.ClientContext? ctx, ListTaskDefAttachmentsRequest request) =>
+    _client.invoke<ListTaskAttachmentsResponse>(ctx, 'TaskService', 'ListTaskDefAttachments', request, ListTaskAttachmentsResponse())
+  ;
+  $async.Future<DeleteAttachmentResponse> deleteTaskDefAttachment($pb.ClientContext? ctx, DeleteTaskDefAttachmentRequest request) =>
+    _client.invoke<DeleteAttachmentResponse>(ctx, 'TaskService', 'DeleteTaskDefAttachment', request, DeleteAttachmentResponse())
   ;
   $async.Future<ValidateRecurrenceRuleResponse> validateRecurrenceRule($pb.ClientContext? ctx, ValidateRecurrenceRuleRequest request) =>
     _client.invoke<ValidateRecurrenceRuleResponse>(ctx, 'TaskService', 'ValidateRecurrenceRule', request, ValidateRecurrenceRuleResponse())
