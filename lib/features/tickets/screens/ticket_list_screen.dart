@@ -5,7 +5,6 @@ import 'package:signals/signals_flutter.dart';
 import '../../../common_widgets/page_header.dart';
 import '../../../common_widgets/rounded_action_button.dart';
 import '../../../core/di/injection.dart';
-import '../../../core/routing/routes.dart';
 import '../../../core/styles/app_colors.dart';
 import '../../../core/styles/app_sizes.dart';
 import '../../../core/styles/app_text_styles.dart';
@@ -20,6 +19,7 @@ import '../widgets/tickets_stat_card.dart';
 import '../widgets/time_in_queue_bar.dart';
 import '../widgets/type_badge.dart';
 import 'create_ticket_drawer.dart';
+import 'ticket_detail_drawer.dart';
 
 class TicketListScreen extends StatefulWidget {
   const TicketListScreen({super.key});
@@ -284,7 +284,7 @@ class _TicketListScreenState extends State<TicketListScreen> {
               final task = tasks[index];
               return MobileTicketCard(
                 task: task,
-                onTap: () => context.goToTicket(task.externalId ?? task.id),
+                onTap: () => _handleOpenTicket(task.externalId ?? task.id),
               );
             },
           ),
@@ -369,7 +369,7 @@ class _TicketListScreenState extends State<TicketListScreen> {
                 rows: [
                     ...tasks.map((task) {
                       return DataRow2(
-                        onTap: () => context.goToTicket(task.externalId ?? task.id),
+                        onTap: () => _handleOpenTicket(task.externalId ?? task.id),
                         cells: [
                           // Task: Title + Description
                           DataCell(
@@ -638,6 +638,13 @@ class _TicketListScreenState extends State<TicketListScreen> {
 
   Future<void> _handleCreateTicket() async {
     final result = await CreateTicketDrawer.show(context);
+    if (result == true) {
+      _listState.fetchTasks(refresh: true);
+    }
+  }
+
+  Future<void> _handleOpenTicket(String externalId) async {
+    final result = await TicketDetailDrawer.show(context, externalId);
     if (result == true) {
       _listState.fetchTasks(refresh: true);
     }

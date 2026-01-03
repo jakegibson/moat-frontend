@@ -33,6 +33,7 @@ dependencies:
 
   # HTTP Client
   http: ^1.2.2
+  http_parser: ^4.0.0
 
   # File Handling
   file_picker: ^8.0.0

@@ -5,7 +5,6 @@ import '../../../core/di/injection.dart';
 import '../../../core/styles/app_colors.dart';
 import '../../../core/styles/app_sizes.dart';
 import '../../../core/styles/app_text_styles.dart';
-import '../data/task_models.dart';
 import '../state/task_list_state.dart';
 
 class TicketFilterBar extends StatefulWidget {
