@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'dart:ui';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html show FileUploadInputElement, FileReader, document;
 
@@ -30,15 +31,11 @@ class _Colors {
   static const Color utilityBlue500 = Color(0xFF3B82F6);
   static const Color utilityOrange500 = Color(0xFFF97316);
 
-  // Status colors
+  // Status colors (dot indicator only, no background)
   static const Color statusCreated = Color(0xFF2563EB);
-  static const Color statusCreatedBg = Color(0xFFDBEAFE);
   static const Color statusInProgress = Color(0xFFF79009);
-  static const Color statusInProgressBg = Color(0xFFFEF3C7);
   static const Color statusOnHold = Color(0xFFF59E0B);
-  static const Color statusOnHoldBg = Color(0xFFFEF3C7);
   static const Color statusResolved = Color(0xFF17B26A);
-  static const Color statusResolvedBg = Color(0xFFECFDF3);
 }
 
 /// A right-side drawer that displays ticket details.
@@ -81,7 +78,7 @@ class _TicketDetailDrawerState extends State<TicketDetailDrawer> {
   bool _isSubmittingComment = false;
 
   /// Current user's member ID (for activity alignment)
-  String? get _currentUserId => _authState.user?.id;
+  String? get _currentUserId => _authState.user.value?.id;
 
   @override
   void initState() {
@@ -553,30 +550,38 @@ class _TicketDetailDrawerState extends State<TicketDetailDrawer> {
             scrollDirection: Axis.horizontal,
             children: [
               // Existing photos
-              ...images.map((attachment) => Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: GestureDetector(
-                      onTap: () => _handleViewPhoto(attachment),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.network(
-                          attachment.url,
+              ...images.asMap().entries.map((entry) {
+                final index = entry.key;
+                final attachment = entry.value;
+                return Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: GestureDetector(
+                    onTap: () => _handleViewPhoto(
+                      images: images,
+                      initialIndex: index,
+                      uploaderName: task.requestedByName,
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.network(
+                        attachment.url,
+                        width: 80,
+                        height: 80,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) => Container(
                           width: 80,
                           height: 80,
-                          fit: BoxFit.cover,
-                          errorBuilder: (_, __, ___) => Container(
-                            width: 80,
-                            height: 80,
-                            color: _Colors.bgSecondary,
-                            child: const Icon(
-                              Icons.broken_image_outlined,
-                              color: _Colors.textTertiary,
-                            ),
+                          color: _Colors.bgSecondary,
+                          child: const Icon(
+                            Icons.broken_image_outlined,
+                            color: _Colors.textTertiary,
                           ),
                         ),
                       ),
                     ),
-                  )),
+                  ),
+                );
+              }),
               // Add photo button
               GestureDetector(
                 onTap: () => _handleAddPhoto(task.id),
@@ -985,41 +990,310 @@ class _TicketDetailDrawerState extends State<TicketDetailDrawer> {
     }
   }
 
-  void _handleViewPhoto(TaskAttachment attachment) {
+  void _handleViewPhoto({
+    required List<TaskAttachment> images,
+    required int initialIndex,
+    String? uploaderName,
+  }) {
     showDialog(
       context: context,
-      builder: (context) => Dialog(
-        backgroundColor: Colors.transparent,
-        child: Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Image.network(attachment.url, fit: BoxFit.contain),
-            ),
-            Positioned(
-              top: 8,
-              right: 8,
-              child: GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: Container(
-                  width: 36,
-                  height: 36,
-                  decoration: BoxDecoration(
-                    color: Colors.black54,
-                    borderRadius: BorderRadius.circular(18),
-                  ),
-                  child: const Icon(Icons.close, color: Colors.white, size: 20),
-                ),
-              ),
-            ),
-          ],
-        ),
+      barrierColor: Colors.transparent,
+      builder: (context) => _FullScreenImageViewer(
+        images: images,
+        initialIndex: initialIndex,
+        uploaderName: uploaderName,
       ),
     );
   }
 }
 
-/// Status tag badge
+/// Full-screen image viewer with blurred background, navigation, and metadata
+class _FullScreenImageViewer extends StatefulWidget {
+  final List<TaskAttachment> images;
+  final int initialIndex;
+  final String? uploaderName;
+
+  const _FullScreenImageViewer({
+    required this.images,
+    required this.initialIndex,
+    this.uploaderName,
+  });
+
+  @override
+  State<_FullScreenImageViewer> createState() => _FullScreenImageViewerState();
+}
+
+class _FullScreenImageViewerState extends State<_FullScreenImageViewer> {
+  late int _currentIndex;
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = widget.initialIndex;
+    _pageController = PageController(initialPage: widget.initialIndex);
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void _goToPrevious() {
+    if (_currentIndex > 0) {
+      _pageController.previousPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  void _goToNext() {
+    if (_currentIndex < widget.images.length - 1) {
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  String _formatDate(DateTime date) {
+    final localDate = date.isUtc ? date.toLocal() : date;
+    return DateFormat('MMM d, yyyy').format(localDate);
+  }
+
+  String _getInitials(String? name) {
+    if (name == null || name.isEmpty) return '?';
+    final parts = name.trim().split(' ');
+    if (parts.length == 1) return parts[0][0].toUpperCase();
+    return '${parts[0][0]}${parts[parts.length - 1][0]}'.toUpperCase();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final currentImage = widget.images[_currentIndex];
+
+    return Stack(
+      children: [
+        // Blurred background (light to support dark text)
+        Positioned.fill(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+            child: Container(
+              color: Colors.white.withValues(alpha: 0.85),
+            ),
+          ),
+        ),
+        // Main content
+        SafeArea(
+          child: Column(
+            children: [
+              // Header with avatar, name, date, and counter
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                child: Row(
+                  children: [
+                    // Close button (top left)
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Container(
+                        width: 36,
+                        height: 36,
+                        decoration: BoxDecoration(
+                          color: _Colors.bgSecondary,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Icon(
+                          Icons.close,
+                          color: _Colors.textPrimary,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                    // Center: Avatar + Name + Date
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          // Avatar
+                          Container(
+                            width: 40,
+                            height: 40,
+                            decoration: const BoxDecoration(
+                              color: _Colors.utilityBlue500,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: Text(
+                                _getInitials(widget.uploaderName),
+                                style: const TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          // Name
+                          Text(
+                            widget.uploaderName ?? 'Unknown',
+                            style: const TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: _Colors.textPrimary,
+                            ),
+                          ),
+                          // Date
+                          Text(
+                            'Added ${_formatDate(currentImage.createdAt)}',
+                            style: const TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 12,
+                              color: _Colors.textTertiary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Counter (top right)
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: _Colors.bgSecondary,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        '${_currentIndex + 1} of ${widget.images.length}',
+                        style: const TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: _Colors.textSecondary,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Image viewer with navigation
+              Expanded(
+                child: Stack(
+                  children: [
+                    // PageView for images
+                    PageView.builder(
+                      controller: _pageController,
+                      itemCount: widget.images.length,
+                      onPageChanged: (index) {
+                        setState(() {
+                          _currentIndex = index;
+                        });
+                      },
+                      itemBuilder: (context, index) {
+                        final image = widget.images[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(24),
+                          child: Center(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.network(
+                                image.url,
+                                fit: BoxFit.contain,
+                                errorBuilder: (_, __, ___) => Container(
+                                  width: 200,
+                                  height: 200,
+                                  color: _Colors.bgSecondary,
+                                  child: const Icon(
+                                    Icons.broken_image_outlined,
+                                    color: _Colors.textTertiary,
+                                    size: 48,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    // Left navigation arrow
+                    if (_currentIndex > 0)
+                      Positioned(
+                        left: 8,
+                        top: 0,
+                        bottom: 0,
+                        child: Center(
+                          child: GestureDetector(
+                            onTap: _goToPrevious,
+                            child: Container(
+                              width: 48,
+                              height: 48,
+                              decoration: BoxDecoration(
+                                color: _Colors.bgSecondary,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withValues(alpha: 0.1),
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child: const Icon(
+                                Icons.chevron_left,
+                                color: _Colors.textPrimary,
+                                size: 32,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    // Right navigation arrow
+                    if (_currentIndex < widget.images.length - 1)
+                      Positioned(
+                        right: 8,
+                        top: 0,
+                        bottom: 0,
+                        child: Center(
+                          child: GestureDetector(
+                            onTap: _goToNext,
+                            child: Container(
+                              width: 48,
+                              height: 48,
+                              decoration: BoxDecoration(
+                                color: _Colors.bgSecondary,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withValues(alpha: 0.1),
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child: const Icon(
+                                Icons.chevron_right,
+                                color: _Colors.textPrimary,
+                                size: 32,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// Status indicator with dot + text and border (matching design)
 class _StatusTag extends StatelessWidget {
   final TaskStatus status;
 
@@ -1027,52 +1301,62 @@ class _StatusTag extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color bgColor;
-    Color textColor;
+    Color dotColor;
     String text;
 
     switch (status) {
       case TaskStatus.created:
-        bgColor = _Colors.statusCreatedBg;
-        textColor = _Colors.statusCreated;
+        dotColor = _Colors.statusCreated;
         text = 'Created';
         break;
       case TaskStatus.inProgress:
-        bgColor = _Colors.statusInProgressBg;
-        textColor = _Colors.statusInProgress;
+        dotColor = _Colors.statusInProgress;
         text = 'In Progress';
         break;
       case TaskStatus.onHold:
-        bgColor = _Colors.statusOnHoldBg;
-        textColor = _Colors.statusOnHold;
+        dotColor = _Colors.statusOnHold;
         text = 'On Hold';
         break;
       case TaskStatus.resolved:
-        bgColor = _Colors.statusResolvedBg;
-        textColor = _Colors.statusResolved;
+        dotColor = _Colors.statusResolved;
         text = 'Resolved';
         break;
       default:
-        bgColor = _Colors.bgSecondary;
-        textColor = _Colors.textTertiary;
+        dotColor = _Colors.textTertiary;
         text = 'Unknown';
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: textColor.withValues(alpha: 0.3)),
+        color: _Colors.bgPrimary,
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: _Colors.borderSecondary),
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontFamily: 'Inter',
-          fontSize: 12,
-          fontWeight: FontWeight.w500,
-          color: textColor,
-        ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Status dot
+          Container(
+            width: 8,
+            height: 8,
+            decoration: BoxDecoration(
+              color: dotColor,
+              shape: BoxShape.circle,
+            ),
+          ),
+          const SizedBox(width: 6),
+          // Status text
+          Text(
+            text,
+            style: const TextStyle(
+              fontFamily: 'Inter',
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: _Colors.textSecondary,
+            ),
+          ),
+        ],
       ),
     );
   }

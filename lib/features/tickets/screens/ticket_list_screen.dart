@@ -1,5 +1,6 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:signals/signals_flutter.dart';
 
 import '../../../common_widgets/page_header.dart';
@@ -19,7 +20,6 @@ import '../widgets/tickets_stat_card.dart';
 import '../widgets/time_in_queue_bar.dart';
 import '../widgets/type_badge.dart';
 import 'create_ticket_drawer.dart';
-import 'ticket_detail_drawer.dart';
 
 class TicketListScreen extends StatefulWidget {
   const TicketListScreen({super.key});
@@ -643,10 +643,8 @@ class _TicketListScreenState extends State<TicketListScreen> {
     }
   }
 
-  Future<void> _handleOpenTicket(String externalId) async {
-    final result = await TicketDetailDrawer.show(context, externalId);
-    if (result == true) {
-      _listState.fetchTasks(refresh: true);
-    }
+  void _handleOpenTicket(String externalId) {
+    // Navigate to ticket detail URL for direct linking
+    context.go('/tickets/$externalId');
   }
 }

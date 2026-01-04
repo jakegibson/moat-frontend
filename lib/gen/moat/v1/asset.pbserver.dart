@@ -36,6 +36,8 @@ abstract class AssetServiceBase extends $pb.GeneratedService {
   $async.Future<$1.ListAssetFilesResponse> listAssetFiles($pb.ServerContext ctx, $1.ListAssetFilesRequest request);
   $async.Future<$1.DeleteAssetFileResponse> deleteAssetFile($pb.ServerContext ctx, $1.DeleteAssetFileRequest request);
   $async.Future<$1.AssetFile> updateAssetFile($pb.ServerContext ctx, $1.UpdateAssetFileRequest request);
+  $async.Future<$1.ListAssetMessagesResponse> listAssetMessages($pb.ServerContext ctx, $1.ListAssetMessagesRequest request);
+  $async.Future<$1.CreateAssetMessageResponse> createAssetMessage($pb.ServerContext ctx, $1.CreateAssetMessageRequest request);
 
   $pb.GeneratedMessage createRequest($core.String methodName) {
     switch (methodName) {
@@ -54,6 +56,8 @@ abstract class AssetServiceBase extends $pb.GeneratedService {
       case 'ListAssetFiles': return $1.ListAssetFilesRequest();
       case 'DeleteAssetFile': return $1.DeleteAssetFileRequest();
       case 'UpdateAssetFile': return $1.UpdateAssetFileRequest();
+      case 'ListAssetMessages': return $1.ListAssetMessagesRequest();
+      case 'CreateAssetMessage': return $1.CreateAssetMessageRequest();
       default: throw $core.ArgumentError('Unknown method: $methodName');
     }
   }
@@ -75,6 +79,8 @@ abstract class AssetServiceBase extends $pb.GeneratedService {
       case 'ListAssetFiles': return this.listAssetFiles(ctx, request as $1.ListAssetFilesRequest);
       case 'DeleteAssetFile': return this.deleteAssetFile(ctx, request as $1.DeleteAssetFileRequest);
       case 'UpdateAssetFile': return this.updateAssetFile(ctx, request as $1.UpdateAssetFileRequest);
+      case 'ListAssetMessages': return this.listAssetMessages(ctx, request as $1.ListAssetMessagesRequest);
+      case 'CreateAssetMessage': return this.createAssetMessage(ctx, request as $1.CreateAssetMessageRequest);
       default: throw $core.ArgumentError('Unknown method: $methodName');
     }
   }

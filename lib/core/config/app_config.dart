@@ -13,6 +13,12 @@ class AppConfig {
     defaultValue: 'http://localhost:8080',
   );
 
+  /// Cube.js API URL for analytics
+  static const String cubeUrl = String.fromEnvironment(
+    'CUBE_URL',
+    defaultValue: 'http://localhost:4001',
+  );
+
   /// Firebase project ID
   static const String firebaseProject = String.fromEnvironment(
     'FIREBASE_PROJECT',

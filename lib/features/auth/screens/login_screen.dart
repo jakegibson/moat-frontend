@@ -84,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     // Error message
                     Watch((context) {
-                      final error = _authState.error;
+                      final error = _authState.error.value;
                       if (error == null) return const SizedBox.shrink();
 
                       return Padding(
@@ -173,7 +173,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     // Submit button
                     Watch((context) {
-                      final isLoading = _authState.isLoading;
+                      final isLoading = _authState.isLoading.value;
 
                       return FilledButton(
                         onPressed: isLoading ? null : _handleSubmit,
@@ -210,7 +210,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     // Google Sign In button
                     Watch((context) {
-                      final isLoading = _authState.isLoading;
+                      final isLoading = _authState.isLoading.value;
 
                       return OutlinedButton.icon(
                         onPressed: isLoading ? null : _handleGoogleSignIn,

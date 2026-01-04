@@ -5,14 +5,25 @@ import 'package:go_router/go_router.dart';
 import '../di/injection.dart';
 import '../styles/app_colors.dart';
 import '../../common_widgets/navigation/main_side_menu.dart';
+import '../../common_screens/common_screens.dart';
+import '../../features/admin/screens/admin_screens.dart';
 import '../../features/auth/screens/login_screen.dart';
 import '../../features/auth/screens/sign_up_screen.dart';
 import '../../features/auth/screens/forgot_password_screen.dart';
 import '../../features/assets/screens/assets_screen.dart';
 import '../../features/assets/screens/asset_detail_screen.dart';
+import '../../features/assets/screens/alerts_screen.dart';
 import '../../features/assets/state/assets_state.dart';
+import '../../features/dashboard/screens/dashboard_screen.dart';
+import '../../features/settings/screens/settings_members_screen.dart';
+import '../../features/settings/screens/settings_roles_screen.dart';
+import '../../features/settings/screens/settings_locations_screen.dart';
+import '../../features/settings/screens/settings_ticketing_screen.dart';
 import '../../features/tickets/screens/ticket_list_screen.dart' as tickets;
-import '../../features/tickets/screens/ticket_detail_screen.dart' as tickets;
+import '../../features/tickets/screens/ticket_detail_page.dart' as tickets;
+import '../../features/reports/screens/reports_dashboard_screen.dart';
+import '../../features/reports/screens/reports_dashboard_v2_screen.dart';
+import '../../features/explore/screens/data_explorer_screen.dart';
 import 'routes.dart';
 
 /// Main application router configuration
@@ -91,15 +102,6 @@ final appRouter = GoRouter(
               pageBuilder: (context, state) => NoTransitionPage(
                 child: AssetsScreen(state: getIt<AssetsState>()),
               ),
-              routes: [
-                GoRoute(
-                  path: ':assetId',
-                  builder: (context, state) {
-                    final assetId = state.pathParameters['assetId']!;
-                    return AssetDetailScreen(assetId: assetId);
-                  },
-                ),
-              ],
             ),
             GoRoute(
               path: Routes.assetsAlerts,
@@ -108,6 +110,14 @@ final appRouter = GoRouter(
               ),
             ),
           ],
+        ),
+        // Asset detail route - AFTER ShellRoute so /assets/list and /assets/alerts match first
+        GoRoute(
+          path: '${Routes.assets}/:assetId',
+          builder: (context, state) {
+            final assetId = state.pathParameters['assetId']!;
+            return AssetDetailScreen(assetId: assetId);
+          },
         ),
 
         // ========== Tickets Shell ==========
@@ -126,10 +136,65 @@ final appRouter = GoRouter(
             ),
             GoRoute(
               path: '${Routes.tickets}/:externalId',
-              builder: (context, state) {
+              pageBuilder: (context, state) {
                 final externalId = state.pathParameters['externalId']!;
-                return tickets.TicketDetailScreen(externalId: externalId);
+                // Use timestamp-based key to force widget recreation on each navigation
+                return NoTransitionPage(
+                  key: ValueKey('ticket-$externalId-${DateTime.now().millisecondsSinceEpoch}'),
+                  child: tickets.TicketDetailPage(externalId: externalId),
+                );
               },
+            ),
+          ],
+        ),
+
+        // ========== Reports Shell ==========
+        GoRoute(
+          path: Routes.reports,
+          redirect: (_, __) => Routes.reportsDashboard,
+        ),
+        ShellRoute(
+          builder: (context, state, child) => ReportsShell(child: child),
+          routes: [
+            GoRoute(
+              path: Routes.reportsDashboard,
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: ReportsDashboardScreen(),
+              ),
+            ),
+          ],
+        ),
+
+        // ========== Reports 2 Shell (fl_chart) ==========
+        GoRoute(
+          path: Routes.reports2,
+          redirect: (_, __) => Routes.reports2Dashboard,
+        ),
+        ShellRoute(
+          builder: (context, state, child) => Reports2Shell(child: child),
+          routes: [
+            GoRoute(
+              path: Routes.reports2Dashboard,
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: ReportsDashboardV2Screen(),
+              ),
+            ),
+          ],
+        ),
+
+        // ========== Data Explorer Shell ==========
+        GoRoute(
+          path: Routes.explore,
+          redirect: (_, __) => Routes.exploreBuilder,
+        ),
+        ShellRoute(
+          builder: (context, state, child) => ExploreShell(child: child),
+          routes: [
+            GoRoute(
+              path: Routes.exploreBuilder,
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: DataExplorerScreen(),
+              ),
             ),
           ],
         ),
@@ -409,193 +474,44 @@ class AdminShell extends StatelessWidget {
   }
 }
 
-// =============================================================================
-// Placeholder Screens (to be implemented)
-// =============================================================================
+/// Reports shell
+class ReportsShell extends StatelessWidget {
+  final Widget child;
 
-class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Dashboard'));
-  }
-}
-
-class AlertsScreen extends StatelessWidget {
-  const AlertsScreen({super.key});
+  const ReportsShell({required this.child, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('Alerts'));
+    return child;
   }
 }
 
+/// Reports 2 shell (fl_chart)
+class Reports2Shell extends StatelessWidget {
+  final Widget child;
 
-class InviteScreen extends StatelessWidget {
-  final String companyId;
-  final String memberId;
-  final String? token;
-
-  const InviteScreen({
-    required this.companyId,
-    required this.memberId,
-    this.token,
-    super.key,
-  });
+  const Reports2Shell({required this.child, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Invite: $companyId / $memberId'));
+    return child;
   }
 }
 
-class LoadingScreen extends StatelessWidget {
-  final String? redirectTo;
+/// Data Explorer shell
+class ExploreShell extends StatelessWidget {
+  final Widget child;
 
-  const LoadingScreen({this.redirectTo, super.key});
+  const ExploreShell({required this.child, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: CircularProgressIndicator());
+    return child;
   }
 }
 
-class NoPermissionsScreen extends StatelessWidget {
-  const NoPermissionsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('You do not have permission to access this page.'));
-  }
-}
-
-// Settings screens
-class SettingsMembersScreen extends StatelessWidget {
-  const SettingsMembersScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Settings: Members'));
-  }
-}
-
-class AddMemberScreen extends StatelessWidget {
-  final String memberId;
-
-  const AddMemberScreen({required this.memberId, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text('Add/Edit Member: $memberId'));
-  }
-}
-
-class SettingsRolesScreen extends StatelessWidget {
-  const SettingsRolesScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Settings: Roles'));
-  }
-}
-
-class SettingsLocationsScreen extends StatelessWidget {
-  const SettingsLocationsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Settings: Locations'));
-  }
-}
-
-class SettingsTicketingScreen extends StatelessWidget {
-  const SettingsTicketingScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Settings: Ticketing'));
-  }
-}
-
-// Admin screens
-class AdminOverviewScreen extends StatelessWidget {
-  const AdminOverviewScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Admin: Overview'));
-  }
-}
-
-class AdminGapAnalysisScreen extends StatelessWidget {
-  const AdminGapAnalysisScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Admin: Gap Analysis'));
-  }
-}
-
-class AdminMetricsScreen extends StatelessWidget {
-  const AdminMetricsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Admin: Metrics'));
-  }
-}
-
-class AdminWorkflowsScreen extends StatelessWidget {
-  const AdminWorkflowsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Admin: Workflows'));
-  }
-}
-
-class AdminDocumentProcessingScreen extends StatelessWidget {
-  const AdminDocumentProcessingScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Admin: Document Processing'));
-  }
-}
-
-class AdminPromptsScreen extends StatelessWidget {
-  const AdminPromptsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Admin: Prompts'));
-  }
-}
-
-class AdminAIGenerationsScreen extends StatelessWidget {
-  const AdminAIGenerationsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Admin: AI Generations'));
-  }
-}
-
-class AdminCompanyManagementScreen extends StatelessWidget {
-  const AdminCompanyManagementScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Admin: Company Management'));
-  }
-}
-
-class AdminSSODomainsScreen extends StatelessWidget {
-  const AdminSSODomainsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Admin: SSO Domains'));
-  }
-}
+// Placeholder screens are now in:
+// - lib/common_screens/common_screens.dart (alerts, invite, loading, no permissions)
+// - lib/features/dashboard/screens/dashboard_screen.dart
+// - lib/features/settings/screens/*.dart
+// - lib/features/admin/screens/admin_screens.dart

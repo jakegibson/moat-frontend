@@ -4152,6 +4152,367 @@ class UpdateAssetFileRequest extends $pb.GeneratedMessage {
   void clearDisplayOrder() => clearField(4);
 }
 
+/// AssetMessage represents a Q&A message about an asset's documents
+class AssetMessage extends $pb.GeneratedMessage {
+  factory AssetMessage({
+    $core.String? id,
+    $core.String? assetId,
+    $core.String? prompt,
+    $core.String? response,
+    $0.Timestamp? createdAt,
+  }) {
+    final $result = create();
+    if (id != null) {
+      $result.id = id;
+    }
+    if (assetId != null) {
+      $result.assetId = assetId;
+    }
+    if (prompt != null) {
+      $result.prompt = prompt;
+    }
+    if (response != null) {
+      $result.response = response;
+    }
+    if (createdAt != null) {
+      $result.createdAt = createdAt;
+    }
+    return $result;
+  }
+  AssetMessage._() : super();
+  factory AssetMessage.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory AssetMessage.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AssetMessage', package: const $pb.PackageName(_omitMessageNames ? '' : 'moat.v1'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'id')
+    ..aOS(2, _omitFieldNames ? '' : 'assetId')
+    ..aOS(3, _omitFieldNames ? '' : 'prompt')
+    ..aOS(4, _omitFieldNames ? '' : 'response')
+    ..aOM<$0.Timestamp>(5, _omitFieldNames ? '' : 'createdAt', subBuilder: $0.Timestamp.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  AssetMessage clone() => AssetMessage()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  AssetMessage copyWith(void Function(AssetMessage) updates) => super.copyWith((message) => updates(message as AssetMessage)) as AssetMessage;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static AssetMessage create() => AssetMessage._();
+  AssetMessage createEmptyInstance() => create();
+  static $pb.PbList<AssetMessage> createRepeated() => $pb.PbList<AssetMessage>();
+  @$core.pragma('dart2js:noInline')
+  static AssetMessage getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AssetMessage>(create);
+  static AssetMessage? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get assetId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set assetId($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasAssetId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearAssetId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get prompt => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set prompt($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasPrompt() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearPrompt() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get response => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set response($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasResponse() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearResponse() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $0.Timestamp get createdAt => $_getN(4);
+  @$pb.TagNumber(5)
+  set createdAt($0.Timestamp v) { setField(5, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasCreatedAt() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearCreatedAt() => clearField(5);
+  @$pb.TagNumber(5)
+  $0.Timestamp ensureCreatedAt() => $_ensure(4);
+}
+
+class ListAssetMessagesRequest extends $pb.GeneratedMessage {
+  factory ListAssetMessagesRequest({
+    $core.String? assetId,
+    $core.int? limit,
+    $core.int? offset,
+  }) {
+    final $result = create();
+    if (assetId != null) {
+      $result.assetId = assetId;
+    }
+    if (limit != null) {
+      $result.limit = limit;
+    }
+    if (offset != null) {
+      $result.offset = offset;
+    }
+    return $result;
+  }
+  ListAssetMessagesRequest._() : super();
+  factory ListAssetMessagesRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ListAssetMessagesRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ListAssetMessagesRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'moat.v1'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'assetId')
+    ..a<$core.int>(2, _omitFieldNames ? '' : 'limit', $pb.PbFieldType.O3)
+    ..a<$core.int>(3, _omitFieldNames ? '' : 'offset', $pb.PbFieldType.O3)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ListAssetMessagesRequest clone() => ListAssetMessagesRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ListAssetMessagesRequest copyWith(void Function(ListAssetMessagesRequest) updates) => super.copyWith((message) => updates(message as ListAssetMessagesRequest)) as ListAssetMessagesRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static ListAssetMessagesRequest create() => ListAssetMessagesRequest._();
+  ListAssetMessagesRequest createEmptyInstance() => create();
+  static $pb.PbList<ListAssetMessagesRequest> createRepeated() => $pb.PbList<ListAssetMessagesRequest>();
+  @$core.pragma('dart2js:noInline')
+  static ListAssetMessagesRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ListAssetMessagesRequest>(create);
+  static ListAssetMessagesRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get assetId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set assetId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasAssetId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAssetId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get limit => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set limit($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasLimit() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearLimit() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get offset => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set offset($core.int v) { $_setSignedInt32(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasOffset() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearOffset() => clearField(3);
+}
+
+class ListAssetMessagesResponse extends $pb.GeneratedMessage {
+  factory ListAssetMessagesResponse({
+    $core.Iterable<AssetMessage>? messages,
+    $core.int? total,
+  }) {
+    final $result = create();
+    if (messages != null) {
+      $result.messages.addAll(messages);
+    }
+    if (total != null) {
+      $result.total = total;
+    }
+    return $result;
+  }
+  ListAssetMessagesResponse._() : super();
+  factory ListAssetMessagesResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ListAssetMessagesResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ListAssetMessagesResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'moat.v1'), createEmptyInstance: create)
+    ..pc<AssetMessage>(1, _omitFieldNames ? '' : 'messages', $pb.PbFieldType.PM, subBuilder: AssetMessage.create)
+    ..a<$core.int>(2, _omitFieldNames ? '' : 'total', $pb.PbFieldType.O3)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ListAssetMessagesResponse clone() => ListAssetMessagesResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ListAssetMessagesResponse copyWith(void Function(ListAssetMessagesResponse) updates) => super.copyWith((message) => updates(message as ListAssetMessagesResponse)) as ListAssetMessagesResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static ListAssetMessagesResponse create() => ListAssetMessagesResponse._();
+  ListAssetMessagesResponse createEmptyInstance() => create();
+  static $pb.PbList<ListAssetMessagesResponse> createRepeated() => $pb.PbList<ListAssetMessagesResponse>();
+  @$core.pragma('dart2js:noInline')
+  static ListAssetMessagesResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ListAssetMessagesResponse>(create);
+  static ListAssetMessagesResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<AssetMessage> get messages => $_getList(0);
+
+  @$pb.TagNumber(2)
+  $core.int get total => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set total($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasTotal() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearTotal() => clearField(2);
+}
+
+class CreateAssetMessageRequest extends $pb.GeneratedMessage {
+  factory CreateAssetMessageRequest({
+    $core.String? assetId,
+    $core.String? prompt,
+  }) {
+    final $result = create();
+    if (assetId != null) {
+      $result.assetId = assetId;
+    }
+    if (prompt != null) {
+      $result.prompt = prompt;
+    }
+    return $result;
+  }
+  CreateAssetMessageRequest._() : super();
+  factory CreateAssetMessageRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CreateAssetMessageRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CreateAssetMessageRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'moat.v1'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'assetId')
+    ..aOS(2, _omitFieldNames ? '' : 'prompt')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CreateAssetMessageRequest clone() => CreateAssetMessageRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CreateAssetMessageRequest copyWith(void Function(CreateAssetMessageRequest) updates) => super.copyWith((message) => updates(message as CreateAssetMessageRequest)) as CreateAssetMessageRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static CreateAssetMessageRequest create() => CreateAssetMessageRequest._();
+  CreateAssetMessageRequest createEmptyInstance() => create();
+  static $pb.PbList<CreateAssetMessageRequest> createRepeated() => $pb.PbList<CreateAssetMessageRequest>();
+  @$core.pragma('dart2js:noInline')
+  static CreateAssetMessageRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateAssetMessageRequest>(create);
+  static CreateAssetMessageRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get assetId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set assetId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasAssetId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAssetId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get prompt => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set prompt($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasPrompt() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearPrompt() => clearField(2);
+}
+
+class CreateAssetMessageResponse extends $pb.GeneratedMessage {
+  factory CreateAssetMessageResponse({
+    AssetMessage? message,
+  }) {
+    final $result = create();
+    if (message != null) {
+      $result.message = message;
+    }
+    return $result;
+  }
+  CreateAssetMessageResponse._() : super();
+  factory CreateAssetMessageResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CreateAssetMessageResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CreateAssetMessageResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'moat.v1'), createEmptyInstance: create)
+    ..aOM<AssetMessage>(1, _omitFieldNames ? '' : 'message', subBuilder: AssetMessage.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CreateAssetMessageResponse clone() => CreateAssetMessageResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CreateAssetMessageResponse copyWith(void Function(CreateAssetMessageResponse) updates) => super.copyWith((message) => updates(message as CreateAssetMessageResponse)) as CreateAssetMessageResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static CreateAssetMessageResponse create() => CreateAssetMessageResponse._();
+  CreateAssetMessageResponse createEmptyInstance() => create();
+  static $pb.PbList<CreateAssetMessageResponse> createRepeated() => $pb.PbList<CreateAssetMessageResponse>();
+  @$core.pragma('dart2js:noInline')
+  static CreateAssetMessageResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateAssetMessageResponse>(create);
+  static CreateAssetMessageResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  AssetMessage get message => $_getN(0);
+  @$pb.TagNumber(1)
+  set message(AssetMessage v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasMessage() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMessage() => clearField(1);
+  @$pb.TagNumber(1)
+  AssetMessage ensureMessage() => $_ensure(0);
+}
+
 class AssetServiceApi {
   $pb.RpcClient _client;
   AssetServiceApi(this._client);
@@ -4200,6 +4561,12 @@ class AssetServiceApi {
   ;
   $async.Future<AssetFile> updateAssetFile($pb.ClientContext? ctx, UpdateAssetFileRequest request) =>
     _client.invoke<AssetFile>(ctx, 'AssetService', 'UpdateAssetFile', request, AssetFile())
+  ;
+  $async.Future<ListAssetMessagesResponse> listAssetMessages($pb.ClientContext? ctx, ListAssetMessagesRequest request) =>
+    _client.invoke<ListAssetMessagesResponse>(ctx, 'AssetService', 'ListAssetMessages', request, ListAssetMessagesResponse())
+  ;
+  $async.Future<CreateAssetMessageResponse> createAssetMessage($pb.ClientContext? ctx, CreateAssetMessageRequest request) =>
+    _client.invoke<CreateAssetMessageResponse>(ctx, 'AssetService', 'CreateAssetMessage', request, CreateAssetMessageResponse())
   ;
 }
 

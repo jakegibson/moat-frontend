@@ -98,7 +98,7 @@ class TaskListState {
   final quickFilter = signal(QuickFilter.all);
 
   /// Current user's member ID (for quick filters)
-  String? get _currentUserId => _authState.user?.id;
+  String? get _currentUserId => _authState.user.value?.id;
 
   // ==========================================================================
   // Filter Options Data

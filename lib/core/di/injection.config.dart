@@ -22,6 +22,9 @@ import '../../features/assets/state/alerts_state.dart' as _i362;
 import '../../features/assets/state/assets_state.dart' as _i19;
 import '../../features/auth/data/auth_client.dart' as _i573;
 import '../../features/auth/state/auth_state.dart' as _i813;
+import '../../features/explore/state/explore_state.dart' as _i713;
+import '../../features/notifications/data/notification_client.dart' as _i479;
+import '../../features/notifications/state/notification_state.dart' as _i895;
 import '../../features/reports/data/analytics_client.dart' as _i756;
 import '../../features/reports/state/reports_state.dart' as _i949;
 import '../../features/settings/data/locations_client.dart' as _i855;
@@ -71,6 +74,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i516.TicketingState(gh<_i81.TicketingClient>()));
     gh.lazySingleton<_i34.AdminState>(
         () => _i34.AdminState(gh<_i1026.AdminClient>()));
+    gh.lazySingleton<_i713.ExploreState>(
+        () => _i713.ExploreState(gh<_i756.AnalyticsClient>()));
     gh.lazySingleton<_i621.AssetServiceClient>(
         () => _i621.AssetServiceClient(gh<_i691.Transport>()));
     gh.lazySingleton<_i245.NotificationServiceClient>(
@@ -81,6 +86,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i83.TaskServiceClient(gh<_i691.Transport>()));
     gh.lazySingleton<_i660.WarrantyCoverageServiceClient>(
         () => _i660.WarrantyCoverageServiceClient(gh<_i691.Transport>()));
+    gh.lazySingleton<_i479.NotificationClient>(
+        () => _i479.NotificationClient(gh<_i245.NotificationServiceClient>()));
     gh.lazySingleton<_i362.AlertsState>(
         () => _i362.AlertsState(gh<_i829.AlertsClient>()));
     gh.lazySingleton<_i1043.RolesState>(
@@ -106,6 +113,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i127.TaskClient>(),
           gh<_i813.AuthState>(),
         ));
+    gh.lazySingleton<_i895.NotificationState>(
+        () => _i895.NotificationState(gh<_i479.NotificationClient>()));
     gh.lazySingleton<_i19.AssetsState>(
         () => _i19.AssetsState(gh<_i274.AssetsClient>()));
     gh.lazySingleton<_i327.TaskDetailState>(() => _i327.TaskDetailState(

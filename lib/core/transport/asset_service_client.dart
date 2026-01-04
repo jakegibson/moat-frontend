@@ -224,4 +224,35 @@ class AssetServiceClient {
       request,
     );
   }
+
+  // ============================================================================
+  // Asset Messages (Document Chat) RPCs
+  // ============================================================================
+
+  Future<ListAssetMessagesResponse> listAssetMessages(
+      ListAssetMessagesRequest request) {
+    return _client.unary(
+      Spec<ListAssetMessagesRequest, ListAssetMessagesResponse>(
+        '$_service/ListAssetMessages',
+        StreamType.unary,
+        ListAssetMessagesRequest.create,
+        ListAssetMessagesResponse.create,
+        idempotency: Idempotency.noSideEffects,
+      ),
+      request,
+    );
+  }
+
+  Future<CreateAssetMessageResponse> createAssetMessage(
+      CreateAssetMessageRequest request) {
+    return _client.unary(
+      Spec<CreateAssetMessageRequest, CreateAssetMessageResponse>(
+        '$_service/CreateAssetMessage',
+        StreamType.unary,
+        CreateAssetMessageRequest.create,
+        CreateAssetMessageResponse.create,
+      ),
+      request,
+    );
+  }
 }

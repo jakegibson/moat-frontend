@@ -32,6 +32,18 @@ abstract class Routes {
   static const settingsLocations = '/settings/locations';
   static const settingsTicketing = '/settings/ticketing';
 
+  // Reports
+  static const reports = '/reports';
+  static const reportsDashboard = '/reports/dashboard';
+
+  // Reports 2 (fl_chart)
+  static const reports2 = '/reports2';
+  static const reports2Dashboard = '/reports2/dashboard';
+
+  // Data Explorer (self-service analytics)
+  static const explore = '/explore';
+  static const exploreBuilder = '/explore/builder';
+
   // Admin
   static const admin = '/admin';
   static const adminOverview = '/admin/overview';
@@ -70,6 +82,18 @@ extension AppRouterExtensions on BuildContext {
   void goToSettingsRoles() => go(Routes.settingsRoles);
   void goToSettingsLocations() => go(Routes.settingsLocations);
   void goToSettingsTicketing() => go(Routes.settingsTicketing);
+
+  // Reports
+  void goToReports() => go(Routes.reportsDashboard);
+  void goToReportsDashboard() => go(Routes.reportsDashboard);
+
+  // Reports 2 (fl_chart)
+  void goToReports2() => go(Routes.reports2Dashboard);
+  void goToReports2Dashboard() => go(Routes.reports2Dashboard);
+
+  // Data Explorer
+  void goToExplore() => go(Routes.exploreBuilder);
+  void goToExploreBuilder() => go(Routes.exploreBuilder);
 
   // Admin
   void goToAdmin() => go(Routes.adminOverview);

@@ -966,6 +966,84 @@ final $typed_data.Uint8List updateAssetFileRequestDescriptor = $convert.base64De
     'cmRlchgEIAEoBUgBUgxkaXNwbGF5T3JkZXKIAQFCCgoIX2NhcHRpb25CEAoOX2Rpc3BsYXlfb3'
     'JkZXI=');
 
+@$core.Deprecated('Use assetMessageDescriptor instead')
+const AssetMessage$json = {
+  '1': 'AssetMessage',
+  '2': [
+    {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+    {'1': 'asset_id', '3': 2, '4': 1, '5': 9, '10': 'assetId'},
+    {'1': 'prompt', '3': 3, '4': 1, '5': 9, '10': 'prompt'},
+    {'1': 'response', '3': 4, '4': 1, '5': 9, '9': 0, '10': 'response', '17': true},
+    {'1': 'created_at', '3': 5, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createdAt'},
+  ],
+  '8': [
+    {'1': '_response'},
+  ],
+};
+
+/// Descriptor for `AssetMessage`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List assetMessageDescriptor = $convert.base64Decode(
+    'CgxBc3NldE1lc3NhZ2USDgoCaWQYASABKAlSAmlkEhkKCGFzc2V0X2lkGAIgASgJUgdhc3NldE'
+    'lkEhYKBnByb21wdBgDIAEoCVIGcHJvbXB0Eh8KCHJlc3BvbnNlGAQgASgJSABSCHJlc3BvbnNl'
+    'iAEBEjkKCmNyZWF0ZWRfYXQYBSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUgljcm'
+    'VhdGVkQXRCCwoJX3Jlc3BvbnNl');
+
+@$core.Deprecated('Use listAssetMessagesRequestDescriptor instead')
+const ListAssetMessagesRequest$json = {
+  '1': 'ListAssetMessagesRequest',
+  '2': [
+    {'1': 'asset_id', '3': 1, '4': 1, '5': 9, '10': 'assetId'},
+    {'1': 'limit', '3': 2, '4': 1, '5': 5, '10': 'limit'},
+    {'1': 'offset', '3': 3, '4': 1, '5': 5, '10': 'offset'},
+  ],
+};
+
+/// Descriptor for `ListAssetMessagesRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List listAssetMessagesRequestDescriptor = $convert.base64Decode(
+    'ChhMaXN0QXNzZXRNZXNzYWdlc1JlcXVlc3QSGQoIYXNzZXRfaWQYASABKAlSB2Fzc2V0SWQSFA'
+    'oFbGltaXQYAiABKAVSBWxpbWl0EhYKBm9mZnNldBgDIAEoBVIGb2Zmc2V0');
+
+@$core.Deprecated('Use listAssetMessagesResponseDescriptor instead')
+const ListAssetMessagesResponse$json = {
+  '1': 'ListAssetMessagesResponse',
+  '2': [
+    {'1': 'messages', '3': 1, '4': 3, '5': 11, '6': '.moat.v1.AssetMessage', '10': 'messages'},
+    {'1': 'total', '3': 2, '4': 1, '5': 5, '10': 'total'},
+  ],
+};
+
+/// Descriptor for `ListAssetMessagesResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List listAssetMessagesResponseDescriptor = $convert.base64Decode(
+    'ChlMaXN0QXNzZXRNZXNzYWdlc1Jlc3BvbnNlEjEKCG1lc3NhZ2VzGAEgAygLMhUubW9hdC52MS'
+    '5Bc3NldE1lc3NhZ2VSCG1lc3NhZ2VzEhQKBXRvdGFsGAIgASgFUgV0b3RhbA==');
+
+@$core.Deprecated('Use createAssetMessageRequestDescriptor instead')
+const CreateAssetMessageRequest$json = {
+  '1': 'CreateAssetMessageRequest',
+  '2': [
+    {'1': 'asset_id', '3': 1, '4': 1, '5': 9, '10': 'assetId'},
+    {'1': 'prompt', '3': 2, '4': 1, '5': 9, '10': 'prompt'},
+  ],
+};
+
+/// Descriptor for `CreateAssetMessageRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List createAssetMessageRequestDescriptor = $convert.base64Decode(
+    'ChlDcmVhdGVBc3NldE1lc3NhZ2VSZXF1ZXN0EhkKCGFzc2V0X2lkGAEgASgJUgdhc3NldElkEh'
+    'YKBnByb21wdBgCIAEoCVIGcHJvbXB0');
+
+@$core.Deprecated('Use createAssetMessageResponseDescriptor instead')
+const CreateAssetMessageResponse$json = {
+  '1': 'CreateAssetMessageResponse',
+  '2': [
+    {'1': 'message', '3': 1, '4': 1, '5': 11, '6': '.moat.v1.AssetMessage', '10': 'message'},
+  ],
+};
+
+/// Descriptor for `CreateAssetMessageResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List createAssetMessageResponseDescriptor = $convert.base64Decode(
+    'ChpDcmVhdGVBc3NldE1lc3NhZ2VSZXNwb25zZRIvCgdtZXNzYWdlGAEgASgLMhUubW9hdC52MS'
+    '5Bc3NldE1lc3NhZ2VSB21lc3NhZ2U=');
+
 const $core.Map<$core.String, $core.dynamic> AssetServiceBase$json = {
   '1': 'AssetService',
   '2': [
@@ -984,6 +1062,8 @@ const $core.Map<$core.String, $core.dynamic> AssetServiceBase$json = {
     {'1': 'ListAssetFiles', '2': '.moat.v1.ListAssetFilesRequest', '3': '.moat.v1.ListAssetFilesResponse'},
     {'1': 'DeleteAssetFile', '2': '.moat.v1.DeleteAssetFileRequest', '3': '.moat.v1.DeleteAssetFileResponse'},
     {'1': 'UpdateAssetFile', '2': '.moat.v1.UpdateAssetFileRequest', '3': '.moat.v1.AssetFile'},
+    {'1': 'ListAssetMessages', '2': '.moat.v1.ListAssetMessagesRequest', '3': '.moat.v1.ListAssetMessagesResponse'},
+    {'1': 'CreateAssetMessage', '2': '.moat.v1.CreateAssetMessageRequest', '3': '.moat.v1.CreateAssetMessageResponse'},
   ],
 };
 
@@ -1020,6 +1100,11 @@ const $core.Map<$core.String, $core.Map<$core.String, $core.dynamic>> AssetServi
   '.moat.v1.DeleteAssetFileRequest': DeleteAssetFileRequest$json,
   '.moat.v1.DeleteAssetFileResponse': DeleteAssetFileResponse$json,
   '.moat.v1.UpdateAssetFileRequest': UpdateAssetFileRequest$json,
+  '.moat.v1.ListAssetMessagesRequest': ListAssetMessagesRequest$json,
+  '.moat.v1.ListAssetMessagesResponse': ListAssetMessagesResponse$json,
+  '.moat.v1.AssetMessage': AssetMessage$json,
+  '.moat.v1.CreateAssetMessageRequest': CreateAssetMessageRequest$json,
+  '.moat.v1.CreateAssetMessageResponse': CreateAssetMessageResponse$json,
 };
 
 /// Descriptor for `AssetService`. Decode as a `google.protobuf.ServiceDescriptorProto`.
@@ -1045,5 +1130,9 @@ final $typed_data.Uint8List assetServiceDescriptor = $convert.base64Decode(
     'Hi5tb2F0LnYxLkxpc3RBc3NldEZpbGVzUmVxdWVzdBofLm1vYXQudjEuTGlzdEFzc2V0RmlsZX'
     'NSZXNwb25zZRJUCg9EZWxldGVBc3NldEZpbGUSHy5tb2F0LnYxLkRlbGV0ZUFzc2V0RmlsZVJl'
     'cXVlc3QaIC5tb2F0LnYxLkRlbGV0ZUFzc2V0RmlsZVJlc3BvbnNlEkYKD1VwZGF0ZUFzc2V0Rm'
-    'lsZRIfLm1vYXQudjEuVXBkYXRlQXNzZXRGaWxlUmVxdWVzdBoSLm1vYXQudjEuQXNzZXRGaWxl');
+    'lsZRIfLm1vYXQudjEuVXBkYXRlQXNzZXRGaWxlUmVxdWVzdBoSLm1vYXQudjEuQXNzZXRGaWxl'
+    'EloKEUxpc3RBc3NldE1lc3NhZ2VzEiEubW9hdC52MS5MaXN0QXNzZXRNZXNzYWdlc1JlcXVlc3'
+    'QaIi5tb2F0LnYxLkxpc3RBc3NldE1lc3NhZ2VzUmVzcG9uc2USXQoSQ3JlYXRlQXNzZXRNZXNz'
+    'YWdlEiIubW9hdC52MS5DcmVhdGVBc3NldE1lc3NhZ2VSZXF1ZXN0GiMubW9hdC52MS5DcmVhdG'
+    'VBc3NldE1lc3NhZ2VSZXNwb25zZQ==');
 

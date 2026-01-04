@@ -93,7 +93,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
           // Error message
           Watch((context) {
-            final error = _authState.error;
+            final error = _authState.error.value;
             if (error == null) return const SizedBox.shrink();
 
             return Padding(
@@ -149,7 +149,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
           // Submit button
           Watch((context) {
-            final isLoading = _authState.isLoading;
+            final isLoading = _authState.isLoading.value;
 
             return FilledButton(
               onPressed: isLoading ? null : _handleSubmit,

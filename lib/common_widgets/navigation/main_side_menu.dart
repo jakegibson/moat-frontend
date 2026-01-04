@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:signals/signals_flutter.dart';
 
+import '../../core/di/injection.dart';
 import '../../core/routing/routes.dart';
 import '../../core/styles/app_sizes.dart';
+import '../../features/notifications/state/notification_state.dart';
+import '../../features/notifications/widgets/notification_drawer.dart';
 import '../profile_avatar.dart';
 import 'button_admin.dart';
 import 'button_assets.dart';
+import 'button_explore.dart';
 import 'button_notifications.dart';
+import 'button_reports.dart';
+import 'button_reports2.dart';
 import 'button_settings.dart';
 import 'button_tickets.dart';
 
@@ -20,11 +27,47 @@ class MainSideMenu extends StatefulWidget {
 
 class _MainSideMenuState extends State<MainSideMenu> {
   String selectedRoute = '';
+  late final NotificationState _notificationState;
+
+  @override
+  void initState() {
+    super.initState();
+    _notificationState = getIt<NotificationState>();
+    // Fetch unread count on init
+    _notificationState.fetchUnreadCount();
+  }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     selectedRoute = GoRouterState.of(context).matchedLocation;
+  }
+
+  void _openNotificationDrawer() {
+    showGeneralDialog(
+      context: context,
+      barrierDismissible: true,
+      barrierLabel: 'Notifications',
+      barrierColor: Colors.black54,
+      transitionDuration: const Duration(milliseconds: 200),
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return Align(
+          alignment: Alignment.centerRight,
+          child: Material(
+            child: NotificationDrawer(),
+          ),
+        );
+      },
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        return SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(1, 0),
+            end: Offset.zero,
+          ).animate(animation),
+          child: child,
+        );
+      },
+    );
   }
 
   @override
@@ -76,15 +119,50 @@ class _MainSideMenuState extends State<MainSideMenu> {
               ),
               SizedBox(height: AppSizes.radiusXL),
 
-              // Notifications Button
-              ButtonNotifications(
-                selected: false,
-                unreadCount: 0,
+              // Activity/Notifications Button
+              Watch((context) {
+                final unreadCount = _notificationState.unreadCount.value;
+                return ButtonNotifications(
+                  selected: false,
+                  unreadCount: unreadCount,
+                  onTap: _openNotificationDrawer,
+                );
+              }),
+              SizedBox(height: AppSizes.radiusXL),
+
+              // Reports Button
+              ButtonReports(
+                selected: selectedRoute.contains('/reports') &&
+                    !selectedRoute.contains('/reports2'),
                 onTap: () {
-                  // TODO: Open notifications drawer
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Notifications coming soon')),
-                  );
+                  setState(() {
+                    selectedRoute = Routes.reportsDashboard;
+                  });
+                  context.go(Routes.reportsDashboard);
+                },
+              ),
+              SizedBox(height: AppSizes.radiusXL),
+
+              // Reports 2 Button (fl_chart)
+              ButtonReports2(
+                selected: selectedRoute.contains('/reports2'),
+                onTap: () {
+                  setState(() {
+                    selectedRoute = Routes.reports2Dashboard;
+                  });
+                  context.go(Routes.reports2Dashboard);
+                },
+              ),
+              SizedBox(height: AppSizes.radiusXL),
+
+              // Explore Button (self-service analytics)
+              ButtonExplore(
+                selected: selectedRoute.contains('/explore'),
+                onTap: () {
+                  setState(() {
+                    selectedRoute = Routes.exploreBuilder;
+                  });
+                  context.go(Routes.exploreBuilder);
                 },
               ),
               SizedBox(height: AppSizes.radiusXL),
