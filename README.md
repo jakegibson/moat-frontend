@@ -152,9 +152,8 @@ buf generate
    flutter run --dart-define-from-file=dart_defines/dev.env
    ```
 
-## TODO
+## Documentation
 
-- [ ] Generate proto clients with `buf generate`
-- [ ] Implement remaining features (tickets, settings)
-- [ ] Add unit tests for state classes
-- [ ] Add widget tests for screens
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Detailed patterns, state management, styling, and how to add new features
+- **[FEATURE_AUDIT.md](FEATURE_AUDIT.md)** - Feature implementation status and completion tracking
+- **[VERIFICATION.md](VERIFICATION.md)** - Screen navigation and design verification guide

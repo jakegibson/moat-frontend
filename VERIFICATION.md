@@ -51,19 +51,19 @@ Screenshots are saved to `frontend/screenshots/`.
 | **Assets** | `/assets/list` | Asset List | Implemented |
 | | `/assets/:assetId` | Asset Detail | Implemented |
 | | `/assets/alerts` | Asset Alerts | Placeholder |
-| **Settings** | `/settings/members` | Team Members | Placeholder |
-| | `/settings/roles` | Roles & Permissions | Placeholder |
-| | `/settings/locations` | Locations | Placeholder |
-| | `/settings/ticketing` | Ticketing Config | Placeholder |
-| **Admin** | `/admin/overview` | Admin Overview | Placeholder |
-| | `/admin/gap-analysis` | Gap Analysis | Placeholder |
-| | `/admin/metrics` | Metrics | Placeholder |
-| | `/admin/workflows` | Workflows | Placeholder |
-| | `/admin/document-processing` | Doc Processing | Placeholder |
-| | `/admin/prompts` | AI Prompts | Placeholder |
-| | `/admin/ai-generations` | AI Generations | Placeholder |
-| | `/admin/company-management` | Companies | Placeholder |
-| | `/admin/sso-domains` | SSO Domains | Placeholder |
+| **Settings** | `/settings/members` | Team Members | Implemented |
+| | `/settings/roles` | Roles & Permissions | Implemented |
+| | `/settings/locations` | Locations | Implemented |
+| | `/settings/ticketing` | Ticketing Config | Implemented |
+| **Admin** | `/admin/overview` | Admin Overview | Implemented |
+| | `/admin/gap-analysis` | Gap Analysis | Implemented |
+| | `/admin/metrics` | Metrics | Implemented |
+| | `/admin/workflows` | Workflows | Implemented |
+| | `/admin/document-processing` | Doc Processing | Implemented |
+| | `/admin/prompts` | AI Prompts | Implemented |
+| | `/admin/ai-generations` | AI Generations | Implemented |
+| | `/admin/company-management` | Companies | Implemented |
+| | `/admin/sso-domains` | SSO Domains | Implemented |
 
 ---
 

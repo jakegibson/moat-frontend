@@ -312,6 +312,51 @@ class MyFeatureState {
 }
 ```
 
+#### State Delegation Pattern
+
+For large state classes (>400 lines), split into focused sub-states using delegation:
+
+```dart
+// Parent state delegates to child state
+@lazySingleton
+class AdminState {
+  final AdminClient _client;
+  final AdminOrgState _orgState;  // Injected child state
+
+  AdminState(this._client, this._orgState);
+
+  // Delegate signals (maintain backward compatibility)
+  Signal<List<Member>> get members => _orgState.members;
+  Signal<bool> get isLoadingMembers => _orgState.isLoadingMembers;
+
+  // Delegate methods
+  Future<void> fetchMembers({bool refresh = false}) =>
+      _orgState.fetchMembers(refresh: refresh);
+
+  // Keep unrelated concerns here (SSO, prompts, etc.)
+  final ssoDomains = signal<List<SSODomain>>([]);
+}
+
+// Child state handles one cohesive domain
+@lazySingleton
+class AdminOrgState {
+  final AdminClient _client;
+
+  AdminOrgState(this._client);
+
+  final members = signal<List<Member>>([]);
+  final isLoadingMembers = signal(false);
+
+  Future<void> fetchMembers({bool refresh = false}) async {
+    // Implementation
+  }
+}
+```
+
+**Current delegated state classes:**
+- `AdminState` → `AdminOrgState` (members, locations, roles, permissions)
+- `ExploreState` → `DashboardState` (dashboards, saved queries)
+
 ### Error Handling
 
 #### Result Type
