@@ -44,6 +44,9 @@ abstract class Routes {
   static const explore = '/explore';
   static const exploreBuilder = '/explore/builder';
 
+  // Dashboards (saved analytics views)
+  static const dashboards = '/dashboards';
+
   // Admin
   static const admin = '/admin';
   static const adminOverview = '/admin/overview';
@@ -92,6 +95,10 @@ extension AppRouterExtensions on BuildContext {
   // Data Explorer
   void goToExplore() => go(Routes.exploreBuilder);
   void goToExploreBuilder() => go(Routes.exploreBuilder);
+
+  // Dashboards
+  void goToDashboards() => go(Routes.dashboards);
+  void goToDashboardDetail(String id) => go('${Routes.dashboards}/$id');
 
   // Admin
   void goToAdmin() => go(Routes.adminOverview);

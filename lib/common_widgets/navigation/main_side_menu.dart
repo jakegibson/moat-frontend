@@ -20,6 +20,7 @@ import 'button_reports.dart';
 import 'button_reports2.dart';
 import 'button_settings.dart';
 import 'button_tickets.dart';
+import 'button_dashboards.dart';
 
 class MainSideMenu extends StatefulWidget {
   const MainSideMenu({super.key});
@@ -195,6 +196,18 @@ class _MainSideMenuState extends State<MainSideMenu> {
                     selectedRoute = Routes.exploreBuilder;
                   });
                   context.go(Routes.exploreBuilder);
+                },
+              ),
+              SizedBox(height: AppSizes.radiusXL),
+
+              // Dashboards Button (saved analytics views)
+              ButtonDashboards(
+                selected: selectedRoute.contains('/dashboards'),
+                onTap: () {
+                  setState(() {
+                    selectedRoute = Routes.dashboards;
+                  });
+                  context.go(Routes.dashboards);
                 },
               ),
               SizedBox(height: AppSizes.radiusXL),

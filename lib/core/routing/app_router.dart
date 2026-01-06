@@ -22,6 +22,8 @@ import '../../features/tickets/screens/ticket_detail_page.dart' as tickets;
 import '../../features/reports/screens/reports_dashboard_screen.dart';
 import '../../features/reports/screens/reports_dashboard_v2_screen.dart';
 import '../../features/explore/screens/data_explorer_screen.dart';
+import '../../features/dashboards/screens/dashboard_list_screen.dart';
+import '../../features/dashboards/screens/dashboard_detail_screen.dart';
 import 'routes.dart';
 
 /// Main application router configuration
@@ -193,6 +195,28 @@ final appRouter = GoRouter(
               pageBuilder: (context, state) => const NoTransitionPage(
                 child: DataExplorerScreen(),
               ),
+            ),
+          ],
+        ),
+
+        // ========== Dashboards Shell ==========
+        ShellRoute(
+          builder: (context, state, child) => DashboardsShell(child: child),
+          routes: [
+            GoRoute(
+              path: Routes.dashboards,
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: DashboardListScreen(),
+              ),
+            ),
+            GoRoute(
+              path: '${Routes.dashboards}/:dashboardId',
+              pageBuilder: (context, state) {
+                final dashboardId = state.pathParameters['dashboardId']!;
+                return NoTransitionPage(
+                  child: DashboardDetailScreen(dashboardId: dashboardId),
+                );
+              },
             ),
           ],
         ),
@@ -489,6 +513,18 @@ class ExploreShell extends StatelessWidget {
   final Widget child;
 
   const ExploreShell({required this.child, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return child;
+  }
+}
+
+/// Dashboards shell
+class DashboardsShell extends StatelessWidget {
+  final Widget child;
+
+  const DashboardsShell({required this.child, super.key});
 
   @override
   Widget build(BuildContext context) {
