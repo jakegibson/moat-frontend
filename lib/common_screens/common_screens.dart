@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../core/routing/routes.dart';
+import '../core/styles/app_colors.dart';
 import '../core/styles/semantic_tokens.dart';
 import '../core/theme/app_theme.dart';
 
@@ -237,7 +238,7 @@ class _InviteScreenState extends State<InviteScreen> {
             border: Border.all(color: SemanticColors.border),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withAlpha(10),
+                color: AppColors.black.withAlpha(10),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
@@ -369,7 +370,7 @@ class _InviteScreenState extends State<InviteScreen> {
                         width: 20,
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
-                          color: Colors.white,
+                          color: AppColors.white,
                         ),
                       )
                     : Text(isLoggedIn ? 'Accept Invitation' : 'Continue'),

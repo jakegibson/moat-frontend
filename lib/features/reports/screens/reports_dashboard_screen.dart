@@ -54,7 +54,7 @@ class _ReportsDashboardScreenState extends State<ReportsDashboardScreen> {
                 const SizedBox(height: AppSizes.spacingMD),
                 Text('Failed to load analytics', style: AppTextStyles.textMD),
                 const SizedBox(height: AppSizes.spacingSM),
-                Text(error, style: AppTextStyles.textSMSecondary),
+                Text(error.message, style: AppTextStyles.textSMSecondary),
                 const SizedBox(height: AppSizes.spacingXL),
                 ElevatedButton(
                   onPressed: _state.refresh,
@@ -150,31 +150,6 @@ class _ReportsDashboardScreenState extends State<ReportsDashboardScreen> {
               const SizedBox(width: AppSizes.spacingSM),
               Text(label, style: AppTextStyles.textSM),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildIconButton(IconData icon, String tooltip) {
-    return Tooltip(
-      message: tooltip,
-      child: Material(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(AppSizes.radiusMD),
-        child: InkWell(
-          onTap: () {
-            // TODO: Implement filter/download functionality
-          },
-          borderRadius: BorderRadius.circular(AppSizes.radiusMD),
-          child: Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(AppSizes.radiusMD),
-              border: Border.all(color: AppColors.borderSecondary),
-            ),
-            child: Icon(icon, size: 20, color: AppColors.textSecondary),
           ),
         ),
       ),
@@ -398,96 +373,12 @@ class _ReportsDashboardScreenState extends State<ReportsDashboardScreen> {
     });
   }
 
-  String _formatStatusLabel(String status) {
-    switch (status) {
-      case 'open':
-        return 'Open';
-      case 'in_progress':
-        return 'In Progress';
-      case 'pending':
-        return 'Pending';
-      case 'resolved':
-        return 'Resolved';
-      case 'cancelled':
-        return 'Cancelled';
-      default:
-        return status.replaceAll('_', ' ').split(' ').map((word) =>
-          word.isNotEmpty ? '${word[0].toUpperCase()}${word.substring(1)}' : word
-        ).join(' ');
-    }
-  }
-
-  Color _getStatusColor(String status) {
-    switch (status) {
-      case 'open':
-        return AppColors.utilityBlue500;
-      case 'in_progress':
-        return AppColors.utilityOrange500;
-      case 'pending':
-        return AppColors.utilityPurple500;
-      case 'resolved':
-        return AppColors.utilityGreen500;
-      case 'cancelled':
-        return AppColors.utilityGray500;
-      default:
-        return AppColors.utilityGray500;
-    }
-  }
-
-  String _formatPriorityLabel(String priority) {
-    switch (priority) {
-      case 'high':
-        return 'High';
-      case 'medium':
-        return 'Medium';
-      case 'low':
-        return 'Low';
-      case 'urgent':
-        return 'Urgent';
-      default:
-        return priority.replaceAll('_', ' ').split(' ').map((word) =>
-          word.isNotEmpty ? '${word[0].toUpperCase()}${word.substring(1)}' : word
-        ).join(' ');
-    }
-  }
-
-  Color _getPriorityColor(String priority) {
-    switch (priority) {
-      case 'urgent':
-        return AppColors.utilityError500;
-      case 'high':
-        return AppColors.utilityOrange500;
-      case 'medium':
-        return AppColors.utilityBlue500;
-      case 'low':
-        return AppColors.utilityGreen500;
-      default:
-        return AppColors.utilityGray500;
-    }
-  }
-
   List<double> _generatePlaceholderSparkline({required bool trending}) {
     if (trending) {
       return [20, 25, 22, 28, 30, 27, 35, 32, 38, 42, 40, 45];
     } else {
       return [45, 42, 40, 38, 35, 32, 30, 28, 25, 22, 20, 18];
     }
-  }
-
-  List<DonutSegment> _getPlaceholderStatusSegments() {
-    return [
-      DonutSegment('Open', 0, AppColors.utilityBlue500),
-      DonutSegment('In Progress', 0, AppColors.utilityOrange500),
-      DonutSegment('Resolved', 0, AppColors.utilityGreen500),
-    ];
-  }
-
-  List<DonutSegment> _getPlaceholderPrioritySegments() {
-    return [
-      DonutSegment('High', 0, AppColors.utilityOrange500),
-      DonutSegment('Medium', 0, AppColors.utilityBlue500),
-      DonutSegment('Low', 0, AppColors.utilityGreen500),
-    ];
   }
 
   List<SunburstSegment> _getPlaceholderSunburstSegments() {
@@ -500,38 +391,12 @@ class _ReportsDashboardScreenState extends State<ReportsDashboardScreen> {
     ];
   }
 
-  List<DonutSegment> _getPlaceholderDivisionSegments() {
-    return [
-      DonutSegment('Concrete', 0, _getDivisionColor(0)),
-      DonutSegment('Masonry', 0, _getDivisionColor(1)),
-      DonutSegment('Metals', 0, _getDivisionColor(2)),
-      DonutSegment('HVAC', 0, _getDivisionColor(3)),
-      DonutSegment('Electrical', 0, _getDivisionColor(4)),
-    ];
-  }
-
   List<DonutSegment> _getPlaceholderLocationSegments() {
     return [
       DonutSegment('Location 1', 0, _getLocationColor(0)),
       DonutSegment('Location 2', 0, _getLocationColor(1)),
       DonutSegment('Location 3', 0, _getLocationColor(2)),
     ];
-  }
-
-  Color _getDivisionColor(int index) {
-    final colors = [
-      AppColors.utilityOrange500,
-      AppColors.utilityGreen500,
-      AppColors.utilityBlue500,
-      AppColors.utilityYellow400,
-      AppColors.utilityError500,
-      AppColors.utilityPurple500,
-      AppColors.utilityBlue700,
-      AppColors.utilityOrangeDark300,
-      AppColors.utilityGreen200,
-      AppColors.utilityBlue300,
-    ];
-    return colors[index % colors.length];
   }
 
   Color _getLocationColor(int index) {

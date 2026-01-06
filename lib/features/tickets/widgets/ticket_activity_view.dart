@@ -3,6 +3,7 @@ import 'package:signals/signals_flutter.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/di/injection.dart';
+import '../../../core/styles/app_colors.dart';
 import '../data/task_models.dart';
 import '../state/task_detail_state.dart';
 
@@ -94,7 +95,7 @@ class _ActivityItem extends StatelessWidget {
                   child: Icon(
                     _getEventIcon(),
                     size: 16,
-                    color: Colors.white,
+                    color: AppColors.white,
                   ),
                 ),
                 if (!isLast)

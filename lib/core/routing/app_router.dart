@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../di/injection.dart';
 import '../styles/app_colors.dart';
 import '../../common_widgets/navigation/main_side_menu.dart';
 import '../../common_screens/common_screens.dart';
@@ -13,7 +12,6 @@ import '../../features/auth/screens/forgot_password_screen.dart';
 import '../../features/assets/screens/assets_screen.dart';
 import '../../features/assets/screens/asset_detail_screen.dart';
 import '../../features/assets/screens/alerts_screen.dart';
-import '../../features/assets/state/assets_state.dart';
 import '../../features/dashboard/screens/dashboard_screen.dart';
 import '../../features/settings/screens/settings_members_screen.dart';
 import '../../features/settings/screens/settings_roles_screen.dart';
@@ -99,8 +97,8 @@ final appRouter = GoRouter(
           routes: [
             GoRoute(
               path: Routes.assetsList,
-              pageBuilder: (context, state) => NoTransitionPage(
-                child: AssetsScreen(state: getIt<AssetsState>()),
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: AssetsScreen(),
               ),
             ),
             GoRoute(
@@ -267,18 +265,6 @@ final appRouter = GoRouter(
               path: Routes.adminMetrics,
               pageBuilder: (context, state) => const NoTransitionPage(
                 child: AdminMetricsScreen(),
-              ),
-            ),
-            GoRoute(
-              path: Routes.adminWorkflows,
-              pageBuilder: (context, state) => const NoTransitionPage(
-                child: AdminWorkflowsScreen(),
-              ),
-            ),
-            GoRoute(
-              path: Routes.adminDocumentProcessing,
-              pageBuilder: (context, state) => const NoTransitionPage(
-                child: AdminDocumentProcessingScreen(),
               ),
             ),
             GoRoute(

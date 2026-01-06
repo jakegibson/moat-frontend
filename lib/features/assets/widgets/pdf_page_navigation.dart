@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/styles/app_colors.dart';
+import '../../../core/styles/app_sizes.dart';
 import '../../../core/styles/app_text_styles.dart';
 
 /// Page navigation controls for the PDF viewer.
@@ -23,10 +24,10 @@ class PdfPageNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: EdgeInsets.symmetric(horizontal: AppSizes.spacingMD, vertical: AppSizes.spacingXS),
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(AppSizes.radiusMD),
         boxShadow: [
           BoxShadow(
             color: AppColors.black.withValues(alpha: 0.1),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/di/injection.dart';
+import '../../../core/styles/app_colors.dart';
+import '../../../core/styles/app_text_styles.dart';
 import '../../../core/theme/app_theme.dart';
 import '../data/task_client.dart';
 import '../data/task_models.dart';
@@ -140,7 +142,7 @@ class _AssigneeDropdownState extends State<AssigneeDropdown> {
     if (_error != null) {
       return Text(
         'Failed to load assignees',
-        style: TextStyle(color: theme.colorScheme.error),
+        style: AppTextStyles.body.copyWith(color: AppColors.error),
       );
     }
 

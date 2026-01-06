@@ -49,8 +49,6 @@ abstract class Routes {
   static const adminOverview = '/admin/overview';
   static const adminGapAnalysis = '/admin/gap-analysis';
   static const adminMetrics = '/admin/metrics';
-  static const adminWorkflows = '/admin/workflows';
-  static const adminDocumentProcessing = '/admin/document-processing';
   static const adminPrompts = '/admin/prompts';
   static const adminAIGenerations = '/admin/ai-generations';
   static const adminCompanyManagement = '/admin/company-management';
@@ -100,8 +98,6 @@ extension AppRouterExtensions on BuildContext {
   void goToAdminOverview() => go(Routes.adminOverview);
   void goToAdminGapAnalysis() => go(Routes.adminGapAnalysis);
   void goToAdminMetrics() => go(Routes.adminMetrics);
-  void goToAdminWorkflows() => go(Routes.adminWorkflows);
-  void goToAdminDocumentProcessing() => go(Routes.adminDocumentProcessing);
   void goToAdminPrompts() => go(Routes.adminPrompts);
   void goToAdminAIGenerations() => go(Routes.adminAIGenerations);
   void goToAdminCompanyManagement() => go(Routes.adminCompanyManagement);

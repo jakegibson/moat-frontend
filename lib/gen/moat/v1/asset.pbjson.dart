@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: moat/v1/asset.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -814,17 +814,9 @@ const AssetFile$json = {
     {'1': 'content_type', '3': 4, '4': 1, '5': 9, '10': 'contentType'},
     {'1': 'size_bytes', '3': 5, '4': 1, '5': 3, '10': 'sizeBytes'},
     {'1': 'url', '3': 6, '4': 1, '5': 9, '10': 'url'},
-    {'1': 'caption', '3': 7, '4': 1, '5': 9, '9': 0, '10': 'caption', '17': true},
-    {'1': 'display_order', '3': 8, '4': 1, '5': 5, '10': 'displayOrder'},
-    {'1': 'extracted_text', '3': 9, '4': 1, '5': 9, '9': 1, '10': 'extractedText', '17': true},
-    {'1': 'ai_summary', '3': 10, '4': 1, '5': 9, '9': 2, '10': 'aiSummary', '17': true},
-    {'1': 'created_at', '3': 11, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createdAt'},
-    {'1': 'updated_at', '3': 12, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'updatedAt'},
-  ],
-  '8': [
-    {'1': '_caption'},
-    {'1': '_extracted_text'},
-    {'1': '_ai_summary'},
+    {'1': 'file_type', '3': 7, '4': 1, '5': 9, '10': 'fileType'},
+    {'1': 'created_at', '3': 8, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createdAt'},
+    {'1': 'updated_at', '3': 9, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'updatedAt'},
   ],
 };
 
@@ -833,12 +825,9 @@ final $typed_data.Uint8List assetFileDescriptor = $convert.base64Decode(
     'CglBc3NldEZpbGUSDgoCaWQYASABKAlSAmlkEhkKCGFzc2V0X2lkGAIgASgJUgdhc3NldElkEh'
     'sKCWZpbGVfbmFtZRgDIAEoCVIIZmlsZU5hbWUSIQoMY29udGVudF90eXBlGAQgASgJUgtjb250'
     'ZW50VHlwZRIdCgpzaXplX2J5dGVzGAUgASgDUglzaXplQnl0ZXMSEAoDdXJsGAYgASgJUgN1cm'
-    'wSHQoHY2FwdGlvbhgHIAEoCUgAUgdjYXB0aW9uiAEBEiMKDWRpc3BsYXlfb3JkZXIYCCABKAVS'
-    'DGRpc3BsYXlPcmRlchIqCg5leHRyYWN0ZWRfdGV4dBgJIAEoCUgBUg1leHRyYWN0ZWRUZXh0iA'
-    'EBEiIKCmFpX3N1bW1hcnkYCiABKAlIAlIJYWlTdW1tYXJ5iAEBEjkKCmNyZWF0ZWRfYXQYCyAB'
-    'KAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUgljcmVhdGVkQXQSOQoKdXBkYXRlZF9hdB'
-    'gMIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCXVwZGF0ZWRBdEIKCghfY2FwdGlv'
-    'bkIRCg9fZXh0cmFjdGVkX3RleHRCDQoLX2FpX3N1bW1hcnk=');
+    'wSGwoJZmlsZV90eXBlGAcgASgJUghmaWxlVHlwZRI5CgpjcmVhdGVkX2F0GAggASgLMhouZ29v'
+    'Z2xlLnByb3RvYnVmLlRpbWVzdGFtcFIJY3JlYXRlZEF0EjkKCnVwZGF0ZWRfYXQYCSABKAsyGi'
+    '5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUgl1cGRhdGVkQXQ=');
 
 @$core.Deprecated('Use getAssetFileUploadUrlRequestDescriptor instead')
 const GetAssetFileUploadUrlRequest$json = {
@@ -879,7 +868,10 @@ const ConfirmAssetFileUploadRequest$json = {
   '2': [
     {'1': 'file_id', '3': 1, '4': 1, '5': 9, '10': 'fileId'},
     {'1': 'asset_id', '3': 2, '4': 1, '5': 9, '10': 'assetId'},
-    {'1': 'caption', '3': 3, '4': 1, '5': 9, '9': 0, '10': 'caption', '17': true},
+    {'1': 'file_name', '3': 3, '4': 1, '5': 9, '10': 'fileName'},
+    {'1': 'content_type', '3': 4, '4': 1, '5': 9, '10': 'contentType'},
+    {'1': 'size_bytes', '3': 5, '4': 1, '5': 3, '10': 'sizeBytes'},
+    {'1': 'caption', '3': 6, '4': 1, '5': 9, '9': 0, '10': 'caption', '17': true},
   ],
   '8': [
     {'1': '_caption'},
@@ -889,8 +881,9 @@ const ConfirmAssetFileUploadRequest$json = {
 /// Descriptor for `ConfirmAssetFileUploadRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List confirmAssetFileUploadRequestDescriptor = $convert.base64Decode(
     'Ch1Db25maXJtQXNzZXRGaWxlVXBsb2FkUmVxdWVzdBIXCgdmaWxlX2lkGAEgASgJUgZmaWxlSW'
-    'QSGQoIYXNzZXRfaWQYAiABKAlSB2Fzc2V0SWQSHQoHY2FwdGlvbhgDIAEoCUgAUgdjYXB0aW9u'
-    'iAEBQgoKCF9jYXB0aW9u');
+    'QSGQoIYXNzZXRfaWQYAiABKAlSB2Fzc2V0SWQSGwoJZmlsZV9uYW1lGAMgASgJUghmaWxlTmFt'
+    'ZRIhCgxjb250ZW50X3R5cGUYBCABKAlSC2NvbnRlbnRUeXBlEh0KCnNpemVfYnl0ZXMYBSABKA'
+    'NSCXNpemVCeXRlcxIdCgdjYXB0aW9uGAYgASgJSABSB2NhcHRpb26IAQFCCgoIX2NhcHRpb24=');
 
 @$core.Deprecated('Use listAssetFilesRequestDescriptor instead')
 const ListAssetFilesRequest$json = {
@@ -950,21 +943,20 @@ const UpdateAssetFileRequest$json = {
   '2': [
     {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
     {'1': 'asset_id', '3': 2, '4': 1, '5': 9, '10': 'assetId'},
-    {'1': 'caption', '3': 3, '4': 1, '5': 9, '9': 0, '10': 'caption', '17': true},
-    {'1': 'display_order', '3': 4, '4': 1, '5': 5, '9': 1, '10': 'displayOrder', '17': true},
+    {'1': 'name', '3': 3, '4': 1, '5': 9, '9': 0, '10': 'name', '17': true},
+    {'1': 'file_type', '3': 4, '4': 1, '5': 9, '9': 1, '10': 'fileType', '17': true},
   ],
   '8': [
-    {'1': '_caption'},
-    {'1': '_display_order'},
+    {'1': '_name'},
+    {'1': '_file_type'},
   ],
 };
 
 /// Descriptor for `UpdateAssetFileRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List updateAssetFileRequestDescriptor = $convert.base64Decode(
     'ChZVcGRhdGVBc3NldEZpbGVSZXF1ZXN0Eg4KAmlkGAEgASgJUgJpZBIZCghhc3NldF9pZBgCIA'
-    'EoCVIHYXNzZXRJZBIdCgdjYXB0aW9uGAMgASgJSABSB2NhcHRpb26IAQESKAoNZGlzcGxheV9v'
-    'cmRlchgEIAEoBUgBUgxkaXNwbGF5T3JkZXKIAQFCCgoIX2NhcHRpb25CEAoOX2Rpc3BsYXlfb3'
-    'JkZXI=');
+    'EoCVIHYXNzZXRJZBIXCgRuYW1lGAMgASgJSABSBG5hbWWIAQESIAoJZmlsZV90eXBlGAQgASgJ'
+    'SAFSCGZpbGVUeXBliAEBQgcKBV9uYW1lQgwKCl9maWxlX3R5cGU=');
 
 @$core.Deprecated('Use assetMessageDescriptor instead')
 const AssetMessage$json = {

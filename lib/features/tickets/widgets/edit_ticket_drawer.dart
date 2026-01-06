@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/di/injection.dart';
+import '../../../core/styles/app_colors.dart';
+import '../../../core/styles/app_sizes.dart';
+import '../../../core/styles/app_text_styles.dart';
 import '../../../core/theme/app_theme.dart';
 import '../data/task_client.dart';
 import '../data/task_models.dart';
@@ -238,7 +241,7 @@ class _EditTicketDrawerState extends State<EditTicketDrawer> {
       padding: const EdgeInsets.all(Spacing.sm),
       decoration: BoxDecoration(
         color: theme.colorScheme.primaryContainer,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(AppSizes.radiusMD),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -266,7 +269,7 @@ class _EditTicketDrawerState extends State<EditTicketDrawer> {
       padding: const EdgeInsets.all(Spacing.md),
       decoration: BoxDecoration(
         color: theme.colorScheme.errorContainer,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(AppSizes.radiusMD),
       ),
       child: Row(
         children: [
@@ -278,7 +281,7 @@ class _EditTicketDrawerState extends State<EditTicketDrawer> {
           Expanded(
             child: Text(
               _error!,
-              style: TextStyle(color: theme.colorScheme.onErrorContainer),
+              style: AppTextStyles.body.copyWith(color: AppColors.utilityError700),
             ),
           ),
         ],

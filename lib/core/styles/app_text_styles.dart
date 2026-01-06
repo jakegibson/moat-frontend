@@ -196,6 +196,13 @@ class AppTextStyles {
     color: AppColors.black,
   );
 
+  static const tableHeaderBold = TextStyle(
+    fontFamily: 'Inter',
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: AppColors.black,
+  );
+
   static const tableBody = TextStyle(
     fontFamily: 'Inter',
     fontSize: 14,

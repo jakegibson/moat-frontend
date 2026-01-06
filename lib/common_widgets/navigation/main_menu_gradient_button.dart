@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../core/styles/app_colors.dart';
+import '../../core/styles/app_sizes.dart';
+
 class MainMenuGradientButton extends StatelessWidget {
   const MainMenuGradientButton({
     super.key,
@@ -23,16 +26,16 @@ class MainMenuGradientButton extends StatelessWidget {
         height: 40,
         decoration: BoxDecoration(
           gradient: gradient,
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(AppSizes.radiusXL),
           border: Border.all(
-            color: selected ? Colors.white : Colors.transparent,
+            color: selected ? AppColors.white : AppColors.transparent,
             width: selected ? 4.0 : 0.0,
             strokeAlign: BorderSide.strokeAlignOutside,
           ),
           boxShadow: selected
               ? [
                   BoxShadow(
-                    color: Colors.black.withAlpha(100),
+                    color: AppColors.black.withAlpha(100),
                     offset: const Offset(-1, 2),
                     blurRadius: 4.0,
                     spreadRadius: 1.0,
@@ -41,7 +44,7 @@ class MainMenuGradientButton extends StatelessWidget {
               : [],
         ),
         child: Padding(
-          padding: const EdgeInsets.all(6.0),
+          padding: EdgeInsets.all(AppSizes.spacingSM),
           child: Center(child: icon),
         ),
       ),

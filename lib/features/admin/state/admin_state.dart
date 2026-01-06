@@ -3,65 +3,177 @@ import 'package:signals/signals.dart';
 
 import '../../../core/utils/app_error.dart';
 import '../../../core/utils/result.dart';
+import '../../../gen/moat/v1/admin.pb.dart' as admin;
+import '../../../gen/moat/v1/organization.pb.dart' as org;
 import '../data/admin_client.dart';
-import '../data/admin_models.dart';
+import 'admin_org_state.dart';
 
 /// State management for admin features.
 ///
 /// Uses Signals for reactive state updates.
+/// Organization-related operations are delegated to [AdminOrgState].
 @lazySingleton
 class AdminState {
   final AdminClient _client;
+  final AdminOrgState _orgState;
 
-  AdminState(this._client);
+  AdminState(this._client, this._orgState);
 
   // ===========================================================================
-  // Company Settings State
+  // Delegated Organization State (via AdminOrgState)
   // ===========================================================================
 
-  final companySettings = signal<CompanySettings?>(null);
-  final isLoadingSettings = signal(false);
-  final settingsError = signal<AppError?>(null);
+  // Members
+  Signal<List<Member>> get members => _orgState.members;
+  Signal<int> get membersTotal => _orgState.membersTotal;
+  Signal<bool> get isLoadingMembers => _orgState.isLoadingMembers;
+  Signal<AppError?> get membersError => _orgState.membersError;
 
-  Future<void> fetchCompanySettings({bool refresh = false}) async {
-    if (isLoadingSettings.value && !refresh) return;
-    if (companySettings.value != null && !refresh) return;
+  Future<void> fetchMembers({
+    bool refresh = false,
+    String? search,
+    bool includePending = true,
+  }) =>
+      _orgState.fetchMembers(
+          refresh: refresh, search: search, includePending: includePending);
 
-    isLoadingSettings.value = true;
-    settingsError.value = null;
-
-    final result = await _client.getCompanySettings().toResult();
-
-    batch(() {
-      result.when(
-        ok: (data) => companySettings.value = data,
-        error: (e) => settingsError.value = e,
+  Future<Result<org.Member>> createMember({
+    required String email,
+    required String firstName,
+    required String lastName,
+    List<String>? roleIds,
+    List<String>? locationIds,
+  }) =>
+      _orgState.createMember(
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        roleIds: roleIds,
+        locationIds: locationIds,
       );
-      isLoadingSettings.value = false;
-    });
-  }
 
-  Future<Result<CompanySettings>> updateCompanySettings(
-    CompanySettings settings,
-  ) async {
-    final previous = companySettings.value;
-    companySettings.value = settings;
+  Future<Result<org.Member>> updateMember({
+    required String memberId,
+    String? firstName,
+    String? lastName,
+  }) =>
+      _orgState.updateMember(
+          memberId: memberId, firstName: firstName, lastName: lastName);
 
-    final result = await _client.updateCompanySettings(settings).toResult();
+  Future<Result<void>> deleteMember(String memberId) =>
+      _orgState.deleteMember(memberId);
 
-    result.when(
-      ok: (data) => companySettings.value = data,
-      error: (e) {
-        companySettings.value = previous;
-        settingsError.value = e;
-      },
-    );
+  // Locations
+  Signal<List<Location>> get locations => _orgState.locations;
+  Signal<bool> get isLoadingLocations => _orgState.isLoadingLocations;
+  Signal<AppError?> get locationsError => _orgState.locationsError;
 
-    return result;
-  }
+  Future<void> fetchLocations({bool refresh = false}) =>
+      _orgState.fetchLocations(refresh: refresh);
+
+  Future<Result<org.Location>> createLocation({
+    required String name,
+    String? address,
+    String? city,
+    String? state,
+    String? zipCode,
+    String? country,
+  }) =>
+      _orgState.createLocation(
+        name: name,
+        address: address,
+        city: city,
+        state: state,
+        zipCode: zipCode,
+        country: country,
+      );
+
+  Future<Result<org.Location>> updateLocation({
+    required String locationId,
+    String? name,
+    String? address,
+    String? city,
+    String? state,
+    String? zipCode,
+    String? country,
+  }) =>
+      _orgState.updateLocation(
+        locationId: locationId,
+        name: name,
+        address: address,
+        city: city,
+        state: state,
+        zipCode: zipCode,
+        country: country,
+      );
+
+  Future<Result<void>> deleteLocation(String locationId) =>
+      _orgState.deleteLocation(locationId);
+
+  // Roles
+  Signal<List<Role>> get roles => _orgState.roles;
+  Signal<bool> get isLoadingRoles => _orgState.isLoadingRoles;
+  Signal<AppError?> get rolesError => _orgState.rolesError;
+
+  Future<void> fetchRoles({bool refresh = false, bool includeSystem = false}) =>
+      _orgState.fetchRoles(refresh: refresh, includeSystem: includeSystem);
+
+  Future<Result<org.RoleDetail>> createRole({
+    required String name,
+    String? description,
+    bool isAssignable = true,
+    List<String>? permissionIds,
+  }) =>
+      _orgState.createRole(
+        name: name,
+        description: description,
+        isAssignable: isAssignable,
+        permissionIds: permissionIds,
+      );
+
+  Future<Result<org.RoleDetail>> updateRole({
+    required String roleId,
+    String? name,
+    String? description,
+    bool? isAssignable,
+    List<String>? permissionIds,
+  }) =>
+      _orgState.updateRole(
+        roleId: roleId,
+        name: name,
+        description: description,
+        isAssignable: isAssignable,
+        permissionIds: permissionIds,
+      );
+
+  Future<Result<void>> deleteRole(String roleId) =>
+      _orgState.deleteRole(roleId);
+
+  Future<Result<void>> assignRole({
+    required String memberId,
+    required String roleId,
+    List<String>? locationIds,
+  }) =>
+      _orgState.assignRole(
+          memberId: memberId, roleId: roleId, locationIds: locationIds);
+
+  Future<Result<void>> revokeRole({
+    required String memberId,
+    required String roleId,
+    String? reason,
+  }) =>
+      _orgState.revokeRole(memberId: memberId, roleId: roleId, reason: reason);
+
+  // Permissions
+  Signal<List<org.Permission>> get permissions => _orgState.permissions;
+  Signal<bool> get isLoadingPermissions => _orgState.isLoadingPermissions;
+  Signal<AppError?> get permissionsError => _orgState.permissionsError;
+
+  Future<void> fetchPermissions({bool refresh = false}) =>
+      _orgState.fetchPermissions(refresh: refresh);
 
   // ===========================================================================
-  // SSO Domains State
+  // SSO Domains State (via AdminService)
   // ===========================================================================
 
   final ssoDomains = signal<List<SSODomain>>([]);
@@ -85,46 +197,62 @@ class AdminState {
     });
   }
 
-  Future<Result<SSODomain>> createSSODomain({
+  Future<Result<admin.SSODomain>> createSSODomain({
     required String domain,
-    required SSOProvider provider,
+    required String companyId,
+    List<String>? allowedAuthProviders,
+    bool autoJoinEnabled = true,
+    String? defaultRoleId,
   }) async {
     final result = await _client
-        .createSSODomain(domain: domain, provider: provider)
+        .createSSODomain(
+          domain: domain,
+          companyId: companyId,
+          allowedAuthProviders: allowedAuthProviders,
+          autoJoinEnabled: autoJoinEnabled,
+          defaultRoleId: defaultRoleId,
+        )
         .toResult();
 
     result.when(
-      ok: (data) => ssoDomains.value = [...ssoDomains.value, data],
+      ok: (_) => fetchSSODomains(refresh: true),
       error: (e) => ssoError.value = e,
     );
 
     return result;
   }
 
-  Future<Result<SSODomain>> updateSSODomain(SSODomain domain) async {
+  Future<Result<admin.SSODomain>> updateSSODomain({
+    required String domainId,
+    String? domain,
+    List<String>? allowedAuthProviders,
+    bool? autoJoinEnabled,
+    String? defaultRoleId,
+  }) async {
+    final result = await _client
+        .updateSSODomain(
+          domainId: domainId,
+          domain: domain,
+          allowedAuthProviders: allowedAuthProviders,
+          autoJoinEnabled: autoJoinEnabled,
+          defaultRoleId: defaultRoleId,
+        )
+        .toResult();
+
+    result.when(
+      ok: (_) => fetchSSODomains(refresh: true),
+      error: (e) => ssoError.value = e,
+    );
+
+    return result;
+  }
+
+  Future<Result<void>> deleteSSODomain(String domainId) async {
     final previous = ssoDomains.value;
     ssoDomains.value =
-        ssoDomains.value.map((d) => d.id == domain.id ? domain : d).toList();
+        ssoDomains.value.where((d) => d.id != domainId).toList();
 
-    final result = await _client.updateSSODomain(domain).toResult();
-
-    result.when(
-      ok: (data) => ssoDomains.value =
-          ssoDomains.value.map((d) => d.id == domain.id ? data : d).toList(),
-      error: (e) {
-        ssoDomains.value = previous;
-        ssoError.value = e;
-      },
-    );
-
-    return result;
-  }
-
-  Future<Result<void>> deleteSSODomain(String id) async {
-    final previous = ssoDomains.value;
-    ssoDomains.value = ssoDomains.value.where((d) => d.id != id).toList();
-
-    final result = await _client.deleteSSODomain(id).toResult();
+    final result = await _client.deleteSSODomain(domainId).toResult();
 
     result.when(
       ok: (_) {},
@@ -137,186 +265,86 @@ class AdminState {
     return result;
   }
 
-  Future<Result<SSODomain>> verifySSODomain(String id) async {
-    final result = await _client.verifySSODomain(id).toResult();
-
-    result.when(
-      ok: (data) => ssoDomains.value =
-          ssoDomains.value.map((d) => d.id == id ? data : d).toList(),
-      error: (e) => ssoError.value = e,
-    );
-
-    return result;
-  }
-
   // ===========================================================================
-  // Workflows State
+  // Prompt Templates State (via AdminService)
   // ===========================================================================
 
-  final workflows = signal<List<Workflow>>([]);
-  final isLoadingWorkflows = signal(false);
-  final workflowsError = signal<AppError?>(null);
-
-  late final activeWorkflows =
-      computed(() => workflows.value.where((w) => w.isActive).toList());
-
-  Future<void> fetchWorkflows({bool refresh = false}) async {
-    if (isLoadingWorkflows.value && !refresh) return;
-
-    isLoadingWorkflows.value = true;
-    workflowsError.value = null;
-
-    final result = await _client.listWorkflows().toResult();
-
-    batch(() {
-      result.when(
-        ok: (data) => workflows.value = data,
-        error: (e) => workflowsError.value = e,
-      );
-      isLoadingWorkflows.value = false;
-    });
-  }
-
-  Future<Result<Workflow>> createWorkflow(Workflow workflow) async {
-    final result = await _client.createWorkflow(workflow).toResult();
-
-    result.when(
-      ok: (data) => workflows.value = [...workflows.value, data],
-      error: (e) => workflowsError.value = e,
-    );
-
-    return result;
-  }
-
-  Future<Result<Workflow>> updateWorkflow(Workflow workflow) async {
-    final previous = workflows.value;
-    workflows.value = workflows.value
-        .map((w) => w.id == workflow.id ? workflow : w)
-        .toList();
-
-    final result = await _client.updateWorkflow(workflow).toResult();
-
-    result.when(
-      ok: (data) => workflows.value =
-          workflows.value.map((w) => w.id == workflow.id ? data : w).toList(),
-      error: (e) {
-        workflows.value = previous;
-        workflowsError.value = e;
-      },
-    );
-
-    return result;
-  }
-
-  Future<Result<void>> deleteWorkflow(String id) async {
-    final previous = workflows.value;
-    workflows.value = workflows.value.where((w) => w.id != id).toList();
-
-    final result = await _client.deleteWorkflow(id).toResult();
-
-    result.when(
-      ok: (_) {},
-      error: (e) {
-        workflows.value = previous;
-        workflowsError.value = e;
-      },
-    );
-
-    return result;
-  }
-
-  Future<Result<Workflow>> toggleWorkflowActive(String id) async {
-    final previous = workflows.value;
-    workflows.value = workflows.value
-        .map((w) => w.id == id ? w.copyWith(isActive: !w.isActive) : w)
-        .toList();
-
-    final result = await _client.toggleWorkflowActive(id).toResult();
-
-    result.when(
-      ok: (data) =>
-          workflows.value = workflows.value.map((w) => w.id == id ? data : w).toList(),
-      error: (e) {
-        workflows.value = previous;
-        workflowsError.value = e;
-      },
-    );
-
-    return result;
-  }
-
-  // ===========================================================================
-  // AI Prompts State
-  // ===========================================================================
-
-  final prompts = signal<List<AIPrompt>>([]);
+  final promptTemplates = signal<List<PromptTemplate>>([]);
+  final selectedPromptDetail = signal<admin.PromptTemplateDetail?>(null);
   final isLoadingPrompts = signal(false);
   final promptsError = signal<AppError?>(null);
 
-  late final activePrompts =
-      computed(() => prompts.value.where((p) => p.isActive).toList());
-  late final systemPrompts =
-      computed(() => prompts.value.where((p) => p.isSystem).toList());
-  late final customPrompts =
-      computed(() => prompts.value.where((p) => !p.isSystem).toList());
-
-  Future<void> fetchPrompts({bool refresh = false}) async {
+  Future<void> fetchPromptTemplates({
+    bool refresh = false,
+    admin.PromptCategory? category,
+    String? search,
+  }) async {
     if (isLoadingPrompts.value && !refresh) return;
 
     isLoadingPrompts.value = true;
     promptsError.value = null;
 
-    final result = await _client.listPrompts().toResult();
+    final result = await _client
+        .listPromptTemplates(category: category, search: search)
+        .toResult();
 
     batch(() {
       result.when(
-        ok: (data) => prompts.value = data,
+        ok: (data) => promptTemplates.value = data,
         error: (e) => promptsError.value = e,
       );
       isLoadingPrompts.value = false;
     });
   }
 
-  Future<Result<AIPrompt>> createPrompt(AIPrompt prompt) async {
-    final result = await _client.createPrompt(prompt).toResult();
+  Future<Result<admin.PromptTemplateDetail>> fetchPromptTemplate(
+      String templateId) async {
+    final result = await _client.getPromptTemplate(templateId).toResult();
 
     result.when(
-      ok: (data) => prompts.value = [...prompts.value, data],
+      ok: (data) => selectedPromptDetail.value = data,
       error: (e) => promptsError.value = e,
     );
 
     return result;
   }
 
-  Future<Result<AIPrompt>> updatePrompt(AIPrompt prompt) async {
-    final previous = prompts.value;
-    prompts.value =
-        prompts.value.map((p) => p.id == prompt.id ? prompt : p).toList();
-
-    final result = await _client.updatePrompt(prompt).toResult();
+  Future<Result<admin.PromptTemplate>> createPromptTemplate({
+    required String key,
+    required String name,
+    String? description,
+    required admin.PromptCategory category,
+    required String initialContent,
+  }) async {
+    final result = await _client
+        .createPromptTemplate(
+          key: key,
+          name: name,
+          description: description,
+          category: category,
+          initialContent: initialContent,
+        )
+        .toResult();
 
     result.when(
-      ok: (data) => prompts.value =
-          prompts.value.map((p) => p.id == prompt.id ? data : p).toList(),
-      error: (e) {
-        prompts.value = previous;
-        promptsError.value = e;
-      },
+      ok: (_) => fetchPromptTemplates(refresh: true),
+      error: (e) => promptsError.value = e,
     );
 
     return result;
   }
 
-  Future<Result<void>> deletePrompt(String id) async {
-    final previous = prompts.value;
-    prompts.value = prompts.value.where((p) => p.id != id).toList();
+  Future<Result<void>> deletePromptTemplate(String templateId) async {
+    final previous = promptTemplates.value;
+    promptTemplates.value =
+        promptTemplates.value.where((t) => t.id != templateId).toList();
 
-    final result = await _client.deletePrompt(id).toResult();
+    final result = await _client.deletePromptTemplate(templateId).toResult();
 
     result.when(
       ok: (_) {},
       error: (e) {
-        prompts.value = previous;
+        promptTemplates.value = previous;
         promptsError.value = e;
       },
     );
@@ -324,45 +352,82 @@ class AdminState {
     return result;
   }
 
-  Future<Result<AIPrompt>> togglePromptActive(String id) async {
-    final previous = prompts.value;
-    prompts.value = prompts.value
-        .map((p) => p.id == id ? p.copyWith(isActive: !p.isActive) : p)
-        .toList();
-
-    final result = await _client.togglePromptActive(id).toResult();
+  Future<Result<admin.PromptVersion>> createPromptVersion({
+    required String templateId,
+    required String content,
+    String? notes,
+    String? modelName,
+  }) async {
+    final result = await _client
+        .createPromptVersion(
+          templateId: templateId,
+          content: content,
+          notes: notes,
+          modelName: modelName,
+        )
+        .toResult();
 
     result.when(
-      ok: (data) =>
-          prompts.value = prompts.value.map((p) => p.id == id ? data : p).toList(),
-      error: (e) {
-        prompts.value = previous;
-        promptsError.value = e;
-      },
+      ok: (_) => fetchPromptTemplate(templateId),
+      error: (e) => promptsError.value = e,
+    );
+
+    return result;
+  }
+
+  Future<Result<void>> activatePromptVersion({
+    required String templateId,
+    required int versionNumber,
+    required admin.Environment environment,
+  }) async {
+    final result = await _client
+        .activatePromptVersion(
+          templateId: templateId,
+          versionNumber: versionNumber,
+          environment: environment,
+        )
+        .toResult();
+
+    result.when(
+      ok: (_) => fetchPromptTemplate(templateId),
+      error: (e) => promptsError.value = e,
     );
 
     return result;
   }
 
   // ===========================================================================
-  // AI Generations State
+  // AI Generations State (via AdminService)
   // ===========================================================================
 
-  final generations = signal<List<AIGeneration>>([]);
+  final generationStats = signal<admin.GenerationStats?>(null);
+  final generations = signal<List<Generation>>([]);
+  final generationsTotal = signal(0);
   final isLoadingGenerations = signal(false);
   final generationsError = signal<AppError?>(null);
-  final generationsFilter = signal<AIGenerationStatus?>(null);
 
-  late final filteredGenerations = computed(() {
-    final filter = generationsFilter.value;
-    if (filter == null) return generations.value;
-    return generations.value.where((g) => g.status == filter).toList();
-  });
+  Future<void> fetchGenerationStats({
+    String? companyId,
+    String? generationType,
+  }) async {
+    final result = await _client
+        .getGenerationStats(
+            companyId: companyId, generationType: generationType)
+        .toResult();
+
+    result.when(
+      ok: (data) => generationStats.value = data,
+      error: (e) => generationsError.value = e,
+    );
+  }
 
   Future<void> fetchGenerations({
     bool refresh = false,
-    String? promptId,
-    AIGenerationStatus? status,
+    String? companyId,
+    String? generationType,
+    bool? success,
+    int limit = 50,
+    int offset = 0,
   }) async {
     if (isLoadingGenerations.value && !refresh) return;
 
@@ -370,232 +435,107 @@ class AdminState {
     generationsError.value = null;
 
     final result = await _client
-        .listGenerations(promptId: promptId, status: status)
+        .listGenerations(
+          companyId: companyId,
+          generationType: generationType,
+          success: success,
+          limit: limit,
+          offset: offset,
+        )
         .toResult();
 
     batch(() {
       result.when(
-        ok: (data) => generations.value = data,
+        ok: (data) {
+          generations.value = data;
+          generationsTotal.value = data.length;
+        },
         error: (e) => generationsError.value = e,
       );
       isLoadingGenerations.value = false;
     });
   }
 
-  void setGenerationsFilter(AIGenerationStatus? status) {
-    generationsFilter.value = status;
+  Future<Result<admin.GetRecentErrorsResponse>> fetchRecentErrors({
+    int limit = 20,
+    String? companyId,
+  }) async {
+    return await _client
+        .getRecentErrors(limit: limit, companyId: companyId)
+        .toResult();
   }
 
   // ===========================================================================
-  // Document Processing State
+  // Gap Analysis State (via AdminService)
   // ===========================================================================
 
-  final documentConfigs = signal<List<DocumentConfig>>([]);
-  final isLoadingDocConfigs = signal(false);
-  final docConfigsError = signal<AppError?>(null);
+  final gapAnalysis = signal<admin.GapAnalysisResponse?>(null);
+  final isLoadingGapAnalysis = signal(false);
+  final gapAnalysisError = signal<AppError?>(null);
 
-  late final activeDocConfigs =
-      computed(() => documentConfigs.value.where((c) => c.isActive).toList());
+  Future<void> fetchGapAnalysis(String companyId) async {
+    isLoadingGapAnalysis.value = true;
+    gapAnalysisError.value = null;
 
-  Future<void> fetchDocumentConfigs({bool refresh = false}) async {
-    if (isLoadingDocConfigs.value && !refresh) return;
-
-    isLoadingDocConfigs.value = true;
-    docConfigsError.value = null;
-
-    final result = await _client.listDocumentConfigs().toResult();
+    final result = await _client.getAssetGapAnalysis(companyId).toResult();
 
     batch(() {
       result.when(
-        ok: (data) => documentConfigs.value = data,
-        error: (e) => docConfigsError.value = e,
+        ok: (data) => gapAnalysis.value = data,
+        error: (e) => gapAnalysisError.value = e,
       );
-      isLoadingDocConfigs.value = false;
+      isLoadingGapAnalysis.value = false;
     });
   }
 
-  Future<Result<DocumentConfig>> createDocumentConfig(
-    DocumentConfig config,
-  ) async {
-    final result = await _client.createDocumentConfig(config).toResult();
-
-    result.when(
-      ok: (data) => documentConfigs.value = [...documentConfigs.value, data],
-      error: (e) => docConfigsError.value = e,
-    );
-
-    return result;
-  }
-
-  Future<Result<DocumentConfig>> updateDocumentConfig(
-    DocumentConfig config,
-  ) async {
-    final previous = documentConfigs.value;
-    documentConfigs.value = documentConfigs.value
-        .map((c) => c.id == config.id ? config : c)
-        .toList();
-
-    final result = await _client.updateDocumentConfig(config).toResult();
-
-    result.when(
-      ok: (data) => documentConfigs.value = documentConfigs.value
-          .map((c) => c.id == config.id ? data : c)
-          .toList(),
-      error: (e) {
-        documentConfigs.value = previous;
-        docConfigsError.value = e;
-      },
-    );
-
-    return result;
-  }
-
-  Future<Result<void>> deleteDocumentConfig(String id) async {
-    final previous = documentConfigs.value;
-    documentConfigs.value =
-        documentConfigs.value.where((c) => c.id != id).toList();
-
-    final result = await _client.deleteDocumentConfig(id).toResult();
-
-    result.when(
-      ok: (_) {},
-      error: (e) {
-        documentConfigs.value = previous;
-        docConfigsError.value = e;
-      },
-    );
-
-    return result;
-  }
-
   // ===========================================================================
-  // System Metrics State
+  // System Statistics State (via AdminService)
   // ===========================================================================
 
-  final systemMetrics = signal<SystemMetrics?>(null);
-  final isLoadingMetrics = signal(false);
-  final metricsError = signal<AppError?>(null);
+  final systemOverview = signal<admin.SystemOverviewResponse?>(null);
+  final companySummaries = signal<List<admin.CompanySummary>>([]);
+  final companySummariesTotal = signal(0);
+  final isLoadingSystemStats = signal(false);
+  final systemStatsError = signal<AppError?>(null);
 
-  Future<void> fetchSystemMetrics({bool refresh = false}) async {
-    if (isLoadingMetrics.value && !refresh) return;
+  Future<void> fetchSystemOverview() async {
+    isLoadingSystemStats.value = true;
+    systemStatsError.value = null;
 
-    isLoadingMetrics.value = true;
-    metricsError.value = null;
-
-    final result = await _client.getSystemMetrics().toResult();
+    final result = await _client.getSystemOverview().toResult();
 
     batch(() {
       result.when(
-        ok: (data) => systemMetrics.value = data,
-        error: (e) => metricsError.value = e,
+        ok: (data) => systemOverview.value = data,
+        error: (e) => systemStatsError.value = e,
       );
-      isLoadingMetrics.value = false;
+      isLoadingSystemStats.value = false;
     });
   }
 
-  // ===========================================================================
-  // Gap Analysis State
-  // ===========================================================================
-
-  final gapItems = signal<List<GapAnalysisItem>>([]);
-  final gapCategories = signal<List<String>>([]);
-  final isLoadingGaps = signal(false);
-  final gapsError = signal<AppError?>(null);
-  final gapSeverityFilter = signal<GapSeverity?>(null);
-  final gapStatusFilter = signal<GapStatus?>(null);
-  final gapCategoryFilter = signal<String?>(null);
-
-  late final filteredGapItems = computed(() {
-    var items = gapItems.value;
-    final severity = gapSeverityFilter.value;
-    final status = gapStatusFilter.value;
-    final category = gapCategoryFilter.value;
-
-    if (severity != null) {
-      items = items.where((g) => g.severity == severity).toList();
-    }
-    if (status != null) {
-      items = items.where((g) => g.status == status).toList();
-    }
-    if (category != null) {
-      items = items.where((g) => g.category == category).toList();
-    }
-    return items;
-  });
-
-  late final openGapsCount = computed(
-    () => gapItems.value.where((g) => g.status == GapStatus.open).length,
-  );
-
-  late final criticalGapsCount = computed(
-    () => gapItems.value.where((g) => g.severity == GapSeverity.critical).length,
-  );
-
-  Future<void> fetchGapItems({bool refresh = false}) async {
-    if (isLoadingGaps.value && !refresh) return;
-
-    isLoadingGaps.value = true;
-    gapsError.value = null;
-
-    final results = await Future.wait([
-      _client.listGapItems().toResult(),
-      _client.getGapCategories().toResult(),
-    ]);
-
-    batch(() {
-      final itemsResult = results[0] as Result<List<GapAnalysisItem>>;
-      final categoriesResult = results[1] as Result<List<String>>;
-
-      itemsResult.when(
-        ok: (data) => gapItems.value = data,
-        error: (e) => gapsError.value = e,
-      );
-
-      categoriesResult.when(
-        ok: (data) => gapCategories.value = data,
-        error: (_) {},
-      );
-
-      isLoadingGaps.value = false;
-    });
-  }
-
-  Future<Result<GapAnalysisItem>> updateGapItem(GapAnalysisItem item) async {
-    final previous = gapItems.value;
-    gapItems.value =
-        gapItems.value.map((g) => g.id == item.id ? item : g).toList();
-
-    final result = await _client.updateGapItem(item).toResult();
+  Future<void> fetchCompanySummaries({
+    String? search,
+    String sortBy = 'name',
+    String sortOrder = 'asc',
+    int limit = 50,
+    int offset = 0,
+  }) async {
+    final result = await _client
+        .getCompanySummaries(
+          search: search,
+          sortBy: sortBy,
+          sortOrder: sortOrder,
+          limit: limit,
+          offset: offset,
+        )
+        .toResult();
 
     result.when(
-      ok: (data) => gapItems.value =
-          gapItems.value.map((g) => g.id == item.id ? data : g).toList(),
-      error: (e) {
-        gapItems.value = previous;
-        gapsError.value = e;
+      ok: (data) {
+        companySummaries.value = data.companies;
+        companySummariesTotal.value = data.total;
       },
+      error: (e) => systemStatsError.value = e,
     );
-
-    return result;
-  }
-
-  void setGapFilters({
-    GapSeverity? severity,
-    GapStatus? status,
-    String? category,
-  }) {
-    batch(() {
-      gapSeverityFilter.value = severity;
-      gapStatusFilter.value = status;
-      gapCategoryFilter.value = category;
-    });
-  }
-
-  void clearGapFilters() {
-    batch(() {
-      gapSeverityFilter.value = null;
-      gapStatusFilter.value = null;
-      gapCategoryFilter.value = null;
-    });
   }
 }

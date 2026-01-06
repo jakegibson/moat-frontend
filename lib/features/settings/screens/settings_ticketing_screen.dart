@@ -6,6 +6,7 @@ import '../../../common_widgets/page_header.dart';
 import '../../../core/di/injection.dart';
 import '../../../core/styles/app_colors.dart';
 import '../../../core/styles/app_sizes.dart';
+import '../../../core/styles/app_text_styles.dart';
 import '../../../core/styles/semantic_tokens.dart';
 import '../data/ticketing_models.dart';
 import '../state/ticketing_state.dart';
@@ -283,10 +284,10 @@ class _SettingsTicketingScreenState extends State<SettingsTicketingScreen> {
         children: [
           _buildSortableHeader('Rule Name', 'name', sortField, sortAsc, flex: 2),
           _buildSortableHeader('Priority', 'priority', sortField, sortAsc, flex: 1),
-          const Expanded(flex: 2, child: Text('Task Types', style: TextStyle(fontWeight: FontWeight.w600))),
-          const Expanded(flex: 1, child: Text('Assigned To', style: TextStyle(fontWeight: FontWeight.w600))),
+          const Expanded(flex: 2, child: Text('Task Types', style: AppTextStyles.tableHeaderBold)),
+          const Expanded(flex: 1, child: Text('Assigned To', style: AppTextStyles.tableHeaderBold)),
           _buildSortableHeader('Status', 'isActive', sortField, sortAsc, flex: 1),
-          const SizedBox(width: 100, child: Text('Actions', style: TextStyle(fontWeight: FontWeight.w600))),
+          const SizedBox(width: 100, child: Text('Actions', style: AppTextStyles.tableHeaderBold)),
         ],
       ),
     );
@@ -308,8 +309,7 @@ class _SettingsTicketingScreenState extends State<SettingsTicketingScreen> {
           children: [
             Text(
               label,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
+              style: AppTextStyles.tableHeaderBold.copyWith(
                 color: isActive ? SemanticColors.info : null,
               ),
             ),

@@ -104,7 +104,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               const SizedBox(width: Spacing.sm),
                               Expanded(
                                 child: Text(
-                                  error,
+                                  error.message,
                                   style: TextStyle(
                                     color: theme.colorScheme.onErrorContainer,
                                   ),

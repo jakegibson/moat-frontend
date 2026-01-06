@@ -5,9 +5,12 @@ import 'package:signals/signals_flutter.dart';
 
 import '../../core/di/injection.dart';
 import '../../core/routing/routes.dart';
+import '../../core/styles/app_colors.dart';
 import '../../core/styles/app_sizes.dart';
+import '../../features/auth/state/auth_state.dart';
 import '../../features/notifications/state/notification_state.dart';
 import '../../features/notifications/widgets/notification_drawer.dart';
+import '../../features/profile/widgets/profile_drawer.dart';
 import '../profile_avatar.dart';
 import 'button_admin.dart';
 import 'button_assets.dart';
@@ -28,11 +31,13 @@ class MainSideMenu extends StatefulWidget {
 class _MainSideMenuState extends State<MainSideMenu> {
   String selectedRoute = '';
   late final NotificationState _notificationState;
+  late final AuthState _authState;
 
   @override
   void initState() {
     super.initState();
     _notificationState = getIt<NotificationState>();
+    _authState = getIt<AuthState>();
     // Fetch unread count on init
     _notificationState.fetchUnreadCount();
   }
@@ -48,13 +53,40 @@ class _MainSideMenuState extends State<MainSideMenu> {
       context: context,
       barrierDismissible: true,
       barrierLabel: 'Notifications',
-      barrierColor: Colors.black54,
+      barrierColor: AppColors.black.withAlpha(138),
       transitionDuration: const Duration(milliseconds: 200),
       pageBuilder: (context, animation, secondaryAnimation) {
         return Align(
           alignment: Alignment.centerRight,
           child: Material(
             child: NotificationDrawer(),
+          ),
+        );
+      },
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        return SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(1, 0),
+            end: Offset.zero,
+          ).animate(animation),
+          child: child,
+        );
+      },
+    );
+  }
+
+  void _openProfileDrawer() {
+    showGeneralDialog(
+      context: context,
+      barrierDismissible: true,
+      barrierLabel: 'Profile',
+      barrierColor: AppColors.black.withAlpha(138),
+      transitionDuration: const Duration(milliseconds: 200),
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return Align(
+          alignment: Alignment.centerRight,
+          child: Material(
+            child: ProfileDrawer(),
           ),
         );
       },
@@ -193,16 +225,14 @@ class _MainSideMenuState extends State<MainSideMenu> {
           ),
           const Spacer(),
           // Profile Button
-          ProfileAvatar(
-            name: 'User',
-            size: 40,
-            onTap: () {
-              // TODO: Open profile drawer
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Profile coming soon')),
-              );
-            },
-          ),
+          Watch((context) {
+            final displayName = _authState.displayName.value;
+            return ProfileAvatar(
+              name: displayName,
+              size: 40,
+              onTap: _openProfileDrawer,
+            );
+          }),
         ],
       ),
     );

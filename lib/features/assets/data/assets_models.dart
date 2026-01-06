@@ -45,7 +45,6 @@ class Asset extends Equatable {
   final String status;
   final String processStatus;
   final String? technicalName;
-  final String? description;
   final String? notes;
   final String? locationId;
   final String? locationName;
@@ -85,7 +84,6 @@ class Asset extends Equatable {
     required this.status,
     this.processStatus = AssetProcessStatus.completed,
     this.technicalName,
-    this.description,
     this.notes,
     this.locationId,
     this.locationName,
@@ -228,7 +226,6 @@ class Asset extends Equatable {
           AssetProcessStatus.completed,
       technicalName: json['technical_name'] as String? ??
           json['technicalName'] as String?,
-      description: json['description'] as String?,
       notes: json['notes'] as String?,
       locationId:
           json['location_id'] as String? ?? json['locationId'] as String?,
@@ -309,7 +306,6 @@ class Asset extends Equatable {
       'status': status,
       'process_status': processStatus,
       if (technicalName != null) 'technical_name': technicalName,
-      if (description != null) 'description': description,
       if (notes != null) 'notes': notes,
       if (locationId != null) 'location_id': locationId,
       if (locationName != null) 'location_name': locationName,
@@ -365,7 +361,6 @@ class Asset extends Equatable {
     String? status,
     String? processStatus,
     String? technicalName,
-    String? description,
     String? notes,
     String? locationId,
     String? locationName,
@@ -405,7 +400,6 @@ class Asset extends Equatable {
       status: status ?? this.status,
       processStatus: processStatus ?? this.processStatus,
       technicalName: technicalName ?? this.technicalName,
-      description: description ?? this.description,
       notes: notes ?? this.notes,
       locationId: locationId ?? this.locationId,
       locationName: locationName ?? this.locationName,
@@ -453,7 +447,6 @@ class Asset extends Equatable {
         status,
         processStatus,
         technicalName,
-        description,
         notes,
         locationId,
         locationName,

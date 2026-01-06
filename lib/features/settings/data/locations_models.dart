@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 class Location extends Equatable {
   final String id;
   final String name;
+  final String? description;
   final String? address;
   final String? city;
   final String? state;
@@ -15,6 +16,7 @@ class Location extends Equatable {
   const Location({
     required this.id,
     required this.name,
+    this.description,
     this.address,
     this.city,
     this.state,
@@ -42,6 +44,7 @@ class Location extends Equatable {
     return Location(
       id: json['id'] as String,
       name: json['name'] as String,
+      description: json['description'] as String?,
       address: json['address'] as String?,
       city: json['city'] as String?,
       state: json['state'] as String?,
@@ -60,6 +63,7 @@ class Location extends Equatable {
     return {
       'id': id,
       'name': name,
+      'description': description,
       'address': address,
       'city': city,
       'state': state,
@@ -73,6 +77,7 @@ class Location extends Equatable {
   Location copyWith({
     String? id,
     String? name,
+    String? description,
     String? address,
     String? city,
     String? state,
@@ -84,6 +89,7 @@ class Location extends Equatable {
     return Location(
       id: id ?? this.id,
       name: name ?? this.name,
+      description: description ?? this.description,
       address: address ?? this.address,
       city: city ?? this.city,
       state: state ?? this.state,
@@ -98,6 +104,7 @@ class Location extends Equatable {
   List<Object?> get props => [
         id,
         name,
+        description,
         address,
         city,
         state,

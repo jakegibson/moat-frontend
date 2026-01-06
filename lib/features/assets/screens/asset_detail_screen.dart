@@ -1233,7 +1233,7 @@ class _WarrantyTabState extends State<_WarrantyTab> {
                 Expanded(
                   child: GestureDetector(
                     onTap: _closeEditDrawer,
-                    child: Container(color: Colors.black54),
+                    child: Container(color: AppColors.black.withAlpha(138)),
                   ),
                 ),
                 EditWarrantyDrawer(
@@ -1255,7 +1255,7 @@ class _WarrantyTabState extends State<_WarrantyTab> {
                 Expanded(
                   child: GestureDetector(
                     onTap: _closeResolveDrawer,
-                    child: Container(color: Colors.black54),
+                    child: Container(color: AppColors.black.withAlpha(138)),
                   ),
                 ),
                 ResolveWarrantyDrawer(

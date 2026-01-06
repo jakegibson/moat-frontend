@@ -44,7 +44,7 @@ class TimeRangeSelector extends StatelessWidget {
                 vertical: AppSizes.spacingMD,
               ),
               decoration: BoxDecoration(
-                color: isSelected ? AppColors.bgPrimary : Colors.transparent,
+                color: isSelected ? AppColors.bgPrimary : AppColors.transparent,
                 borderRadius: BorderRadius.circular(AppSizes.radiusSM),
               ),
               child: Text(

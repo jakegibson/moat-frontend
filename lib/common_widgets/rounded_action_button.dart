@@ -56,7 +56,7 @@ class RoundedActionButton extends StatelessWidget {
                         isDisabled ? AppColors.white : backgroundColor,
                     shape: CircleBorder().copyWith(
                       side: BorderSide(
-                        color: borderColor ?? Colors.transparent,
+                        color: borderColor ?? AppColors.transparent,
                         width: 1.0,
                       ),
                     ),
@@ -80,14 +80,14 @@ class RoundedActionButton extends StatelessWidget {
                         leading != null && text == null
                             ? CircleBorder(
                               side: BorderSide(
-                                color: borderColor ?? Colors.transparent,
+                                color: borderColor ?? AppColors.transparent,
                                 width: 1.0,
                               ),
                             )
                             : RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
+                              borderRadius: BorderRadius.circular(AppSizes.radiusFull),
                               side: BorderSide(
-                                color: borderColor ?? Colors.transparent,
+                                color: borderColor ?? AppColors.transparent,
                                 width: 1.0,
                               ),
                             ),
@@ -103,7 +103,7 @@ class RoundedActionButton extends StatelessWidget {
                     children: [
                       if (leading != null) ...[
                         leading!,
-                        if (text != null) SizedBox(width: 4.0),
+                        if (text != null) SizedBox(width: AppSizes.spacingXS),
                       ],
                       if (text != null)
                         Flexible(

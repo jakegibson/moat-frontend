@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/styles/app_colors.dart';
+import '../../../core/styles/app_sizes.dart';
 import '../../../core/styles/app_text_styles.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../data/warranty_models.dart';
@@ -63,10 +64,10 @@ class WarrantyCoverageTile extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(AppSizes.spacing2XL),
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.borderPrimary),
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(AppSizes.radiusLG),
         color: backgroundColor,
       ),
       child: Column(
@@ -85,11 +86,11 @@ class WarrantyCoverageTile extends StatelessWidget {
                       ),
                     ),
                     if (coverage.pageNumber != null) ...[
-                      const SizedBox(width: 10),
+                      SizedBox(width: AppSizes.radiusLG),
                       _PageNumberTag(pageNumber: coverage.pageNumber!),
                     ],
                     if (onEdit != null) ...[
-                      const SizedBox(width: 10),
+                      SizedBox(width: AppSizes.radiusLG),
                       IconButton(
                         icon: const Icon(Icons.edit_outlined, size: 18),
                         onPressed: onEdit,
@@ -110,7 +111,7 @@ class WarrantyCoverageTile extends StatelessWidget {
           // Description
           if (coverage.description != null &&
               coverage.description!.isNotEmpty) ...[
-            const SizedBox(height: 12),
+            SizedBox(height: AppSizes.spacingLG),
             Text(
               coverage.description!,
               style: AppTextStyles.textSM.copyWith(
@@ -123,7 +124,7 @@ class WarrantyCoverageTile extends StatelessWidget {
           if (coverage.isLifetimeWarranty ||
               expirationDateTime != null ||
               daysBetween != null) ...[
-            const SizedBox(height: 16),
+            SizedBox(height: AppSizes.spacingXL),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -142,9 +143,9 @@ class WarrantyCoverageTile extends StatelessWidget {
             if (!coverage.isLifetimeWarranty &&
                 daysBetween != null &&
                 daysBetween <= 60) ...[
-              const SizedBox(height: 16),
+              SizedBox(height: AppSizes.spacingXL),
               Divider(color: AppColors.borderPrimary),
-              const SizedBox(height: 16),
+              SizedBox(height: AppSizes.spacingXL),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -173,7 +174,7 @@ class WarrantyCoverageTile extends StatelessWidget {
                         side: BorderSide(
                           color: isResolved
                               ? AppColors.borderPrimary
-                              : Colors.transparent,
+                              : AppColors.transparent,
                         ),
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,
@@ -222,10 +223,10 @@ class _PageNumberTag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      padding: EdgeInsets.symmetric(horizontal: AppSizes.spacingSM, vertical: AppSizes.spacingXXS),
       decoration: BoxDecoration(
         color: AppColors.bgSecondary,
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(AppSizes.radiusXS),
       ),
       child: Text(
         'p.$pageNumber',

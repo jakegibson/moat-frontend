@@ -50,8 +50,8 @@ class _MoatAppState extends State<MoatApp> {
       title: 'Moat',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(),
-      darkTheme: AppTheme.dark(),
-      themeMode: ThemeMode.system,
+      // Force light mode - dark theme not designed yet
+      themeMode: ThemeMode.light,
       routerConfig: appRouter,
     );
   }

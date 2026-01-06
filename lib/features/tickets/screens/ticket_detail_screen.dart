@@ -3,31 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:signals/signals_flutter.dart';
 
 import '../../../core/di/injection.dart';
+import '../../../core/styles/app_colors.dart';
 import '../data/task_models.dart';
 import '../state/task_detail_state.dart';
 import '../widgets/photos_section.dart';
 import '../widgets/assignee_dropdown.dart';
-import 'edit_ticket_drawer.dart';
-
-/// Figma design colors (light theme)
-class _DesignColors {
-  static const Color bgPrimary = Color(0xFFFFFFFF);
-  static const Color bgSecondary = Color(0xFFF1F0EE);
-  static const Color borderPrimary = Color(0xFFD3D1CF);
-  static const Color borderSecondary = Color(0xFFE4E1DF);
-  static const Color textPrimary = Color(0xFF161616);
-  static const Color textSecondary = Color(0xFF535352);
-  static const Color textTertiary = Color(0xFF848281);
-  static const Color accentBlue = Color(0xFF2563EB);
-  static const Color accentBlueBg = Color(0xFFDBEAFE);
-  static const Color badgeServiceRequest = Color(0xFFF97066);
-  static const Color badgeServiceRequestBg = Color(0xFFFEF3F2);
-  static const Color badgeMaintenance = Color(0xFF17B26A);
-  static const Color badgeMaintenanceBg = Color(0xFFECFDF3);
-  static const Color statusInProgress = Color(0xFFF79009);
-  static const Color statusOpen = Color(0xFF2563EB);
-  static const Color statusResolved = Color(0xFF17B26A);
-}
+import '../widgets/edit_ticket_drawer.dart';
 
 class TicketDetailScreen extends StatefulWidget {
   final String externalId;
@@ -64,11 +45,11 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
 
   ThemeData get _lightTheme => ThemeData.light().copyWith(
         colorScheme: const ColorScheme.light(
-          surface: _DesignColors.bgPrimary,
-          onSurface: _DesignColors.textPrimary,
-          primary: _DesignColors.accentBlue,
+          surface: AppColors.white,
+          onSurface: AppColors.textPrimary,
+          primary: AppColors.accentBlue,
         ),
-        scaffoldBackgroundColor: _DesignColors.bgPrimary,
+        scaffoldBackgroundColor: AppColors.white,
         inputDecorationTheme: const InputDecorationTheme(
           filled: false,
           border: InputBorder.none,
@@ -80,7 +61,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
     return Theme(
       data: _lightTheme,
       child: Scaffold(
-        backgroundColor: _DesignColors.bgPrimary,
+        backgroundColor: AppColors.white,
         body: Watch((context) {
         final task = _state.selectedTask.value;
         final isLoading = _state.isLoading.value;
@@ -89,7 +70,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
         if (isLoading && task == null) {
           return const Center(
             child: CircularProgressIndicator(
-              color: _DesignColors.accentBlue,
+              color: AppColors.accentBlue,
             ),
           );
         }
@@ -105,7 +86,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
               style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 16,
-                color: _DesignColors.textTertiary,
+                color: AppColors.textTertiary,
               ),
             ),
           );
@@ -132,7 +113,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
             Icon(
               Icons.error_outline,
               size: 64,
-              color: _DesignColors.badgeServiceRequest,
+              color: AppColors.badgeServiceRequest,
             ),
             const SizedBox(height: 16),
             const Text(
@@ -141,7 +122,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                 fontFamily: 'Inter',
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
-                color: _DesignColors.textPrimary,
+                color: AppColors.textPrimary,
               ),
             ),
             const SizedBox(height: 8),
@@ -150,7 +131,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
               style: const TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 14,
-                color: _DesignColors.textTertiary,
+                color: AppColors.textTertiary,
               ),
               textAlign: TextAlign.center,
             ),
@@ -161,7 +142,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 decoration: BoxDecoration(
-                  color: _DesignColors.accentBlue,
+                  color: AppColors.accentBlue,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const Text(
@@ -170,7 +151,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                     fontFamily: 'Inter',
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
-                    color: Colors.white,
+                    color: AppColors.white,
                   ),
                 ),
               ),
@@ -205,7 +186,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                         fontSize: 24,
                         fontWeight: FontWeight.w600,
                         height: 1.33,
-                        color: _DesignColors.textPrimary,
+                        color: AppColors.textPrimary,
                       ),
                     ),
                     const SizedBox(height: 24),
@@ -265,9 +246,9 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
         bottom: 12,
       ),
       decoration: const BoxDecoration(
-        color: _DesignColors.bgPrimary,
+        color: AppColors.white,
         border: Border(
-          bottom: BorderSide(color: _DesignColors.borderSecondary),
+          bottom: BorderSide(color: AppColors.borderSecondary),
         ),
       ),
       child: Row(
@@ -279,14 +260,14 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                color: _DesignColors.bgPrimary,
-                border: Border.all(color: _DesignColors.borderPrimary),
+                color: AppColors.white,
+                border: Border.all(color: AppColors.borderPrimary),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: const Icon(
                 Icons.close,
                 size: 20,
-                color: _DesignColors.textPrimary,
+                color: AppColors.textPrimary,
               ),
             ),
           ),
@@ -302,14 +283,14 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: _DesignColors.bgPrimary,
-                  border: Border.all(color: _DesignColors.borderPrimary),
+                  color: AppColors.white,
+                  border: Border.all(color: AppColors.borderPrimary),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const Icon(
                   Icons.edit_outlined,
                   size: 20,
-                  color: _DesignColors.textPrimary,
+                  color: AppColors.textPrimary,
                 ),
               ),
             ),
@@ -321,11 +302,11 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
   Widget _buildTypeBadge(TaskType type) {
     final isServiceRequest = type == TaskType.serviceRequest;
     final color = isServiceRequest
-        ? _DesignColors.badgeServiceRequest
-        : _DesignColors.badgeMaintenance;
+        ? AppColors.badgeServiceRequest
+        : AppColors.badgeMaintenance;
     final bgColor = isServiceRequest
-        ? _DesignColors.badgeServiceRequestBg
-        : _DesignColors.badgeMaintenanceBg;
+        ? AppColors.badgeServiceRequestBg
+        : AppColors.badgeMaintenanceBg;
     final text = isServiceRequest ? 'Service Request' : 'Maintenance';
 
     return Container(
@@ -351,9 +332,9 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: _DesignColors.bgPrimary,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: _DesignColors.borderSecondary),
+        border: Border.all(color: AppColors.borderSecondary),
       ),
       child: Column(
         children: [
@@ -365,7 +346,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                 width: 40,
                 height: 40,
                 decoration: const BoxDecoration(
-                  color: _DesignColors.accentBlueBg,
+                  color: AppColors.accentBlueBg,
                   shape: BoxShape.circle,
                 ),
                 child: Center(
@@ -376,13 +357,13 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                             fontFamily: 'Inter',
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: _DesignColors.accentBlue,
+                            color: AppColors.accentBlue,
                           ),
                         )
                       : const Icon(
                           Icons.person_outline,
                           size: 20,
-                          color: _DesignColors.accentBlue,
+                          color: AppColors.accentBlue,
                         ),
                 ),
               ),
@@ -397,7 +378,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                         fontFamily: 'Inter',
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        color: _DesignColors.textTertiary,
+                        color: AppColors.textTertiary,
                       ),
                     ),
                     const SizedBox(height: 2),
@@ -407,7 +388,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                         fontFamily: 'Inter',
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: _DesignColors.textPrimary,
+                        color: AppColors.textPrimary,
                       ),
                     ),
                   ],
@@ -425,14 +406,14 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                         fontFamily: 'Inter',
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: _DesignColors.textPrimary,
+                        color: AppColors.textPrimary,
                       ),
                     ),
                     SizedBox(width: 4),
                     Icon(
                       Icons.chevron_right,
                       size: 20,
-                      color: _DesignColors.textPrimary,
+                      color: AppColors.textPrimary,
                     ),
                   ],
                 ),
@@ -442,7 +423,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
           // Divider
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 12),
-            child: Divider(height: 1, color: _DesignColors.borderSecondary),
+            child: Divider(height: 1, color: AppColors.borderSecondary),
           ),
           // Location row
           Row(
@@ -452,11 +433,11 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                 width: 40,
                 height: 40,
                 decoration: const BoxDecoration(
-                  color: _DesignColors.accentBlueBg,
+                  color: AppColors.accentBlueBg,
                   shape: BoxShape.circle,
                 ),
                 child: const Center(
-                  child: Icon(Icons.location_on_outlined, size: 20, color: _DesignColors.accentBlue),
+                  child: Icon(Icons.location_on_outlined, size: 20, color: AppColors.accentBlue),
                 ),
               ),
               const SizedBox(width: 12),
@@ -470,7 +451,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                         fontFamily: 'Inter',
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: _DesignColors.textPrimary,
+                        color: AppColors.textPrimary,
                       ),
                     ),
                     if (task.specificLocation != null) ...[
@@ -480,7 +461,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                         style: const TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 12,
-                          color: _DesignColors.textTertiary,
+                          color: AppColors.textTertiary,
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -506,7 +487,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
             fontFamily: 'Inter',
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: _DesignColors.textSecondary,
+            color: AppColors.textSecondary,
           ),
         ),
         const SizedBox(height: 12),
@@ -514,11 +495,11 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: _DesignColors.accentBlueBg.withValues(alpha: 0.5),
+            color: AppColors.accentBlueBg.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(8),
             border: const Border(
               left: BorderSide(
-                color: _DesignColors.accentBlue,
+                color: AppColors.accentBlue,
                 width: 4,
               ),
             ),
@@ -530,7 +511,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
               fontSize: 14,
               fontWeight: FontWeight.w400,
               height: 1.5,
-              color: _DesignColors.textPrimary,
+              color: AppColors.textPrimary,
             ),
           ),
         ),
@@ -552,7 +533,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
             fontFamily: 'Inter',
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: _DesignColors.textSecondary,
+            color: AppColors.textSecondary,
           ),
         ),
         const SizedBox(height: 12),
@@ -576,10 +557,10 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                           errorBuilder: (_, __, ___) => Container(
                             width: 80,
                             height: 80,
-                            color: _DesignColors.bgSecondary,
+                            color: AppColors.bgSecondary,
                             child: const Icon(
                               Icons.broken_image_outlined,
-                              color: _DesignColors.textTertiary,
+                              color: AppColors.textTertiary,
                             ),
                           ),
                         ),
@@ -593,16 +574,16 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                   width: 80,
                   height: 80,
                   decoration: BoxDecoration(
-                    color: _DesignColors.bgSecondary,
+                    color: AppColors.bgSecondary,
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                      color: _DesignColors.borderPrimary,
+                      color: AppColors.borderPrimary,
                       style: BorderStyle.solid,
                     ),
                   ),
                   child: const Icon(
                     Icons.camera_alt_outlined,
-                    color: _DesignColors.textTertiary,
+                    color: AppColors.textTertiary,
                     size: 24,
                   ),
                 ),
@@ -624,14 +605,14 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
             fontFamily: 'Inter',
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: _DesignColors.textSecondary,
+            color: AppColors.textSecondary,
           ),
         ),
         const SizedBox(height: 12),
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: _DesignColors.bgSecondary,
+            color: AppColors.bgSecondary,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
@@ -641,13 +622,13 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                 width: 40,
                 height: 40,
                 decoration: const BoxDecoration(
-                  color: _DesignColors.accentBlueBg,
+                  color: AppColors.accentBlueBg,
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
                   Icons.location_on,
                   size: 20,
-                  color: _DesignColors.accentBlue,
+                  color: AppColors.accentBlue,
                 ),
               ),
               const SizedBox(width: 12),
@@ -661,7 +642,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                         fontFamily: 'Inter',
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: _DesignColors.textPrimary,
+                        color: AppColors.textPrimary,
                       ),
                     ),
                     if (task.specificLocation != null) ...[
@@ -672,7 +653,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                           fontFamily: 'Inter',
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
-                          color: _DesignColors.textTertiary,
+                          color: AppColors.textTertiary,
                         ),
                       ),
                     ],
@@ -686,9 +667,9 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   decoration: BoxDecoration(
-                    color: _DesignColors.bgPrimary,
+                    color: AppColors.white,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: _DesignColors.borderPrimary),
+                    border: Border.all(color: AppColors.borderPrimary),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -696,7 +677,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                       Icon(
                         Icons.directions_walk,
                         size: 16,
-                        color: _DesignColors.textPrimary,
+                        color: AppColors.textPrimary,
                       ),
                       SizedBox(width: 6),
                       Text(
@@ -705,7 +686,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                           fontFamily: 'Inter',
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
-                          color: _DesignColors.textPrimary,
+                          color: AppColors.textPrimary,
                         ),
                       ),
                     ],
@@ -729,14 +710,14 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
             fontFamily: 'Inter',
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: _DesignColors.textSecondary,
+            color: AppColors.textSecondary,
           ),
         ),
         const SizedBox(height: 12),
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: _DesignColors.bgSecondary,
+            color: AppColors.bgSecondary,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
@@ -746,9 +727,9 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: _DesignColors.bgPrimary,
+                  color: AppColors.white,
                   shape: BoxShape.circle,
-                  border: Border.all(color: _DesignColors.borderPrimary),
+                  border: Border.all(color: AppColors.borderPrimary),
                 ),
                 child: Center(
                   child: Text(
@@ -757,7 +738,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                       fontFamily: 'Inter',
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: _DesignColors.textPrimary,
+                      color: AppColors.textPrimary,
                     ),
                   ),
                 ),
@@ -773,7 +754,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                         fontFamily: 'Inter',
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: _DesignColors.textPrimary,
+                        color: AppColors.textPrimary,
                       ),
                     ),
                     // Role/department could go here if available
@@ -792,13 +773,13 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: const BoxDecoration(
-        color: _DesignColors.bgPrimary,
+        color: AppColors.white,
         border: Border(
-          top: BorderSide(color: _DesignColors.borderSecondary),
+          top: BorderSide(color: AppColors.borderSecondary),
         ),
         boxShadow: [
           BoxShadow(
-            color: Color(0x0A0A0D12),
+            color: AppColors.shadowXS,
             blurRadius: 8,
             offset: Offset(0, -4),
           ),
@@ -814,9 +795,9 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                 height: 48,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: _DesignColors.bgSecondary,
+                  color: AppColors.bgSecondary,
                   borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: _DesignColors.borderPrimary),
+                  border: Border.all(color: AppColors.borderPrimary),
                 ),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<TaskStatus>(
@@ -824,9 +805,9 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                     isExpanded: true,
                     icon: const Icon(
                       Icons.keyboard_arrow_down,
-                      color: _DesignColors.textTertiary,
+                      color: AppColors.textTertiary,
                     ),
-                    dropdownColor: _DesignColors.bgPrimary,
+                    dropdownColor: AppColors.white,
                     items: TaskStatus.values
                         .where((s) => s != TaskStatus.unspecified)
                         .map((status) => DropdownMenuItem(
@@ -841,7 +822,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                                       fontFamily: 'Inter',
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
-                                      color: _DesignColors.textPrimary,
+                                      color: AppColors.textPrimary,
                                     ),
                                   ),
                                 ],
@@ -867,7 +848,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                 height: 48,
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 decoration: BoxDecoration(
-                  color: _DesignColors.accentBlue,
+                  color: AppColors.accentBlue,
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: Center(
@@ -877,7 +858,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                           height: 20,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
-                            color: Colors.white,
+                            color: AppColors.white,
                           ),
                         )
                       : const Text(
@@ -886,7 +867,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                             fontFamily: 'Inter',
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
-                            color: Colors.white,
+                            color: AppColors.white,
                           ),
                         ),
                 ),
@@ -945,7 +926,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
     showDialog(
       context: context,
       builder: (context) => Dialog(
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.transparent,
         child: Stack(
           children: [
             ClipRRect(
@@ -964,12 +945,12 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                   width: 36,
                   height: 36,
                   decoration: BoxDecoration(
-                    color: Colors.black54,
+                    color: AppColors.black.withAlpha(138),
                     borderRadius: BorderRadius.circular(18),
                   ),
                   child: const Icon(
                     Icons.close,
-                    color: Colors.white,
+                    color: AppColors.white,
                     size: 20,
                   ),
                 ),
@@ -1031,15 +1012,15 @@ class _StatusIndicator extends StatelessWidget {
   Color get _color {
     switch (status) {
       case TaskStatus.created:
-        return _DesignColors.statusOpen;
+        return AppColors.statusNew;
       case TaskStatus.inProgress:
-        return _DesignColors.statusInProgress;
+        return AppColors.statusInProgress;
       case TaskStatus.onHold:
-        return const Color(0xFFF59E0B);
+        return AppColors.statusOnHold;
       case TaskStatus.resolved:
-        return _DesignColors.statusResolved;
+        return AppColors.statusResolved;
       default:
-        return _DesignColors.textTertiary;
+        return AppColors.textTertiary;
     }
   }
 
@@ -1076,7 +1057,7 @@ class _ReassignDialogState extends State<_ReassignDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: _DesignColors.bgPrimary,
+      backgroundColor: AppColors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(24),
@@ -1090,7 +1071,7 @@ class _ReassignDialogState extends State<_ReassignDialog> {
                 fontFamily: 'Inter',
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
-                color: _DesignColors.textPrimary,
+                color: AppColors.textPrimary,
               ),
             ),
             const SizedBox(height: 16),
@@ -1119,7 +1100,7 @@ class _ReassignDialogState extends State<_ReassignDialog> {
                         fontFamily: 'Inter',
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: _DesignColors.textTertiary,
+                        color: AppColors.textTertiary,
                       ),
                     ),
                   ),
@@ -1134,8 +1115,8 @@ class _ReassignDialogState extends State<_ReassignDialog> {
                         horizontal: 16, vertical: 10),
                     decoration: BoxDecoration(
                       color: _selection != null
-                          ? _DesignColors.accentBlue
-                          : _DesignColors.bgSecondary,
+                          ? AppColors.accentBlue
+                          : AppColors.bgSecondary,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
@@ -1145,8 +1126,8 @@ class _ReassignDialogState extends State<_ReassignDialog> {
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: _selection != null
-                            ? Colors.white
-                            : _DesignColors.textTertiary,
+                            ? AppColors.white
+                            : AppColors.textTertiary,
                       ),
                     ),
                   ),
@@ -1187,7 +1168,7 @@ class _ResolveDialogState extends State<_ResolveDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: _DesignColors.bgPrimary,
+      backgroundColor: AppColors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(24),
@@ -1201,7 +1182,7 @@ class _ResolveDialogState extends State<_ResolveDialog> {
                 fontFamily: 'Inter',
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
-                color: _DesignColors.textPrimary,
+                color: AppColors.textPrimary,
               ),
             ),
             const SizedBox(height: 16),
@@ -1211,7 +1192,7 @@ class _ResolveDialogState extends State<_ResolveDialog> {
                 fontFamily: 'Inter',
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
-                color: _DesignColors.textSecondary,
+                color: AppColors.textSecondary,
               ),
             ),
             const SizedBox(height: 8),
@@ -1232,8 +1213,8 @@ class _ResolveDialogState extends State<_ResolveDialog> {
                               shape: BoxShape.circle,
                               border: Border.all(
                                 color: _resolutionType == type
-                                    ? _DesignColors.accentBlue
-                                    : _DesignColors.borderPrimary,
+                                    ? AppColors.accentBlue
+                                    : AppColors.borderPrimary,
                                 width: 2,
                               ),
                             ),
@@ -1244,7 +1225,7 @@ class _ResolveDialogState extends State<_ResolveDialog> {
                                       height: 10,
                                       decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: _DesignColors.accentBlue,
+                                        color: AppColors.accentBlue,
                                       ),
                                     ),
                                   )
@@ -1256,7 +1237,7 @@ class _ResolveDialogState extends State<_ResolveDialog> {
                             style: const TextStyle(
                               fontFamily: 'Inter',
                               fontSize: 14,
-                              color: _DesignColors.textPrimary,
+                              color: AppColors.textPrimary,
                             ),
                           ),
                         ],
@@ -1267,7 +1248,7 @@ class _ResolveDialogState extends State<_ResolveDialog> {
             const SizedBox(height: 16),
             Container(
               decoration: BoxDecoration(
-                border: Border.all(color: _DesignColors.borderPrimary),
+                border: Border.all(color: AppColors.borderPrimary),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: TextField(
@@ -1276,14 +1257,14 @@ class _ResolveDialogState extends State<_ResolveDialog> {
                 style: const TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 14,
-                  color: _DesignColors.textPrimary,
+                  color: AppColors.textPrimary,
                 ),
                 decoration: const InputDecoration(
                   hintText: 'Notes (optional)',
                   hintStyle: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 14,
-                    color: _DesignColors.textTertiary,
+                    color: AppColors.textTertiary,
                   ),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.all(12),
@@ -1305,7 +1286,7 @@ class _ResolveDialogState extends State<_ResolveDialog> {
                         fontFamily: 'Inter',
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: _DesignColors.textTertiary,
+                        color: AppColors.textTertiary,
                       ),
                     ),
                   ),
@@ -1325,7 +1306,7 @@ class _ResolveDialogState extends State<_ResolveDialog> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 10),
                     decoration: BoxDecoration(
-                      color: _DesignColors.accentBlue,
+                      color: AppColors.accentBlue,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Text(
@@ -1334,7 +1315,7 @@ class _ResolveDialogState extends State<_ResolveDialog> {
                         fontFamily: 'Inter',
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: Colors.white,
+                        color: AppColors.white,
                       ),
                     ),
                   ),

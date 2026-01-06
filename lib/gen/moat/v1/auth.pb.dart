@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: moat/v1/auth.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -13,6 +13,8 @@ import 'dart:async' as $async;
 import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
+
+export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
 /// GetCurrentUserRequest is empty - user identity comes from the auth token.
 class GetCurrentUserRequest extends $pb.GeneratedMessage {
@@ -91,11 +93,11 @@ class GetCurrentUserResponse extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   User get user => $_getN(0);
   @$pb.TagNumber(1)
-  set user(User v) { setField(1, v); }
+  set user(User v) { $_setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasUser() => $_has(0);
   @$pb.TagNumber(1)
-  void clearUser() => clearField(1);
+  void clearUser() => $_clearField(1);
   @$pb.TagNumber(1)
   User ensureUser() => $_ensure(0);
 }
@@ -194,7 +196,7 @@ class User extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 
   /// Firebase UID from the authentication token.
   @$pb.TagNumber(2)
@@ -204,7 +206,7 @@ class User extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasFirebaseUid() => $_has(1);
   @$pb.TagNumber(2)
-  void clearFirebaseUid() => clearField(2);
+  void clearFirebaseUid() => $_clearField(2);
 
   /// User's email address.
   @$pb.TagNumber(3)
@@ -214,7 +216,7 @@ class User extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasEmail() => $_has(2);
   @$pb.TagNumber(3)
-  void clearEmail() => clearField(3);
+  void clearEmail() => $_clearField(3);
 
   /// User's first name.
   @$pb.TagNumber(4)
@@ -224,7 +226,7 @@ class User extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasFirstName() => $_has(3);
   @$pb.TagNumber(4)
-  void clearFirstName() => clearField(4);
+  void clearFirstName() => $_clearField(4);
 
   /// User's last name.
   @$pb.TagNumber(5)
@@ -234,33 +236,33 @@ class User extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.bool hasLastName() => $_has(4);
   @$pb.TagNumber(5)
-  void clearLastName() => clearField(5);
+  void clearLastName() => $_clearField(5);
 
   /// The company this user belongs to.
   @$pb.TagNumber(6)
   Company get company => $_getN(5);
   @$pb.TagNumber(6)
-  set company(Company v) { setField(6, v); }
+  set company(Company v) { $_setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasCompany() => $_has(5);
   @$pb.TagNumber(6)
-  void clearCompany() => clearField(6);
+  void clearCompany() => $_clearField(6);
   @$pb.TagNumber(6)
   Company ensureCompany() => $_ensure(5);
 
   /// All roles assigned to this user.
   @$pb.TagNumber(7)
-  $core.List<Role> get roles => $_getList(6);
+  $pb.PbList<Role> get roles => $_getList(6);
 
   /// Flattened list of all permissions (format: "resource:action").
   /// This is the union of permissions from all roles.
   @$pb.TagNumber(8)
-  $core.List<$core.String> get permissions => $_getList(7);
+  $pb.PbList<$core.String> get permissions => $_getList(7);
 
   /// Location IDs this user has access to.
   /// Empty means access to all locations.
   @$pb.TagNumber(9)
-  $core.List<$core.String> get locationIds => $_getList(8);
+  $pb.PbList<$core.String> get locationIds => $_getList(8);
 
   /// Whether the user has accepted their invite.
   @$pb.TagNumber(10)
@@ -270,7 +272,7 @@ class User extends $pb.GeneratedMessage {
   @$pb.TagNumber(10)
   $core.bool hasHasAcceptedInvite() => $_has(9);
   @$pb.TagNumber(10)
-  void clearHasAcceptedInvite() => clearField(10);
+  void clearHasAcceptedInvite() => $_clearField(10);
 }
 
 /// Company represents a tenant/organization.
@@ -327,7 +329,7 @@ class Company extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 
   /// Company display name.
   @$pb.TagNumber(2)
@@ -337,7 +339,7 @@ class Company extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearName() => clearField(2);
+  void clearName() => $_clearField(2);
 }
 
 /// Role represents a role with its permissions.
@@ -399,7 +401,7 @@ class Role extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 
   /// Role display name.
   @$pb.TagNumber(2)
@@ -409,17 +411,20 @@ class Role extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearName() => clearField(2);
+  void clearName() => $_clearField(2);
 
   /// Permissions granted by this role (format: "resource:action").
   @$pb.TagNumber(3)
-  $core.List<$core.String> get permissions => $_getList(2);
+  $pb.PbList<$core.String> get permissions => $_getList(2);
 }
 
+/// AuthService handles authentication and user profile operations.
 class AuthServiceApi {
   $pb.RpcClient _client;
   AuthServiceApi(this._client);
 
+  /// GetCurrentUser returns the authenticated user's profile and permissions.
+  /// Requires a valid Firebase ID token in the Authorization header.
   $async.Future<GetCurrentUserResponse> getCurrentUser($pb.ClientContext? ctx, GetCurrentUserRequest request) =>
     _client.invoke<GetCurrentUserResponse>(ctx, 'AuthService', 'GetCurrentUser', request, GetCurrentUserResponse())
   ;

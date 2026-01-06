@@ -26,7 +26,8 @@ class ExplorerTableView extends StatelessWidget {
       return const Center(child: Text('No data'));
     }
 
-    // Build column list
+    // Build column list from passed measures/dimensions,
+    // falling back to inferring from result data keys
     final columns = <_ColumnDef>[];
 
     // Add time dimension column first
@@ -54,6 +55,28 @@ class ExplorerTableView extends StatelessWidget {
         title: measure.displayName,
         type: ColumnType.measure,
       ));
+    }
+
+    // Fallback: if no columns defined, infer from result data keys
+    if (columns.isEmpty && result.data.isNotEmpty) {
+      final firstRow = result.data.first;
+      for (final key in firstRow.keys) {
+        // Infer type from key name and value
+        final value = firstRow[key];
+        final isNumeric = value is num || (value != null && num.tryParse(value.toString()) != null);
+        final isTime = key.contains('date') || key.contains('time') || key.contains('created') || key.contains('updated');
+
+        columns.add(_ColumnDef(
+          name: key,
+          title: _formatKeyAsTitle(key),
+          type: isTime ? ColumnType.time : (isNumeric ? ColumnType.measure : ColumnType.dimension),
+        ));
+      }
+    }
+
+    // Safety check: DataTable requires at least one column
+    if (columns.isEmpty) {
+      return const Center(child: Text('No columns to display'));
     }
 
     return Container(
@@ -129,6 +152,18 @@ class ExplorerTableView extends StatelessWidget {
       case ColumnType.time:
         return AppColors.utilityPurple500;
     }
+  }
+
+  /// Format a data key as a readable title (e.g., "assets_analytics.count" -> "Count")
+  String _formatKeyAsTitle(String key) {
+    final fieldName = key.split('.').last;
+    return fieldName
+        .replaceAll('_', ' ')
+        .split(' ')
+        .map((word) => word.isNotEmpty
+            ? '${word[0].toUpperCase()}${word.substring(1)}'
+            : '')
+        .join(' ');
   }
 
   String _formatValue(dynamic value, ColumnType type) {

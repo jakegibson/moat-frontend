@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:signals/signals.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../core/utils/app_error.dart';
 import '../data/analytics_client.dart';
 import '../data/cube_models.dart';
 import '../widgets/time_range_selector.dart';
@@ -17,7 +18,7 @@ class ReportsState {
 
   // Loading states
   final isLoading = signal<bool>(false);
-  final error = signal<String?>(null);
+  final error = signal<AppError?>(null);
 
   // Current time range selection
   final selectedTimeRange = signal<TimeRange>(TimeRange.twelveMonths);
@@ -82,21 +83,24 @@ class ReportsState {
         _client.getAssetsByYear(),
       ]);
 
-      // Asset-focused metrics (new)
-      facilityMetrics.value = results[0] as FacilityDashboardMetrics;
-      assetsByDivision.value = results[1] as List<AssetDivisionBreakdown>;
-      assetsByLocation.value = results[2] as List<AssetLocationBreakdown>;
-      assetsByAge.value = results[3] as List<AssetAgeData>;
-      maintenanceScoreMetrics.value = results[4] as MaintenanceScoreMetrics;
-      warrantyExpirationCalendar.value = results[5] as Map<DateTime, int>;
-      maintenanceCalendar.value = results[6] as Map<DateTime, int>;
+      // Use batch() to prevent multiple rebuilds when updating many signals
+      batch(() {
+        // Asset-focused metrics (new)
+        facilityMetrics.value = results[0] as FacilityDashboardMetrics;
+        assetsByDivision.value = results[1] as List<AssetDivisionBreakdown>;
+        assetsByLocation.value = results[2] as List<AssetLocationBreakdown>;
+        assetsByAge.value = results[3] as List<AssetAgeData>;
+        maintenanceScoreMetrics.value = results[4] as MaintenanceScoreMetrics;
+        warrantyExpirationCalendar.value = results[5] as Map<DateTime, int>;
+        maintenanceCalendar.value = results[6] as Map<DateTime, int>;
 
-      // Legacy data
-      tasksByStatus.value = results[7] as List<TaskStatusBreakdown>;
-      tasksByPriority.value = results[8] as List<TaskPriorityBreakdown>;
-      assetsByYear.value = results[9] as List<Map<String, dynamic>>;
+        // Legacy data
+        tasksByStatus.value = results[7] as List<TaskStatusBreakdown>;
+        tasksByPriority.value = results[8] as List<TaskPriorityBreakdown>;
+        assetsByYear.value = results[9] as List<Map<String, dynamic>>;
+      });
     } catch (e) {
-      error.value = e.toString();
+      error.value = AppError.from(e);
       debugPrint('Failed to load dashboard: $e');
     } finally {
       isLoading.value = false;

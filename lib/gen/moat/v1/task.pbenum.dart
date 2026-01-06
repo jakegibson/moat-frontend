@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: moat/v1/task.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -31,7 +31,7 @@ class TaskType extends $pb.ProtobufEnum {
   static final $core.Map<$core.int, TaskType> _byValue = $pb.ProtobufEnum.initByValue(values);
   static TaskType? valueOf($core.int value) => _byValue[value];
 
-  const TaskType._($core.int v, $core.String n) : super(v, n);
+  const TaskType._(super.v, super.n);
 }
 
 class TaskStatus extends $pb.ProtobufEnum {
@@ -52,7 +52,7 @@ class TaskStatus extends $pb.ProtobufEnum {
   static final $core.Map<$core.int, TaskStatus> _byValue = $pb.ProtobufEnum.initByValue(values);
   static TaskStatus? valueOf($core.int value) => _byValue[value];
 
-  const TaskStatus._($core.int v, $core.String n) : super(v, n);
+  const TaskStatus._(super.v, super.n);
 }
 
 class ResolutionType extends $pb.ProtobufEnum {
@@ -73,7 +73,7 @@ class ResolutionType extends $pb.ProtobufEnum {
   static final $core.Map<$core.int, ResolutionType> _byValue = $pb.ProtobufEnum.initByValue(values);
   static ResolutionType? valueOf($core.int value) => _byValue[value];
 
-  const ResolutionType._($core.int v, $core.String n) : super(v, n);
+  const ResolutionType._(super.v, super.n);
 }
 
 class AssignmentMethod extends $pb.ProtobufEnum {
@@ -90,7 +90,7 @@ class AssignmentMethod extends $pb.ProtobufEnum {
   static final $core.Map<$core.int, AssignmentMethod> _byValue = $pb.ProtobufEnum.initByValue(values);
   static AssignmentMethod? valueOf($core.int value) => _byValue[value];
 
-  const AssignmentMethod._($core.int v, $core.String n) : super(v, n);
+  const AssignmentMethod._(super.v, super.n);
 }
 
 class AssignmentTargetType extends $pb.ProtobufEnum {
@@ -107,7 +107,7 @@ class AssignmentTargetType extends $pb.ProtobufEnum {
   static final $core.Map<$core.int, AssignmentTargetType> _byValue = $pb.ProtobufEnum.initByValue(values);
   static AssignmentTargetType? valueOf($core.int value) => _byValue[value];
 
-  const AssignmentTargetType._($core.int v, $core.String n) : super(v, n);
+  const AssignmentTargetType._(super.v, super.n);
 }
 
 /// Recurrence frequency
@@ -129,7 +129,7 @@ class RecurrenceFrequency extends $pb.ProtobufEnum {
   static final $core.Map<$core.int, RecurrenceFrequency> _byValue = $pb.ProtobufEnum.initByValue(values);
   static RecurrenceFrequency? valueOf($core.int value) => _byValue[value];
 
-  const RecurrenceFrequency._($core.int v, $core.String n) : super(v, n);
+  const RecurrenceFrequency._(super.v, super.n);
 }
 
 

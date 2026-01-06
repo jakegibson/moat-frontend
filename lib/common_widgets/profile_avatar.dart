@@ -49,7 +49,7 @@ class ProfileAvatar extends StatelessWidget {
         color: AppColors.bgSecondary,
         shape: BoxShape.circle,
         border: Border.all(
-          color: selected ? Colors.white : Color(0xFFE3E1DF),
+          color: selected ? AppColors.white : AppColors.avatarBorder,
           width: selected ? 4.0 : 1.0,
           strokeAlign: BorderSide.strokeAlignOutside,
         ),
@@ -57,7 +57,7 @@ class ProfileAvatar extends StatelessWidget {
             selected
                 ? [
                   BoxShadow(
-                    color: Colors.black.withAlpha(100),
+                    color: AppColors.black.withAlpha(100),
                     offset: const Offset(-1, 2),
                     blurRadius: 4.0,
                     spreadRadius: 1.0,

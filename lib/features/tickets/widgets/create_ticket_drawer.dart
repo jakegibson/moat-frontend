@@ -1,31 +1,19 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 
 import '../../../common_widgets/attachment_upload_widget.dart';
-import '../../../common_widgets/right_side_drawer.dart';
+import '../../../common_widgets/drawer_shell.dart';
 import '../../../core/config/app_config.dart';
 import '../../../core/di/injection.dart';
+import '../../../core/styles/app_colors.dart';
+import '../../../core/styles/app_sizes.dart';
+import '../../auth/state/auth_state.dart';
 import '../data/task_client.dart';
 import '../data/task_models.dart';
-
-/// Design colors matching v0
-class _Colors {
-  static const Color bgPrimary = Color(0xFFFFFFFF);
-  static const Color bgSecondary = Color(0xFFF1F0EE);
-  static const Color bgQuaternary = Color(0xFFE4E3E1);
-  static const Color borderPrimary = Color(0xFFD3D1CF);
-  static const Color borderSecondary = Color(0xFFE4E3E1);
-  static const Color textPrimary = Color(0xFF161616);
-  static const Color textTertiary = Color(0xFF848281);
-  static const Color fgPrimary = Color(0xFF161616);
-  static const Color primary = Color(0xFF161616);
-  static const Color error = Color(0xFFDC2626);
-}
 
 class CreateTicketDrawer extends StatefulWidget {
   final VoidCallback? onCreated;
@@ -34,13 +22,34 @@ class CreateTicketDrawer extends StatefulWidget {
   const CreateTicketDrawer({super.key, this.onCreated, this.onClose});
 
   static Future<bool?> show(BuildContext context) {
-    return RightSideDrawer.show<bool>(
+    return showGeneralDialog<bool>(
       context: context,
-      width: 420,
-      builder: (context) => CreateTicketDrawer(
-        onCreated: () => Navigator.of(context).pop(true),
-        onClose: () => Navigator.of(context).pop(),
-      ),
+      barrierDismissible: true,
+      barrierLabel: 'Close drawer',
+      barrierColor: Colors.black26,
+      transitionDuration: const Duration(milliseconds: 250),
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return Align(
+          alignment: Alignment.centerRight,
+          child: Material(
+            color: AppColors.transparent,
+            child: CreateTicketDrawer(
+              onCreated: () => Navigator.of(context).pop(true),
+              onClose: () => Navigator.of(context).pop(),
+            ),
+          ),
+        );
+      },
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        final slideAnimation = Tween<Offset>(
+          begin: const Offset(1.0, 0.0),
+          end: Offset.zero,
+        ).animate(CurvedAnimation(
+          parent: animation,
+          curve: Curves.easeOutCubic,
+        ));
+        return SlideTransition(position: slideAnimation, child: child);
+      },
     );
   }
 
@@ -55,6 +64,7 @@ class _CreateTicketDrawerState extends State<CreateTicketDrawer> {
   final _titleController = TextEditingController();
   final _descriptionFocusNode = FocusNode();
   final _client = getIt<TaskClient>();
+  final _authState = getIt<AuthState>();
 
   bool _isLoading = false;
   bool _showSuccess = false;
@@ -228,7 +238,7 @@ class _CreateTicketDrawerState extends State<CreateTicketDrawer> {
             _pendingAttachments.where((a) => a.status == UploadStatus.pending).toList();
 
         // Get Firebase auth token
-        final user = FirebaseAuth.instance.currentUser;
+        final user = _authState.firebaseUser.value;
         if (user == null) {
           throw Exception('Not authenticated');
         }
@@ -307,87 +317,48 @@ class _CreateTicketDrawerState extends State<CreateTicketDrawer> {
       return _buildSuccessView();
     }
 
-    return Container(
-      color: _Colors.bgPrimary,
-      child: Column(
-        children: [
-          // Header with title
-          _buildHeader(),
+    return DrawerShell(
+      title: 'What needs to be done?',
+      onClose: widget.onClose,
+      scrollableBody: true,
+      bodyPadding: EdgeInsets.all(AppSizes.spacingXL),
+      body: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // AI title widget
+            _buildTitleWidget(),
+            SizedBox(height: AppSizes.spacingXL),
 
-          // Form content
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // AI title widget
-                    _buildTitleWidget(),
-                    const SizedBox(height: 16),
+            // Description field
+            _buildDescriptionField(),
+            SizedBox(height: AppSizes.spacingXL),
 
-                    // Description field
-                    _buildDescriptionField(),
-                    const SizedBox(height: 16),
+            // Building Location dropdown
+            _buildLocationDropdown(),
+            SizedBox(height: AppSizes.spacingXL),
 
-                    // Building Location dropdown
-                    _buildLocationDropdown(),
-                    const SizedBox(height: 16),
+            // Where is the issue? field
+            _buildFloorLocationField(),
+            SizedBox(height: AppSizes.spacingXL),
 
-                    // Where is the issue? field
-                    _buildFloorLocationField(),
-                    const SizedBox(height: 16),
+            // Attachment upload
+            _buildAttachmentUpload(),
 
-                    // Attachment upload
-                    _buildAttachmentUpload(),
-
-                    if (_error != null) ...[
-                      const SizedBox(height: 16),
-                      _buildErrorBanner(),
-                    ],
-                  ],
-                ),
-              ),
-            ),
-          ),
-
-          // Bottom actions
-          _buildBottomActions(),
-        ],
+            if (_error != null) ...[
+              SizedBox(height: AppSizes.spacingXL),
+              _buildErrorBanner(),
+            ],
+          ],
+        ),
       ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-      decoration: const BoxDecoration(
-        color: _Colors.bgPrimary,
-        border: Border(bottom: BorderSide(color: _Colors.borderSecondary)),
-      ),
-      child: Row(
-        children: [
-          // Close button
-          IconButton(
-            onPressed: widget.onClose ?? () => Navigator.of(context).pop(),
-            icon: const Icon(Icons.close, size: 20, color: _Colors.fgPrimary),
-            style: IconButton.styleFrom(backgroundColor: _Colors.bgSecondary),
-          ),
-          const SizedBox(width: 16),
-          // Title
-          const Expanded(
-            child: Text(
-              'What needs to be done?',
-              style: TextStyle(
-                fontFamily: 'Inter',
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: _Colors.textPrimary,
-              ),
-            ),
-          ),
-        ],
+      footer: DrawerShellPillActions(
+        onCancel: widget.onClose,
+        onSubmit: _canSubmit ? _handleSubmit : null,
+        submitText: 'Submit Ticket',
+        isSubmitting: _isLoading,
+        submitEnabled: _canSubmit,
       ),
     );
   }
@@ -431,13 +402,13 @@ class _CreateTicketDrawerState extends State<CreateTicketDrawer> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           starIcon,
-          const SizedBox(width: 8),
-          const Text(
+          SizedBox(width: AppSizes.spacingMD),
+          Text(
             'Generating title...',
             style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 14,
-              color: _Colors.textTertiary,
+              color: AppColors.textTertiary,
             ),
           ),
         ],
@@ -448,15 +419,15 @@ class _CreateTicketDrawerState extends State<CreateTicketDrawer> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           starIcon,
-          const SizedBox(width: 8),
+          SizedBox(width: AppSizes.spacingMD),
           Expanded(
             child: Text(
               _generatedTitle!,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: _Colors.textPrimary,
+                color: AppColors.textPrimary,
               ),
             ),
           ),
@@ -468,45 +439,48 @@ class _CreateTicketDrawerState extends State<CreateTicketDrawer> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 8),
+            padding: EdgeInsets.only(top: AppSizes.spacingMD),
             child: starIcon,
           ),
-          const SizedBox(width: 8),
+          SizedBox(width: AppSizes.spacingMD),
           Expanded(
             child: TextFormField(
               controller: _titleController,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 14,
-                color: _Colors.textPrimary,
+                color: AppColors.textPrimary,
               ),
               decoration: InputDecoration(
                 labelText: 'Task Name',
                 hintText: 'Task Name',
-                labelStyle: const TextStyle(
+                labelStyle: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 14,
-                  color: _Colors.textTertiary,
+                  color: AppColors.textTertiary,
                 ),
-                hintStyle: const TextStyle(
+                hintStyle: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 14,
-                  color: _Colors.textTertiary,
+                  color: AppColors.textTertiary,
                 ),
                 filled: true,
-                fillColor: _Colors.bgPrimary,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                fillColor: AppColors.white,
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: AppSizes.spacingXL,
+                  vertical: AppSizes.spacingLG,
+                ),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: _Colors.borderPrimary),
+                  borderRadius: BorderRadius.circular(AppSizes.radiusMD),
+                  borderSide: BorderSide(color: AppColors.borderPrimary),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: _Colors.borderPrimary),
+                  borderRadius: BorderRadius.circular(AppSizes.radiusMD),
+                  borderSide: BorderSide(color: AppColors.borderPrimary),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: _Colors.textPrimary),
+                  borderRadius: BorderRadius.circular(AppSizes.radiusMD),
+                  borderSide: BorderSide(color: AppColors.textPrimary),
                 ),
               ),
               validator: (value) {
@@ -522,7 +496,7 @@ class _CreateTicketDrawerState extends State<CreateTicketDrawer> {
     } else {
       // Initial state - show only star icon
       return Padding(
-        padding: const EdgeInsets.only(top: 8),
+        padding: EdgeInsets.only(top: AppSizes.spacingMD),
         child: starIcon,
       );
     }
@@ -536,38 +510,38 @@ class _CreateTicketDrawerState extends State<CreateTicketDrawer> {
       textInputAction: TextInputAction.done,
       onEditingComplete: () => FocusScope.of(context).unfocus(),
       onChanged: _handleDescriptionChanged,
-      style: const TextStyle(
+      style: TextStyle(
         fontFamily: 'Inter',
         fontSize: 14,
-        color: _Colors.textPrimary,
+        color: AppColors.textPrimary,
       ),
       decoration: InputDecoration(
         labelText: 'Description',
         hintText: 'Describe the issue...',
-        labelStyle: const TextStyle(
+        labelStyle: TextStyle(
           fontFamily: 'Inter',
           fontSize: 14,
-          color: _Colors.textTertiary,
+          color: AppColors.textTertiary,
         ),
-        hintStyle: const TextStyle(
+        hintStyle: TextStyle(
           fontFamily: 'Inter',
           fontSize: 14,
-          color: _Colors.textTertiary,
+          color: AppColors.textTertiary,
         ),
         filled: true,
-        fillColor: _Colors.bgPrimary,
-        contentPadding: const EdgeInsets.all(16),
+        fillColor: AppColors.white,
+        contentPadding: EdgeInsets.all(AppSizes.spacingXL),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: _Colors.borderPrimary),
+          borderRadius: BorderRadius.circular(AppSizes.radiusMD),
+          borderSide: BorderSide(color: AppColors.borderPrimary),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: _Colors.borderPrimary),
+          borderRadius: BorderRadius.circular(AppSizes.radiusMD),
+          borderSide: BorderSide(color: AppColors.borderPrimary),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: _Colors.textPrimary),
+          borderRadius: BorderRadius.circular(AppSizes.radiusMD),
+          borderSide: BorderSide(color: AppColors.textPrimary),
         ),
       ),
       validator: (value) {
@@ -583,36 +557,39 @@ class _CreateTicketDrawerState extends State<CreateTicketDrawer> {
     return DropdownButtonFormField<TicketLocation>(
       initialValue: _selectedLocation,
       isExpanded: true,
-      icon: const Icon(Icons.keyboard_arrow_down, color: _Colors.textTertiary),
-      dropdownColor: _Colors.bgPrimary,
-      style: const TextStyle(
+      icon: Icon(Icons.keyboard_arrow_down, color: AppColors.textTertiary),
+      dropdownColor: AppColors.white,
+      style: TextStyle(
         fontFamily: 'Inter',
         fontSize: 14,
-        color: _Colors.textPrimary,
+        color: AppColors.textPrimary,
       ),
       decoration: InputDecoration(
         filled: true,
-        fillColor: _Colors.bgPrimary,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        fillColor: AppColors.white,
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: AppSizes.spacingXL,
+          vertical: AppSizes.spacingLG,
+        ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: _Colors.borderPrimary),
+          borderRadius: BorderRadius.circular(AppSizes.radiusMD),
+          borderSide: BorderSide(color: AppColors.borderPrimary),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: _Colors.borderPrimary),
+          borderRadius: BorderRadius.circular(AppSizes.radiusMD),
+          borderSide: BorderSide(color: AppColors.borderPrimary),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: _Colors.textPrimary),
+          borderRadius: BorderRadius.circular(AppSizes.radiusMD),
+          borderSide: BorderSide(color: AppColors.textPrimary),
         ),
       ),
       hint: Text(
         'Building Location',
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 14,
-          color: _Colors.textTertiary,
+          color: AppColors.textTertiary,
         ),
       ),
       items: _locations.map((location) {
@@ -639,38 +616,41 @@ class _CreateTicketDrawerState extends State<CreateTicketDrawer> {
       textInputAction: TextInputAction.next,
       onEditingComplete: () => FocusScope.of(context).nextFocus(),
       onChanged: _handleFloorLocationChanged,
-      style: const TextStyle(
+      style: TextStyle(
         fontFamily: 'Inter',
         fontSize: 14,
-        color: _Colors.textPrimary,
+        color: AppColors.textPrimary,
       ),
       decoration: InputDecoration(
         labelText: 'Where is the issue?',
         hintText: 'e.g. Room 204 or main hallway.',
-        labelStyle: const TextStyle(
+        labelStyle: TextStyle(
           fontFamily: 'Inter',
           fontSize: 14,
-          color: _Colors.textTertiary,
+          color: AppColors.textTertiary,
         ),
-        hintStyle: const TextStyle(
+        hintStyle: TextStyle(
           fontFamily: 'Inter',
           fontSize: 14,
-          color: _Colors.textTertiary,
+          color: AppColors.textTertiary,
         ),
         filled: true,
-        fillColor: _Colors.bgPrimary,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        fillColor: AppColors.white,
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: AppSizes.spacingXL,
+          vertical: AppSizes.spacingLG,
+        ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: _Colors.borderPrimary),
+          borderRadius: BorderRadius.circular(AppSizes.radiusMD),
+          borderSide: BorderSide(color: AppColors.borderPrimary),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: _Colors.borderPrimary),
+          borderRadius: BorderRadius.circular(AppSizes.radiusMD),
+          borderSide: BorderSide(color: AppColors.borderPrimary),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: _Colors.textPrimary),
+          borderRadius: BorderRadius.circular(AppSizes.radiusMD),
+          borderSide: BorderSide(color: AppColors.textPrimary),
         ),
       ),
       validator: (value) {
@@ -696,23 +676,23 @@ class _CreateTicketDrawerState extends State<CreateTicketDrawer> {
 
   Widget _buildErrorBanner() {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: EdgeInsets.all(AppSizes.spacingLG),
       decoration: BoxDecoration(
-        color: _Colors.error.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: _Colors.error.withValues(alpha: 0.3)),
+        color: AppColors.utilityError500.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(AppSizes.radiusMD),
+        border: Border.all(color: AppColors.utilityError500.withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [
-          const Icon(Icons.error_outline, color: _Colors.error, size: 20),
-          const SizedBox(width: 8),
+          Icon(Icons.error_outline, color: AppColors.utilityError500, size: 20),
+          SizedBox(width: AppSizes.spacingMD),
           Expanded(
             child: Text(
               _error!,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 14,
-                color: _Colors.error,
+                color: AppColors.utilityError500,
               ),
             ),
           ),
@@ -721,169 +701,107 @@ class _CreateTicketDrawerState extends State<CreateTicketDrawer> {
     );
   }
 
-  Widget _buildBottomActions() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-      decoration: const BoxDecoration(
-        color: _Colors.bgPrimary,
-        border: Border(top: BorderSide(color: _Colors.bgSecondary)),
-      ),
-      child: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+  Widget _buildSuccessView() {
+    return DrawerShell(
+      title: 'What needs to be done?',
+      onClose: widget.onClose,
+      scrollableBody: false,
+      bodyPadding: EdgeInsets.zero,
+      body: Container(
+        color: AppColors.bgSecondary,
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.all(AppSizes.spacing3XL),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Cancel button
-                GestureDetector(
-                  onTap: widget.onClose ?? () => Navigator.of(context).pop(),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                    decoration: BoxDecoration(
-                      color: _Colors.bgPrimary,
-                      borderRadius: BorderRadius.circular(9999),
-                      border: Border.all(color: _Colors.borderSecondary),
-                    ),
-                    child: const Text(
-                      'Cancel',
-                      style: TextStyle(
-                        fontFamily: 'Inter',
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: _Colors.textPrimary,
-                      ),
+                // Confetti image
+                Image.asset(
+                  'assets/images/confetti.png',
+                  height: 120,
+                  errorBuilder: (_, __, ___) => const SizedBox(height: 120),
+                ),
+                SizedBox(height: AppSizes.spacingXL),
+                Text(
+                  'Thanks!',
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 36,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                SizedBox(height: AppSizes.spacingMD),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: AppSizes.spacingXL),
+                  child: Text(
+                    "Your request has been submitted! We'll keep you updated as we make progress.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 16,
+                      color: AppColors.textTertiary,
                     ),
                   ),
                 ),
-                const SizedBox(width: 12),
-                // Submit button
+                SizedBox(height: AppSizes.spacing4XL),
+                // Submit Another Request button
                 GestureDetector(
-                  onTap: _canSubmit ? _handleSubmit : null,
+                  onTap: _resetForm,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(vertical: AppSizes.spacingLG),
                     decoration: BoxDecoration(
-                      color: _canSubmit ? _Colors.primary : _Colors.bgQuaternary,
-                      borderRadius: BorderRadius.circular(9999),
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(AppSizes.radiusFull),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.arrow_back, size: 16, color: AppColors.textPrimary),
+                        SizedBox(width: AppSizes.spacingMD),
+                        Text(
+                          'Submit Another Request',
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.textPrimary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: AppSizes.spacingLG),
+                // View My Requests button
+                GestureDetector(
+                  onTap: () {
+                    widget.onCreated?.call();
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(vertical: AppSizes.spacingLG),
+                    decoration: BoxDecoration(
+                      color: AppColors.bgQuaternary,
+                      borderRadius: BorderRadius.circular(AppSizes.radiusFull),
                     ),
                     child: Text(
-                      'Submit Ticket',
+                      'View My Requests',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: _canSubmit ? Colors.white : _Colors.textTertiary,
+                        color: AppColors.textPrimary,
                       ),
                     ),
                   ),
                 ),
               ],
             ),
-    );
-  }
-
-  Widget _buildSuccessView() {
-    return Container(
-      color: _Colors.bgSecondary,
-      child: Column(
-        children: [
-          // Header
-          _buildHeader(),
-          // Success content
-          Expanded(
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Confetti image
-                    Image.asset(
-                      'assets/images/confetti.png',
-                      height: 120,
-                      errorBuilder: (_, __, ___) => const SizedBox(height: 120),
-                    ),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Thanks!',
-                      style: TextStyle(
-                        fontFamily: 'Inter',
-                        fontSize: 36,
-                        fontWeight: FontWeight.w600,
-                        color: _Colors.textPrimary,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: Text(
-                        "Your request has been submitted! We'll keep you updated as we make progress.",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'Inter',
-                          fontSize: 16,
-                          color: _Colors.textTertiary,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 32),
-                    // Submit Another Request button
-                    GestureDetector(
-                      onTap: _resetForm,
-                      child: Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        decoration: BoxDecoration(
-                          color: _Colors.bgPrimary,
-                          borderRadius: BorderRadius.circular(9999),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Icon(Icons.arrow_back, size: 16, color: _Colors.textPrimary),
-                            SizedBox(width: 8),
-                            Text(
-                              'Submit Another Request',
-                              style: TextStyle(
-                                fontFamily: 'Inter',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                color: _Colors.textPrimary,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    // View My Requests button
-                    GestureDetector(
-                      onTap: () {
-                        widget.onCreated?.call();
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        decoration: BoxDecoration(
-                          color: _Colors.bgQuaternary,
-                          borderRadius: BorderRadius.circular(9999),
-                        ),
-                        child: const Text(
-                          'View My Requests',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: _Colors.textPrimary,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
           ),
-        ],
+        ),
       ),
     );
   }

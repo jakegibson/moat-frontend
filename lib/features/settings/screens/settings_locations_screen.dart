@@ -84,6 +84,8 @@ class _SettingsLocationsScreenState extends State<SettingsLocationsScreen> {
   void _showLocationDialog(Location? location) {
     final isEditing = location != null;
     final nameController = TextEditingController(text: location?.name ?? '');
+    final descriptionController =
+        TextEditingController(text: location?.description ?? '');
     final addressController =
         TextEditingController(text: location?.address ?? '');
     final cityController = TextEditingController(text: location?.city ?? '');
@@ -107,6 +109,15 @@ class _SettingsLocationsScreenState extends State<SettingsLocationsScreen> {
                   hintText: 'e.g., Main Office',
                 ),
                 autofocus: true,
+              ),
+              const SizedBox(height: SemanticSpacing.formGap),
+              TextField(
+                controller: descriptionController,
+                decoration: const InputDecoration(
+                  labelText: 'Description',
+                  hintText: 'Brief description of this location',
+                ),
+                maxLines: 2,
               ),
               const SizedBox(height: SemanticSpacing.formGap),
               TextField(
@@ -171,12 +182,19 @@ class _SettingsLocationsScreenState extends State<SettingsLocationsScreen> {
                 );
                 return;
               }
+              if (name.length < 3) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Name must be at least 3 characters')),
+                );
+                return;
+              }
 
               Navigator.pop(context);
 
               if (isEditing) {
                 final updated = location.copyWith(
                   name: name,
+                  description: descriptionController.text.trim(),
                   address: addressController.text.trim(),
                   city: cityController.text.trim(),
                   state: stateController.text.trim(),
@@ -187,6 +205,7 @@ class _SettingsLocationsScreenState extends State<SettingsLocationsScreen> {
               } else {
                 await _state.createLocation(
                   name: name,
+                  description: descriptionController.text.trim(),
                   address: addressController.text.trim(),
                   city: cityController.text.trim(),
                   state: stateController.text.trim(),
@@ -217,7 +236,7 @@ class _SettingsLocationsScreenState extends State<SettingsLocationsScreen> {
                 label: 'Add Location',
                 onPressed: _onAddLocation,
                 isFullWidth: false,
-                icon: const Icon(Icons.add, size: 18, color: Colors.white),
+                icon: const Icon(Icons.add, size: 18, color: AppColors.white),
               ),
             ],
           ),
@@ -286,7 +305,7 @@ class _SettingsLocationsScreenState extends State<SettingsLocationsScreen> {
             label: 'Add Location',
             onPressed: _onAddLocation,
             isFullWidth: false,
-            icon: const Icon(Icons.add, size: 18, color: Colors.white),
+            icon: const Icon(Icons.add, size: 18, color: AppColors.white),
           ),
         ],
       ),

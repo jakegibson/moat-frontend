@@ -152,7 +152,15 @@ class _MemberTile extends StatelessWidget {
                         color: AppColors.textPrimary,
                       ),
                     ),
-                    if (member.isTimeDimension)
+                    if (member.description != null && member.description!.isNotEmpty)
+                      Text(
+                        member.description!,
+                        style: AppTextStyles.textXS
+                            .copyWith(color: AppColors.textTertiary),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      )
+                    else if (member.isTimeDimension)
                       Text(
                         'Time dimension',
                         style: AppTextStyles.textXS
@@ -196,7 +204,7 @@ class _MemberTile extends StatelessWidget {
                   ),
                 ),
                 child: isSelected
-                    ? const Icon(Icons.check, size: 12, color: Colors.white)
+                    ? const Icon(Icons.check, size: 12, color: AppColors.white)
                     : null,
               ),
             ],

@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Design colors for the drawer (light theme)
-class _DrawerColors {
-  static const Color bgPrimary = Color(0xFFFFFFFF);
-  static const Color borderPrimary = Color(0xFFD3D1CF);
-  static const Color shadow = Color(0x1A0A0D12);
-}
+import '../core/styles/app_colors.dart';
 
 /// A right-side drawer panel that slides in from the right edge of the screen.
 ///
@@ -43,7 +38,7 @@ class RightSideDrawer extends StatelessWidget {
         return Align(
           alignment: Alignment.centerRight,
           child: Material(
-            color: Colors.transparent,
+            color: AppColors.transparent,
             child: RightSideDrawer(
               width: width,
               onClose: () => Navigator.of(context).pop(),
@@ -78,13 +73,13 @@ class RightSideDrawer extends StatelessWidget {
       width: width,
       height: screenHeight,
       decoration: const BoxDecoration(
-        color: _DrawerColors.bgPrimary,
+        color: AppColors.white,
         border: Border(
-          left: BorderSide(color: _DrawerColors.borderPrimary),
+          left: BorderSide(color: AppColors.borderPrimary),
         ),
         boxShadow: [
           BoxShadow(
-            color: _DrawerColors.shadow,
+            color: AppColors.shadowSM,
             blurRadius: 24,
             offset: Offset(-8, 0),
           ),

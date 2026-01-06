@@ -95,12 +95,45 @@ class ExplorerChartView extends StatelessWidget {
       return const Center(child: Text('Unable to prepare chart data'));
     }
 
-    // Determine x and y fields
-    final xField = _getXField();
-    final yField = measures.isNotEmpty ? measures.first.name : null;
+    // Determine x and y fields, with fallback to inferring from result data
+    String? xField = _getXField();
+    String? yField = measures.isNotEmpty ? measures.first.name : null;
+
+    // Fallback: infer from result data keys if measures/dimensions are empty
+    if ((xField == null || yField == null) && result.data.isNotEmpty) {
+      final firstRow = result.data.first;
+      final keys = firstRow.keys.toList();
+
+      // Find a numeric field for yField (measure)
+      if (yField == null) {
+        for (final key in keys) {
+          final value = firstRow[key];
+          if (value is num || (value != null && num.tryParse(value.toString()) != null)) {
+            yField = key;
+            break;
+          }
+        }
+      }
+
+      // Find a non-numeric field for xField (dimension)
+      if (xField == null) {
+        for (final key in keys) {
+          if (key == yField) continue;
+          final value = firstRow[key];
+          if (value is! num && (value == null || num.tryParse(value.toString()) == null)) {
+            xField = key;
+            break;
+          }
+        }
+        // If no string field found, use first non-yField key
+        if (xField == null && keys.isNotEmpty) {
+          xField = keys.firstWhere((k) => k != yField, orElse: () => keys.first);
+        }
+      }
+    }
 
     if (xField == null || yField == null) {
-      return const Center(child: Text('Select measures and dimensions'));
+      return const Center(child: Text('Unable to determine chart fields'));
     }
 
     switch (chartType) {
@@ -195,7 +228,7 @@ class ExplorerChartView extends StatelessWidget {
             outerRadius: 140,
             innerRadius: 60,
             strokeWidth: 2,
-            strokeColor: Colors.white,
+            strokeColor: AppColors.white,
             showLabels: true,
             showPercentages: true,
           )
@@ -223,14 +256,47 @@ class ExplorerChartView extends StatelessWidget {
     return result.data.map((row) {
       final chartRow = <String, dynamic>{};
 
+      // Fallback: if no measures/dimensions defined, copy all data from row
+      if (measures.isEmpty && dimensions.isEmpty && timeDimension == null) {
+        for (final entry in row.entries) {
+          final value = entry.value;
+          if (value == null) {
+            // Format null values with field name hint
+            final fieldName = entry.key.split('.').last.replaceAll('_', ' ');
+            chartRow[entry.key] = '(No $fieldName)';
+          } else if (value is num) {
+            chartRow[entry.key] = value.toDouble();
+          } else if (value is String) {
+            // Truncate long labels and try to parse dates
+            if (value.length > 20) {
+              chartRow[entry.key] = '${value.substring(0, 17)}...';
+            } else {
+              try {
+                final date = DateTime.parse(value);
+                chartRow[entry.key] = _formatDate(date);
+              } catch (_) {
+                chartRow[entry.key] = value;
+              }
+            }
+          } else {
+            chartRow[entry.key] = value.toString();
+          }
+        }
+        return chartRow;
+      }
+
       // Add dimension values
       for (final dim in dimensions) {
         var value = row[dim.name];
-        // Truncate long labels for display
-        if (value is String && value.length > 20) {
-          value = '${value.substring(0, 17)}...';
+        // Handle null values with descriptive label
+        if (value == null) {
+          chartRow[dim.name] = '(No ${dim.displayName})';
+        } else if (value is String && value.length > 20) {
+          // Truncate long labels for display
+          chartRow[dim.name] = '${value.substring(0, 17)}...';
+        } else {
+          chartRow[dim.name] = value;
         }
-        chartRow[dim.name] = value ?? 'N/A';
       }
 
       // Add time dimension value

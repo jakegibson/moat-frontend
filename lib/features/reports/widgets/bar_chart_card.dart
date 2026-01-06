@@ -91,8 +91,8 @@ class BarChartCard extends StatelessWidget {
         .scaleXOrdinal()
         .scaleYContinuous(min: 0, max: yMax, title: 'Total Assets')
         .theme(ChartTheme(
-          backgroundColor: Colors.transparent,
-          plotBackgroundColor: Colors.transparent,
+          backgroundColor: AppColors.transparent,
+          plotBackgroundColor: AppColors.transparent,
           primaryColor: AppColors.utilityOrange500,
           borderColor: AppColors.borderSecondary,
           gridColor: AppColors.borderSecondary,

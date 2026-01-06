@@ -371,7 +371,7 @@ class AssetsClient {
       contentType: proto.contentType,
       sizeBytes: proto.sizeBytes.toInt(),
       url: proto.url,
-      caption: proto.hasCaption() ? proto.caption : null,
+      caption: null, // TODO: Add caption field to AssetFile proto
       createdAt: proto.hasCreatedAt()
           ? _fromTimestamp(proto.createdAt)
           : DateTime.now(),

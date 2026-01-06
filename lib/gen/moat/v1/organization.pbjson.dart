@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: moat/v1/organization.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -173,24 +173,25 @@ const Location$json = {
   '2': [
     {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
     {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
-    {'1': 'address', '3': 3, '4': 1, '5': 9, '10': 'address'},
-    {'1': 'city', '3': 4, '4': 1, '5': 9, '10': 'city'},
-    {'1': 'state', '3': 5, '4': 1, '5': 9, '10': 'state'},
-    {'1': 'zip_code', '3': 6, '4': 1, '5': 9, '10': 'zipCode'},
-    {'1': 'country', '3': 7, '4': 1, '5': 9, '10': 'country'},
-    {'1': 'created_at', '3': 8, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createdAt'},
-    {'1': 'updated_at', '3': 9, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'updatedAt'},
+    {'1': 'description', '3': 3, '4': 1, '5': 9, '10': 'description'},
+    {'1': 'address', '3': 4, '4': 1, '5': 9, '10': 'address'},
+    {'1': 'city', '3': 5, '4': 1, '5': 9, '10': 'city'},
+    {'1': 'state', '3': 6, '4': 1, '5': 9, '10': 'state'},
+    {'1': 'zip_code', '3': 7, '4': 1, '5': 9, '10': 'zipCode'},
+    {'1': 'country', '3': 8, '4': 1, '5': 9, '10': 'country'},
+    {'1': 'created_at', '3': 9, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createdAt'},
+    {'1': 'updated_at', '3': 10, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'updatedAt'},
   ],
 };
 
 /// Descriptor for `Location`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List locationDescriptor = $convert.base64Decode(
-    'CghMb2NhdGlvbhIOCgJpZBgBIAEoCVICaWQSEgoEbmFtZRgCIAEoCVIEbmFtZRIYCgdhZGRyZX'
-    'NzGAMgASgJUgdhZGRyZXNzEhIKBGNpdHkYBCABKAlSBGNpdHkSFAoFc3RhdGUYBSABKAlSBXN0'
-    'YXRlEhkKCHppcF9jb2RlGAYgASgJUgd6aXBDb2RlEhgKB2NvdW50cnkYByABKAlSB2NvdW50cn'
-    'kSOQoKY3JlYXRlZF9hdBgIIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCWNyZWF0'
-    'ZWRBdBI5Cgp1cGRhdGVkX2F0GAkgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIJdX'
-    'BkYXRlZEF0');
+    'CghMb2NhdGlvbhIOCgJpZBgBIAEoCVICaWQSEgoEbmFtZRgCIAEoCVIEbmFtZRIgCgtkZXNjcm'
+    'lwdGlvbhgDIAEoCVILZGVzY3JpcHRpb24SGAoHYWRkcmVzcxgEIAEoCVIHYWRkcmVzcxISCgRj'
+    'aXR5GAUgASgJUgRjaXR5EhQKBXN0YXRlGAYgASgJUgVzdGF0ZRIZCgh6aXBfY29kZRgHIAEoCV'
+    'IHemlwQ29kZRIYCgdjb3VudHJ5GAggASgJUgdjb3VudHJ5EjkKCmNyZWF0ZWRfYXQYCSABKAsy'
+    'Gi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUgljcmVhdGVkQXQSOQoKdXBkYXRlZF9hdBgKIA'
+    'EoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCXVwZGF0ZWRBdA==');
 
 @$core.Deprecated('Use listLocationsRequestDescriptor instead')
 const ListLocationsRequest$json = {
@@ -231,19 +232,21 @@ const CreateLocationRequest$json = {
   '1': 'CreateLocationRequest',
   '2': [
     {'1': 'name', '3': 1, '4': 1, '5': 9, '10': 'name'},
-    {'1': 'address', '3': 2, '4': 1, '5': 9, '10': 'address'},
-    {'1': 'city', '3': 3, '4': 1, '5': 9, '10': 'city'},
-    {'1': 'state', '3': 4, '4': 1, '5': 9, '10': 'state'},
-    {'1': 'zip_code', '3': 5, '4': 1, '5': 9, '10': 'zipCode'},
-    {'1': 'country', '3': 6, '4': 1, '5': 9, '10': 'country'},
+    {'1': 'description', '3': 2, '4': 1, '5': 9, '10': 'description'},
+    {'1': 'address', '3': 3, '4': 1, '5': 9, '10': 'address'},
+    {'1': 'city', '3': 4, '4': 1, '5': 9, '10': 'city'},
+    {'1': 'state', '3': 5, '4': 1, '5': 9, '10': 'state'},
+    {'1': 'zip_code', '3': 6, '4': 1, '5': 9, '10': 'zipCode'},
+    {'1': 'country', '3': 7, '4': 1, '5': 9, '10': 'country'},
   ],
 };
 
 /// Descriptor for `CreateLocationRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List createLocationRequestDescriptor = $convert.base64Decode(
-    'ChVDcmVhdGVMb2NhdGlvblJlcXVlc3QSEgoEbmFtZRgBIAEoCVIEbmFtZRIYCgdhZGRyZXNzGA'
-    'IgASgJUgdhZGRyZXNzEhIKBGNpdHkYAyABKAlSBGNpdHkSFAoFc3RhdGUYBCABKAlSBXN0YXRl'
-    'EhkKCHppcF9jb2RlGAUgASgJUgd6aXBDb2RlEhgKB2NvdW50cnkYBiABKAlSB2NvdW50cnk=');
+    'ChVDcmVhdGVMb2NhdGlvblJlcXVlc3QSEgoEbmFtZRgBIAEoCVIEbmFtZRIgCgtkZXNjcmlwdG'
+    'lvbhgCIAEoCVILZGVzY3JpcHRpb24SGAoHYWRkcmVzcxgDIAEoCVIHYWRkcmVzcxISCgRjaXR5'
+    'GAQgASgJUgRjaXR5EhQKBXN0YXRlGAUgASgJUgVzdGF0ZRIZCgh6aXBfY29kZRgGIAEoCVIHem'
+    'lwQ29kZRIYCgdjb3VudHJ5GAcgASgJUgdjb3VudHJ5');
 
 @$core.Deprecated('Use updateLocationRequestDescriptor instead')
 const UpdateLocationRequest$json = {
@@ -251,14 +254,16 @@ const UpdateLocationRequest$json = {
   '2': [
     {'1': 'location_id', '3': 1, '4': 1, '5': 9, '10': 'locationId'},
     {'1': 'name', '3': 2, '4': 1, '5': 9, '9': 0, '10': 'name', '17': true},
-    {'1': 'address', '3': 3, '4': 1, '5': 9, '9': 1, '10': 'address', '17': true},
-    {'1': 'city', '3': 4, '4': 1, '5': 9, '9': 2, '10': 'city', '17': true},
-    {'1': 'state', '3': 5, '4': 1, '5': 9, '9': 3, '10': 'state', '17': true},
-    {'1': 'zip_code', '3': 6, '4': 1, '5': 9, '9': 4, '10': 'zipCode', '17': true},
-    {'1': 'country', '3': 7, '4': 1, '5': 9, '9': 5, '10': 'country', '17': true},
+    {'1': 'description', '3': 3, '4': 1, '5': 9, '9': 1, '10': 'description', '17': true},
+    {'1': 'address', '3': 4, '4': 1, '5': 9, '9': 2, '10': 'address', '17': true},
+    {'1': 'city', '3': 5, '4': 1, '5': 9, '9': 3, '10': 'city', '17': true},
+    {'1': 'state', '3': 6, '4': 1, '5': 9, '9': 4, '10': 'state', '17': true},
+    {'1': 'zip_code', '3': 7, '4': 1, '5': 9, '9': 5, '10': 'zipCode', '17': true},
+    {'1': 'country', '3': 8, '4': 1, '5': 9, '9': 6, '10': 'country', '17': true},
   ],
   '8': [
     {'1': '_name'},
+    {'1': '_description'},
     {'1': '_address'},
     {'1': '_city'},
     {'1': '_state'},
@@ -270,11 +275,12 @@ const UpdateLocationRequest$json = {
 /// Descriptor for `UpdateLocationRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List updateLocationRequestDescriptor = $convert.base64Decode(
     'ChVVcGRhdGVMb2NhdGlvblJlcXVlc3QSHwoLbG9jYXRpb25faWQYASABKAlSCmxvY2F0aW9uSW'
-    'QSFwoEbmFtZRgCIAEoCUgAUgRuYW1liAEBEh0KB2FkZHJlc3MYAyABKAlIAVIHYWRkcmVzc4gB'
-    'ARIXCgRjaXR5GAQgASgJSAJSBGNpdHmIAQESGQoFc3RhdGUYBSABKAlIA1IFc3RhdGWIAQESHg'
-    'oIemlwX2NvZGUYBiABKAlIBFIHemlwQ29kZYgBARIdCgdjb3VudHJ5GAcgASgJSAVSB2NvdW50'
-    'cnmIAQFCBwoFX25hbWVCCgoIX2FkZHJlc3NCBwoFX2NpdHlCCAoGX3N0YXRlQgsKCV96aXBfY2'
-    '9kZUIKCghfY291bnRyeQ==');
+    'QSFwoEbmFtZRgCIAEoCUgAUgRuYW1liAEBEiUKC2Rlc2NyaXB0aW9uGAMgASgJSAFSC2Rlc2Ny'
+    'aXB0aW9uiAEBEh0KB2FkZHJlc3MYBCABKAlIAlIHYWRkcmVzc4gBARIXCgRjaXR5GAUgASgJSA'
+    'NSBGNpdHmIAQESGQoFc3RhdGUYBiABKAlIBFIFc3RhdGWIAQESHgoIemlwX2NvZGUYByABKAlI'
+    'BVIHemlwQ29kZYgBARIdCgdjb3VudHJ5GAggASgJSAZSB2NvdW50cnmIAQFCBwoFX25hbWVCDg'
+    'oMX2Rlc2NyaXB0aW9uQgoKCF9hZGRyZXNzQgcKBV9jaXR5QggKBl9zdGF0ZUILCglfemlwX2Nv'
+    'ZGVCCgoIX2NvdW50cnk=');
 
 @$core.Deprecated('Use deleteLocationRequestDescriptor instead')
 const DeleteLocationRequest$json = {

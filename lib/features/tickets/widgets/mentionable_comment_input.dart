@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/styles/app_colors.dart';
+import '../../../core/styles/app_text_styles.dart';
 import '../data/task_models.dart';
 
 /// A comment input widget with @mention support.
@@ -302,7 +304,7 @@ class _MentionPickerOverlay extends StatelessWidget {
           child: GestureDetector(
             onTap: onDismiss,
             behavior: HitTestBehavior.opaque,
-            child: Container(color: Colors.transparent),
+            child: Container(color: AppColors.transparent),
           ),
         ),
         // Picker positioned above the text field
@@ -336,11 +338,11 @@ class _MentionPickerOverlay extends StatelessWidget {
                     ),
                     title: Text(
                       member.fullName,
-                      style: const TextStyle(fontSize: 14),
+                      style: AppTextStyles.body,
                     ),
                     subtitle: Text(
                       member.email,
-                      style: const TextStyle(fontSize: 12),
+                      style: AppTextStyles.bodySmall,
                     ),
                     dense: true,
                     visualDensity: VisualDensity.compact,

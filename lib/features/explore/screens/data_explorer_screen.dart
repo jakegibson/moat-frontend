@@ -13,6 +13,12 @@ import '../widgets/chart_type_picker.dart';
 import '../widgets/time_config_panel.dart';
 import '../widgets/explorer_chart_view.dart';
 import '../widgets/explorer_table_view.dart';
+import '../widgets/templates_browser.dart';
+import '../widgets/nl_query_input.dart';
+import '../widgets/save_query_dialog.dart';
+
+/// Explorer mode tabs.
+enum ExplorerMode { builder, templates, ask }
 
 /// Data Explorer screen - self-service analytics builder.
 class DataExplorerScreen extends StatefulWidget {
@@ -24,12 +30,14 @@ class DataExplorerScreen extends StatefulWidget {
 
 class _DataExplorerScreenState extends State<DataExplorerScreen> {
   late final ExploreState _state;
+  ExplorerMode _mode = ExplorerMode.templates; // Start with templates for discoverability
 
   @override
   void initState() {
     super.initState();
     _state = getIt<ExploreState>();
     _state.loadMeta();
+    _state.loadTemplates(); // Pre-load templates
   }
 
   @override
@@ -46,7 +54,7 @@ class _DataExplorerScreenState extends State<DataExplorerScreen> {
         }
 
         if (error != null && meta == null) {
-          return _buildErrorState(error);
+          return _buildErrorState(error.message);
         }
 
         return Row(
@@ -101,113 +109,206 @@ class _DataExplorerScreenState extends State<DataExplorerScreen> {
           // Header
           _buildPanelHeader(),
           const Divider(height: 1),
-          // Content
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(AppSizes.spacingLG),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Cube selector
-                  const Text('Data Source', style: AppTextStyles.textSMSemibold),
-                  const SizedBox(height: AppSizes.spacingSM),
-                  CubeSelector(state: _state),
-                  const SizedBox(height: AppSizes.spacingXL),
-
-                  // Measures
-                  const Text('Measures', style: AppTextStyles.textSMSemibold),
-                  const SizedBox(height: AppSizes.spacingXS),
-                  Text('What do you want to calculate?',
-                      style: AppTextStyles.textXS
-                          .copyWith(color: AppColors.textTertiary)),
-                  const SizedBox(height: AppSizes.spacingSM),
-                  MemberPicker(
-                    state: _state,
-                    memberType: MemberType.measure,
-                  ),
-                  const SizedBox(height: AppSizes.spacingXL),
-
-                  // Dimensions
-                  const Text('Dimensions', style: AppTextStyles.textSMSemibold),
-                  const SizedBox(height: AppSizes.spacingXS),
-                  Text('How do you want to group?',
-                      style: AppTextStyles.textXS
-                          .copyWith(color: AppColors.textTertiary)),
-                  const SizedBox(height: AppSizes.spacingSM),
-                  MemberPicker(
-                    state: _state,
-                    memberType: MemberType.dimension,
-                  ),
-                  const SizedBox(height: AppSizes.spacingXL),
-
-                  // Time configuration
-                  Watch((context) {
-                    final timeDim = _state.selectedTimeDimension.value;
-                    if (timeDim == null) return const SizedBox.shrink();
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text('Time Settings',
-                            style: AppTextStyles.textSMSemibold),
-                        const SizedBox(height: AppSizes.spacingSM),
-                        TimeConfigPanel(state: _state),
-                        const SizedBox(height: AppSizes.spacingXL),
-                      ],
-                    );
-                  }),
-
-                  // Chart type
-                  const Text('Visualization', style: AppTextStyles.textSMSemibold),
-                  const SizedBox(height: AppSizes.spacingSM),
-                  ChartTypePicker(state: _state),
-                ],
-              ),
-            ),
-          ),
-          // Run button
+          // Mode tabs
+          _buildModeTabs(),
           const Divider(height: 1),
-          Padding(
-            padding: const EdgeInsets.all(AppSizes.spacingLG),
-            child: Watch((context) {
-              final isLoading = _state.isLoadingData.value;
-              final hasMeasures = _state.selectedMeasures.value.isNotEmpty;
-
-              return ElevatedButton(
-                onPressed: hasMeasures && !isLoading
-                    ? () => _state.executeQuery()
-                    : null,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.blueLight700,
-                  foregroundColor: AppColors.white,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: AppSizes.spacingMD),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(AppSizes.radiusMD),
-                  ),
-                ),
-                child: isLoading
-                    ? const SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(AppColors.white),
-                        ),
-                      )
-                    : const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.play_arrow, size: 20),
-                          SizedBox(width: AppSizes.spacingSM),
-                          Text('Run Query'),
-                        ],
-                      ),
-              );
-            }),
+          // Content based on mode
+          Expanded(
+            child: _buildModeContent(),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildModeTabs() {
+    return Container(
+      padding: const EdgeInsets.all(AppSizes.spacingSM),
+      child: Row(
+        children: [
+          _buildModeTab(
+            ExplorerMode.templates,
+            Icons.lightbulb_outline,
+            'Templates',
+          ),
+          const SizedBox(width: AppSizes.spacingXS),
+          _buildModeTab(
+            ExplorerMode.ask,
+            Icons.auto_awesome,
+            'Ask AI',
+          ),
+          const SizedBox(width: AppSizes.spacingXS),
+          _buildModeTab(
+            ExplorerMode.builder,
+            Icons.tune,
+            'Builder',
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildModeTab(ExplorerMode mode, IconData icon, String label) {
+    final isSelected = _mode == mode;
+    final color = mode == ExplorerMode.ask
+        ? AppColors.accentPurple
+        : AppColors.blueLight700;
+
+    return Expanded(
+      child: Material(
+        color: isSelected ? color.withValues(alpha: 0.1) : AppColors.transparent,
+        borderRadius: BorderRadius.circular(AppSizes.radiusMD),
+        child: InkWell(
+          onTap: () => setState(() => _mode = mode),
+          borderRadius: BorderRadius.circular(AppSizes.radiusMD),
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              vertical: AppSizes.spacingSM,
+              horizontal: AppSizes.spacingXS,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  icon,
+                  size: 16,
+                  color: isSelected ? color : AppColors.textTertiary,
+                ),
+                const SizedBox(width: 4),
+                Text(
+                  label,
+                  style: AppTextStyles.textXS.copyWith(
+                    color: isSelected ? color : AppColors.textSecondary,
+                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildModeContent() {
+    switch (_mode) {
+      case ExplorerMode.templates:
+        return TemplatesBrowser(state: _state);
+      case ExplorerMode.ask:
+        return NLQueryInput(state: _state);
+      case ExplorerMode.builder:
+        return _buildBuilderContent();
+    }
+  }
+
+  Widget _buildBuilderContent() {
+    return Column(
+      children: [
+        Expanded(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(AppSizes.spacingLG),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Cube selector
+                const Text('Data Source', style: AppTextStyles.textSMSemibold),
+                const SizedBox(height: AppSizes.spacingSM),
+                CubeSelector(state: _state),
+                const SizedBox(height: AppSizes.spacingXL),
+
+                // Measures
+                const Text('Measures', style: AppTextStyles.textSMSemibold),
+                const SizedBox(height: AppSizes.spacingXS),
+                Text('What do you want to calculate?',
+                    style: AppTextStyles.textXS
+                        .copyWith(color: AppColors.textTertiary)),
+                const SizedBox(height: AppSizes.spacingSM),
+                MemberPicker(
+                  state: _state,
+                  memberType: MemberType.measure,
+                ),
+                const SizedBox(height: AppSizes.spacingXL),
+
+                // Dimensions
+                const Text('Dimensions', style: AppTextStyles.textSMSemibold),
+                const SizedBox(height: AppSizes.spacingXS),
+                Text('How do you want to group?',
+                    style: AppTextStyles.textXS
+                        .copyWith(color: AppColors.textTertiary)),
+                const SizedBox(height: AppSizes.spacingSM),
+                MemberPicker(
+                  state: _state,
+                  memberType: MemberType.dimension,
+                ),
+                const SizedBox(height: AppSizes.spacingXL),
+
+                // Time configuration
+                Watch((context) {
+                  final timeDim = _state.selectedTimeDimension.value;
+                  if (timeDim == null) return const SizedBox.shrink();
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Time Settings',
+                          style: AppTextStyles.textSMSemibold),
+                      const SizedBox(height: AppSizes.spacingSM),
+                      TimeConfigPanel(state: _state),
+                      const SizedBox(height: AppSizes.spacingXL),
+                    ],
+                  );
+                }),
+
+                // Chart type
+                const Text('Visualization', style: AppTextStyles.textSMSemibold),
+                const SizedBox(height: AppSizes.spacingSM),
+                ChartTypePicker(state: _state),
+              ],
+            ),
+          ),
+        ),
+        // Run button
+        const Divider(height: 1),
+        Padding(
+          padding: const EdgeInsets.all(AppSizes.spacingLG),
+          child: Watch((context) {
+            final isLoading = _state.isLoadingData.value;
+            final hasMeasures = _state.selectedMeasures.value.isNotEmpty;
+
+            return ElevatedButton(
+              onPressed: hasMeasures && !isLoading
+                  ? () => _state.executeQuery()
+                  : null,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.blueLight700,
+                foregroundColor: AppColors.white,
+                padding:
+                    const EdgeInsets.symmetric(vertical: AppSizes.spacingMD),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppSizes.radiusMD),
+                ),
+              ),
+              child: isLoading
+                  ? const SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(AppColors.white),
+                      ),
+                    )
+                  : const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.play_arrow, size: 20),
+                        SizedBox(width: AppSizes.spacingSM),
+                        Text('Run Query'),
+                      ],
+                    ),
+            );
+          }),
+        ),
+      ],
     );
   }
 
@@ -222,11 +323,11 @@ class _DataExplorerScreenState extends State<DataExplorerScreen> {
               gradient: const LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [Color(0xFF06B6D4), Color(0xFF14B8A6)],
+                colors: [AppColors.exploreCyan, AppColors.exploreTeal],
               ),
               borderRadius: BorderRadius.circular(AppSizes.radiusMD),
             ),
-            child: const Icon(Icons.explore, color: Colors.white, size: 20),
+            child: Icon(Icons.explore, color: AppColors.white, size: 20),
           ),
           const SizedBox(width: AppSizes.spacingMD),
           Column(
@@ -268,7 +369,7 @@ class _DataExplorerScreenState extends State<DataExplorerScreen> {
               child: isLoading
                   ? const Center(child: CircularProgressIndicator())
                   : error != null
-                      ? _buildQueryError(error)
+                      ? _buildQueryError(error.message)
                       : result == null
                           ? _buildEmptyState()
                           : _buildResultsContent(result, chartType),
@@ -282,6 +383,8 @@ class _DataExplorerScreenState extends State<DataExplorerScreen> {
   Widget _buildResultsHeader() {
     return Watch((context) {
       final result = _state.queryResult.value;
+      final hasMeasures = _state.selectedMeasures.value.isNotEmpty;
+
       return Container(
         color: AppColors.white,
         padding: const EdgeInsets.all(AppSizes.spacingLG),
@@ -307,7 +410,22 @@ class _DataExplorerScreenState extends State<DataExplorerScreen> {
                   ),
                 ),
               ),
+              const SizedBox(width: AppSizes.spacingMD),
             ],
+            // Save button - always show if we have measures selected
+            if (hasMeasures)
+              TextButton.icon(
+                onPressed: () => SaveQueryDialog.show(context, _state),
+                icon: const Icon(Icons.save_outlined, size: 18),
+                label: const Text('Save'),
+                style: TextButton.styleFrom(
+                  foregroundColor: AppColors.blueLight700,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSizes.spacingMD,
+                    vertical: AppSizes.spacingSM,
+                  ),
+                ),
+              ),
           ],
         ),
       );

@@ -31,12 +31,12 @@ class ButtonNotifications extends StatelessWidget {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: selected ? AppColors.white : Colors.transparent,
-                  borderRadius: BorderRadius.circular(12.0),
+                  color: selected ? AppColors.white : AppColors.transparent,
+                  borderRadius: BorderRadius.circular(AppSizes.radiusXL),
                   boxShadow: selected
                       ? [
                           BoxShadow(
-                            color: Colors.black.withAlpha(100),
+                            color: AppColors.black.withAlpha(100),
                             offset: const Offset(-1, 2),
                             blurRadius: 4.0,
                             spreadRadius: 1.0,
@@ -45,7 +45,7 @@ class ButtonNotifications extends StatelessWidget {
                       : [],
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(6.0),
+                  padding: EdgeInsets.all(AppSizes.spacingSM),
                   child: Center(
                     child: SvgPicture.asset('assets/icons/icon-message.svg'),
                   ),

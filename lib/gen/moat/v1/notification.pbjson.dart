@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: moat/v1/notification.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -13,7 +13,7 @@ import 'dart:convert' as $convert;
 import 'dart:core' as $core;
 import 'dart:typed_data' as $typed_data;
 
-import '../../google/protobuf/struct.pbjson.dart' as $3;
+import '../../google/protobuf/struct.pbjson.dart' as $1;
 import '../../google/protobuf/timestamp.pbjson.dart' as $0;
 
 @$core.Deprecated('Use notificationDescriptor instead')
@@ -268,10 +268,10 @@ const $core.Map<$core.String, $core.Map<$core.String, $core.dynamic>> Notificati
   '.moat.v1.GetNotificationsRequest': GetNotificationsRequest$json,
   '.moat.v1.GetNotificationsResponse': GetNotificationsResponse$json,
   '.moat.v1.Notification': Notification$json,
-  '.google.protobuf.Struct': $3.Struct$json,
-  '.google.protobuf.Struct.FieldsEntry': $3.Struct_FieldsEntry$json,
-  '.google.protobuf.Value': $3.Value$json,
-  '.google.protobuf.ListValue': $3.ListValue$json,
+  '.google.protobuf.Struct': $1.Struct$json,
+  '.google.protobuf.Struct.FieldsEntry': $1.Struct_FieldsEntry$json,
+  '.google.protobuf.Value': $1.Value$json,
+  '.google.protobuf.ListValue': $1.ListValue$json,
   '.google.protobuf.Timestamp': $0.Timestamp$json,
   '.moat.v1.GetUnreadCountRequest': GetUnreadCountRequest$json,
   '.moat.v1.GetUnreadCountResponse': GetUnreadCountResponse$json,

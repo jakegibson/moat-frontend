@@ -1,105 +1,17 @@
 import 'package:injectable/injectable.dart';
+
+import '../../../core/transport/organization_service_client.dart';
+import '../../../gen/moat/v1/organization.pb.dart' as org;
 import 'members_models.dart';
 
 /// Client for member-related API calls.
 ///
-/// Currently returns mock data until proto clients are generated.
+/// Uses OrganizationServiceClient for real backend API calls.
 @lazySingleton
 class MembersClient {
-  MembersClient();
+  final OrganizationServiceClient _orgClient;
 
-  // Internal mock data - remove when using real API
-  static final _mockMembers = <Member>[
-    Member(
-      id: 'member-001',
-      email: 'jake@moat.app',
-      firstName: 'Jake',
-      lastName: 'Admin',
-      hasAcceptedInvite: true,
-      createdAt: DateTime.now().subtract(const Duration(days: 365)),
-      lastLoginAt: DateTime.now().subtract(const Duration(hours: 2)),
-      roles: const [
-        MemberRoleAssignment(id: 'role-admin', name: 'Admin', isSystem: true),
-      ],
-      locationIds: const [],
-    ),
-    Member(
-      id: 'member-002',
-      email: 'sarah@example.com',
-      firstName: 'Sarah',
-      lastName: 'Manager',
-      hasAcceptedInvite: true,
-      createdAt: DateTime.now().subtract(const Duration(days: 200)),
-      lastLoginAt: DateTime.now().subtract(const Duration(days: 1)),
-      roles: const [
-        MemberRoleAssignment(
-          id: 'role-manager',
-          name: 'Location Manager',
-          isSystem: false,
-          locationIds: ['loc-001', 'loc-002'],
-        ),
-      ],
-      locationIds: const ['loc-001', 'loc-002'],
-    ),
-    Member(
-      id: 'member-003',
-      email: 'mike@example.com',
-      firstName: 'Mike',
-      lastName: 'Technician',
-      hasAcceptedInvite: true,
-      createdAt: DateTime.now().subtract(const Duration(days: 100)),
-      lastLoginAt: DateTime.now().subtract(const Duration(days: 7)),
-      roles: const [
-        MemberRoleAssignment(
-          id: 'role-tech',
-          name: 'Technician',
-          isSystem: false,
-          locationIds: ['loc-001'],
-        ),
-      ],
-      locationIds: const ['loc-001'],
-    ),
-    Member(
-      id: 'member-004',
-      email: 'pending@example.com',
-      firstName: 'Pending',
-      lastName: 'User',
-      hasAcceptedInvite: false,
-      createdAt: DateTime.now().subtract(const Duration(days: 3)),
-      lastLoginAt: null,
-      roles: const [
-        MemberRoleAssignment(
-          id: 'role-viewer',
-          name: 'Viewer',
-          isSystem: false,
-        ),
-      ],
-      locationIds: const [],
-    ),
-    Member(
-      id: 'member-005',
-      email: 'lisa@example.com',
-      firstName: 'Lisa',
-      lastName: 'Chen',
-      hasAcceptedInvite: true,
-      createdAt: DateTime.now().subtract(const Duration(days: 50)),
-      lastLoginAt: DateTime.now().subtract(const Duration(hours: 12)),
-      roles: const [
-        MemberRoleAssignment(
-          id: 'role-manager',
-          name: 'Location Manager',
-          isSystem: false,
-        ),
-        MemberRoleAssignment(
-          id: 'role-tech',
-          name: 'Technician',
-          isSystem: false,
-          locationIds: ['loc-002'],
-        ),
-      ],
-      locationIds: const [],
-    ),
-  ];
+  MembersClient(this._orgClient);
 
   /// List members with pagination and optional filters.
   Future<PaginatedMembers> listMembers({
@@ -110,65 +22,21 @@ class MembersClient {
     String? sortBy,
     bool sortAsc = true,
   }) async {
-    await Future.delayed(const Duration(milliseconds: 300));
+    final response = await _orgClient.listMembers(org.ListMembersRequest(
+      limit: limit,
+      offset: offset,
+      search: search ?? '',
+      includePending: includePending,
+      includeDeleted: false,
+      sortBy: sortBy ?? 'name',
+      sortOrder: sortAsc ? 'asc' : 'desc',
+    ));
 
-    var filtered = List<Member>.from(_mockMembers);
-
-    // Apply search filter
-    if (search != null && search.isNotEmpty) {
-      final searchLower = search.toLowerCase();
-      filtered = filtered
-          .where((m) =>
-              m.displayName.toLowerCase().contains(searchLower) ||
-              m.email.toLowerCase().contains(searchLower))
-          .toList();
-    }
-
-    // Apply pending filter
-    if (!includePending) {
-      filtered = filtered.where((m) => m.hasAcceptedInvite).toList();
-    }
-
-    // Apply sorting
-    if (sortBy != null) {
-      filtered.sort((a, b) {
-        int result;
-        switch (sortBy) {
-          case 'name':
-            result = a.displayName.compareTo(b.displayName);
-          case 'email':
-            result = a.email.compareTo(b.email);
-          case 'createdAt':
-            result = (a.createdAt ?? DateTime(1970))
-                .compareTo(b.createdAt ?? DateTime(1970));
-          case 'lastLoginAt':
-            result = (a.lastLoginAt ?? DateTime(1970))
-                .compareTo(b.lastLoginAt ?? DateTime(1970));
-          default:
-            result = a.displayName.compareTo(b.displayName);
-        }
-        return sortAsc ? result : -result;
-      });
-    }
-
-    final total = filtered.length;
-
-    // Apply pagination
-    if (offset >= filtered.length) {
-      return PaginatedMembers(
-        items: [],
-        total: total,
-        limit: limit,
-        offset: offset,
-      );
-    }
-
-    final endIndex = (offset + limit).clamp(0, filtered.length);
-    final items = filtered.sublist(offset, endIndex);
+    final members = response.members.map(_memberFromProto).toList();
 
     return PaginatedMembers(
-      items: items,
-      total: total,
+      items: members,
+      total: response.total,
       limit: limit,
       offset: offset,
     );
@@ -176,13 +44,10 @@ class MembersClient {
 
   /// Get a single member by ID.
   Future<Member> getMember(String id) async {
-    await Future.delayed(const Duration(milliseconds: 200));
-
-    final member = _mockMembers.where((m) => m.id == id).firstOrNull;
-    if (member == null) {
-      throw Exception('Member not found: $id');
-    }
-    return member;
+    final response = await _orgClient.getMember(
+      org.GetMemberRequest(memberId: id),
+    );
+    return _memberFromProto(response);
   }
 
   /// Invite a new member.
@@ -193,53 +58,65 @@ class MembersClient {
     required List<String> roleIds,
     List<String>? locationIds,
   }) async {
-    await Future.delayed(const Duration(milliseconds: 300));
-
-    final newMember = Member(
-      id: 'member-${DateTime.now().millisecondsSinceEpoch}',
+    final response = await _orgClient.createMember(org.CreateMemberRequest(
       email: email,
       firstName: firstName,
       lastName: lastName,
-      hasAcceptedInvite: false,
-      createdAt: DateTime.now(),
-      lastLoginAt: null,
-      roles: roleIds
-          .map((id) => MemberRoleAssignment(
-                id: id,
-                name: 'Role $id',
-                isSystem: false,
-                locationIds: locationIds,
-              ))
-          .toList(),
+      roleIds: roleIds,
       locationIds: locationIds ?? [],
-    );
+    ));
+    return _memberFromProto(response);
+  }
 
-    _mockMembers.insert(0, newMember);
-    return newMember;
+  /// Update a member.
+  Future<Member> updateMember({
+    required String memberId,
+    String? firstName,
+    String? lastName,
+  }) async {
+    final response = await _orgClient.updateMember(org.UpdateMemberRequest(
+      memberId: memberId,
+      firstName: firstName,
+      lastName: lastName,
+    ));
+    return _memberFromProto(response);
   }
 
   /// Resend invitation to a pending member.
   Future<void> resendInvite(String memberId) async {
-    await Future.delayed(const Duration(milliseconds: 200));
-    // Mock: just verify member exists and is pending
-    final member = _mockMembers.where((m) => m.id == memberId).firstOrNull;
-    if (member == null) {
-      throw Exception('Member not found: $memberId');
-    }
-    if (member.hasAcceptedInvite) {
-      throw Exception('Member has already accepted invite');
-    }
+    // The backend should have a resendInvite RPC, but for now
+    // we'll just verify the member exists
+    await _orgClient.getMember(org.GetMemberRequest(memberId: memberId));
+    // TODO: Call actual resendInvite RPC when available
   }
 
   /// Delete a member.
   Future<void> deleteMember(String id) async {
-    await Future.delayed(const Duration(milliseconds: 200));
+    await _orgClient.deleteMember(org.DeleteMemberRequest(memberId: id));
+  }
 
-    final index = _mockMembers.indexWhere((m) => m.id == id);
-    if (index == -1) {
-      throw Exception('Member not found: $id');
-    }
+  /// Convert protobuf Member to local Member model.
+  Member _memberFromProto(org.Member proto) {
+    return Member(
+      id: proto.id,
+      email: proto.email,
+      firstName: proto.firstName,
+      lastName: proto.lastName,
+      hasAcceptedInvite: proto.hasAcceptedInvite,
+      createdAt: proto.hasCreatedAt() ? proto.createdAt.toDateTime() : null,
+      lastLoginAt: null, // Not in protobuf yet
+      roles: proto.roles.map(_roleFromProto).toList(),
+      locationIds: proto.locationIds,
+    );
+  }
 
-    _mockMembers.removeAt(index);
+  /// Convert protobuf MemberRole to local MemberRoleAssignment.
+  MemberRoleAssignment _roleFromProto(org.MemberRole proto) {
+    return MemberRoleAssignment(
+      id: proto.id,
+      name: proto.name,
+      isSystem: proto.isSystem,
+      locationIds: proto.locationIds.isEmpty ? null : proto.locationIds,
+    );
   }
 }

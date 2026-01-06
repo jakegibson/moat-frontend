@@ -17,9 +17,7 @@ import '../widgets/asset_dialog.dart';
 import '../widgets/assets_pagination.dart';
 
 class AssetsScreen extends StatefulWidget {
-  final AssetsState state;
-
-  const AssetsScreen({required this.state, super.key});
+  const AssetsScreen({super.key});
 
   @override
   State<AssetsScreen> createState() => _AssetsScreenState();
@@ -27,15 +25,17 @@ class AssetsScreen extends StatefulWidget {
 
 class _AssetsScreenState extends State<AssetsScreen> {
   final _searchController = TextEditingController();
+  late final AssetsState _state;
 
   @override
   void initState() {
     super.initState();
+    _state = getIt<AssetsState>();
     // Fetch assets on mount if empty
-    if (widget.state.assets.value.isEmpty) {
-      widget.state.fetchAssets(refresh: true);
+    if (_state.assets.value.isEmpty) {
+      _state.fetchAssets(refresh: true);
     }
-    _searchController.text = widget.state.searchQuery.value;
+    _searchController.text = _state.searchQuery.value;
   }
 
   @override
@@ -47,16 +47,16 @@ class _AssetsScreenState extends State<AssetsScreen> {
   @override
   Widget build(BuildContext context) {
     return Watch((context) {
-      final isLoading = widget.state.isLoading.value;
-      final assets = widget.state.assets.value;
-      final error = widget.state.error.value;
+      final isLoading = _state.isLoading.value;
+      final assets = _state.assets.value;
+      final error = _state.error.value;
 
       if (error != null && assets.isEmpty) {
         return Scaffold(
           backgroundColor: AppColors.white,
           body: ErrorView(
             error: error,
-            onRetry: () => widget.state.fetchAssets(refresh: true),
+            onRetry: () => _state.fetchAssets(refresh: true),
           ),
         );
       }
@@ -156,7 +156,7 @@ class _AssetsScreenState extends State<AssetsScreen> {
       children: [
         // Filters button
         Watch((context) {
-          final hasFilters = widget.state.hasFilters.value;
+          final hasFilters = _state.hasFilters.value;
           return TextButton.icon(
             onPressed: () => _showFilterSheet(context),
             icon: Badge(
@@ -190,7 +190,7 @@ class _AssetsScreenState extends State<AssetsScreen> {
                 borderSide: BorderSide(color: AppColors.borderSecondary),
               ),
             ),
-            onSubmitted: (value) => widget.state.applySearch(value),
+            onSubmitted: (value) => _state.applySearch(value),
           ),
         ),
       ],
@@ -198,9 +198,9 @@ class _AssetsScreenState extends State<AssetsScreen> {
   }
 
   Widget _buildDataTable(BuildContext context, List<Asset> assets) {
-    final hasAssetTypes = widget.state.hasAssetTypes.value;
-    final sortColumnIndex = widget.state.sortColumnIndex.value;
-    final sortAscending = !widget.state.sortDesc.value;
+    final hasAssetTypes = _state.hasAssetTypes.value;
+    final sortColumnIndex = _state.sortColumnIndex.value;
+    final sortAscending = !_state.sortDesc.value;
     final now = DateTime.now();
 
     return Theme(
@@ -256,7 +256,7 @@ class _AssetsScreenState extends State<AssetsScreen> {
                         width: 1.0,
                       ),
                       verticalInside: const BorderSide(
-                        color: Colors.transparent,
+                        color: AppColors.transparent,
                         width: 1.0,
                       ),
                     ),
@@ -271,7 +271,7 @@ class _AssetsScreenState extends State<AssetsScreen> {
                       DataColumn(
                         label: const Text('Asset'),
                         onSort: (columnIndex, ascending) async {
-                          await widget.state.sortOnField(
+                          await _state.sortOnField(
                             fieldName: 'name',
                             columnIndex: columnIndex,
                             ascending: ascending,
@@ -282,7 +282,7 @@ class _AssetsScreenState extends State<AssetsScreen> {
                         DataColumn(
                           label: const Text('Division'),
                           onSort: (columnIndex, ascending) async {
-                            await widget.state.sortOnField(
+                            await _state.sortOnField(
                               fieldName: 'division_of_construction',
                               columnIndex: columnIndex,
                               ascending: ascending,
@@ -292,7 +292,7 @@ class _AssetsScreenState extends State<AssetsScreen> {
                       DataColumn(
                         label: const Text('Site Location'),
                         onSort: (columnIndex, ascending) async {
-                          await widget.state.sortOnField(
+                          await _state.sortOnField(
                             fieldName: 'location_name',
                             columnIndex: columnIndex,
                             ascending: ascending,
@@ -302,7 +302,7 @@ class _AssetsScreenState extends State<AssetsScreen> {
                       DataColumn(
                         label: const Text('Start Date'),
                         onSort: (columnIndex, ascending) async {
-                          await widget.state.sortOnField(
+                          await _state.sortOnField(
                             fieldName: 'warranty_start_date',
                             columnIndex: columnIndex,
                             ascending: ascending,
@@ -312,7 +312,7 @@ class _AssetsScreenState extends State<AssetsScreen> {
                       DataColumn(
                         label: const Text('Warranty Expiration'),
                         onSort: (columnIndex, ascending) async {
-                          await widget.state.sortOnField(
+                          await _state.sortOnField(
                             fieldName: 'warranty_end_date',
                             columnIndex: columnIndex,
                             ascending: ascending,
@@ -471,18 +471,18 @@ class _AssetsScreenState extends State<AssetsScreen> {
 
   Widget _buildPagination(BuildContext context) {
     return Watch((context) {
-      final currentPage = widget.state.currentPage.value;
-      final totalPages = widget.state.totalPages.value;
-      final total = widget.state.total.value;
-      final limit = widget.state.limit.value;
-      final isLoading = widget.state.isLoading.value;
+      final currentPage = _state.currentPage.value;
+      final totalPages = _state.totalPages.value;
+      final total = _state.total.value;
+      final limit = _state.limit.value;
+      final isLoading = _state.isLoading.value;
 
       return AssetsPagination(
         currentPage: currentPage,
         totalPages: totalPages,
         totalItems: total,
         itemsPerPage: limit,
-        onPageChanged: (page) => widget.state.changePage(page),
+        onPageChanged: (page) => _state.changePage(page),
         isLoading: isLoading,
       );
     });
@@ -526,7 +526,7 @@ class _AssetsScreenState extends State<AssetsScreen> {
 
     if (confirmed != true || !mounted) return;
 
-    final result = await widget.state.deleteAsset(asset.id);
+    final result = await _state.deleteAsset(asset.id);
     if (!mounted) return;
 
     result.when(
@@ -546,13 +546,13 @@ class _AssetsScreenState extends State<AssetsScreen> {
     showModalBottomSheet(
       context: context,
       builder: (context) => _FilterSheet(
-        selectedStatuses: widget.state.statusFilter.value,
+        selectedStatuses: _state.statusFilter.value,
         onApply: (statuses) {
-          widget.state.applyFilters(statuses: statuses);
+          _state.applyFilters(statuses: statuses);
           Navigator.pop(context);
         },
         onClear: () {
-          widget.state.clearFilters();
+          _state.clearFilters();
           Navigator.pop(context);
         },
       ),
@@ -572,7 +572,7 @@ class _AssetsScreenState extends State<AssetsScreen> {
 
     if (result == null || !mounted) return;
 
-    final createResult = await widget.state.createAsset(
+    final createResult = await _state.createAsset(
       name: result.name,
       locationId: result.locationId ?? '',
     );

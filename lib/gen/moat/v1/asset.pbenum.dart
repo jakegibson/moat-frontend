@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: moat/v1/asset.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -33,7 +33,7 @@ class AssetStatus extends $pb.ProtobufEnum {
   static final $core.Map<$core.int, AssetStatus> _byValue = $pb.ProtobufEnum.initByValue(values);
   static AssetStatus? valueOf($core.int value) => _byValue[value];
 
-  const AssetStatus._($core.int v, $core.String n) : super(v, n);
+  const AssetStatus._(super.v, super.n);
 }
 
 class AssetProcessStatus extends $pb.ProtobufEnum {
@@ -56,7 +56,7 @@ class AssetProcessStatus extends $pb.ProtobufEnum {
   static final $core.Map<$core.int, AssetProcessStatus> _byValue = $pb.ProtobufEnum.initByValue(values);
   static AssetProcessStatus? valueOf($core.int value) => _byValue[value];
 
-  const AssetProcessStatus._($core.int v, $core.String n) : super(v, n);
+  const AssetProcessStatus._(super.v, super.n);
 }
 
 

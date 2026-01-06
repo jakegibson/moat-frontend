@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/styles/app_sizes.dart';
 import '../../../core/theme/app_theme.dart';
 import '../state/assets_state.dart';
 
@@ -21,7 +22,7 @@ class AssetTile extends StatelessWidget {
     return Card(
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppSizes.radiusXL),
         child: Padding(
           padding: const EdgeInsets.all(Spacing.md),
           child: Row(
@@ -101,7 +102,7 @@ class _StatusIndicator extends StatelessWidget {
       height: 40,
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(AppSizes.radiusXS),
       ),
     );
   }

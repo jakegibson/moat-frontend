@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/styles/app_colors.dart';
 import '../../core/styles/app_sizes.dart';
 import '../../core/styles/app_text_styles.dart';
 import 'main_menu_gradient_button.dart';
@@ -18,23 +19,16 @@ class ButtonExplore extends StatelessWidget {
         MainMenuGradientButton(
           onTap: onTap,
           selected: selected,
-          gradient: const LinearGradient(
+          gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            stops: [0.0711, 0.2449, 0.3898, 0.5346, 0.7230, 1.0754],
-            colors: [
-              Color(0xFF06B6D4), // Cyan
-              Color(0xFF22D3EE),
-              Color(0xFF14B8A6), // Teal
-              Color(0xFF2DD4BF),
-              Color(0xFF0891B2),
-              Color(0xFF0E7490),
-            ],
+            stops: const [0.0711, 0.2449, 0.3898, 0.5346, 0.7230, 1.0754],
+            colors: AppColors.gradientExploreColors,
             transform: GradientRotation(300 * (3.141592653589793 / 180)),
           ),
-          icon: const Icon(
+          icon: Icon(
             Icons.explore_outlined,
-            color: Colors.white,
+            color: AppColors.white,
             size: 20,
           ),
         ),

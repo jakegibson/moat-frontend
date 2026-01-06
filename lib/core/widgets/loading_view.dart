@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../styles/app_colors.dart';
 import '../theme/app_theme.dart';
 
 /// Centered loading indicator with optional message
@@ -52,7 +53,7 @@ class LoadingOverlay extends StatelessWidget {
         child,
         if (isLoading)
           Container(
-            color: Colors.black26,
+            color: AppColors.black.withAlpha(66),
             child: LoadingView(message: message),
           ),
       ],

@@ -712,30 +712,6 @@ class AnalyticsClient {
     );
   }
 
-  /// Map CSI division code to human-readable name.
-  /// Returns format like "03 Concrete", "11 Equipment" (2-digit code + name)
-  String _getDivisionName(String code) {
-    if (code.isEmpty) return 'Unknown';
-
-    // Remove spaces to normalize format
-    final normalizedCode = code.replaceAll(' ', '');
-
-    // Get the 2-digit division code
-    final divisionCode = normalizedCode.length >= 2
-        ? normalizedCode.substring(0, 2)
-        : normalizedCode.padLeft(2, '0');
-
-    // Look up the top-level division name
-    final divisionKey = '${divisionCode}0000';
-    final divisionName = DivisionsOfConstruction.divisions[divisionKey];
-
-    if (divisionName != null) {
-      return '$divisionCode $divisionName';
-    }
-
-    return divisionCode;
-  }
-
   num _parseNum(dynamic value) {
     if (value == null) return 0;
     if (value is num) return value;

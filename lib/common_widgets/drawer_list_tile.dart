@@ -4,75 +4,76 @@ import '../core/styles/app_colors.dart';
 import '../core/styles/app_sizes.dart';
 import '../core/styles/app_text_styles.dart';
 
-/// List tile for drawer forms matching v0 design
-/// Shows a title/label on the left and value/content on the right
+/// A list tile widget for drawer/settings sections.
+///
+/// Displays a title with optional leading icon, value, and trailing arrow.
+/// Used in profile drawer, settings screens, etc.
 class DrawerListTile extends StatelessWidget {
   const DrawerListTile({
     super.key,
     required this.title,
+    this.leading,
     this.value,
-    this.valueWidget,
-    this.trailing,
+    this.showTrailingIcon = false,
     this.onTap,
-    this.showChevron = false,
-    this.padding,
+    this.horizontalPadding = AppSizes.spacing2XL,
   });
 
   final String title;
+  final Widget? leading;
   final String? value;
-  final Widget? valueWidget;
-  final Widget? trailing;
+  final bool showTrailingIcon;
   final VoidCallback? onTap;
-  final bool showChevron;
-  final EdgeInsetsGeometry? padding;
+  final double horizontalPadding;
 
   @override
   Widget build(BuildContext context) {
-    final content = Padding(
-      padding: padding ??
-          EdgeInsets.symmetric(
-            horizontal: AppSizes.spacingLG,
-            vertical: AppSizes.spacingMD,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        hoverColor: AppColors.bgSecondary,
+        onTap: onTap,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: horizontalPadding,
+            vertical: AppSizes.spacingLG,
           ),
-      child: Row(
-        children: [
-          // Title/Label
-          Text(
-            title,
-            style: AppTextStyles.textSMTertiary,
+          child: Row(
+            children: [
+              if (leading != null) ...[
+                leading!,
+                SizedBox(width: AppSizes.spacingLG),
+              ],
+              Expanded(
+                child: Text(
+                  title,
+                  style: AppTextStyles.textMD,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              if (value != null) ...[
+                SizedBox(width: AppSizes.spacingLG),
+                Flexible(
+                  child: Text(
+                    value!,
+                    style: AppTextStyles.textMDTertiary,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.end,
+                  ),
+                ),
+              ],
+              if (showTrailingIcon) ...[
+                SizedBox(width: AppSizes.spacingMD),
+                Icon(
+                  Icons.arrow_forward_ios,
+                  size: 16.0,
+                  color: AppColors.textTertiary,
+                ),
+              ],
+            ],
           ),
-          const Spacer(),
-          // Value or custom widget
-          if (valueWidget != null)
-            valueWidget!
-          else if (value != null)
-            Text(
-              value!,
-              style: AppTextStyles.textSM,
-            ),
-          // Trailing widget or chevron
-          if (trailing != null) ...[
-            SizedBox(width: AppSizes.spacingSM),
-            trailing!,
-          ] else if (showChevron) ...[
-            SizedBox(width: AppSizes.spacingSM),
-            Icon(
-              Icons.chevron_right,
-              size: 20,
-              color: AppColors.textTertiary,
-            ),
-          ],
-        ],
+        ),
       ),
     );
-
-    if (onTap != null) {
-      return InkWell(
-        onTap: onTap,
-        child: content,
-      );
-    }
-
-    return content;
   }
 }

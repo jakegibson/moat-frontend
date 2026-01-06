@@ -19,7 +19,7 @@ import '../widgets/ticket_filter_bar.dart';
 import '../widgets/tickets_stat_card.dart';
 import '../widgets/time_in_queue_bar.dart';
 import '../widgets/type_badge.dart';
-import 'create_ticket_drawer.dart';
+import '../widgets/create_ticket_drawer.dart';
 
 class TicketListScreen extends StatefulWidget {
   const TicketListScreen({super.key});
@@ -80,7 +80,7 @@ class _TicketListScreenState extends State<TicketListScreen> {
                 RoundedActionButton(
                   leading: const Icon(
                     Icons.add,
-                    color: Colors.white,
+                    color: AppColors.white,
                     size: 20.0,
                   ),
                   onPressed: _handleCreateTicket,
@@ -89,7 +89,7 @@ class _TicketListScreenState extends State<TicketListScreen> {
                   textStyle: AppTextStyles.textSMSemiboldWhite,
                   mobileOnlyIcon: const Icon(
                     Icons.add,
-                    color: Colors.white,
+                    color: AppColors.white,
                     size: 20.0,
                   ),
                 ),
@@ -171,14 +171,14 @@ class _TicketListScreenState extends State<TicketListScreen> {
                 size: 48,
                 color: AppColors.error,
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: AppSizes.spacingXL),
               Text(
                 'Error loading Tickets',
                 style: AppTextStyles.text2XLSemibold,
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: AppSizes.spacingMD),
               Text(error.message, textAlign: TextAlign.center),
-              const SizedBox(height: 16),
+              SizedBox(height: AppSizes.spacingXL),
               RoundedActionButton(
                 onPressed: () => _listState.fetchTasks(refresh: true),
                 text: 'Retry',
@@ -312,7 +312,7 @@ class _TicketListScreenState extends State<TicketListScreen> {
             ),
             boxShadow: [
               BoxShadow(
-                color: const Color(0x0D0A0D12), // Figma: shadow-xs
+                color: AppColors.shadowXS,
                 blurRadius: 2,
                 offset: const Offset(0, 1),
               ),
@@ -567,7 +567,7 @@ class _TicketListScreenState extends State<TicketListScreen> {
             height: 40,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: isCurrentPage ? AppColors.bgSecondary : Colors.transparent,
+              color: isCurrentPage ? AppColors.bgSecondary : AppColors.transparent,
               borderRadius: BorderRadius.circular(AppSizes.radiusMD),
             ),
             child: Text(
@@ -599,7 +599,7 @@ class _TicketListScreenState extends State<TicketListScreen> {
           style: AppTextStyles.textXSSemibold,
         ),
         if (sortable) ...[
-          const SizedBox(width: 4),
+          SizedBox(width: AppSizes.spacingXS),
           Icon(
             isCurrentSort
                 ? (isAscending ? Icons.arrow_drop_up : Icons.arrow_drop_down)

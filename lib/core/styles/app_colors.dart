@@ -25,10 +25,12 @@ class AppColors {
   static const errorSurface = Color(0xFFFFEBEE);
   static const surfaceVariant = Color(0xFFFFFFFF);
 
-  // Status Colors
-  static const statusNew = Color(0xFF1E88E5);
-  static const statusInProgress = Color(0xFFFFA000);
-  static const statusResolved = Color(0xFF43A047);
+  // Status Colors (updated to match Figma design)
+  static const statusNew = Color(0xFF2563EB); // Figma: Created/Open status
+  static const statusCreated = Color(0xFF2563EB); // Alias for statusNew
+  static const statusInProgress = Color(0xFFF79009); // Figma: In Progress
+  static const statusOnHold = Color(0xFFF59E0B); // Figma: On Hold (amber)
+  static const statusResolved = Color(0xFF17B26A); // Figma: Resolved (green)
   static const statusClosed = Color(0xFF757575);
   static const statusReopened = Color(0xFF8E24AA);
 
@@ -41,6 +43,7 @@ class AppColors {
   // Legacy colors (keeping for backward compatibility)
   static const black = Color(0xFF000000);
   static const white = Color(0xFFFFFFFF);
+  static const transparent = Color(0x00000000);
   static const grayLight = Color(0xFFE0E0E0);
   static const graySolid = Color(0xFF9E9E9E);
   static const grayHighlightBg = Color(0xFFF5F5F5);
@@ -128,4 +131,97 @@ class AppColors {
   static const utilityPurple200 = Color(0xFFD9D6FE);
   static const utilityPurple50 = Color(0xFFF4F3FF);
   static const utilityGray500 = Color(0xFF9B9997);
+
+  // Accent Colors (Figma design system)
+  static const accentBlue = Color(0xFF2563EB); // Primary accent blue
+  static const accentBlueBg = Color(0xFFDBEAFE); // Accent blue background
+  static const accentBlueLight = Color(0xFFEFF6FF); // Light blue background
+  static const accentBlueDark = Color(0xFF1D4ED8); // Darker accent blue
+
+  // Badge Colors (Figma)
+  static const badgeServiceRequest = Color(0xFFF97066);
+  static const badgeServiceRequestBg = Color(0xFFFEF3F2);
+  static const badgeMaintenance = Color(0xFF17B26A);
+  static const badgeMaintenanceBg = Color(0xFFECFDF3);
+
+  // Additional Status/Badge Colors
+  static const utilityGreenLight50 = Color(0xFFF0FDF4); // Light green bg variant
+  static const utilityAmber50 = Color(0xFFFEF3C7); // Amber/yellow bg (pending)
+  static const utilityAmber800 = Color(0xFF92400E); // Amber/yellow text (pending)
+  static const utilityErrorLight50 = Color(0xFFFEE2E2); // Light error bg (critical)
+
+  // Shadow Colors
+  static const shadowXS = Color(0x0D0A0D12); // 5% opacity - Figma shadow-xs
+  static const shadowSM = Color(0x1A0A0D12); // 10% opacity
+  static const shadowMD = Color(0x260A0D12); // 15% opacity
+
+  // AI/Accent Purple (for AI features)
+  static const accentPurple = Color(0xFF7C3AED);
+  static const accentPurpleBg = Color(0xFFF5F3FF);
+  static const accentPurpleBorder = Color(0xFFDDD6FE);
+
+  // Explore Feature (Cyan/Teal)
+  static const exploreCyan = Color(0xFF06B6D4);
+  static const exploreTeal = Color(0xFF14B8A6);
+
+  // Avatar
+  static const avatarBorder = Color(0xFFE3E1DF);
+
+  // Celebration/Confetti Colors
+  static const confettiColors = [
+    Color(0xFFFF6B6B), // Coral red
+    Color(0xFF4ECDC4), // Teal
+    Color(0xFFFFE66D), // Yellow
+    Color(0xFF95E1D3), // Mint
+    Color(0xFFF38181), // Salmon
+    Color(0xFFAA96DA), // Lavender
+    Color(0xFFFCBF49), // Gold
+    Color(0xFF2EC4B6), // Turquoise
+  ];
+
+  // Navigation Button Gradient Colors
+  static const gradientTicketsColors = [
+    Color(0xFFD16B59), // Coral
+    Color(0xFFE88C79),
+    Color(0xFFE29887),
+    Color(0xFFD28D73),
+    Color(0xFF976529), // Rust
+    Color(0xFFA23E27),
+  ];
+
+  static const gradientReportsColors = [
+    Color(0xFF6366F1), // Indigo
+    Color(0xFF818CF8),
+    Color(0xFF8B5CF6),
+    Color(0xFFA78BFA),
+    Color(0xFF7C3AED), // Purple
+    Color(0xFF5B21B6),
+  ];
+
+  static const gradientReports2Colors = [
+    Color(0xFF10B981), // Emerald
+    Color(0xFF34D399),
+    Color(0xFF6EE7B7),
+    Color(0xFF34D399),
+    Color(0xFF059669), // Green
+    Color(0xFF047857),
+  ];
+
+  static const gradientExploreColors = [
+    Color(0xFF06B6D4), // Cyan
+    Color(0xFF22D3EE),
+    Color(0xFF14B8A6),
+    Color(0xFF2DD4BF),
+    Color(0xFF0891B2), // Teal
+    Color(0xFF0E7490),
+  ];
+
+  static const gradientAssetsColors = [
+    Color(0xFFC37B4C), // Tan
+    Color(0xFFA4B3B3),
+    Color(0xFF9FBCC3),
+    Color(0xFF8DAFBB),
+    Color(0xFF317293), // Blue
+    Color(0xFF004263),
+  ];
 }

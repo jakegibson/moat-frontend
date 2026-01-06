@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../core/styles/app_colors.dart';
+import '../core/styles/app_sizes.dart';
 import '../core/styles/app_text_styles.dart';
 
 /// Status label/badge component matching v0 design
@@ -31,7 +32,7 @@ class StatusLabel extends StatelessWidget {
     } else if (typeLower.contains('inspection')) {
       return StatusLabel(
         label: 'Inspection',
-        backgroundColor: const Color(0xFFF0FDF4),
+        backgroundColor: AppColors.utilityGreenLight50,
         textColor: AppColors.utilityGreen700,
       );
     } else if (typeLower.contains('repair')) {
@@ -68,7 +69,7 @@ class StatusLabel extends StatelessWidget {
     } else if (statusLower.contains('resolved') || statusLower.contains('done')) {
       return StatusLabel(
         label: 'Resolved',
-        backgroundColor: const Color(0xFFF0FDF4),
+        backgroundColor: AppColors.utilityGreenLight50,
         textColor: AppColors.utilityGreen700,
       );
     } else if (statusLower.contains('closed')) {
@@ -80,8 +81,8 @@ class StatusLabel extends StatelessWidget {
     } else if (statusLower.contains('pending') || statusLower.contains('blocked')) {
       return StatusLabel(
         label: 'Pending',
-        backgroundColor: const Color(0xFFFEF3C7),
-        textColor: const Color(0xFF92400E),
+        backgroundColor: AppColors.utilityAmber50,
+        textColor: AppColors.utilityAmber800,
       );
     } else {
       return StatusLabel(
@@ -99,7 +100,7 @@ class StatusLabel extends StatelessWidget {
     if (priorityLower.contains('critical') || priorityLower.contains('urgent')) {
       return StatusLabel(
         label: 'Critical',
-        backgroundColor: const Color(0xFFFEE2E2),
+        backgroundColor: AppColors.utilityErrorLight50,
         textColor: AppColors.utilityError700,
       );
     } else if (priorityLower.contains('high')) {
@@ -111,13 +112,13 @@ class StatusLabel extends StatelessWidget {
     } else if (priorityLower.contains('medium')) {
       return StatusLabel(
         label: 'Medium',
-        backgroundColor: const Color(0xFFFEF3C7),
-        textColor: const Color(0xFF92400E),
+        backgroundColor: AppColors.utilityAmber50,
+        textColor: AppColors.utilityAmber800,
       );
     } else if (priorityLower.contains('low')) {
       return StatusLabel(
         label: 'Low',
-        backgroundColor: const Color(0xFFF0FDF4),
+        backgroundColor: AppColors.utilityGreenLight50,
         textColor: AppColors.utilityGreen700,
       );
     } else {
@@ -132,10 +133,10 @@ class StatusLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: padding ?? const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: padding ?? const EdgeInsets.symmetric(horizontal: AppSizes.spacingMD, vertical: AppSizes.spacingXS),
       decoration: BoxDecoration(
         color: backgroundColor,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppSizes.radiusXL),
       ),
       child: Text(
         label,

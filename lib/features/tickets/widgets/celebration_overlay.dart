@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
+import '../../../core/styles/app_colors.dart';
+
 /// A celebratory confetti animation overlay.
 ///
 /// Use this to celebrate task completion or other achievements.
@@ -106,20 +108,9 @@ class _ConfettiPiece {
         startY = -0.1,
         velocityX = (random.nextDouble() - 0.5) * 0.3,
         velocityY = 0.5 + random.nextDouble() * 0.5,
-        color = _confettiColors[random.nextInt(_confettiColors.length)],
+        color = AppColors.confettiColors[random.nextInt(AppColors.confettiColors.length)],
         size = 6 + random.nextDouble() * 6,
         rotationSpeed = (random.nextDouble() - 0.5) * 10;
-
-  static const _confettiColors = [
-    Color(0xFFFF6B6B),
-    Color(0xFF4ECDC4),
-    Color(0xFFFFE66D),
-    Color(0xFF95E1D3),
-    Color(0xFFF38181),
-    Color(0xFFAA96DA),
-    Color(0xFFFCBF49),
-    Color(0xFF2EC4B6),
-  ];
 }
 
 class _ConfettiPainter extends CustomPainter {

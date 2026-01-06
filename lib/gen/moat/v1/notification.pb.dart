@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: moat/v1/notification.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -14,8 +14,10 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import '../../google/protobuf/struct.pb.dart' as $3;
+import '../../google/protobuf/struct.pb.dart' as $1;
 import '../../google/protobuf/timestamp.pb.dart' as $0;
+
+export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
 class Notification extends $pb.GeneratedMessage {
   factory Notification({
@@ -26,7 +28,7 @@ class Notification extends $pb.GeneratedMessage {
     $core.String? entityType,
     $core.String? taskId,
     $core.String? assetId,
-    $3.Struct? data,
+    $1.Struct? data,
     $0.Timestamp? readAt,
     $0.Timestamp? createdAt,
   }) {
@@ -75,7 +77,7 @@ class Notification extends $pb.GeneratedMessage {
     ..aOS(5, _omitFieldNames ? '' : 'entityType')
     ..aOS(6, _omitFieldNames ? '' : 'taskId')
     ..aOS(7, _omitFieldNames ? '' : 'assetId')
-    ..aOM<$3.Struct>(8, _omitFieldNames ? '' : 'data', subBuilder: $3.Struct.create)
+    ..aOM<$1.Struct>(8, _omitFieldNames ? '' : 'data', subBuilder: $1.Struct.create)
     ..aOM<$0.Timestamp>(9, _omitFieldNames ? '' : 'readAt', subBuilder: $0.Timestamp.create)
     ..aOM<$0.Timestamp>(10, _omitFieldNames ? '' : 'createdAt', subBuilder: $0.Timestamp.create)
     ..hasRequiredFields = false
@@ -109,7 +111,7 @@ class Notification extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get notificationType => $_getSZ(1);
@@ -118,7 +120,7 @@ class Notification extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasNotificationType() => $_has(1);
   @$pb.TagNumber(2)
-  void clearNotificationType() => clearField(2);
+  void clearNotificationType() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get title => $_getSZ(2);
@@ -127,7 +129,7 @@ class Notification extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasTitle() => $_has(2);
   @$pb.TagNumber(3)
-  void clearTitle() => clearField(3);
+  void clearTitle() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.String get message => $_getSZ(3);
@@ -136,7 +138,7 @@ class Notification extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasMessage() => $_has(3);
   @$pb.TagNumber(4)
-  void clearMessage() => clearField(4);
+  void clearMessage() => $_clearField(4);
 
   @$pb.TagNumber(5)
   $core.String get entityType => $_getSZ(4);
@@ -145,7 +147,7 @@ class Notification extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.bool hasEntityType() => $_has(4);
   @$pb.TagNumber(5)
-  void clearEntityType() => clearField(5);
+  void clearEntityType() => $_clearField(5);
 
   @$pb.TagNumber(6)
   $core.String get taskId => $_getSZ(5);
@@ -154,7 +156,7 @@ class Notification extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   $core.bool hasTaskId() => $_has(5);
   @$pb.TagNumber(6)
-  void clearTaskId() => clearField(6);
+  void clearTaskId() => $_clearField(6);
 
   @$pb.TagNumber(7)
   $core.String get assetId => $_getSZ(6);
@@ -163,38 +165,38 @@ class Notification extends $pb.GeneratedMessage {
   @$pb.TagNumber(7)
   $core.bool hasAssetId() => $_has(6);
   @$pb.TagNumber(7)
-  void clearAssetId() => clearField(7);
+  void clearAssetId() => $_clearField(7);
 
   @$pb.TagNumber(8)
-  $3.Struct get data => $_getN(7);
+  $1.Struct get data => $_getN(7);
   @$pb.TagNumber(8)
-  set data($3.Struct v) { setField(8, v); }
+  set data($1.Struct v) { $_setField(8, v); }
   @$pb.TagNumber(8)
   $core.bool hasData() => $_has(7);
   @$pb.TagNumber(8)
-  void clearData() => clearField(8);
+  void clearData() => $_clearField(8);
   @$pb.TagNumber(8)
-  $3.Struct ensureData() => $_ensure(7);
+  $1.Struct ensureData() => $_ensure(7);
 
   @$pb.TagNumber(9)
   $0.Timestamp get readAt => $_getN(8);
   @$pb.TagNumber(9)
-  set readAt($0.Timestamp v) { setField(9, v); }
+  set readAt($0.Timestamp v) { $_setField(9, v); }
   @$pb.TagNumber(9)
   $core.bool hasReadAt() => $_has(8);
   @$pb.TagNumber(9)
-  void clearReadAt() => clearField(9);
+  void clearReadAt() => $_clearField(9);
   @$pb.TagNumber(9)
   $0.Timestamp ensureReadAt() => $_ensure(8);
 
   @$pb.TagNumber(10)
   $0.Timestamp get createdAt => $_getN(9);
   @$pb.TagNumber(10)
-  set createdAt($0.Timestamp v) { setField(10, v); }
+  set createdAt($0.Timestamp v) { $_setField(10, v); }
   @$pb.TagNumber(10)
   $core.bool hasCreatedAt() => $_has(9);
   @$pb.TagNumber(10)
-  void clearCreatedAt() => clearField(10);
+  void clearCreatedAt() => $_clearField(10);
   @$pb.TagNumber(10)
   $0.Timestamp ensureCreatedAt() => $_ensure(9);
 }
@@ -256,7 +258,7 @@ class GetNotificationsRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasUnreadOnly() => $_has(0);
   @$pb.TagNumber(1)
-  void clearUnreadOnly() => clearField(1);
+  void clearUnreadOnly() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.int get limit => $_getIZ(1);
@@ -265,7 +267,7 @@ class GetNotificationsRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasLimit() => $_has(1);
   @$pb.TagNumber(2)
-  void clearLimit() => clearField(2);
+  void clearLimit() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.int get offset => $_getIZ(2);
@@ -274,7 +276,7 @@ class GetNotificationsRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasOffset() => $_has(2);
   @$pb.TagNumber(3)
-  void clearOffset() => clearField(3);
+  void clearOffset() => $_clearField(3);
 }
 
 class GetNotificationsResponse extends $pb.GeneratedMessage {
@@ -338,7 +340,7 @@ class GetNotificationsResponse extends $pb.GeneratedMessage {
   static GetNotificationsResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<Notification> get notifications => $_getList(0);
+  $pb.PbList<Notification> get notifications => $_getList(0);
 
   @$pb.TagNumber(2)
   $core.int get totalCount => $_getIZ(1);
@@ -347,7 +349,7 @@ class GetNotificationsResponse extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasTotalCount() => $_has(1);
   @$pb.TagNumber(2)
-  void clearTotalCount() => clearField(2);
+  void clearTotalCount() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.int get unreadCount => $_getIZ(2);
@@ -356,7 +358,7 @@ class GetNotificationsResponse extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasUnreadCount() => $_has(2);
   @$pb.TagNumber(3)
-  void clearUnreadCount() => clearField(3);
+  void clearUnreadCount() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.int get limit => $_getIZ(3);
@@ -365,7 +367,7 @@ class GetNotificationsResponse extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasLimit() => $_has(3);
   @$pb.TagNumber(4)
-  void clearLimit() => clearField(4);
+  void clearLimit() => $_clearField(4);
 
   @$pb.TagNumber(5)
   $core.int get offset => $_getIZ(4);
@@ -374,7 +376,7 @@ class GetNotificationsResponse extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.bool hasOffset() => $_has(4);
   @$pb.TagNumber(5)
-  void clearOffset() => clearField(5);
+  void clearOffset() => $_clearField(5);
 }
 
 class GetUnreadCountRequest extends $pb.GeneratedMessage {
@@ -456,7 +458,7 @@ class GetUnreadCountResponse extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasUnreadCount() => $_has(0);
   @$pb.TagNumber(1)
-  void clearUnreadCount() => clearField(1);
+  void clearUnreadCount() => $_clearField(1);
 }
 
 class MarkAsReadRequest extends $pb.GeneratedMessage {
@@ -506,7 +508,7 @@ class MarkAsReadRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasNotificationId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearNotificationId() => clearField(1);
+  void clearNotificationId() => $_clearField(1);
 }
 
 class MarkAsReadResponse extends $pb.GeneratedMessage {
@@ -620,7 +622,7 @@ class MarkAllAsReadResponse extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasMarkedReadCount() => $_has(0);
   @$pb.TagNumber(1)
-  void clearMarkedReadCount() => clearField(1);
+  void clearMarkedReadCount() => $_clearField(1);
 }
 
 class DeleteNotificationRequest extends $pb.GeneratedMessage {
@@ -670,7 +672,7 @@ class DeleteNotificationRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasNotificationId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearNotificationId() => clearField(1);
+  void clearNotificationId() => $_clearField(1);
 }
 
 class DeleteNotificationResponse extends $pb.GeneratedMessage {
@@ -782,7 +784,7 @@ class NotificationPreference extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get notificationType => $_getSZ(1);
@@ -791,7 +793,7 @@ class NotificationPreference extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasNotificationType() => $_has(1);
   @$pb.TagNumber(2)
-  void clearNotificationType() => clearField(2);
+  void clearNotificationType() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.bool get inAppEnabled => $_getBF(2);
@@ -800,7 +802,7 @@ class NotificationPreference extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasInAppEnabled() => $_has(2);
   @$pb.TagNumber(3)
-  void clearInAppEnabled() => clearField(3);
+  void clearInAppEnabled() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.bool get emailEnabled => $_getBF(3);
@@ -809,7 +811,7 @@ class NotificationPreference extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasEmailEnabled() => $_has(3);
   @$pb.TagNumber(4)
-  void clearEmailEnabled() => clearField(4);
+  void clearEmailEnabled() => $_clearField(4);
 
   @$pb.TagNumber(5)
   $core.bool get pushEnabled => $_getBF(4);
@@ -818,27 +820,27 @@ class NotificationPreference extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.bool hasPushEnabled() => $_has(4);
   @$pb.TagNumber(5)
-  void clearPushEnabled() => clearField(5);
+  void clearPushEnabled() => $_clearField(5);
 
   @$pb.TagNumber(6)
   $0.Timestamp get createdAt => $_getN(5);
   @$pb.TagNumber(6)
-  set createdAt($0.Timestamp v) { setField(6, v); }
+  set createdAt($0.Timestamp v) { $_setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasCreatedAt() => $_has(5);
   @$pb.TagNumber(6)
-  void clearCreatedAt() => clearField(6);
+  void clearCreatedAt() => $_clearField(6);
   @$pb.TagNumber(6)
   $0.Timestamp ensureCreatedAt() => $_ensure(5);
 
   @$pb.TagNumber(7)
   $0.Timestamp get updatedAt => $_getN(6);
   @$pb.TagNumber(7)
-  set updatedAt($0.Timestamp v) { setField(7, v); }
+  set updatedAt($0.Timestamp v) { $_setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasUpdatedAt() => $_has(6);
   @$pb.TagNumber(7)
-  void clearUpdatedAt() => clearField(7);
+  void clearUpdatedAt() => $_clearField(7);
   @$pb.TagNumber(7)
   $0.Timestamp ensureUpdatedAt() => $_ensure(6);
 }
@@ -916,7 +918,7 @@ class GetNotificationPreferencesResponse extends $pb.GeneratedMessage {
   static GetNotificationPreferencesResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<NotificationPreference> get preferences => $_getList(0);
+  $pb.PbList<NotificationPreference> get preferences => $_getList(0);
 }
 
 class NotificationPreferenceUpdate extends $pb.GeneratedMessage {
@@ -981,7 +983,7 @@ class NotificationPreferenceUpdate extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasNotificationType() => $_has(0);
   @$pb.TagNumber(1)
-  void clearNotificationType() => clearField(1);
+  void clearNotificationType() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.bool get inAppEnabled => $_getBF(1);
@@ -990,7 +992,7 @@ class NotificationPreferenceUpdate extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasInAppEnabled() => $_has(1);
   @$pb.TagNumber(2)
-  void clearInAppEnabled() => clearField(2);
+  void clearInAppEnabled() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.bool get emailEnabled => $_getBF(2);
@@ -999,7 +1001,7 @@ class NotificationPreferenceUpdate extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasEmailEnabled() => $_has(2);
   @$pb.TagNumber(3)
-  void clearEmailEnabled() => clearField(3);
+  void clearEmailEnabled() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.bool get pushEnabled => $_getBF(3);
@@ -1008,7 +1010,7 @@ class NotificationPreferenceUpdate extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasPushEnabled() => $_has(3);
   @$pb.TagNumber(4)
-  void clearPushEnabled() => clearField(4);
+  void clearPushEnabled() => $_clearField(4);
 }
 
 class UpdateNotificationPreferencesRequest extends $pb.GeneratedMessage {
@@ -1052,7 +1054,7 @@ class UpdateNotificationPreferencesRequest extends $pb.GeneratedMessage {
   static UpdateNotificationPreferencesRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<NotificationPreferenceUpdate> get preferences => $_getList(0);
+  $pb.PbList<NotificationPreferenceUpdate> get preferences => $_getList(0);
 }
 
 class UpdateNotificationPreferencesResponse extends $pb.GeneratedMessage {
@@ -1087,28 +1089,36 @@ class UpdateNotificationPreferencesResponse extends $pb.GeneratedMessage {
   static UpdateNotificationPreferencesResponse? _defaultInstance;
 }
 
+/// NotificationService handles user notifications.
 class NotificationServiceApi {
   $pb.RpcClient _client;
   NotificationServiceApi(this._client);
 
+  /// GetNotifications returns paginated list of notifications for the current user.
   $async.Future<GetNotificationsResponse> getNotifications($pb.ClientContext? ctx, GetNotificationsRequest request) =>
     _client.invoke<GetNotificationsResponse>(ctx, 'NotificationService', 'GetNotifications', request, GetNotificationsResponse())
   ;
+  /// GetUnreadCount returns the count of unread notifications (for badge display).
   $async.Future<GetUnreadCountResponse> getUnreadCount($pb.ClientContext? ctx, GetUnreadCountRequest request) =>
     _client.invoke<GetUnreadCountResponse>(ctx, 'NotificationService', 'GetUnreadCount', request, GetUnreadCountResponse())
   ;
+  /// MarkAsRead marks a notification as read.
   $async.Future<MarkAsReadResponse> markAsRead($pb.ClientContext? ctx, MarkAsReadRequest request) =>
     _client.invoke<MarkAsReadResponse>(ctx, 'NotificationService', 'MarkAsRead', request, MarkAsReadResponse())
   ;
+  /// MarkAllAsRead marks all notifications as read for the current user.
   $async.Future<MarkAllAsReadResponse> markAllAsRead($pb.ClientContext? ctx, MarkAllAsReadRequest request) =>
     _client.invoke<MarkAllAsReadResponse>(ctx, 'NotificationService', 'MarkAllAsRead', request, MarkAllAsReadResponse())
   ;
+  /// DeleteNotification deletes a notification.
   $async.Future<DeleteNotificationResponse> deleteNotification($pb.ClientContext? ctx, DeleteNotificationRequest request) =>
     _client.invoke<DeleteNotificationResponse>(ctx, 'NotificationService', 'DeleteNotification', request, DeleteNotificationResponse())
   ;
+  /// GetNotificationPreferences returns the user's notification preferences.
   $async.Future<GetNotificationPreferencesResponse> getNotificationPreferences($pb.ClientContext? ctx, GetNotificationPreferencesRequest request) =>
     _client.invoke<GetNotificationPreferencesResponse>(ctx, 'NotificationService', 'GetNotificationPreferences', request, GetNotificationPreferencesResponse())
   ;
+  /// UpdateNotificationPreferences updates the user's notification preferences.
   $async.Future<UpdateNotificationPreferencesResponse> updateNotificationPreferences($pb.ClientContext? ctx, UpdateNotificationPreferencesRequest request) =>
     _client.invoke<UpdateNotificationPreferencesResponse>(ctx, 'NotificationService', 'UpdateNotificationPreferences', request, UpdateNotificationPreferencesResponse())
   ;

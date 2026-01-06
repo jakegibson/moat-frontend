@@ -56,7 +56,7 @@ class _ReportsDashboardV2ScreenState extends State<ReportsDashboardV2Screen> {
                 const SizedBox(height: AppSizes.spacingMD),
                 Text('Failed to load analytics', style: AppTextStyles.textMD),
                 const SizedBox(height: AppSizes.spacingSM),
-                Text(error, style: AppTextStyles.textSMSecondary),
+                Text(error.message, style: AppTextStyles.textSMSecondary),
                 const SizedBox(height: AppSizes.spacingXL),
                 ElevatedButton(
                   onPressed: _state.refresh,

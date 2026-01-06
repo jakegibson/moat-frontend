@@ -16,7 +16,7 @@ class ButtonSettings extends StatelessWidget {
       onTap: onTap,
       selected: selected,
       gradient: LinearGradient(
-        colors: selected ? [AppColors.bgSecondary] : [Colors.transparent],
+        colors: selected ? [AppColors.bgSecondary] : [AppColors.transparent],
         stops: const [0.0],
       ),
       icon: SvgPicture.asset('assets/icons/icon-settings-gear.svg'),

@@ -118,10 +118,10 @@ class _TicketFilterBarState extends State<TicketFilterBar> {
                       borderRadius: BorderRadius.circular(AppSizes.radiusMD),
                     ),
                     backgroundColor:
-                        isSelected ? Colors.white : Colors.transparent,
+                        isSelected ? AppColors.white : AppColors.transparent,
                     shadowColor: isSelected
-                        ? Colors.black.withValues(alpha: 0.1)
-                        : Colors.transparent,
+                        ? AppColors.black.withValues(alpha: 0.1)
+                        : AppColors.transparent,
                   ),
                   onPressed: () {
                     _state.setQuickFilter(_indexToQuickFilter(index));

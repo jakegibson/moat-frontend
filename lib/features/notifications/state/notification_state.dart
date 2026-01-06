@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:signals/signals.dart';
 
+import '../../../core/utils/app_error.dart';
 import '../data/notification_client.dart';
 
 /// State management for notifications using Signals
@@ -14,7 +15,7 @@ class NotificationState {
   final notifications = signal<List<AppNotification>>([]);
   final unreadCount = signal<int>(0);
   final isLoading = signal<bool>(false);
-  final error = signal<String?>(null);
+  final error = signal<AppError?>(null);
 
   /// Fetch notifications from the API
   Future<void> fetchNotifications({bool? unreadOnly}) async {
@@ -25,7 +26,7 @@ class NotificationState {
       final items = await _client.getNotifications(unreadOnly: unreadOnly);
       notifications.value = items;
     } catch (e) {
-      error.value = e.toString();
+      error.value = AppError.from(e);
     } finally {
       isLoading.value = false;
     }
@@ -91,7 +92,7 @@ class NotificationState {
       }).toList();
       unreadCount.value = 0;
     } catch (e) {
-      error.value = e.toString();
+      error.value = AppError.from(e);
     }
   }
 
@@ -103,7 +104,7 @@ class NotificationState {
           notifications.value.where((n) => n.id != notificationId).toList();
       unreadCount.value = notifications.value.where((n) => n.isUnread).length;
     } catch (e) {
-      error.value = e.toString();
+      error.value = AppError.from(e);
     }
   }
 }

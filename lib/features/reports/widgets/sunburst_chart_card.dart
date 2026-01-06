@@ -284,7 +284,7 @@ class SunburstPainter extends CustomPainter {
     if (total == 0) return;
 
     final strokePaint = Paint()
-      ..color = Colors.white
+      ..color = AppColors.white
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2;
 
@@ -307,7 +307,7 @@ class SunburstPainter extends CustomPainter {
         final secCode = secEntry.key;
         final secNode = secEntry.value;
         final secSweep = (secNode.total / total) * 2 * math.pi;
-        final secColor = Color.lerp(divColor, Colors.white, 0.25)!;
+        final secColor = Color.lerp(divColor, AppColors.white, 0.25)!;
 
         _drawArc(canvas, center, middleStart, middleEnd,
                  sectionStartAngle, secSweep, secColor, strokePaint);
@@ -317,7 +317,7 @@ class SunburstPainter extends CustomPainter {
         for (final subEntry in secNode.subsections.entries) {
           final subValue = subEntry.value;
           final subSweep = (subValue / total) * 2 * math.pi;
-          final subColor = Color.lerp(divColor, Colors.white, 0.45)!;
+          final subColor = Color.lerp(divColor, AppColors.white, 0.45)!;
 
           _drawArc(canvas, center, outerStart, outerEnd,
                    subStartAngle, subSweep, subColor, strokePaint);

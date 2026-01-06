@@ -194,7 +194,7 @@ class AssetsPagination extends StatelessWidget {
         style: TextButton.styleFrom(
           padding: EdgeInsets.zero,
           backgroundColor:
-              isCurrentPage ? AppColors.bgSecondary : Colors.transparent,
+              isCurrentPage ? AppColors.bgSecondary : AppColors.transparent,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppSizes.radiusSM),
           ),

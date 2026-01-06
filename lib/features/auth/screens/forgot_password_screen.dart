@@ -17,7 +17,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _authState = getIt<AuthState>();
-  bool _emailSent = false;
+  final _emailSent = signal(false);
 
   @override
   void dispose() {
@@ -33,9 +33,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     );
 
     if (success && mounted) {
-      setState(() {
-        _emailSent = true;
-      });
+      _emailSent.value = true;
     }
   }
 
@@ -50,7 +48,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             constraints: const BoxConstraints(maxWidth: 400),
             child: Padding(
               padding: const EdgeInsets.all(Spacing.lg),
-              child: _emailSent ? _buildSuccessContent(theme) : _buildFormContent(theme),
+              child: Watch((context) =>
+                  _emailSent.value ? _buildSuccessContent(theme) : _buildFormContent(theme)),
             ),
           ),
         ),
@@ -113,7 +112,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     const SizedBox(width: Spacing.sm),
                     Expanded(
                       child: Text(
-                        error,
+                        error.message,
                         style: TextStyle(
                           color: theme.colorScheme.onErrorContainer,
                         ),
@@ -238,11 +237,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         // Resend link
         Center(
           child: TextButton(
-            onPressed: () {
-              setState(() {
-                _emailSent = false;
-              });
-            },
+            onPressed: () => _emailSent.value = false,
             child: const Text('Try a different email'),
           ),
         ),

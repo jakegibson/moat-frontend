@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:signals/signals_flutter.dart';
 
+import '../../../common_widgets/drawer_shell.dart';
 import '../../../core/di/injection.dart';
+import '../../../core/styles/app_colors.dart';
+import '../../../core/styles/app_sizes.dart';
+import '../../../core/styles/app_text_styles.dart';
 import '../../tickets/data/task_client.dart';
 import '../data/notification_client.dart';
 import '../state/notification_state.dart';
@@ -29,119 +33,54 @@ class _NotificationDrawerState extends State<NotificationDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return DrawerShell(
+      title: 'Notifications',
       width: 400,
-      height: double.infinity,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(16),
-          bottomLeft: Radius.circular(16),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.1),
-            blurRadius: 20,
-            offset: const Offset(-4, 0),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Header
-          _buildHeader(context),
+      scrollableBody: false,
+      bodyPadding: EdgeInsets.zero,
+      body: Watch((context) {
+        final isLoading = _state.isLoading.value;
+        final error = _state.error.value;
+        final notifications = _state.notifications.value;
 
-          // Content
-          Expanded(
-            child: Watch((context) {
-              final isLoading = _state.isLoading.value;
-              final error = _state.error.value;
-              final notifications = _state.notifications.value;
+        if (isLoading && notifications.isEmpty) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
-              if (isLoading && notifications.isEmpty) {
-                return const Center(child: CircularProgressIndicator());
-              }
+        if (error != null && notifications.isEmpty) {
+          return _buildErrorState(context, error.message);
+        }
 
-              if (error != null && notifications.isEmpty) {
-                return _buildErrorState(context, error);
-              }
+        if (notifications.isEmpty) {
+          return _buildEmptyState(context);
+        }
 
-              if (notifications.isEmpty) {
-                return _buildEmptyState(context);
-              }
-
-              return _buildNotificationList(context, notifications);
-            }),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Close button
-          Container(
-            width: 36,
-            height: 36,
-            decoration: const BoxDecoration(
-              color: Color(0xFFF3F4F6), // Light gray background
-              shape: BoxShape.circle,
-            ),
-            child: IconButton(
-              icon: const Icon(Icons.close, size: 18, color: Color(0xFF374151)),
-              onPressed: () => Navigator.of(context).pop(),
-              padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(),
-            ),
-          ),
-          const SizedBox(height: 20),
-          // Title
-          Text(
-            'Notifications',
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xFF111827), // Dark text
-                ),
-          ),
-        ],
-      ),
+        return _buildNotificationList(context, notifications);
+      }),
     );
   }
 
   Widget _buildEmptyState(BuildContext context) {
-    return const Center(
+    return Center(
       child: Padding(
-        padding: EdgeInsets.all(24),
+        padding: EdgeInsets.all(AppSizes.spacing3XL),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               Icons.notifications_none,
               size: 64,
-              color: Color(0xFF9CA3AF),
+              color: AppColors.textTertiary,
             ),
-            SizedBox(height: 16),
+            SizedBox(height: AppSizes.spacingXL),
             Text(
               'No notifications',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: Color(0xFF111827),
-              ),
+              style: AppTextStyles.textMDSemiBold,
             ),
-            SizedBox(height: 8),
+            SizedBox(height: AppSizes.spacingMD),
             Text(
               "You're all caught up!",
-              style: TextStyle(
-                fontSize: 14,
-                color: Color(0xFF6B7280),
-              ),
+              style: AppTextStyles.textSMSecondary,
               textAlign: TextAlign.center,
             ),
           ],
@@ -153,34 +92,27 @@ class _NotificationDrawerState extends State<NotificationDrawer> {
   Widget _buildErrorState(BuildContext context, String error) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: EdgeInsets.all(AppSizes.spacing3XL),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
+            Icon(
               Icons.error_outline,
               size: 64,
-              color: Color(0xFFEF4444), // Red
+              color: AppColors.utilityError500,
             ),
-            const SizedBox(height: 16),
-            const Text(
+            SizedBox(height: AppSizes.spacingXL),
+            Text(
               'Failed to load notifications',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: Color(0xFF111827),
-              ),
+              style: AppTextStyles.textMDSemiBold,
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: AppSizes.spacingMD),
             Text(
               error,
-              style: const TextStyle(
-                fontSize: 13,
-                color: Color(0xFF6B7280),
-              ),
+              style: AppTextStyles.textXSSecondary,
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: AppSizes.spacingXL),
             FilledButton(
               onPressed: () => _state.fetchNotifications(),
               child: const Text('Retry'),
@@ -279,17 +211,20 @@ class _NotificationItem extends StatelessWidget {
       onDismissed: (_) => onDismiss(),
       background: Container(
         alignment: Alignment.centerRight,
-        padding: const EdgeInsets.only(right: 16),
-        color: const Color(0xFFEF4444), // Red
-        child: const Icon(
+        padding: EdgeInsets.only(right: AppSizes.spacingXL),
+        color: AppColors.utilityError500,
+        child: Icon(
           Icons.delete_outline,
-          color: Colors.white,
+          color: AppColors.white,
         ),
       ),
       child: InkWell(
         onTap: onTap,
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          padding: EdgeInsets.symmetric(
+            horizontal: AppSizes.spacing2XL,
+            vertical: AppSizes.spacingXL,
+          ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -298,14 +233,17 @@ class _NotificationItem extends StatelessWidget {
                 Container(
                   width: 8,
                   height: 8,
-                  margin: const EdgeInsets.only(top: 6, right: 12),
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF3B82F6), // Blue color from design
+                  margin: EdgeInsets.only(
+                    top: AppSizes.spacingSM,
+                    right: AppSizes.spacingLG,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary,
                     shape: BoxShape.circle,
                   ),
                 )
               else
-                const SizedBox(width: 20), // Space for alignment when read
+                SizedBox(width: AppSizes.spacing2XL), // Space for alignment when read
 
               // Content
               Expanded(
@@ -319,46 +257,33 @@ class _NotificationItem extends StatelessWidget {
                         Expanded(
                           child: Text(
                             notification.title,
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: notification.isUnread
-                                  ? FontWeight.w600
-                                  : FontWeight.w500,
-                              color: const Color(0xFF111827), // Dark text
-                            ),
+                            style: notification.isUnread
+                                ? AppTextStyles.textSMSemibold
+                                : AppTextStyles.textSMMedium,
                           ),
                         ),
-                        const SizedBox(width: 8),
+                        SizedBox(width: AppSizes.spacingMD),
                         Text(
                           _formatRelativeTime(notification.createdAt),
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: Color(0xFF6B7280), // Gray text
-                          ),
+                          style: AppTextStyles.textXSSecondary,
                         ),
                       ],
                     ),
-                    const SizedBox(height: 2),
+                    SizedBox(height: AppSizes.spacingXXS),
                     // Subtitle (location info if available)
                     if (notification.subtitle != null &&
                         notification.subtitle!.isNotEmpty)
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 2),
+                        padding: EdgeInsets.only(bottom: AppSizes.spacingXXS),
                         child: Text(
                           notification.subtitle!,
-                          style: const TextStyle(
-                            fontSize: 13,
-                            color: Color(0xFF6B7280), // Gray text
-                          ),
+                          style: AppTextStyles.textXSSecondary,
                         ),
                       ),
                     // Message/activity description
                     Text(
                       notification.message,
-                      style: const TextStyle(
-                        fontSize: 13,
-                        color: Color(0xFF6B7280), // Gray text
-                      ),
+                      style: AppTextStyles.textXSSecondary,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),

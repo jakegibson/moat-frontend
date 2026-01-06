@@ -20,15 +20,19 @@ class AppSizes {
   static const double spacing2XL = 20.0;
   static const double spacing3XL = 24.0;
   static const double spacing4XL = 32.0;
+  static const double spacing5XL = 40.0;
+  static const double spacing6XL = 48.0;
 
   static const double radiusXS = 4.0;
   static const double radiusSM = 6.0;
   static const double radiusMD = 8.0;
   static const double radiusLG = 10.0; // Figma: radius-lg
   static const double radiusXL = 12.0; // Figma: radius-xl
+  static const double radius16 = 16.0; // Common drawer/modal radius
   static const double radius2XL = 20.0;
   static const double radius3XL = 24.0;
   static const double radius4XL = 32.0;
+  static const double radiusPill = 28.0; // Common pill button radius
   static const double radiusFull = 9999.0; // Figma: radius-full for pill shapes
 
   // Table sizes

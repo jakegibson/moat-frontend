@@ -8,6 +8,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html if (dart.library.io) 'attachment_upload_widget_stub.dart';
 
+import '../core/styles/app_colors.dart';
+import '../core/styles/app_sizes.dart';
+
 /// Attachment upload state model
 enum UploadStatus { pending, uploading, completed, failed }
 
@@ -52,17 +55,6 @@ class AttachmentUploadState {
       errorMessage: errorMessage,
     );
   }
-}
-
-/// Design colors matching v0
-class _Colors {
-  static const Color bgPrimary = Color(0xFFFFFFFF);
-  static const Color bgSecondary = Color(0xFFF1F0EE);
-  static const Color borderPrimary = Color(0xFFD3D1CF);
-  static const Color textPrimary = Color(0xFF161616);
-  static const Color textTertiary = Color(0xFF848281);
-  static const Color fgTertiary = Color(0xFF848281);
-  static const Color primary = Color(0xFF161616);
 }
 
 /// A widget for uploading attachments with visual feedback.
@@ -317,10 +309,10 @@ class _AttachmentUploadWidgetState extends State<AttachmentUploadWidget> {
         GestureDetector(
           onTap: widget.enabled ? _pickFiles : null,
           child: Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(AppSizes.spacingXL),
             decoration: BoxDecoration(
-              color: _Colors.bgSecondary,
-              borderRadius: BorderRadius.circular(8),
+              color: AppColors.bgSecondary,
+              borderRadius: BorderRadius.circular(AppSizes.radiusMD),
             ),
             child: Center(
               child: Column(
@@ -329,15 +321,15 @@ class _AttachmentUploadWidgetState extends State<AttachmentUploadWidget> {
                   Icon(
                     Icons.cloud_upload_outlined,
                     size: 32,
-                    color: _Colors.fgTertiary,
+                    color: AppColors.fgTertiary,
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: AppSizes.spacingMD),
                   Text(
                     'Add a photo or video',
                     style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 14,
-                      color: _Colors.textTertiary,
+                      color: AppColors.textTertiary,
                     ),
                   ),
                 ],
@@ -348,7 +340,7 @@ class _AttachmentUploadWidgetState extends State<AttachmentUploadWidget> {
 
         // Uploads list below the upload box
         if (_uploads.isNotEmpty) ...[
-          const SizedBox(height: 12),
+          SizedBox(height: AppSizes.spacingLG),
           ..._uploads.map((upload) => _AttachmentThumbnail(
                 upload: upload,
                 onRetry: () => _retryUpload(upload),
@@ -386,14 +378,14 @@ class _AttachmentThumbnail extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(AppSizes.spacingLG),
       decoration: BoxDecoration(
         border: Border.all(
-          color: isFailed ? Colors.red.shade300 : _Colors.borderPrimary,
+          color: isFailed ? Colors.red.shade300 : AppColors.borderPrimary,
           width: isFailed ? 2 : 1,
         ),
-        borderRadius: BorderRadius.circular(8),
-        color: _Colors.bgPrimary,
+        borderRadius: BorderRadius.circular(AppSizes.radiusMD),
+        color: AppColors.white,
       ),
       child: Column(
         children: [
@@ -401,7 +393,7 @@ class _AttachmentThumbnail extends StatelessWidget {
             children: [
               // Status icon
               _buildStatusIcon(),
-              const SizedBox(width: 12),
+              SizedBox(width: AppSizes.spacingLG),
 
               // File info
               Expanded(
@@ -414,18 +406,18 @@ class _AttachmentThumbnail extends StatelessWidget {
                         fontFamily: 'Inter',
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: _Colors.textPrimary,
+                        color: AppColors.textPrimary,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: AppSizes.spacingXS),
                     Text(
                       _buildMetadataText(),
                       style: const TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 12,
-                        color: _Colors.textTertiary,
+                        color: AppColors.textTertiary,
                       ),
                     ),
                   ],
@@ -433,7 +425,7 @@ class _AttachmentThumbnail extends StatelessWidget {
               ),
 
               // Delete button
-              const SizedBox(width: 12),
+              SizedBox(width: AppSizes.spacingLG),
               GestureDetector(
                 onTap: onDelete,
                 child: SvgPicture.asset(
@@ -447,13 +439,13 @@ class _AttachmentThumbnail extends StatelessWidget {
 
           // Progress bar (only for uploading)
           if (upload.status == UploadStatus.uploading) ...[
-            const SizedBox(height: 8),
+            SizedBox(height: AppSizes.spacingMD),
             ClipRRect(
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(AppSizes.radiusXS),
               child: LinearProgressIndicator(
                 value: upload.progress,
-                backgroundColor: _Colors.bgSecondary,
-                valueColor: const AlwaysStoppedAnimation<Color>(_Colors.primary),
+                backgroundColor: AppColors.bgSecondary,
+                valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
                 minHeight: 4,
               ),
             ),
@@ -461,7 +453,7 @@ class _AttachmentThumbnail extends StatelessWidget {
 
           // Error message and retry link
           if (isFailed && upload.errorMessage != null) ...[
-            const SizedBox(height: 8),
+            SizedBox(height: AppSizes.spacingMD),
             Row(
               children: [
                 const SizedBox(width: 68), // Align with file name
@@ -477,7 +469,7 @@ class _AttachmentThumbnail extends StatelessWidget {
                           color: Colors.red.shade700,
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      SizedBox(height: AppSizes.spacingXS),
                       GestureDetector(
                         onTap: onRetry,
                         child: Text(
@@ -486,7 +478,7 @@ class _AttachmentThumbnail extends StatelessWidget {
                             fontFamily: 'Inter',
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
-                            color: _Colors.primary,
+                            color: AppColors.primary,
                             decoration: TextDecoration.underline,
                           ),
                         ),
@@ -526,17 +518,17 @@ class _AttachmentThumbnail extends StatelessWidget {
           width: 56,
           height: 56,
           decoration: BoxDecoration(
-            color: const Color(0xFFEFF6FF), // Light blue background
-            borderRadius: BorderRadius.circular(8),
+            color: AppColors.accentBlueLight,
+            borderRadius: BorderRadius.circular(AppSizes.radiusMD),
           ),
           child: upload.mimeType == 'application/pdf'
-              ? Icon(
+              ? const Icon(
                   Icons.picture_as_pdf,
-                  color: const Color(0xFF2563EB), // Blue-600
+                  color: AppColors.accentBlue,
                   size: 28,
                 )
               : Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.all(AppSizes.spacingLG),
                   child: SvgPicture.asset(
                     'assets/icons/icon-img.svg',
                     width: 32,
@@ -549,8 +541,8 @@ class _AttachmentThumbnail extends StatelessWidget {
           width: 56,
           height: 56,
           decoration: BoxDecoration(
-            color: const Color(0xFFEFF6FF), // Light blue background
-            borderRadius: BorderRadius.circular(8),
+            color: AppColors.accentBlueLight,
+            borderRadius: BorderRadius.circular(AppSizes.radiusMD),
           ),
           child: const Center(
             child: SizedBox(
@@ -558,9 +550,7 @@ class _AttachmentThumbnail extends StatelessWidget {
               height: 24,
               child: CircularProgressIndicator(
                 strokeWidth: 2.5,
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  Color(0xFF2563EB), // Blue-600
-                ),
+                valueColor: AlwaysStoppedAnimation<Color>(AppColors.accentBlue),
               ),
             ),
           ),
@@ -570,12 +560,12 @@ class _AttachmentThumbnail extends StatelessWidget {
           width: 56,
           height: 56,
           decoration: BoxDecoration(
-            color: Colors.green.shade50,
-            borderRadius: BorderRadius.circular(8),
+            color: AppColors.utilityGreen50,
+            borderRadius: BorderRadius.circular(AppSizes.radiusMD),
           ),
-          child: Icon(
+          child: const Icon(
             Icons.check_circle,
-            color: Colors.green.shade700,
+            color: AppColors.utilityGreen700,
             size: 28,
           ),
         );
@@ -584,12 +574,12 @@ class _AttachmentThumbnail extends StatelessWidget {
           width: 56,
           height: 56,
           decoration: BoxDecoration(
-            color: Colors.red.shade50,
-            borderRadius: BorderRadius.circular(8),
+            color: AppColors.utilityError50,
+            borderRadius: BorderRadius.circular(AppSizes.radiusMD),
           ),
-          child: Icon(
+          child: const Icon(
             Icons.error_outline,
-            color: Colors.red.shade700,
+            color: AppColors.utilityError700,
             size: 28,
           ),
         );

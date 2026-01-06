@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: moat/v1/asset.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -17,6 +17,8 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 import '../../google/protobuf/timestamp.pb.dart' as $0;
 import 'asset.pbenum.dart';
+
+export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
 export 'asset.pbenum.dart';
 
@@ -242,7 +244,7 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get companyId => $_getSZ(1);
@@ -251,7 +253,7 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasCompanyId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearCompanyId() => clearField(2);
+  void clearCompanyId() => $_clearField(2);
 
   /// Basic info
   @$pb.TagNumber(3)
@@ -261,7 +263,7 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasName() => $_has(2);
   @$pb.TagNumber(3)
-  void clearName() => clearField(3);
+  void clearName() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.String get technicalName => $_getSZ(3);
@@ -270,7 +272,7 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasTechnicalName() => $_has(3);
   @$pb.TagNumber(4)
-  void clearTechnicalName() => clearField(4);
+  void clearTechnicalName() => $_clearField(4);
 
   @$pb.TagNumber(5)
   $core.String get notes => $_getSZ(4);
@@ -279,7 +281,7 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.bool hasNotes() => $_has(4);
   @$pb.TagNumber(5)
-  void clearNotes() => clearField(5);
+  void clearNotes() => $_clearField(5);
 
   /// Classification
   @$pb.TagNumber(6)
@@ -289,7 +291,7 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   $core.bool hasDivisionOfConstruction() => $_has(5);
   @$pb.TagNumber(6)
-  void clearDivisionOfConstruction() => clearField(6);
+  void clearDivisionOfConstruction() => $_clearField(6);
 
   @$pb.TagNumber(7)
   $core.String get internalId => $_getSZ(6);
@@ -298,26 +300,26 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(7)
   $core.bool hasInternalId() => $_has(6);
   @$pb.TagNumber(7)
-  void clearInternalId() => clearField(7);
+  void clearInternalId() => $_clearField(7);
 
   /// Status
   @$pb.TagNumber(8)
   AssetStatus get status => $_getN(7);
   @$pb.TagNumber(8)
-  set status(AssetStatus v) { setField(8, v); }
+  set status(AssetStatus v) { $_setField(8, v); }
   @$pb.TagNumber(8)
   $core.bool hasStatus() => $_has(7);
   @$pb.TagNumber(8)
-  void clearStatus() => clearField(8);
+  void clearStatus() => $_clearField(8);
 
   @$pb.TagNumber(9)
   AssetProcessStatus get processStatus => $_getN(8);
   @$pb.TagNumber(9)
-  set processStatus(AssetProcessStatus v) { setField(9, v); }
+  set processStatus(AssetProcessStatus v) { $_setField(9, v); }
   @$pb.TagNumber(9)
   $core.bool hasProcessStatus() => $_has(8);
   @$pb.TagNumber(9)
-  void clearProcessStatus() => clearField(9);
+  void clearProcessStatus() => $_clearField(9);
 
   /// Location
   @$pb.TagNumber(10)
@@ -327,7 +329,7 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(10)
   $core.bool hasLocationId() => $_has(9);
   @$pb.TagNumber(10)
-  void clearLocationId() => clearField(10);
+  void clearLocationId() => $_clearField(10);
 
   @$pb.TagNumber(11)
   $core.String get floorLocation => $_getSZ(10);
@@ -336,7 +338,7 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(11)
   $core.bool hasFloorLocation() => $_has(10);
   @$pb.TagNumber(11)
-  void clearFloorLocation() => clearField(11);
+  void clearFloorLocation() => $_clearField(11);
 
   @$pb.TagNumber(12)
   $core.String get serviceArea => $_getSZ(11);
@@ -345,7 +347,7 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(12)
   $core.bool hasServiceArea() => $_has(11);
   @$pb.TagNumber(12)
-  void clearServiceArea() => clearField(12);
+  void clearServiceArea() => $_clearField(12);
 
   /// Vendor information
   @$pb.TagNumber(13)
@@ -355,7 +357,7 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(13)
   $core.bool hasProvider() => $_has(12);
   @$pb.TagNumber(13)
-  void clearProvider() => clearField(13);
+  void clearProvider() => $_clearField(13);
 
   @$pb.TagNumber(14)
   $core.String get manufacturer => $_getSZ(13);
@@ -364,7 +366,7 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(14)
   $core.bool hasManufacturer() => $_has(13);
   @$pb.TagNumber(14)
-  void clearManufacturer() => clearField(14);
+  void clearManufacturer() => $_clearField(14);
 
   /// Identification
   @$pb.TagNumber(15)
@@ -374,7 +376,7 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(15)
   $core.bool hasSerialNumber() => $_has(14);
   @$pb.TagNumber(15)
-  void clearSerialNumber() => clearField(15);
+  void clearSerialNumber() => $_clearField(15);
 
   @$pb.TagNumber(16)
   $core.String get modelNumber => $_getSZ(15);
@@ -383,7 +385,7 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(16)
   $core.bool hasModelNumber() => $_has(15);
   @$pb.TagNumber(16)
-  void clearModelNumber() => clearField(16);
+  void clearModelNumber() => $_clearField(16);
 
   @$pb.TagNumber(17)
   $core.String get aiSerialNumber => $_getSZ(16);
@@ -392,7 +394,7 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(17)
   $core.bool hasAiSerialNumber() => $_has(16);
   @$pb.TagNumber(17)
-  void clearAiSerialNumber() => clearField(17);
+  void clearAiSerialNumber() => $_clearField(17);
 
   @$pb.TagNumber(18)
   $core.String get aiModelNumber => $_getSZ(17);
@@ -401,7 +403,7 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(18)
   $core.bool hasAiModelNumber() => $_has(17);
   @$pb.TagNumber(18)
-  void clearAiModelNumber() => clearField(18);
+  void clearAiModelNumber() => $_clearField(18);
 
   /// Pricing
   @$pb.TagNumber(19)
@@ -411,7 +413,7 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(19)
   $core.bool hasPriceValue() => $_has(18);
   @$pb.TagNumber(19)
-  void clearPriceValue() => clearField(19);
+  void clearPriceValue() => $_clearField(19);
 
   @$pb.TagNumber(20)
   $core.double get purchasePrice => $_getN(19);
@@ -420,7 +422,7 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(20)
   $core.bool hasPurchasePrice() => $_has(19);
   @$pb.TagNumber(20)
-  void clearPurchasePrice() => clearField(20);
+  void clearPurchasePrice() => $_clearField(20);
 
   @$pb.TagNumber(21)
   $core.double get aiPriceValue => $_getN(20);
@@ -429,83 +431,83 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(21)
   $core.bool hasAiPriceValue() => $_has(20);
   @$pb.TagNumber(21)
-  void clearAiPriceValue() => clearField(21);
+  void clearAiPriceValue() => $_clearField(21);
 
   /// Important dates
   @$pb.TagNumber(22)
   $0.Timestamp get startDate => $_getN(21);
   @$pb.TagNumber(22)
-  set startDate($0.Timestamp v) { setField(22, v); }
+  set startDate($0.Timestamp v) { $_setField(22, v); }
   @$pb.TagNumber(22)
   $core.bool hasStartDate() => $_has(21);
   @$pb.TagNumber(22)
-  void clearStartDate() => clearField(22);
+  void clearStartDate() => $_clearField(22);
   @$pb.TagNumber(22)
   $0.Timestamp ensureStartDate() => $_ensure(21);
 
   @$pb.TagNumber(23)
   $0.Timestamp get substantialCompletionDate => $_getN(22);
   @$pb.TagNumber(23)
-  set substantialCompletionDate($0.Timestamp v) { setField(23, v); }
+  set substantialCompletionDate($0.Timestamp v) { $_setField(23, v); }
   @$pb.TagNumber(23)
   $core.bool hasSubstantialCompletionDate() => $_has(22);
   @$pb.TagNumber(23)
-  void clearSubstantialCompletionDate() => clearField(23);
+  void clearSubstantialCompletionDate() => $_clearField(23);
   @$pb.TagNumber(23)
   $0.Timestamp ensureSubstantialCompletionDate() => $_ensure(22);
 
   @$pb.TagNumber(24)
   $0.Timestamp get documentDate => $_getN(23);
   @$pb.TagNumber(24)
-  set documentDate($0.Timestamp v) { setField(24, v); }
+  set documentDate($0.Timestamp v) { $_setField(24, v); }
   @$pb.TagNumber(24)
   $core.bool hasDocumentDate() => $_has(23);
   @$pb.TagNumber(24)
-  void clearDocumentDate() => clearField(24);
+  void clearDocumentDate() => $_clearField(24);
   @$pb.TagNumber(24)
   $0.Timestamp ensureDocumentDate() => $_ensure(23);
 
   @$pb.TagNumber(25)
   $0.Timestamp get dueDate => $_getN(24);
   @$pb.TagNumber(25)
-  set dueDate($0.Timestamp v) { setField(25, v); }
+  set dueDate($0.Timestamp v) { $_setField(25, v); }
   @$pb.TagNumber(25)
   $core.bool hasDueDate() => $_has(24);
   @$pb.TagNumber(25)
-  void clearDueDate() => clearField(25);
+  void clearDueDate() => $_clearField(25);
   @$pb.TagNumber(25)
   $0.Timestamp ensureDueDate() => $_ensure(24);
 
   @$pb.TagNumber(26)
   $0.Timestamp get installationDate => $_getN(25);
   @$pb.TagNumber(26)
-  set installationDate($0.Timestamp v) { setField(26, v); }
+  set installationDate($0.Timestamp v) { $_setField(26, v); }
   @$pb.TagNumber(26)
   $core.bool hasInstallationDate() => $_has(25);
   @$pb.TagNumber(26)
-  void clearInstallationDate() => clearField(26);
+  void clearInstallationDate() => $_clearField(26);
   @$pb.TagNumber(26)
   $0.Timestamp ensureInstallationDate() => $_ensure(25);
 
   @$pb.TagNumber(27)
   $0.Timestamp get invoiceDate => $_getN(26);
   @$pb.TagNumber(27)
-  set invoiceDate($0.Timestamp v) { setField(27, v); }
+  set invoiceDate($0.Timestamp v) { $_setField(27, v); }
   @$pb.TagNumber(27)
   $core.bool hasInvoiceDate() => $_has(26);
   @$pb.TagNumber(27)
-  void clearInvoiceDate() => clearField(27);
+  void clearInvoiceDate() => $_clearField(27);
   @$pb.TagNumber(27)
   $0.Timestamp ensureInvoiceDate() => $_ensure(26);
 
   @$pb.TagNumber(28)
   $0.Timestamp get purchaseDate => $_getN(27);
   @$pb.TagNumber(28)
-  set purchaseDate($0.Timestamp v) { setField(28, v); }
+  set purchaseDate($0.Timestamp v) { $_setField(28, v); }
   @$pb.TagNumber(28)
   $core.bool hasPurchaseDate() => $_has(27);
   @$pb.TagNumber(28)
-  void clearPurchaseDate() => clearField(28);
+  void clearPurchaseDate() => $_clearField(28);
   @$pb.TagNumber(28)
   $0.Timestamp ensurePurchaseDate() => $_ensure(27);
 
@@ -517,38 +519,38 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(29)
   $core.bool hasWarrantyDurationMonths() => $_has(28);
   @$pb.TagNumber(29)
-  void clearWarrantyDurationMonths() => clearField(29);
+  void clearWarrantyDurationMonths() => $_clearField(29);
 
   @$pb.TagNumber(30)
   $0.Timestamp get warrantyStartDate => $_getN(29);
   @$pb.TagNumber(30)
-  set warrantyStartDate($0.Timestamp v) { setField(30, v); }
+  set warrantyStartDate($0.Timestamp v) { $_setField(30, v); }
   @$pb.TagNumber(30)
   $core.bool hasWarrantyStartDate() => $_has(29);
   @$pb.TagNumber(30)
-  void clearWarrantyStartDate() => clearField(30);
+  void clearWarrantyStartDate() => $_clearField(30);
   @$pb.TagNumber(30)
   $0.Timestamp ensureWarrantyStartDate() => $_ensure(29);
 
   @$pb.TagNumber(31)
   $0.Timestamp get warrantyEndDate => $_getN(30);
   @$pb.TagNumber(31)
-  set warrantyEndDate($0.Timestamp v) { setField(31, v); }
+  set warrantyEndDate($0.Timestamp v) { $_setField(31, v); }
   @$pb.TagNumber(31)
   $core.bool hasWarrantyEndDate() => $_has(30);
   @$pb.TagNumber(31)
-  void clearWarrantyEndDate() => clearField(31);
+  void clearWarrantyEndDate() => $_clearField(31);
   @$pb.TagNumber(31)
   $0.Timestamp ensureWarrantyEndDate() => $_ensure(30);
 
   @$pb.TagNumber(32)
   $0.Timestamp get aiWarrantyStartDate => $_getN(31);
   @$pb.TagNumber(32)
-  set aiWarrantyStartDate($0.Timestamp v) { setField(32, v); }
+  set aiWarrantyStartDate($0.Timestamp v) { $_setField(32, v); }
   @$pb.TagNumber(32)
   $core.bool hasAiWarrantyStartDate() => $_has(31);
   @$pb.TagNumber(32)
-  void clearAiWarrantyStartDate() => clearField(32);
+  void clearAiWarrantyStartDate() => $_clearField(32);
   @$pb.TagNumber(32)
   $0.Timestamp ensureAiWarrantyStartDate() => $_ensure(31);
 
@@ -559,7 +561,7 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(33)
   $core.bool hasIgnoreWarrantyStartDate() => $_has(32);
   @$pb.TagNumber(33)
-  void clearIgnoreWarrantyStartDate() => clearField(33);
+  void clearIgnoreWarrantyStartDate() => $_clearField(33);
 
   /// Computed/cached fields
   @$pb.TagNumber(34)
@@ -569,28 +571,28 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(34)
   $core.bool hasAllCoveragesResolvedAndExpired() => $_has(33);
   @$pb.TagNumber(34)
-  void clearAllCoveragesResolvedAndExpired() => clearField(34);
+  void clearAllCoveragesResolvedAndExpired() => $_clearField(34);
 
   /// Timestamps
   @$pb.TagNumber(35)
   $0.Timestamp get createdAt => $_getN(34);
   @$pb.TagNumber(35)
-  set createdAt($0.Timestamp v) { setField(35, v); }
+  set createdAt($0.Timestamp v) { $_setField(35, v); }
   @$pb.TagNumber(35)
   $core.bool hasCreatedAt() => $_has(34);
   @$pb.TagNumber(35)
-  void clearCreatedAt() => clearField(35);
+  void clearCreatedAt() => $_clearField(35);
   @$pb.TagNumber(35)
   $0.Timestamp ensureCreatedAt() => $_ensure(34);
 
   @$pb.TagNumber(36)
   $0.Timestamp get updatedAt => $_getN(35);
   @$pb.TagNumber(36)
-  set updatedAt($0.Timestamp v) { setField(36, v); }
+  set updatedAt($0.Timestamp v) { $_setField(36, v); }
   @$pb.TagNumber(36)
   $core.bool hasUpdatedAt() => $_has(35);
   @$pb.TagNumber(36)
-  void clearUpdatedAt() => clearField(36);
+  void clearUpdatedAt() => $_clearField(36);
   @$pb.TagNumber(36)
   $0.Timestamp ensureUpdatedAt() => $_ensure(35);
 }
@@ -843,7 +845,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get companyId => $_getSZ(1);
@@ -852,7 +854,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasCompanyId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearCompanyId() => clearField(2);
+  void clearCompanyId() => $_clearField(2);
 
   /// Basic info
   @$pb.TagNumber(3)
@@ -862,7 +864,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasName() => $_has(2);
   @$pb.TagNumber(3)
-  void clearName() => clearField(3);
+  void clearName() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.String get technicalName => $_getSZ(3);
@@ -871,7 +873,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasTechnicalName() => $_has(3);
   @$pb.TagNumber(4)
-  void clearTechnicalName() => clearField(4);
+  void clearTechnicalName() => $_clearField(4);
 
   @$pb.TagNumber(5)
   $core.String get notes => $_getSZ(4);
@@ -880,7 +882,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.bool hasNotes() => $_has(4);
   @$pb.TagNumber(5)
-  void clearNotes() => clearField(5);
+  void clearNotes() => $_clearField(5);
 
   /// Classification
   @$pb.TagNumber(6)
@@ -890,7 +892,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   $core.bool hasDivisionOfConstruction() => $_has(5);
   @$pb.TagNumber(6)
-  void clearDivisionOfConstruction() => clearField(6);
+  void clearDivisionOfConstruction() => $_clearField(6);
 
   @$pb.TagNumber(7)
   $core.String get internalId => $_getSZ(6);
@@ -899,26 +901,26 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(7)
   $core.bool hasInternalId() => $_has(6);
   @$pb.TagNumber(7)
-  void clearInternalId() => clearField(7);
+  void clearInternalId() => $_clearField(7);
 
   /// Status
   @$pb.TagNumber(8)
   AssetStatus get status => $_getN(7);
   @$pb.TagNumber(8)
-  set status(AssetStatus v) { setField(8, v); }
+  set status(AssetStatus v) { $_setField(8, v); }
   @$pb.TagNumber(8)
   $core.bool hasStatus() => $_has(7);
   @$pb.TagNumber(8)
-  void clearStatus() => clearField(8);
+  void clearStatus() => $_clearField(8);
 
   @$pb.TagNumber(9)
   AssetProcessStatus get processStatus => $_getN(8);
   @$pb.TagNumber(9)
-  set processStatus(AssetProcessStatus v) { setField(9, v); }
+  set processStatus(AssetProcessStatus v) { $_setField(9, v); }
   @$pb.TagNumber(9)
   $core.bool hasProcessStatus() => $_has(8);
   @$pb.TagNumber(9)
-  void clearProcessStatus() => clearField(9);
+  void clearProcessStatus() => $_clearField(9);
 
   /// Location
   @$pb.TagNumber(10)
@@ -928,7 +930,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(10)
   $core.bool hasLocationId() => $_has(9);
   @$pb.TagNumber(10)
-  void clearLocationId() => clearField(10);
+  void clearLocationId() => $_clearField(10);
 
   @$pb.TagNumber(11)
   $core.String get locationName => $_getSZ(10);
@@ -937,7 +939,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(11)
   $core.bool hasLocationName() => $_has(10);
   @$pb.TagNumber(11)
-  void clearLocationName() => clearField(11);
+  void clearLocationName() => $_clearField(11);
 
   @$pb.TagNumber(12)
   $core.String get floorLocation => $_getSZ(11);
@@ -946,7 +948,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(12)
   $core.bool hasFloorLocation() => $_has(11);
   @$pb.TagNumber(12)
-  void clearFloorLocation() => clearField(12);
+  void clearFloorLocation() => $_clearField(12);
 
   @$pb.TagNumber(13)
   $core.String get serviceArea => $_getSZ(12);
@@ -955,7 +957,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(13)
   $core.bool hasServiceArea() => $_has(12);
   @$pb.TagNumber(13)
-  void clearServiceArea() => clearField(13);
+  void clearServiceArea() => $_clearField(13);
 
   /// Vendor information
   @$pb.TagNumber(14)
@@ -965,7 +967,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(14)
   $core.bool hasProvider() => $_has(13);
   @$pb.TagNumber(14)
-  void clearProvider() => clearField(14);
+  void clearProvider() => $_clearField(14);
 
   @$pb.TagNumber(15)
   $core.String get manufacturer => $_getSZ(14);
@@ -974,7 +976,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(15)
   $core.bool hasManufacturer() => $_has(14);
   @$pb.TagNumber(15)
-  void clearManufacturer() => clearField(15);
+  void clearManufacturer() => $_clearField(15);
 
   /// Identification
   @$pb.TagNumber(16)
@@ -984,7 +986,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(16)
   $core.bool hasSerialNumber() => $_has(15);
   @$pb.TagNumber(16)
-  void clearSerialNumber() => clearField(16);
+  void clearSerialNumber() => $_clearField(16);
 
   @$pb.TagNumber(17)
   $core.String get modelNumber => $_getSZ(16);
@@ -993,7 +995,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(17)
   $core.bool hasModelNumber() => $_has(16);
   @$pb.TagNumber(17)
-  void clearModelNumber() => clearField(17);
+  void clearModelNumber() => $_clearField(17);
 
   @$pb.TagNumber(18)
   $core.String get aiSerialNumber => $_getSZ(17);
@@ -1002,7 +1004,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(18)
   $core.bool hasAiSerialNumber() => $_has(17);
   @$pb.TagNumber(18)
-  void clearAiSerialNumber() => clearField(18);
+  void clearAiSerialNumber() => $_clearField(18);
 
   @$pb.TagNumber(19)
   $core.String get aiModelNumber => $_getSZ(18);
@@ -1011,7 +1013,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(19)
   $core.bool hasAiModelNumber() => $_has(18);
   @$pb.TagNumber(19)
-  void clearAiModelNumber() => clearField(19);
+  void clearAiModelNumber() => $_clearField(19);
 
   /// Pricing
   @$pb.TagNumber(20)
@@ -1021,7 +1023,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(20)
   $core.bool hasPriceValue() => $_has(19);
   @$pb.TagNumber(20)
-  void clearPriceValue() => clearField(20);
+  void clearPriceValue() => $_clearField(20);
 
   @$pb.TagNumber(21)
   $core.double get purchasePrice => $_getN(20);
@@ -1030,7 +1032,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(21)
   $core.bool hasPurchasePrice() => $_has(20);
   @$pb.TagNumber(21)
-  void clearPurchasePrice() => clearField(21);
+  void clearPurchasePrice() => $_clearField(21);
 
   @$pb.TagNumber(22)
   $core.double get aiPriceValue => $_getN(21);
@@ -1039,83 +1041,83 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(22)
   $core.bool hasAiPriceValue() => $_has(21);
   @$pb.TagNumber(22)
-  void clearAiPriceValue() => clearField(22);
+  void clearAiPriceValue() => $_clearField(22);
 
   /// Important dates
   @$pb.TagNumber(23)
   $0.Timestamp get startDate => $_getN(22);
   @$pb.TagNumber(23)
-  set startDate($0.Timestamp v) { setField(23, v); }
+  set startDate($0.Timestamp v) { $_setField(23, v); }
   @$pb.TagNumber(23)
   $core.bool hasStartDate() => $_has(22);
   @$pb.TagNumber(23)
-  void clearStartDate() => clearField(23);
+  void clearStartDate() => $_clearField(23);
   @$pb.TagNumber(23)
   $0.Timestamp ensureStartDate() => $_ensure(22);
 
   @$pb.TagNumber(24)
   $0.Timestamp get substantialCompletionDate => $_getN(23);
   @$pb.TagNumber(24)
-  set substantialCompletionDate($0.Timestamp v) { setField(24, v); }
+  set substantialCompletionDate($0.Timestamp v) { $_setField(24, v); }
   @$pb.TagNumber(24)
   $core.bool hasSubstantialCompletionDate() => $_has(23);
   @$pb.TagNumber(24)
-  void clearSubstantialCompletionDate() => clearField(24);
+  void clearSubstantialCompletionDate() => $_clearField(24);
   @$pb.TagNumber(24)
   $0.Timestamp ensureSubstantialCompletionDate() => $_ensure(23);
 
   @$pb.TagNumber(25)
   $0.Timestamp get documentDate => $_getN(24);
   @$pb.TagNumber(25)
-  set documentDate($0.Timestamp v) { setField(25, v); }
+  set documentDate($0.Timestamp v) { $_setField(25, v); }
   @$pb.TagNumber(25)
   $core.bool hasDocumentDate() => $_has(24);
   @$pb.TagNumber(25)
-  void clearDocumentDate() => clearField(25);
+  void clearDocumentDate() => $_clearField(25);
   @$pb.TagNumber(25)
   $0.Timestamp ensureDocumentDate() => $_ensure(24);
 
   @$pb.TagNumber(26)
   $0.Timestamp get dueDate => $_getN(25);
   @$pb.TagNumber(26)
-  set dueDate($0.Timestamp v) { setField(26, v); }
+  set dueDate($0.Timestamp v) { $_setField(26, v); }
   @$pb.TagNumber(26)
   $core.bool hasDueDate() => $_has(25);
   @$pb.TagNumber(26)
-  void clearDueDate() => clearField(26);
+  void clearDueDate() => $_clearField(26);
   @$pb.TagNumber(26)
   $0.Timestamp ensureDueDate() => $_ensure(25);
 
   @$pb.TagNumber(27)
   $0.Timestamp get installationDate => $_getN(26);
   @$pb.TagNumber(27)
-  set installationDate($0.Timestamp v) { setField(27, v); }
+  set installationDate($0.Timestamp v) { $_setField(27, v); }
   @$pb.TagNumber(27)
   $core.bool hasInstallationDate() => $_has(26);
   @$pb.TagNumber(27)
-  void clearInstallationDate() => clearField(27);
+  void clearInstallationDate() => $_clearField(27);
   @$pb.TagNumber(27)
   $0.Timestamp ensureInstallationDate() => $_ensure(26);
 
   @$pb.TagNumber(28)
   $0.Timestamp get invoiceDate => $_getN(27);
   @$pb.TagNumber(28)
-  set invoiceDate($0.Timestamp v) { setField(28, v); }
+  set invoiceDate($0.Timestamp v) { $_setField(28, v); }
   @$pb.TagNumber(28)
   $core.bool hasInvoiceDate() => $_has(27);
   @$pb.TagNumber(28)
-  void clearInvoiceDate() => clearField(28);
+  void clearInvoiceDate() => $_clearField(28);
   @$pb.TagNumber(28)
   $0.Timestamp ensureInvoiceDate() => $_ensure(27);
 
   @$pb.TagNumber(29)
   $0.Timestamp get purchaseDate => $_getN(28);
   @$pb.TagNumber(29)
-  set purchaseDate($0.Timestamp v) { setField(29, v); }
+  set purchaseDate($0.Timestamp v) { $_setField(29, v); }
   @$pb.TagNumber(29)
   $core.bool hasPurchaseDate() => $_has(28);
   @$pb.TagNumber(29)
-  void clearPurchaseDate() => clearField(29);
+  void clearPurchaseDate() => $_clearField(29);
   @$pb.TagNumber(29)
   $0.Timestamp ensurePurchaseDate() => $_ensure(28);
 
@@ -1127,38 +1129,38 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(30)
   $core.bool hasWarrantyDurationMonths() => $_has(29);
   @$pb.TagNumber(30)
-  void clearWarrantyDurationMonths() => clearField(30);
+  void clearWarrantyDurationMonths() => $_clearField(30);
 
   @$pb.TagNumber(31)
   $0.Timestamp get warrantyStartDate => $_getN(30);
   @$pb.TagNumber(31)
-  set warrantyStartDate($0.Timestamp v) { setField(31, v); }
+  set warrantyStartDate($0.Timestamp v) { $_setField(31, v); }
   @$pb.TagNumber(31)
   $core.bool hasWarrantyStartDate() => $_has(30);
   @$pb.TagNumber(31)
-  void clearWarrantyStartDate() => clearField(31);
+  void clearWarrantyStartDate() => $_clearField(31);
   @$pb.TagNumber(31)
   $0.Timestamp ensureWarrantyStartDate() => $_ensure(30);
 
   @$pb.TagNumber(32)
   $0.Timestamp get warrantyEndDate => $_getN(31);
   @$pb.TagNumber(32)
-  set warrantyEndDate($0.Timestamp v) { setField(32, v); }
+  set warrantyEndDate($0.Timestamp v) { $_setField(32, v); }
   @$pb.TagNumber(32)
   $core.bool hasWarrantyEndDate() => $_has(31);
   @$pb.TagNumber(32)
-  void clearWarrantyEndDate() => clearField(32);
+  void clearWarrantyEndDate() => $_clearField(32);
   @$pb.TagNumber(32)
   $0.Timestamp ensureWarrantyEndDate() => $_ensure(31);
 
   @$pb.TagNumber(33)
   $0.Timestamp get aiWarrantyStartDate => $_getN(32);
   @$pb.TagNumber(33)
-  set aiWarrantyStartDate($0.Timestamp v) { setField(33, v); }
+  set aiWarrantyStartDate($0.Timestamp v) { $_setField(33, v); }
   @$pb.TagNumber(33)
   $core.bool hasAiWarrantyStartDate() => $_has(32);
   @$pb.TagNumber(33)
-  void clearAiWarrantyStartDate() => clearField(33);
+  void clearAiWarrantyStartDate() => $_clearField(33);
   @$pb.TagNumber(33)
   $0.Timestamp ensureAiWarrantyStartDate() => $_ensure(32);
 
@@ -1169,7 +1171,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(34)
   $core.bool hasIgnoreWarrantyStartDate() => $_has(33);
   @$pb.TagNumber(34)
-  void clearIgnoreWarrantyStartDate() => clearField(34);
+  void clearIgnoreWarrantyStartDate() => $_clearField(34);
 
   /// Computed/cached fields
   @$pb.TagNumber(35)
@@ -1179,28 +1181,28 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(35)
   $core.bool hasAllCoveragesResolvedAndExpired() => $_has(34);
   @$pb.TagNumber(35)
-  void clearAllCoveragesResolvedAndExpired() => clearField(35);
+  void clearAllCoveragesResolvedAndExpired() => $_clearField(35);
 
   /// Timestamps
   @$pb.TagNumber(36)
   $0.Timestamp get createdAt => $_getN(35);
   @$pb.TagNumber(36)
-  set createdAt($0.Timestamp v) { setField(36, v); }
+  set createdAt($0.Timestamp v) { $_setField(36, v); }
   @$pb.TagNumber(36)
   $core.bool hasCreatedAt() => $_has(35);
   @$pb.TagNumber(36)
-  void clearCreatedAt() => clearField(36);
+  void clearCreatedAt() => $_clearField(36);
   @$pb.TagNumber(36)
   $0.Timestamp ensureCreatedAt() => $_ensure(35);
 
   @$pb.TagNumber(37)
   $0.Timestamp get updatedAt => $_getN(36);
   @$pb.TagNumber(37)
-  set updatedAt($0.Timestamp v) { setField(37, v); }
+  set updatedAt($0.Timestamp v) { $_setField(37, v); }
   @$pb.TagNumber(37)
   $core.bool hasUpdatedAt() => $_has(36);
   @$pb.TagNumber(37)
-  void clearUpdatedAt() => clearField(37);
+  void clearUpdatedAt() => $_clearField(37);
   @$pb.TagNumber(37)
   $0.Timestamp ensureUpdatedAt() => $_ensure(36);
 
@@ -1212,7 +1214,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(38)
   $core.bool hasFileCount() => $_has(37);
   @$pb.TagNumber(38)
-  void clearFileCount() => clearField(38);
+  void clearFileCount() => $_clearField(38);
 
   @$pb.TagNumber(39)
   $core.int get messageCount => $_getIZ(38);
@@ -1221,7 +1223,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(39)
   $core.bool hasMessageCount() => $_has(38);
   @$pb.TagNumber(39)
-  void clearMessageCount() => clearField(39);
+  void clearMessageCount() => $_clearField(39);
 
   @$pb.TagNumber(40)
   $core.int get warrantyCoverageCount => $_getIZ(39);
@@ -1230,7 +1232,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(40)
   $core.bool hasWarrantyCoverageCount() => $_has(39);
   @$pb.TagNumber(40)
-  void clearWarrantyCoverageCount() => clearField(40);
+  void clearWarrantyCoverageCount() => $_clearField(40);
 
   @$pb.TagNumber(41)
   $core.int get valueEstimateCount => $_getIZ(40);
@@ -1239,7 +1241,7 @@ class AssetWithDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(41)
   $core.bool hasValueEstimateCount() => $_has(40);
   @$pb.TagNumber(41)
-  void clearValueEstimateCount() => clearField(41);
+  void clearValueEstimateCount() => $_clearField(41);
 }
 
 class CreateAssetRequest extends $pb.GeneratedMessage {
@@ -1415,7 +1417,7 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasName() => $_has(0);
   @$pb.TagNumber(1)
-  void clearName() => clearField(1);
+  void clearName() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get technicalName => $_getSZ(1);
@@ -1424,7 +1426,7 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasTechnicalName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearTechnicalName() => clearField(2);
+  void clearTechnicalName() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get notes => $_getSZ(2);
@@ -1433,7 +1435,7 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasNotes() => $_has(2);
   @$pb.TagNumber(3)
-  void clearNotes() => clearField(3);
+  void clearNotes() => $_clearField(3);
 
   /// Classification
   @$pb.TagNumber(4)
@@ -1443,7 +1445,7 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasDivisionOfConstruction() => $_has(3);
   @$pb.TagNumber(4)
-  void clearDivisionOfConstruction() => clearField(4);
+  void clearDivisionOfConstruction() => $_clearField(4);
 
   @$pb.TagNumber(5)
   $core.String get internalId => $_getSZ(4);
@@ -1452,17 +1454,17 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.bool hasInternalId() => $_has(4);
   @$pb.TagNumber(5)
-  void clearInternalId() => clearField(5);
+  void clearInternalId() => $_clearField(5);
 
   /// Status
   @$pb.TagNumber(6)
   AssetStatus get status => $_getN(5);
   @$pb.TagNumber(6)
-  set status(AssetStatus v) { setField(6, v); }
+  set status(AssetStatus v) { $_setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasStatus() => $_has(5);
   @$pb.TagNumber(6)
-  void clearStatus() => clearField(6);
+  void clearStatus() => $_clearField(6);
 
   /// Location
   @$pb.TagNumber(7)
@@ -1472,7 +1474,7 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(7)
   $core.bool hasLocationId() => $_has(6);
   @$pb.TagNumber(7)
-  void clearLocationId() => clearField(7);
+  void clearLocationId() => $_clearField(7);
 
   @$pb.TagNumber(8)
   $core.String get floorLocation => $_getSZ(7);
@@ -1481,7 +1483,7 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(8)
   $core.bool hasFloorLocation() => $_has(7);
   @$pb.TagNumber(8)
-  void clearFloorLocation() => clearField(8);
+  void clearFloorLocation() => $_clearField(8);
 
   @$pb.TagNumber(9)
   $core.String get serviceArea => $_getSZ(8);
@@ -1490,7 +1492,7 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(9)
   $core.bool hasServiceArea() => $_has(8);
   @$pb.TagNumber(9)
-  void clearServiceArea() => clearField(9);
+  void clearServiceArea() => $_clearField(9);
 
   /// Vendor information
   @$pb.TagNumber(10)
@@ -1500,7 +1502,7 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(10)
   $core.bool hasProvider() => $_has(9);
   @$pb.TagNumber(10)
-  void clearProvider() => clearField(10);
+  void clearProvider() => $_clearField(10);
 
   @$pb.TagNumber(11)
   $core.String get manufacturer => $_getSZ(10);
@@ -1509,7 +1511,7 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(11)
   $core.bool hasManufacturer() => $_has(10);
   @$pb.TagNumber(11)
-  void clearManufacturer() => clearField(11);
+  void clearManufacturer() => $_clearField(11);
 
   /// Identification
   @$pb.TagNumber(12)
@@ -1519,7 +1521,7 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(12)
   $core.bool hasSerialNumber() => $_has(11);
   @$pb.TagNumber(12)
-  void clearSerialNumber() => clearField(12);
+  void clearSerialNumber() => $_clearField(12);
 
   @$pb.TagNumber(13)
   $core.String get modelNumber => $_getSZ(12);
@@ -1528,7 +1530,7 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(13)
   $core.bool hasModelNumber() => $_has(12);
   @$pb.TagNumber(13)
-  void clearModelNumber() => clearField(13);
+  void clearModelNumber() => $_clearField(13);
 
   /// Pricing
   @$pb.TagNumber(14)
@@ -1538,7 +1540,7 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(14)
   $core.bool hasPriceValue() => $_has(13);
   @$pb.TagNumber(14)
-  void clearPriceValue() => clearField(14);
+  void clearPriceValue() => $_clearField(14);
 
   @$pb.TagNumber(15)
   $core.double get purchasePrice => $_getN(14);
@@ -1547,83 +1549,83 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(15)
   $core.bool hasPurchasePrice() => $_has(14);
   @$pb.TagNumber(15)
-  void clearPurchasePrice() => clearField(15);
+  void clearPurchasePrice() => $_clearField(15);
 
   /// Important dates
   @$pb.TagNumber(16)
   $0.Timestamp get startDate => $_getN(15);
   @$pb.TagNumber(16)
-  set startDate($0.Timestamp v) { setField(16, v); }
+  set startDate($0.Timestamp v) { $_setField(16, v); }
   @$pb.TagNumber(16)
   $core.bool hasStartDate() => $_has(15);
   @$pb.TagNumber(16)
-  void clearStartDate() => clearField(16);
+  void clearStartDate() => $_clearField(16);
   @$pb.TagNumber(16)
   $0.Timestamp ensureStartDate() => $_ensure(15);
 
   @$pb.TagNumber(17)
   $0.Timestamp get substantialCompletionDate => $_getN(16);
   @$pb.TagNumber(17)
-  set substantialCompletionDate($0.Timestamp v) { setField(17, v); }
+  set substantialCompletionDate($0.Timestamp v) { $_setField(17, v); }
   @$pb.TagNumber(17)
   $core.bool hasSubstantialCompletionDate() => $_has(16);
   @$pb.TagNumber(17)
-  void clearSubstantialCompletionDate() => clearField(17);
+  void clearSubstantialCompletionDate() => $_clearField(17);
   @$pb.TagNumber(17)
   $0.Timestamp ensureSubstantialCompletionDate() => $_ensure(16);
 
   @$pb.TagNumber(18)
   $0.Timestamp get documentDate => $_getN(17);
   @$pb.TagNumber(18)
-  set documentDate($0.Timestamp v) { setField(18, v); }
+  set documentDate($0.Timestamp v) { $_setField(18, v); }
   @$pb.TagNumber(18)
   $core.bool hasDocumentDate() => $_has(17);
   @$pb.TagNumber(18)
-  void clearDocumentDate() => clearField(18);
+  void clearDocumentDate() => $_clearField(18);
   @$pb.TagNumber(18)
   $0.Timestamp ensureDocumentDate() => $_ensure(17);
 
   @$pb.TagNumber(19)
   $0.Timestamp get dueDate => $_getN(18);
   @$pb.TagNumber(19)
-  set dueDate($0.Timestamp v) { setField(19, v); }
+  set dueDate($0.Timestamp v) { $_setField(19, v); }
   @$pb.TagNumber(19)
   $core.bool hasDueDate() => $_has(18);
   @$pb.TagNumber(19)
-  void clearDueDate() => clearField(19);
+  void clearDueDate() => $_clearField(19);
   @$pb.TagNumber(19)
   $0.Timestamp ensureDueDate() => $_ensure(18);
 
   @$pb.TagNumber(20)
   $0.Timestamp get installationDate => $_getN(19);
   @$pb.TagNumber(20)
-  set installationDate($0.Timestamp v) { setField(20, v); }
+  set installationDate($0.Timestamp v) { $_setField(20, v); }
   @$pb.TagNumber(20)
   $core.bool hasInstallationDate() => $_has(19);
   @$pb.TagNumber(20)
-  void clearInstallationDate() => clearField(20);
+  void clearInstallationDate() => $_clearField(20);
   @$pb.TagNumber(20)
   $0.Timestamp ensureInstallationDate() => $_ensure(19);
 
   @$pb.TagNumber(21)
   $0.Timestamp get invoiceDate => $_getN(20);
   @$pb.TagNumber(21)
-  set invoiceDate($0.Timestamp v) { setField(21, v); }
+  set invoiceDate($0.Timestamp v) { $_setField(21, v); }
   @$pb.TagNumber(21)
   $core.bool hasInvoiceDate() => $_has(20);
   @$pb.TagNumber(21)
-  void clearInvoiceDate() => clearField(21);
+  void clearInvoiceDate() => $_clearField(21);
   @$pb.TagNumber(21)
   $0.Timestamp ensureInvoiceDate() => $_ensure(20);
 
   @$pb.TagNumber(22)
   $0.Timestamp get purchaseDate => $_getN(21);
   @$pb.TagNumber(22)
-  set purchaseDate($0.Timestamp v) { setField(22, v); }
+  set purchaseDate($0.Timestamp v) { $_setField(22, v); }
   @$pb.TagNumber(22)
   $core.bool hasPurchaseDate() => $_has(21);
   @$pb.TagNumber(22)
-  void clearPurchaseDate() => clearField(22);
+  void clearPurchaseDate() => $_clearField(22);
   @$pb.TagNumber(22)
   $0.Timestamp ensurePurchaseDate() => $_ensure(21);
 
@@ -1635,27 +1637,27 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(23)
   $core.bool hasWarrantyDurationMonths() => $_has(22);
   @$pb.TagNumber(23)
-  void clearWarrantyDurationMonths() => clearField(23);
+  void clearWarrantyDurationMonths() => $_clearField(23);
 
   @$pb.TagNumber(24)
   $0.Timestamp get warrantyStartDate => $_getN(23);
   @$pb.TagNumber(24)
-  set warrantyStartDate($0.Timestamp v) { setField(24, v); }
+  set warrantyStartDate($0.Timestamp v) { $_setField(24, v); }
   @$pb.TagNumber(24)
   $core.bool hasWarrantyStartDate() => $_has(23);
   @$pb.TagNumber(24)
-  void clearWarrantyStartDate() => clearField(24);
+  void clearWarrantyStartDate() => $_clearField(24);
   @$pb.TagNumber(24)
   $0.Timestamp ensureWarrantyStartDate() => $_ensure(23);
 
   @$pb.TagNumber(25)
   $0.Timestamp get warrantyEndDate => $_getN(24);
   @$pb.TagNumber(25)
-  set warrantyEndDate($0.Timestamp v) { setField(25, v); }
+  set warrantyEndDate($0.Timestamp v) { $_setField(25, v); }
   @$pb.TagNumber(25)
   $core.bool hasWarrantyEndDate() => $_has(24);
   @$pb.TagNumber(25)
-  void clearWarrantyEndDate() => clearField(25);
+  void clearWarrantyEndDate() => $_clearField(25);
   @$pb.TagNumber(25)
   $0.Timestamp ensureWarrantyEndDate() => $_ensure(24);
 
@@ -1666,7 +1668,7 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(26)
   $core.bool hasIgnoreWarrantyStartDate() => $_has(25);
   @$pb.TagNumber(26)
-  void clearIgnoreWarrantyStartDate() => clearField(26);
+  void clearIgnoreWarrantyStartDate() => $_clearField(26);
 }
 
 class GetAssetRequest extends $pb.GeneratedMessage {
@@ -1716,7 +1718,7 @@ class GetAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 }
 
 class UpdateAssetRequest extends $pb.GeneratedMessage {
@@ -1896,7 +1898,7 @@ class UpdateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 
   /// Basic info (all optional - only provided fields are updated)
   @$pb.TagNumber(2)
@@ -1906,7 +1908,7 @@ class UpdateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearName() => clearField(2);
+  void clearName() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get technicalName => $_getSZ(2);
@@ -1915,7 +1917,7 @@ class UpdateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasTechnicalName() => $_has(2);
   @$pb.TagNumber(3)
-  void clearTechnicalName() => clearField(3);
+  void clearTechnicalName() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.String get notes => $_getSZ(3);
@@ -1924,7 +1926,7 @@ class UpdateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasNotes() => $_has(3);
   @$pb.TagNumber(4)
-  void clearNotes() => clearField(4);
+  void clearNotes() => $_clearField(4);
 
   /// Classification
   @$pb.TagNumber(5)
@@ -1934,7 +1936,7 @@ class UpdateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.bool hasDivisionOfConstruction() => $_has(4);
   @$pb.TagNumber(5)
-  void clearDivisionOfConstruction() => clearField(5);
+  void clearDivisionOfConstruction() => $_clearField(5);
 
   @$pb.TagNumber(6)
   $core.String get internalId => $_getSZ(5);
@@ -1943,17 +1945,17 @@ class UpdateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   $core.bool hasInternalId() => $_has(5);
   @$pb.TagNumber(6)
-  void clearInternalId() => clearField(6);
+  void clearInternalId() => $_clearField(6);
 
   /// Status
   @$pb.TagNumber(7)
   AssetStatus get status => $_getN(6);
   @$pb.TagNumber(7)
-  set status(AssetStatus v) { setField(7, v); }
+  set status(AssetStatus v) { $_setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasStatus() => $_has(6);
   @$pb.TagNumber(7)
-  void clearStatus() => clearField(7);
+  void clearStatus() => $_clearField(7);
 
   /// Location
   @$pb.TagNumber(8)
@@ -1963,7 +1965,7 @@ class UpdateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(8)
   $core.bool hasLocationId() => $_has(7);
   @$pb.TagNumber(8)
-  void clearLocationId() => clearField(8);
+  void clearLocationId() => $_clearField(8);
 
   @$pb.TagNumber(9)
   $core.String get floorLocation => $_getSZ(8);
@@ -1972,7 +1974,7 @@ class UpdateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(9)
   $core.bool hasFloorLocation() => $_has(8);
   @$pb.TagNumber(9)
-  void clearFloorLocation() => clearField(9);
+  void clearFloorLocation() => $_clearField(9);
 
   @$pb.TagNumber(10)
   $core.String get serviceArea => $_getSZ(9);
@@ -1981,7 +1983,7 @@ class UpdateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(10)
   $core.bool hasServiceArea() => $_has(9);
   @$pb.TagNumber(10)
-  void clearServiceArea() => clearField(10);
+  void clearServiceArea() => $_clearField(10);
 
   /// Vendor information
   @$pb.TagNumber(11)
@@ -1991,7 +1993,7 @@ class UpdateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(11)
   $core.bool hasProvider() => $_has(10);
   @$pb.TagNumber(11)
-  void clearProvider() => clearField(11);
+  void clearProvider() => $_clearField(11);
 
   @$pb.TagNumber(12)
   $core.String get manufacturer => $_getSZ(11);
@@ -2000,7 +2002,7 @@ class UpdateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(12)
   $core.bool hasManufacturer() => $_has(11);
   @$pb.TagNumber(12)
-  void clearManufacturer() => clearField(12);
+  void clearManufacturer() => $_clearField(12);
 
   /// Identification
   @$pb.TagNumber(13)
@@ -2010,7 +2012,7 @@ class UpdateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(13)
   $core.bool hasSerialNumber() => $_has(12);
   @$pb.TagNumber(13)
-  void clearSerialNumber() => clearField(13);
+  void clearSerialNumber() => $_clearField(13);
 
   @$pb.TagNumber(14)
   $core.String get modelNumber => $_getSZ(13);
@@ -2019,7 +2021,7 @@ class UpdateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(14)
   $core.bool hasModelNumber() => $_has(13);
   @$pb.TagNumber(14)
-  void clearModelNumber() => clearField(14);
+  void clearModelNumber() => $_clearField(14);
 
   /// Pricing
   @$pb.TagNumber(15)
@@ -2029,7 +2031,7 @@ class UpdateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(15)
   $core.bool hasPriceValue() => $_has(14);
   @$pb.TagNumber(15)
-  void clearPriceValue() => clearField(15);
+  void clearPriceValue() => $_clearField(15);
 
   @$pb.TagNumber(16)
   $core.double get purchasePrice => $_getN(15);
@@ -2038,83 +2040,83 @@ class UpdateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(16)
   $core.bool hasPurchasePrice() => $_has(15);
   @$pb.TagNumber(16)
-  void clearPurchasePrice() => clearField(16);
+  void clearPurchasePrice() => $_clearField(16);
 
   /// Important dates
   @$pb.TagNumber(17)
   $0.Timestamp get startDate => $_getN(16);
   @$pb.TagNumber(17)
-  set startDate($0.Timestamp v) { setField(17, v); }
+  set startDate($0.Timestamp v) { $_setField(17, v); }
   @$pb.TagNumber(17)
   $core.bool hasStartDate() => $_has(16);
   @$pb.TagNumber(17)
-  void clearStartDate() => clearField(17);
+  void clearStartDate() => $_clearField(17);
   @$pb.TagNumber(17)
   $0.Timestamp ensureStartDate() => $_ensure(16);
 
   @$pb.TagNumber(18)
   $0.Timestamp get substantialCompletionDate => $_getN(17);
   @$pb.TagNumber(18)
-  set substantialCompletionDate($0.Timestamp v) { setField(18, v); }
+  set substantialCompletionDate($0.Timestamp v) { $_setField(18, v); }
   @$pb.TagNumber(18)
   $core.bool hasSubstantialCompletionDate() => $_has(17);
   @$pb.TagNumber(18)
-  void clearSubstantialCompletionDate() => clearField(18);
+  void clearSubstantialCompletionDate() => $_clearField(18);
   @$pb.TagNumber(18)
   $0.Timestamp ensureSubstantialCompletionDate() => $_ensure(17);
 
   @$pb.TagNumber(19)
   $0.Timestamp get documentDate => $_getN(18);
   @$pb.TagNumber(19)
-  set documentDate($0.Timestamp v) { setField(19, v); }
+  set documentDate($0.Timestamp v) { $_setField(19, v); }
   @$pb.TagNumber(19)
   $core.bool hasDocumentDate() => $_has(18);
   @$pb.TagNumber(19)
-  void clearDocumentDate() => clearField(19);
+  void clearDocumentDate() => $_clearField(19);
   @$pb.TagNumber(19)
   $0.Timestamp ensureDocumentDate() => $_ensure(18);
 
   @$pb.TagNumber(20)
   $0.Timestamp get dueDate => $_getN(19);
   @$pb.TagNumber(20)
-  set dueDate($0.Timestamp v) { setField(20, v); }
+  set dueDate($0.Timestamp v) { $_setField(20, v); }
   @$pb.TagNumber(20)
   $core.bool hasDueDate() => $_has(19);
   @$pb.TagNumber(20)
-  void clearDueDate() => clearField(20);
+  void clearDueDate() => $_clearField(20);
   @$pb.TagNumber(20)
   $0.Timestamp ensureDueDate() => $_ensure(19);
 
   @$pb.TagNumber(21)
   $0.Timestamp get installationDate => $_getN(20);
   @$pb.TagNumber(21)
-  set installationDate($0.Timestamp v) { setField(21, v); }
+  set installationDate($0.Timestamp v) { $_setField(21, v); }
   @$pb.TagNumber(21)
   $core.bool hasInstallationDate() => $_has(20);
   @$pb.TagNumber(21)
-  void clearInstallationDate() => clearField(21);
+  void clearInstallationDate() => $_clearField(21);
   @$pb.TagNumber(21)
   $0.Timestamp ensureInstallationDate() => $_ensure(20);
 
   @$pb.TagNumber(22)
   $0.Timestamp get invoiceDate => $_getN(21);
   @$pb.TagNumber(22)
-  set invoiceDate($0.Timestamp v) { setField(22, v); }
+  set invoiceDate($0.Timestamp v) { $_setField(22, v); }
   @$pb.TagNumber(22)
   $core.bool hasInvoiceDate() => $_has(21);
   @$pb.TagNumber(22)
-  void clearInvoiceDate() => clearField(22);
+  void clearInvoiceDate() => $_clearField(22);
   @$pb.TagNumber(22)
   $0.Timestamp ensureInvoiceDate() => $_ensure(21);
 
   @$pb.TagNumber(23)
   $0.Timestamp get purchaseDate => $_getN(22);
   @$pb.TagNumber(23)
-  set purchaseDate($0.Timestamp v) { setField(23, v); }
+  set purchaseDate($0.Timestamp v) { $_setField(23, v); }
   @$pb.TagNumber(23)
   $core.bool hasPurchaseDate() => $_has(22);
   @$pb.TagNumber(23)
-  void clearPurchaseDate() => clearField(23);
+  void clearPurchaseDate() => $_clearField(23);
   @$pb.TagNumber(23)
   $0.Timestamp ensurePurchaseDate() => $_ensure(22);
 
@@ -2126,27 +2128,27 @@ class UpdateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(24)
   $core.bool hasWarrantyDurationMonths() => $_has(23);
   @$pb.TagNumber(24)
-  void clearWarrantyDurationMonths() => clearField(24);
+  void clearWarrantyDurationMonths() => $_clearField(24);
 
   @$pb.TagNumber(25)
   $0.Timestamp get warrantyStartDate => $_getN(24);
   @$pb.TagNumber(25)
-  set warrantyStartDate($0.Timestamp v) { setField(25, v); }
+  set warrantyStartDate($0.Timestamp v) { $_setField(25, v); }
   @$pb.TagNumber(25)
   $core.bool hasWarrantyStartDate() => $_has(24);
   @$pb.TagNumber(25)
-  void clearWarrantyStartDate() => clearField(25);
+  void clearWarrantyStartDate() => $_clearField(25);
   @$pb.TagNumber(25)
   $0.Timestamp ensureWarrantyStartDate() => $_ensure(24);
 
   @$pb.TagNumber(26)
   $0.Timestamp get warrantyEndDate => $_getN(25);
   @$pb.TagNumber(26)
-  set warrantyEndDate($0.Timestamp v) { setField(26, v); }
+  set warrantyEndDate($0.Timestamp v) { $_setField(26, v); }
   @$pb.TagNumber(26)
   $core.bool hasWarrantyEndDate() => $_has(25);
   @$pb.TagNumber(26)
-  void clearWarrantyEndDate() => clearField(26);
+  void clearWarrantyEndDate() => $_clearField(26);
   @$pb.TagNumber(26)
   $0.Timestamp ensureWarrantyEndDate() => $_ensure(25);
 
@@ -2157,7 +2159,7 @@ class UpdateAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(27)
   $core.bool hasIgnoreWarrantyStartDate() => $_has(26);
   @$pb.TagNumber(27)
-  void clearIgnoreWarrantyStartDate() => clearField(27);
+  void clearIgnoreWarrantyStartDate() => $_clearField(27);
 }
 
 class DeleteAssetRequest extends $pb.GeneratedMessage {
@@ -2207,7 +2209,7 @@ class DeleteAssetRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 }
 
 class DeleteAssetResponse extends $pb.GeneratedMessage {
@@ -2339,13 +2341,13 @@ class ListAssetsRequest extends $pb.GeneratedMessage {
 
   /// Filters
   @$pb.TagNumber(1)
-  $core.List<$core.String> get locationIds => $_getList(0);
+  $pb.PbList<$core.String> get locationIds => $_getList(0);
 
   @$pb.TagNumber(2)
-  $core.List<AssetStatus> get statuses => $_getList(1);
+  $pb.PbList<AssetStatus> get statuses => $_getList(1);
 
   @$pb.TagNumber(3)
-  $core.List<$core.String> get divisionCodes => $_getList(2);
+  $pb.PbList<$core.String> get divisionCodes => $_getList(2);
 
   @$pb.TagNumber(4)
   $core.String get search => $_getSZ(3);
@@ -2354,7 +2356,7 @@ class ListAssetsRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasSearch() => $_has(3);
   @$pb.TagNumber(4)
-  void clearSearch() => clearField(4);
+  void clearSearch() => $_clearField(4);
 
   /// Warranty filters
   @$pb.TagNumber(5)
@@ -2364,7 +2366,7 @@ class ListAssetsRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.bool hasHasActiveWarranty() => $_has(4);
   @$pb.TagNumber(5)
-  void clearHasActiveWarranty() => clearField(5);
+  void clearHasActiveWarranty() => $_clearField(5);
 
   @$pb.TagNumber(6)
   $core.bool get warrantyExpiringSoon => $_getBF(5);
@@ -2373,28 +2375,28 @@ class ListAssetsRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   $core.bool hasWarrantyExpiringSoon() => $_has(5);
   @$pb.TagNumber(6)
-  void clearWarrantyExpiringSoon() => clearField(6);
+  void clearWarrantyExpiringSoon() => $_clearField(6);
 
   /// Date range filters
   @$pb.TagNumber(7)
   $0.Timestamp get createdAfter => $_getN(6);
   @$pb.TagNumber(7)
-  set createdAfter($0.Timestamp v) { setField(7, v); }
+  set createdAfter($0.Timestamp v) { $_setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasCreatedAfter() => $_has(6);
   @$pb.TagNumber(7)
-  void clearCreatedAfter() => clearField(7);
+  void clearCreatedAfter() => $_clearField(7);
   @$pb.TagNumber(7)
   $0.Timestamp ensureCreatedAfter() => $_ensure(6);
 
   @$pb.TagNumber(8)
   $0.Timestamp get createdBefore => $_getN(7);
   @$pb.TagNumber(8)
-  set createdBefore($0.Timestamp v) { setField(8, v); }
+  set createdBefore($0.Timestamp v) { $_setField(8, v); }
   @$pb.TagNumber(8)
   $core.bool hasCreatedBefore() => $_has(7);
   @$pb.TagNumber(8)
-  void clearCreatedBefore() => clearField(8);
+  void clearCreatedBefore() => $_clearField(8);
   @$pb.TagNumber(8)
   $0.Timestamp ensureCreatedBefore() => $_ensure(7);
 
@@ -2406,7 +2408,7 @@ class ListAssetsRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(9)
   $core.bool hasSortBy() => $_has(8);
   @$pb.TagNumber(9)
-  void clearSortBy() => clearField(9);
+  void clearSortBy() => $_clearField(9);
 
   @$pb.TagNumber(10)
   $core.String get sortOrder => $_getSZ(9);
@@ -2415,7 +2417,7 @@ class ListAssetsRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(10)
   $core.bool hasSortOrder() => $_has(9);
   @$pb.TagNumber(10)
-  void clearSortOrder() => clearField(10);
+  void clearSortOrder() => $_clearField(10);
 
   /// Pagination
   @$pb.TagNumber(11)
@@ -2425,7 +2427,7 @@ class ListAssetsRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(11)
   $core.bool hasLimit() => $_has(10);
   @$pb.TagNumber(11)
-  void clearLimit() => clearField(11);
+  void clearLimit() => $_clearField(11);
 
   @$pb.TagNumber(12)
   $core.int get offset => $_getIZ(11);
@@ -2434,7 +2436,7 @@ class ListAssetsRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(12)
   $core.bool hasOffset() => $_has(11);
   @$pb.TagNumber(12)
-  void clearOffset() => clearField(12);
+  void clearOffset() => $_clearField(12);
 }
 
 class ListAssetsResponse extends $pb.GeneratedMessage {
@@ -2498,7 +2500,7 @@ class ListAssetsResponse extends $pb.GeneratedMessage {
   static ListAssetsResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<AssetWithDetails> get items => $_getList(0);
+  $pb.PbList<AssetWithDetails> get items => $_getList(0);
 
   @$pb.TagNumber(2)
   $core.int get total => $_getIZ(1);
@@ -2507,7 +2509,7 @@ class ListAssetsResponse extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasTotal() => $_has(1);
   @$pb.TagNumber(2)
-  void clearTotal() => clearField(2);
+  void clearTotal() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.int get page => $_getIZ(2);
@@ -2516,7 +2518,7 @@ class ListAssetsResponse extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasPage() => $_has(2);
   @$pb.TagNumber(3)
-  void clearPage() => clearField(3);
+  void clearPage() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.int get pageSize => $_getIZ(3);
@@ -2525,7 +2527,7 @@ class ListAssetsResponse extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasPageSize() => $_has(3);
   @$pb.TagNumber(4)
-  void clearPageSize() => clearField(4);
+  void clearPageSize() => $_clearField(4);
 
   @$pb.TagNumber(5)
   $core.int get totalPages => $_getIZ(4);
@@ -2534,7 +2536,7 @@ class ListAssetsResponse extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.bool hasTotalPages() => $_has(4);
   @$pb.TagNumber(5)
-  void clearTotalPages() => clearField(5);
+  void clearTotalPages() => $_clearField(5);
 }
 
 class BulkUpdateAssetsRequest extends $pb.GeneratedMessage {
@@ -2593,17 +2595,17 @@ class BulkUpdateAssetsRequest extends $pb.GeneratedMessage {
   static BulkUpdateAssetsRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<$core.String> get ids => $_getList(0);
+  $pb.PbList<$core.String> get ids => $_getList(0);
 
   /// Fields to update (all optional - only provided fields are updated)
   @$pb.TagNumber(2)
   AssetStatus get status => $_getN(1);
   @$pb.TagNumber(2)
-  set status(AssetStatus v) { setField(2, v); }
+  set status(AssetStatus v) { $_setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasStatus() => $_has(1);
   @$pb.TagNumber(2)
-  void clearStatus() => clearField(2);
+  void clearStatus() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get locationId => $_getSZ(2);
@@ -2612,7 +2614,7 @@ class BulkUpdateAssetsRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasLocationId() => $_has(2);
   @$pb.TagNumber(3)
-  void clearLocationId() => clearField(3);
+  void clearLocationId() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.String get divisionOfConstruction => $_getSZ(3);
@@ -2621,7 +2623,7 @@ class BulkUpdateAssetsRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasDivisionOfConstruction() => $_has(3);
   @$pb.TagNumber(4)
-  void clearDivisionOfConstruction() => clearField(4);
+  void clearDivisionOfConstruction() => $_clearField(4);
 }
 
 class BulkUpdateAssetsResponse extends $pb.GeneratedMessage {
@@ -2676,10 +2678,10 @@ class BulkUpdateAssetsResponse extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasUpdatedCount() => $_has(0);
   @$pb.TagNumber(1)
-  void clearUpdatedCount() => clearField(1);
+  void clearUpdatedCount() => $_clearField(1);
 
   @$pb.TagNumber(2)
-  $core.List<$core.String> get failedIds => $_getList(1);
+  $pb.PbList<$core.String> get failedIds => $_getList(1);
 }
 
 class BulkDeleteAssetsRequest extends $pb.GeneratedMessage {
@@ -2723,7 +2725,7 @@ class BulkDeleteAssetsRequest extends $pb.GeneratedMessage {
   static BulkDeleteAssetsRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<$core.String> get ids => $_getList(0);
+  $pb.PbList<$core.String> get ids => $_getList(0);
 }
 
 class BulkDeleteAssetsResponse extends $pb.GeneratedMessage {
@@ -2778,10 +2780,10 @@ class BulkDeleteAssetsResponse extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasDeletedCount() => $_has(0);
   @$pb.TagNumber(1)
-  void clearDeletedCount() => clearField(1);
+  void clearDeletedCount() => $_clearField(1);
 
   @$pb.TagNumber(2)
-  $core.List<$core.String> get failedIds => $_getList(1);
+  $pb.PbList<$core.String> get failedIds => $_getList(1);
 }
 
 class AssetLocation extends $pb.GeneratedMessage {
@@ -2846,7 +2848,7 @@ class AssetLocation extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get name => $_getSZ(1);
@@ -2855,7 +2857,7 @@ class AssetLocation extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearName() => clearField(2);
+  void clearName() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get address => $_getSZ(2);
@@ -2864,7 +2866,7 @@ class AssetLocation extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasAddress() => $_has(2);
   @$pb.TagNumber(3)
-  void clearAddress() => clearField(3);
+  void clearAddress() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.int get assetCount => $_getIZ(3);
@@ -2873,7 +2875,7 @@ class AssetLocation extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasAssetCount() => $_has(3);
   @$pb.TagNumber(4)
-  void clearAssetCount() => clearField(4);
+  void clearAssetCount() => $_clearField(4);
 }
 
 class GetAssetLocationsRequest extends $pb.GeneratedMessage {
@@ -2949,7 +2951,7 @@ class GetAssetLocationsResponse extends $pb.GeneratedMessage {
   static GetAssetLocationsResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<AssetLocation> get locations => $_getList(0);
+  $pb.PbList<AssetLocation> get locations => $_getList(0);
 }
 
 /// CSI Division codes
@@ -3020,7 +3022,7 @@ class AssetDivision extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasCode() => $_has(0);
   @$pb.TagNumber(1)
-  void clearCode() => clearField(1);
+  void clearCode() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get name => $_getSZ(1);
@@ -3029,7 +3031,7 @@ class AssetDivision extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearName() => clearField(2);
+  void clearName() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get parentCode => $_getSZ(2);
@@ -3038,7 +3040,7 @@ class AssetDivision extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasParentCode() => $_has(2);
   @$pb.TagNumber(3)
-  void clearParentCode() => clearField(3);
+  void clearParentCode() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.int get level => $_getIZ(3);
@@ -3047,7 +3049,7 @@ class AssetDivision extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasLevel() => $_has(3);
   @$pb.TagNumber(4)
-  void clearLevel() => clearField(4);
+  void clearLevel() => $_clearField(4);
 
   @$pb.TagNumber(5)
   $core.int get assetCount => $_getIZ(4);
@@ -3056,7 +3058,7 @@ class AssetDivision extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.bool hasAssetCount() => $_has(4);
   @$pb.TagNumber(5)
-  void clearAssetCount() => clearField(5);
+  void clearAssetCount() => $_clearField(5);
 }
 
 class GetAssetDivisionsRequest extends $pb.GeneratedMessage {
@@ -3106,7 +3108,7 @@ class GetAssetDivisionsRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasLevel() => $_has(0);
   @$pb.TagNumber(1)
-  void clearLevel() => clearField(1);
+  void clearLevel() => $_clearField(1);
 }
 
 class GetAssetDivisionsResponse extends $pb.GeneratedMessage {
@@ -3150,7 +3152,7 @@ class GetAssetDivisionsResponse extends $pb.GeneratedMessage {
   static GetAssetDivisionsResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<AssetDivision> get divisions => $_getList(0);
+  $pb.PbList<AssetDivision> get divisions => $_getList(0);
 }
 
 class GetAssetStatisticsRequest extends $pb.GeneratedMessage {
@@ -3200,7 +3202,7 @@ class GetAssetStatisticsRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 }
 
 class AssetStatistics extends $pb.GeneratedMessage {
@@ -3290,7 +3292,7 @@ class AssetStatistics extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasAssetId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearAssetId() => clearField(1);
+  void clearAssetId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.int get totalTasks => $_getIZ(1);
@@ -3299,7 +3301,7 @@ class AssetStatistics extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasTotalTasks() => $_has(1);
   @$pb.TagNumber(2)
-  void clearTotalTasks() => clearField(2);
+  void clearTotalTasks() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.int get openTasks => $_getIZ(2);
@@ -3308,7 +3310,7 @@ class AssetStatistics extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasOpenTasks() => $_has(2);
   @$pb.TagNumber(3)
-  void clearOpenTasks() => clearField(3);
+  void clearOpenTasks() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.int get completedTasks => $_getIZ(3);
@@ -3317,7 +3319,7 @@ class AssetStatistics extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasCompletedTasks() => $_has(3);
   @$pb.TagNumber(4)
-  void clearCompletedTasks() => clearField(4);
+  void clearCompletedTasks() => $_clearField(4);
 
   @$pb.TagNumber(5)
   $core.int get fileCount => $_getIZ(4);
@@ -3326,7 +3328,7 @@ class AssetStatistics extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.bool hasFileCount() => $_has(4);
   @$pb.TagNumber(5)
-  void clearFileCount() => clearField(5);
+  void clearFileCount() => $_clearField(5);
 
   @$pb.TagNumber(6)
   $core.int get warrantyCoverageCount => $_getIZ(5);
@@ -3335,7 +3337,7 @@ class AssetStatistics extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   $core.bool hasWarrantyCoverageCount() => $_has(5);
   @$pb.TagNumber(6)
-  void clearWarrantyCoverageCount() => clearField(6);
+  void clearWarrantyCoverageCount() => $_clearField(6);
 
   @$pb.TagNumber(7)
   $core.double get totalValue => $_getN(6);
@@ -3344,27 +3346,27 @@ class AssetStatistics extends $pb.GeneratedMessage {
   @$pb.TagNumber(7)
   $core.bool hasTotalValue() => $_has(6);
   @$pb.TagNumber(7)
-  void clearTotalValue() => clearField(7);
+  void clearTotalValue() => $_clearField(7);
 
   @$pb.TagNumber(8)
   $0.Timestamp get nextWarrantyExpiry => $_getN(7);
   @$pb.TagNumber(8)
-  set nextWarrantyExpiry($0.Timestamp v) { setField(8, v); }
+  set nextWarrantyExpiry($0.Timestamp v) { $_setField(8, v); }
   @$pb.TagNumber(8)
   $core.bool hasNextWarrantyExpiry() => $_has(7);
   @$pb.TagNumber(8)
-  void clearNextWarrantyExpiry() => clearField(8);
+  void clearNextWarrantyExpiry() => $_clearField(8);
   @$pb.TagNumber(8)
   $0.Timestamp ensureNextWarrantyExpiry() => $_ensure(7);
 
   @$pb.TagNumber(9)
   $0.Timestamp get lastTaskCompletedAt => $_getN(8);
   @$pb.TagNumber(9)
-  set lastTaskCompletedAt($0.Timestamp v) { setField(9, v); }
+  set lastTaskCompletedAt($0.Timestamp v) { $_setField(9, v); }
   @$pb.TagNumber(9)
   $core.bool hasLastTaskCompletedAt() => $_has(8);
   @$pb.TagNumber(9)
-  void clearLastTaskCompletedAt() => clearField(9);
+  void clearLastTaskCompletedAt() => $_clearField(9);
   @$pb.TagNumber(9)
   $0.Timestamp ensureLastTaskCompletedAt() => $_ensure(8);
 }
@@ -3377,10 +3379,7 @@ class AssetFile extends $pb.GeneratedMessage {
     $core.String? contentType,
     $fixnum.Int64? sizeBytes,
     $core.String? url,
-    $core.String? caption,
-    $core.int? displayOrder,
-    $core.String? extractedText,
-    $core.String? aiSummary,
+    $core.String? fileType,
     $0.Timestamp? createdAt,
     $0.Timestamp? updatedAt,
   }) {
@@ -3403,17 +3402,8 @@ class AssetFile extends $pb.GeneratedMessage {
     if (url != null) {
       $result.url = url;
     }
-    if (caption != null) {
-      $result.caption = caption;
-    }
-    if (displayOrder != null) {
-      $result.displayOrder = displayOrder;
-    }
-    if (extractedText != null) {
-      $result.extractedText = extractedText;
-    }
-    if (aiSummary != null) {
-      $result.aiSummary = aiSummary;
+    if (fileType != null) {
+      $result.fileType = fileType;
     }
     if (createdAt != null) {
       $result.createdAt = createdAt;
@@ -3434,12 +3424,9 @@ class AssetFile extends $pb.GeneratedMessage {
     ..aOS(4, _omitFieldNames ? '' : 'contentType')
     ..aInt64(5, _omitFieldNames ? '' : 'sizeBytes')
     ..aOS(6, _omitFieldNames ? '' : 'url')
-    ..aOS(7, _omitFieldNames ? '' : 'caption')
-    ..a<$core.int>(8, _omitFieldNames ? '' : 'displayOrder', $pb.PbFieldType.O3)
-    ..aOS(9, _omitFieldNames ? '' : 'extractedText')
-    ..aOS(10, _omitFieldNames ? '' : 'aiSummary')
-    ..aOM<$0.Timestamp>(11, _omitFieldNames ? '' : 'createdAt', subBuilder: $0.Timestamp.create)
-    ..aOM<$0.Timestamp>(12, _omitFieldNames ? '' : 'updatedAt', subBuilder: $0.Timestamp.create)
+    ..aOS(7, _omitFieldNames ? '' : 'fileType')
+    ..aOM<$0.Timestamp>(8, _omitFieldNames ? '' : 'createdAt', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(9, _omitFieldNames ? '' : 'updatedAt', subBuilder: $0.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -3471,7 +3458,7 @@ class AssetFile extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get assetId => $_getSZ(1);
@@ -3480,7 +3467,7 @@ class AssetFile extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasAssetId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearAssetId() => clearField(2);
+  void clearAssetId() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get fileName => $_getSZ(2);
@@ -3489,7 +3476,7 @@ class AssetFile extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasFileName() => $_has(2);
   @$pb.TagNumber(3)
-  void clearFileName() => clearField(3);
+  void clearFileName() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.String get contentType => $_getSZ(3);
@@ -3498,7 +3485,7 @@ class AssetFile extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasContentType() => $_has(3);
   @$pb.TagNumber(4)
-  void clearContentType() => clearField(4);
+  void clearContentType() => $_clearField(4);
 
   @$pb.TagNumber(5)
   $fixnum.Int64 get sizeBytes => $_getI64(4);
@@ -3507,7 +3494,7 @@ class AssetFile extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.bool hasSizeBytes() => $_has(4);
   @$pb.TagNumber(5)
-  void clearSizeBytes() => clearField(5);
+  void clearSizeBytes() => $_clearField(5);
 
   @$pb.TagNumber(6)
   $core.String get url => $_getSZ(5);
@@ -3516,66 +3503,38 @@ class AssetFile extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   $core.bool hasUrl() => $_has(5);
   @$pb.TagNumber(6)
-  void clearUrl() => clearField(6);
+  void clearUrl() => $_clearField(6);
 
   @$pb.TagNumber(7)
-  $core.String get caption => $_getSZ(6);
+  $core.String get fileType => $_getSZ(6);
   @$pb.TagNumber(7)
-  set caption($core.String v) { $_setString(6, v); }
+  set fileType($core.String v) { $_setString(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasCaption() => $_has(6);
+  $core.bool hasFileType() => $_has(6);
   @$pb.TagNumber(7)
-  void clearCaption() => clearField(7);
+  void clearFileType() => $_clearField(7);
 
   @$pb.TagNumber(8)
-  $core.int get displayOrder => $_getIZ(7);
+  $0.Timestamp get createdAt => $_getN(7);
   @$pb.TagNumber(8)
-  set displayOrder($core.int v) { $_setSignedInt32(7, v); }
+  set createdAt($0.Timestamp v) { $_setField(8, v); }
   @$pb.TagNumber(8)
-  $core.bool hasDisplayOrder() => $_has(7);
+  $core.bool hasCreatedAt() => $_has(7);
   @$pb.TagNumber(8)
-  void clearDisplayOrder() => clearField(8);
+  void clearCreatedAt() => $_clearField(8);
+  @$pb.TagNumber(8)
+  $0.Timestamp ensureCreatedAt() => $_ensure(7);
 
-  /// AI-extracted metadata
   @$pb.TagNumber(9)
-  $core.String get extractedText => $_getSZ(8);
+  $0.Timestamp get updatedAt => $_getN(8);
   @$pb.TagNumber(9)
-  set extractedText($core.String v) { $_setString(8, v); }
+  set updatedAt($0.Timestamp v) { $_setField(9, v); }
   @$pb.TagNumber(9)
-  $core.bool hasExtractedText() => $_has(8);
+  $core.bool hasUpdatedAt() => $_has(8);
   @$pb.TagNumber(9)
-  void clearExtractedText() => clearField(9);
-
-  @$pb.TagNumber(10)
-  $core.String get aiSummary => $_getSZ(9);
-  @$pb.TagNumber(10)
-  set aiSummary($core.String v) { $_setString(9, v); }
-  @$pb.TagNumber(10)
-  $core.bool hasAiSummary() => $_has(9);
-  @$pb.TagNumber(10)
-  void clearAiSummary() => clearField(10);
-
-  @$pb.TagNumber(11)
-  $0.Timestamp get createdAt => $_getN(10);
-  @$pb.TagNumber(11)
-  set createdAt($0.Timestamp v) { setField(11, v); }
-  @$pb.TagNumber(11)
-  $core.bool hasCreatedAt() => $_has(10);
-  @$pb.TagNumber(11)
-  void clearCreatedAt() => clearField(11);
-  @$pb.TagNumber(11)
-  $0.Timestamp ensureCreatedAt() => $_ensure(10);
-
-  @$pb.TagNumber(12)
-  $0.Timestamp get updatedAt => $_getN(11);
-  @$pb.TagNumber(12)
-  set updatedAt($0.Timestamp v) { setField(12, v); }
-  @$pb.TagNumber(12)
-  $core.bool hasUpdatedAt() => $_has(11);
-  @$pb.TagNumber(12)
-  void clearUpdatedAt() => clearField(12);
-  @$pb.TagNumber(12)
-  $0.Timestamp ensureUpdatedAt() => $_ensure(11);
+  void clearUpdatedAt() => $_clearField(9);
+  @$pb.TagNumber(9)
+  $0.Timestamp ensureUpdatedAt() => $_ensure(8);
 }
 
 class GetAssetFileUploadUrlRequest extends $pb.GeneratedMessage {
@@ -3640,7 +3599,7 @@ class GetAssetFileUploadUrlRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasAssetId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearAssetId() => clearField(1);
+  void clearAssetId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get fileName => $_getSZ(1);
@@ -3649,7 +3608,7 @@ class GetAssetFileUploadUrlRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasFileName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearFileName() => clearField(2);
+  void clearFileName() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get contentType => $_getSZ(2);
@@ -3658,7 +3617,7 @@ class GetAssetFileUploadUrlRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasContentType() => $_has(2);
   @$pb.TagNumber(3)
-  void clearContentType() => clearField(3);
+  void clearContentType() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $fixnum.Int64 get sizeBytes => $_getI64(3);
@@ -3667,7 +3626,7 @@ class GetAssetFileUploadUrlRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasSizeBytes() => $_has(3);
   @$pb.TagNumber(4)
-  void clearSizeBytes() => clearField(4);
+  void clearSizeBytes() => $_clearField(4);
 }
 
 class GetAssetFileUploadUrlResponse extends $pb.GeneratedMessage {
@@ -3727,7 +3686,7 @@ class GetAssetFileUploadUrlResponse extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasUploadUrl() => $_has(0);
   @$pb.TagNumber(1)
-  void clearUploadUrl() => clearField(1);
+  void clearUploadUrl() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get fileId => $_getSZ(1);
@@ -3736,16 +3695,16 @@ class GetAssetFileUploadUrlResponse extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasFileId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearFileId() => clearField(2);
+  void clearFileId() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $0.Timestamp get expiresAt => $_getN(2);
   @$pb.TagNumber(3)
-  set expiresAt($0.Timestamp v) { setField(3, v); }
+  set expiresAt($0.Timestamp v) { $_setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasExpiresAt() => $_has(2);
   @$pb.TagNumber(3)
-  void clearExpiresAt() => clearField(3);
+  void clearExpiresAt() => $_clearField(3);
   @$pb.TagNumber(3)
   $0.Timestamp ensureExpiresAt() => $_ensure(2);
 }
@@ -3754,6 +3713,9 @@ class ConfirmAssetFileUploadRequest extends $pb.GeneratedMessage {
   factory ConfirmAssetFileUploadRequest({
     $core.String? fileId,
     $core.String? assetId,
+    $core.String? fileName,
+    $core.String? contentType,
+    $fixnum.Int64? sizeBytes,
     $core.String? caption,
   }) {
     final $result = create();
@@ -3762,6 +3724,15 @@ class ConfirmAssetFileUploadRequest extends $pb.GeneratedMessage {
     }
     if (assetId != null) {
       $result.assetId = assetId;
+    }
+    if (fileName != null) {
+      $result.fileName = fileName;
+    }
+    if (contentType != null) {
+      $result.contentType = contentType;
+    }
+    if (sizeBytes != null) {
+      $result.sizeBytes = sizeBytes;
     }
     if (caption != null) {
       $result.caption = caption;
@@ -3775,7 +3746,10 @@ class ConfirmAssetFileUploadRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ConfirmAssetFileUploadRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'moat.v1'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'fileId')
     ..aOS(2, _omitFieldNames ? '' : 'assetId')
-    ..aOS(3, _omitFieldNames ? '' : 'caption')
+    ..aOS(3, _omitFieldNames ? '' : 'fileName')
+    ..aOS(4, _omitFieldNames ? '' : 'contentType')
+    ..aInt64(5, _omitFieldNames ? '' : 'sizeBytes')
+    ..aOS(6, _omitFieldNames ? '' : 'caption')
     ..hasRequiredFields = false
   ;
 
@@ -3807,7 +3781,7 @@ class ConfirmAssetFileUploadRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasFileId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearFileId() => clearField(1);
+  void clearFileId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get assetId => $_getSZ(1);
@@ -3816,16 +3790,43 @@ class ConfirmAssetFileUploadRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasAssetId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearAssetId() => clearField(2);
+  void clearAssetId() => $_clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get caption => $_getSZ(2);
+  $core.String get fileName => $_getSZ(2);
   @$pb.TagNumber(3)
-  set caption($core.String v) { $_setString(2, v); }
+  set fileName($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasCaption() => $_has(2);
+  $core.bool hasFileName() => $_has(2);
   @$pb.TagNumber(3)
-  void clearCaption() => clearField(3);
+  void clearFileName() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get contentType => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set contentType($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasContentType() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearContentType() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $fixnum.Int64 get sizeBytes => $_getI64(4);
+  @$pb.TagNumber(5)
+  set sizeBytes($fixnum.Int64 v) { $_setInt64(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasSizeBytes() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearSizeBytes() => $_clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get caption => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set caption($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasCaption() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearCaption() => $_clearField(6);
 }
 
 class ListAssetFilesRequest extends $pb.GeneratedMessage {
@@ -3885,7 +3886,7 @@ class ListAssetFilesRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasAssetId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearAssetId() => clearField(1);
+  void clearAssetId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.int get limit => $_getIZ(1);
@@ -3894,7 +3895,7 @@ class ListAssetFilesRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasLimit() => $_has(1);
   @$pb.TagNumber(2)
-  void clearLimit() => clearField(2);
+  void clearLimit() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.int get offset => $_getIZ(2);
@@ -3903,7 +3904,7 @@ class ListAssetFilesRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasOffset() => $_has(2);
   @$pb.TagNumber(3)
-  void clearOffset() => clearField(3);
+  void clearOffset() => $_clearField(3);
 }
 
 class ListAssetFilesResponse extends $pb.GeneratedMessage {
@@ -3952,7 +3953,7 @@ class ListAssetFilesResponse extends $pb.GeneratedMessage {
   static ListAssetFilesResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<AssetFile> get files => $_getList(0);
+  $pb.PbList<AssetFile> get files => $_getList(0);
 
   @$pb.TagNumber(2)
   $core.int get total => $_getIZ(1);
@@ -3961,7 +3962,7 @@ class ListAssetFilesResponse extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasTotal() => $_has(1);
   @$pb.TagNumber(2)
-  void clearTotal() => clearField(2);
+  void clearTotal() => $_clearField(2);
 }
 
 class DeleteAssetFileRequest extends $pb.GeneratedMessage {
@@ -4016,7 +4017,7 @@ class DeleteAssetFileRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get assetId => $_getSZ(1);
@@ -4025,7 +4026,7 @@ class DeleteAssetFileRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasAssetId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearAssetId() => clearField(2);
+  void clearAssetId() => $_clearField(2);
 }
 
 class DeleteAssetFileResponse extends $pb.GeneratedMessage {
@@ -4064,8 +4065,8 @@ class UpdateAssetFileRequest extends $pb.GeneratedMessage {
   factory UpdateAssetFileRequest({
     $core.String? id,
     $core.String? assetId,
-    $core.String? caption,
-    $core.int? displayOrder,
+    $core.String? name,
+    $core.String? fileType,
   }) {
     final $result = create();
     if (id != null) {
@@ -4074,11 +4075,11 @@ class UpdateAssetFileRequest extends $pb.GeneratedMessage {
     if (assetId != null) {
       $result.assetId = assetId;
     }
-    if (caption != null) {
-      $result.caption = caption;
+    if (name != null) {
+      $result.name = name;
     }
-    if (displayOrder != null) {
-      $result.displayOrder = displayOrder;
+    if (fileType != null) {
+      $result.fileType = fileType;
     }
     return $result;
   }
@@ -4089,8 +4090,8 @@ class UpdateAssetFileRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'UpdateAssetFileRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'moat.v1'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'id')
     ..aOS(2, _omitFieldNames ? '' : 'assetId')
-    ..aOS(3, _omitFieldNames ? '' : 'caption')
-    ..a<$core.int>(4, _omitFieldNames ? '' : 'displayOrder', $pb.PbFieldType.O3)
+    ..aOS(3, _omitFieldNames ? '' : 'name')
+    ..aOS(4, _omitFieldNames ? '' : 'fileType')
     ..hasRequiredFields = false
   ;
 
@@ -4122,7 +4123,7 @@ class UpdateAssetFileRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get assetId => $_getSZ(1);
@@ -4131,25 +4132,25 @@ class UpdateAssetFileRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasAssetId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearAssetId() => clearField(2);
+  void clearAssetId() => $_clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get caption => $_getSZ(2);
+  $core.String get name => $_getSZ(2);
   @$pb.TagNumber(3)
-  set caption($core.String v) { $_setString(2, v); }
+  set name($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasCaption() => $_has(2);
+  $core.bool hasName() => $_has(2);
   @$pb.TagNumber(3)
-  void clearCaption() => clearField(3);
+  void clearName() => $_clearField(3);
 
   @$pb.TagNumber(4)
-  $core.int get displayOrder => $_getIZ(3);
+  $core.String get fileType => $_getSZ(3);
   @$pb.TagNumber(4)
-  set displayOrder($core.int v) { $_setSignedInt32(3, v); }
+  set fileType($core.String v) { $_setString(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasDisplayOrder() => $_has(3);
+  $core.bool hasFileType() => $_has(3);
   @$pb.TagNumber(4)
-  void clearDisplayOrder() => clearField(4);
+  void clearFileType() => $_clearField(4);
 }
 
 /// AssetMessage represents a Q&A message about an asset's documents
@@ -4220,7 +4221,7 @@ class AssetMessage extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get assetId => $_getSZ(1);
@@ -4229,7 +4230,7 @@ class AssetMessage extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasAssetId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearAssetId() => clearField(2);
+  void clearAssetId() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get prompt => $_getSZ(2);
@@ -4238,7 +4239,7 @@ class AssetMessage extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasPrompt() => $_has(2);
   @$pb.TagNumber(3)
-  void clearPrompt() => clearField(3);
+  void clearPrompt() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.String get response => $_getSZ(3);
@@ -4247,16 +4248,16 @@ class AssetMessage extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasResponse() => $_has(3);
   @$pb.TagNumber(4)
-  void clearResponse() => clearField(4);
+  void clearResponse() => $_clearField(4);
 
   @$pb.TagNumber(5)
   $0.Timestamp get createdAt => $_getN(4);
   @$pb.TagNumber(5)
-  set createdAt($0.Timestamp v) { setField(5, v); }
+  set createdAt($0.Timestamp v) { $_setField(5, v); }
   @$pb.TagNumber(5)
   $core.bool hasCreatedAt() => $_has(4);
   @$pb.TagNumber(5)
-  void clearCreatedAt() => clearField(5);
+  void clearCreatedAt() => $_clearField(5);
   @$pb.TagNumber(5)
   $0.Timestamp ensureCreatedAt() => $_ensure(4);
 }
@@ -4318,7 +4319,7 @@ class ListAssetMessagesRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasAssetId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearAssetId() => clearField(1);
+  void clearAssetId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.int get limit => $_getIZ(1);
@@ -4327,7 +4328,7 @@ class ListAssetMessagesRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasLimit() => $_has(1);
   @$pb.TagNumber(2)
-  void clearLimit() => clearField(2);
+  void clearLimit() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.int get offset => $_getIZ(2);
@@ -4336,7 +4337,7 @@ class ListAssetMessagesRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasOffset() => $_has(2);
   @$pb.TagNumber(3)
-  void clearOffset() => clearField(3);
+  void clearOffset() => $_clearField(3);
 }
 
 class ListAssetMessagesResponse extends $pb.GeneratedMessage {
@@ -4385,7 +4386,7 @@ class ListAssetMessagesResponse extends $pb.GeneratedMessage {
   static ListAssetMessagesResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<AssetMessage> get messages => $_getList(0);
+  $pb.PbList<AssetMessage> get messages => $_getList(0);
 
   @$pb.TagNumber(2)
   $core.int get total => $_getIZ(1);
@@ -4394,7 +4395,7 @@ class ListAssetMessagesResponse extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasTotal() => $_has(1);
   @$pb.TagNumber(2)
-  void clearTotal() => clearField(2);
+  void clearTotal() => $_clearField(2);
 }
 
 class CreateAssetMessageRequest extends $pb.GeneratedMessage {
@@ -4449,7 +4450,7 @@ class CreateAssetMessageRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasAssetId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearAssetId() => clearField(1);
+  void clearAssetId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get prompt => $_getSZ(1);
@@ -4458,7 +4459,7 @@ class CreateAssetMessageRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasPrompt() => $_has(1);
   @$pb.TagNumber(2)
-  void clearPrompt() => clearField(2);
+  void clearPrompt() => $_clearField(2);
 }
 
 class CreateAssetMessageResponse extends $pb.GeneratedMessage {
@@ -4504,11 +4505,11 @@ class CreateAssetMessageResponse extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   AssetMessage get message => $_getN(0);
   @$pb.TagNumber(1)
-  set message(AssetMessage v) { setField(1, v); }
+  set message(AssetMessage v) { $_setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasMessage() => $_has(0);
   @$pb.TagNumber(1)
-  void clearMessage() => clearField(1);
+  void clearMessage() => $_clearField(1);
   @$pb.TagNumber(1)
   AssetMessage ensureMessage() => $_ensure(0);
 }
@@ -4517,54 +4518,71 @@ class AssetServiceApi {
   $pb.RpcClient _client;
   AssetServiceApi(this._client);
 
+  /// CreateAsset creates a new asset.
   $async.Future<Asset> createAsset($pb.ClientContext? ctx, CreateAssetRequest request) =>
     _client.invoke<Asset>(ctx, 'AssetService', 'CreateAsset', request, Asset())
   ;
+  /// GetAsset retrieves an asset by ID.
   $async.Future<AssetWithDetails> getAsset($pb.ClientContext? ctx, GetAssetRequest request) =>
     _client.invoke<AssetWithDetails>(ctx, 'AssetService', 'GetAsset', request, AssetWithDetails())
   ;
+  /// UpdateAsset updates an existing asset.
   $async.Future<Asset> updateAsset($pb.ClientContext? ctx, UpdateAssetRequest request) =>
     _client.invoke<Asset>(ctx, 'AssetService', 'UpdateAsset', request, Asset())
   ;
+  /// DeleteAsset soft-deletes an asset.
   $async.Future<DeleteAssetResponse> deleteAsset($pb.ClientContext? ctx, DeleteAssetRequest request) =>
     _client.invoke<DeleteAssetResponse>(ctx, 'AssetService', 'DeleteAsset', request, DeleteAssetResponse())
   ;
+  /// ListAssets lists assets with filtering and pagination.
   $async.Future<ListAssetsResponse> listAssets($pb.ClientContext? ctx, ListAssetsRequest request) =>
     _client.invoke<ListAssetsResponse>(ctx, 'AssetService', 'ListAssets', request, ListAssetsResponse())
   ;
+  /// BulkUpdateAssets updates multiple assets at once.
   $async.Future<BulkUpdateAssetsResponse> bulkUpdateAssets($pb.ClientContext? ctx, BulkUpdateAssetsRequest request) =>
     _client.invoke<BulkUpdateAssetsResponse>(ctx, 'AssetService', 'BulkUpdateAssets', request, BulkUpdateAssetsResponse())
   ;
+  /// BulkDeleteAssets soft-deletes multiple assets.
   $async.Future<BulkDeleteAssetsResponse> bulkDeleteAssets($pb.ClientContext? ctx, BulkDeleteAssetsRequest request) =>
     _client.invoke<BulkDeleteAssetsResponse>(ctx, 'AssetService', 'BulkDeleteAssets', request, BulkDeleteAssetsResponse())
   ;
+  /// GetAssetLocations returns locations containing assets.
   $async.Future<GetAssetLocationsResponse> getAssetLocations($pb.ClientContext? ctx, GetAssetLocationsRequest request) =>
     _client.invoke<GetAssetLocationsResponse>(ctx, 'AssetService', 'GetAssetLocations', request, GetAssetLocationsResponse())
   ;
+  /// GetAssetDivisions returns available CSI division codes.
   $async.Future<GetAssetDivisionsResponse> getAssetDivisions($pb.ClientContext? ctx, GetAssetDivisionsRequest request) =>
     _client.invoke<GetAssetDivisionsResponse>(ctx, 'AssetService', 'GetAssetDivisions', request, GetAssetDivisionsResponse())
   ;
+  /// GetAssetStatistics returns statistics for an asset.
   $async.Future<AssetStatistics> getAssetStatistics($pb.ClientContext? ctx, GetAssetStatisticsRequest request) =>
     _client.invoke<AssetStatistics>(ctx, 'AssetService', 'GetAssetStatistics', request, AssetStatistics())
   ;
+  /// GetAssetFileUploadUrl returns a presigned URL for uploading a document.
   $async.Future<GetAssetFileUploadUrlResponse> getAssetFileUploadUrl($pb.ClientContext? ctx, GetAssetFileUploadUrlRequest request) =>
     _client.invoke<GetAssetFileUploadUrlResponse>(ctx, 'AssetService', 'GetAssetFileUploadUrl', request, GetAssetFileUploadUrlResponse())
   ;
+  /// ConfirmAssetFileUpload confirms an upload and creates the file record.
   $async.Future<AssetFile> confirmAssetFileUpload($pb.ClientContext? ctx, ConfirmAssetFileUploadRequest request) =>
     _client.invoke<AssetFile>(ctx, 'AssetService', 'ConfirmAssetFileUpload', request, AssetFile())
   ;
+  /// ListAssetFiles lists all files (documents) for an asset.
   $async.Future<ListAssetFilesResponse> listAssetFiles($pb.ClientContext? ctx, ListAssetFilesRequest request) =>
     _client.invoke<ListAssetFilesResponse>(ctx, 'AssetService', 'ListAssetFiles', request, ListAssetFilesResponse())
   ;
+  /// DeleteAssetFile deletes a file from an asset.
   $async.Future<DeleteAssetFileResponse> deleteAssetFile($pb.ClientContext? ctx, DeleteAssetFileRequest request) =>
     _client.invoke<DeleteAssetFileResponse>(ctx, 'AssetService', 'DeleteAssetFile', request, DeleteAssetFileResponse())
   ;
+  /// UpdateAssetFile updates file metadata.
   $async.Future<AssetFile> updateAssetFile($pb.ClientContext? ctx, UpdateAssetFileRequest request) =>
     _client.invoke<AssetFile>(ctx, 'AssetService', 'UpdateAssetFile', request, AssetFile())
   ;
+  /// ListAssetMessages lists all chat messages for an asset.
   $async.Future<ListAssetMessagesResponse> listAssetMessages($pb.ClientContext? ctx, ListAssetMessagesRequest request) =>
     _client.invoke<ListAssetMessagesResponse>(ctx, 'AssetService', 'ListAssetMessages', request, ListAssetMessagesResponse())
   ;
+  /// CreateAssetMessage creates a new message and generates AI response.
   $async.Future<CreateAssetMessageResponse> createAssetMessage($pb.ClientContext? ctx, CreateAssetMessageRequest request) =>
     _client.invoke<CreateAssetMessageResponse>(ctx, 'AssetService', 'CreateAssetMessage', request, CreateAssetMessageResponse())
   ;

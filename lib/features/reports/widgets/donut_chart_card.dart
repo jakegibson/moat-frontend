@@ -184,35 +184,6 @@ class DonutChartCard extends StatelessWidget {
     // Filter to segments with value > 0
     final activeSegments = data.where((s) => s.value > 0).toList();
 
-    // For single segment, use a simple ring painter instead of CristalyseChart
-    // (CristalyseChart may not render single-segment pies properly)
-    if (activeSegments.length == 1) {
-      return SizedBox(
-        height: 200,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            CustomPaint(
-              size: const Size(180, 180),
-              painter: _SingleSegmentDonutPainter(
-                color: activeSegments.first.color,
-              ),
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(totalLabel, style: AppTextStyles.textXSTertiary),
-                Text(
-                  _formatNumber(totalValue),
-                  style: AppTextStyles.text2XLSemibold,
-                ),
-              ],
-            ),
-          ],
-        ),
-      );
-    }
-
     final chartData = activeSegments.map((segment) {
       return {'category': segment.label, 'value': segment.value};
     }).toList();
@@ -233,15 +204,15 @@ class DonutChartCard extends StatelessWidget {
                 showLabels: false,
                 showPercentages: false,
                 strokeWidth: 2.0,
-                strokeColor: Colors.white,
+                strokeColor: AppColors.white,
               )
               .theme(ChartTheme(
-                backgroundColor: Colors.transparent,
-                plotBackgroundColor: Colors.transparent,
+                backgroundColor: AppColors.transparent,
+                plotBackgroundColor: AppColors.transparent,
                 primaryColor: colors.isNotEmpty ? colors.first : AppColors.blueLight,
-                borderColor: Colors.transparent,
-                gridColor: Colors.transparent,
-                axisColor: Colors.transparent,
+                borderColor: AppColors.transparent,
+                gridColor: AppColors.transparent,
+                axisColor: AppColors.transparent,
                 gridWidth: 0,
                 axisWidth: 0,
                 pointSizeDefault: 4,
@@ -308,35 +279,5 @@ class DonutChartCard extends StatelessWidget {
       return '${(value / 1000).toStringAsFixed(1)}K';
     }
     return value.toString();
-  }
-}
-
-/// Custom painter for single-segment donut chart
-class _SingleSegmentDonutPainter extends CustomPainter {
-  final Color color;
-
-  _SingleSegmentDonutPainter({required this.color});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final outerRadius = size.width / 2;
-    final innerRadius = outerRadius * 0.67; // Same ratio as geomPie (60/90)
-
-    final paint = Paint()
-      ..color = color
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = outerRadius - innerRadius;
-
-    canvas.drawCircle(
-      center,
-      innerRadius + (outerRadius - innerRadius) / 2,
-      paint,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant _SingleSegmentDonutPainter oldDelegate) {
-    return oldDelegate.color != color;
   }
 }

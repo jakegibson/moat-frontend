@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:injectable/injectable.dart';
@@ -9,6 +8,7 @@ import 'package:signals/signals.dart';
 import '../../../core/config/app_config.dart';
 import '../../../core/utils/app_error.dart';
 import '../../../core/utils/result.dart';
+import '../../auth/state/auth_state.dart';
 import '../data/task_client.dart';
 import '../data/task_models.dart';
 import 'task_list_state.dart';
@@ -24,8 +24,9 @@ import 'task_list_state.dart';
 class TaskDetailState {
   final TaskClient _client;
   final TaskListState _listState;
+  final AuthState _authState;
 
-  TaskDetailState(this._client, this._listState);
+  TaskDetailState(this._client, this._listState, this._authState);
 
   // ==========================================================================
   // Selected Task State
@@ -355,7 +356,7 @@ class TaskDetailState {
   }) async {
     try {
       // Get auth token
-      final user = FirebaseAuth.instance.currentUser;
+      final user = _authState.firebaseUser.value;
       if (user == null) {
         return Err(AuthError('Not authenticated'));
       }

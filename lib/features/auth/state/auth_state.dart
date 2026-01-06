@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart' as fb;
 import 'package:injectable/injectable.dart';
 import 'package:signals/signals.dart';
 
 import '../../../core/auth/firebase_auth_service.dart';
+import '../../../core/utils/app_error.dart';
+import '../../settings/data/members_client.dart';
 import '../data/auth_client.dart';
 import '../data/user_model.dart';
 
@@ -17,10 +21,21 @@ import '../data/user_model.dart';
 class AuthState {
   final FirebaseAuthService _firebaseAuth;
   final AuthClient _authClient;
+  final MembersClient _membersClient;
 
-  AuthState(this._firebaseAuth, this._authClient) {
+  late final StreamSubscription<fb.User?> _authSubscription;
+
+  AuthState(this._firebaseAuth, this._authClient, this._membersClient) {
     // Listen to Firebase auth state changes
-    _firebaseAuth.authStateChanges.listen(_onAuthStateChanged);
+    _authSubscription = _firebaseAuth.authStateChanges.listen(_onAuthStateChanged);
+  }
+
+  /// Dispose of resources.
+  ///
+  /// Since this is a singleton, dispose is only called on app termination,
+  /// but it's good practice for testing and resource cleanup.
+  void dispose() {
+    _authSubscription.cancel();
   }
 
   // ==========================================================================
@@ -36,8 +51,8 @@ class AuthState {
   /// Loading state for auth operations
   final isLoading = signal(false);
 
-  /// Error message from last operation
-  final error = signal<String?>(null);
+  /// Error from last operation
+  final error = signal<AppError?>(null);
 
   /// Whether initial auth check has completed
   final isInitialized = signal(false);
@@ -102,7 +117,7 @@ class AuthState {
     } catch (e) {
       // Profile load failure - user might not exist in our system yet
       // or there's a network error
-      error.value = 'Failed to load user profile';
+      error.value = AppError.from(e);
       user.value = null;
     } finally {
       isInitialized.value = true;
@@ -128,10 +143,10 @@ class AuthState {
       await _firebaseAuth.signInWithEmail(email: emailAddress, password: password);
       return true;
     } on fb.FirebaseAuthException catch (e) {
-      error.value = _mapFirebaseError(e.code);
+      error.value = AuthError(_mapFirebaseError(e.code));
       return false;
     } catch (e) {
-      error.value = 'An unexpected error occurred';
+      error.value = UnknownError('An unexpected error occurred');
       return false;
     } finally {
       isLoading.value = false;
@@ -147,10 +162,10 @@ class AuthState {
       await _firebaseAuth.createAccountWithEmail(email: emailAddress, password: password);
       return true;
     } on fb.FirebaseAuthException catch (e) {
-      error.value = _mapFirebaseError(e.code);
+      error.value = AuthError(_mapFirebaseError(e.code));
       return false;
     } catch (e) {
-      error.value = 'An unexpected error occurred';
+      error.value = UnknownError('An unexpected error occurred');
       return false;
     } finally {
       isLoading.value = false;
@@ -172,10 +187,10 @@ class AuthState {
       }
       return true;
     } on fb.FirebaseAuthException catch (e) {
-      error.value = _mapFirebaseError(e.code);
+      error.value = AuthError(_mapFirebaseError(e.code));
       return false;
     } catch (e) {
-      error.value = 'An unexpected error occurred';
+      error.value = UnknownError('An unexpected error occurred');
       return false;
     } finally {
       isLoading.value = false;
@@ -191,10 +206,10 @@ class AuthState {
       await _firebaseAuth.sendPasswordResetEmail(emailAddress);
       return true;
     } on fb.FirebaseAuthException catch (e) {
-      error.value = _mapFirebaseError(e.code);
+      error.value = AuthError(_mapFirebaseError(e.code));
       return false;
     } catch (e) {
-      error.value = 'An unexpected error occurred';
+      error.value = UnknownError('An unexpected error occurred');
       return false;
     } finally {
       isLoading.value = false;
@@ -211,6 +226,44 @@ class AuthState {
   /// Clear the current error.
   void clearError() {
     error.value = null;
+  }
+
+  // ==========================================================================
+  // Profile Operations
+  // ==========================================================================
+
+  /// Update the current user's profile (name).
+  ///
+  /// Returns true on success, false on failure.
+  Future<bool> updateProfile({
+    String? firstName,
+    String? lastName,
+  }) async {
+    final currentUser = user.value;
+    if (currentUser == null) {
+      error.value = AuthError('No user logged in');
+      return false;
+    }
+
+    isLoading.value = true;
+    error.value = null;
+
+    try {
+      await _membersClient.updateMember(
+        memberId: currentUser.id,
+        firstName: firstName,
+        lastName: lastName,
+      );
+
+      // Refresh user profile to get updated data
+      await refreshUser();
+      return true;
+    } catch (e) {
+      error.value = AppError.from(e);
+      return false;
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   String _mapFirebaseError(String code) => switch (code) {

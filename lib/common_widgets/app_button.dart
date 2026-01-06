@@ -109,7 +109,7 @@ class AppButton extends StatelessWidget {
       child: OutlinedButton(
         onPressed: isDisabled ? null : onPressed,
         style: OutlinedButton.styleFrom(
-          backgroundColor: backgroundColor ?? Colors.transparent,
+          backgroundColor: backgroundColor ?? AppColors.transparent,
           foregroundColor: foregroundColor ?? AppColors.textPrimary,
           side: BorderSide(
             color: isDisabled

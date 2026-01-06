@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'ticket_detail_drawer.dart';
+import '../widgets/ticket_detail_drawer.dart';
 import 'ticket_list_screen.dart';
 
 /// A page that displays the ticket list with a specific ticket's drawer open.

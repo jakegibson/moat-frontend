@@ -9,6 +9,7 @@ import '../../../core/di/injection.dart';
 import '../../../core/routing/routes.dart';
 import '../../../core/styles/app_colors.dart';
 import '../../../core/styles/app_sizes.dart';
+import '../../../core/styles/app_text_styles.dart';
 import '../../../core/styles/semantic_tokens.dart';
 import '../data/alerts_models.dart';
 import '../state/alerts_state.dart';
@@ -366,7 +367,7 @@ class _AlertsScreenState extends State<AlertsScreen> {
           _buildSortableHeader('Location', 'locationName', sortField, sortAsc, flex: 1),
           _buildSortableHeader('Reason', 'reason', sortField, sortAsc, flex: 2),
           _buildSortableHeader('Due Date', 'alertDueDate', sortField, sortAsc, flex: 1),
-          const SizedBox(width: 100, child: Text('Action', style: TextStyle(fontWeight: FontWeight.w600))),
+          const SizedBox(width: 100, child: Text('Action', style: AppTextStyles.tableHeaderBold)),
         ],
       ),
     );
@@ -388,8 +389,7 @@ class _AlertsScreenState extends State<AlertsScreen> {
           children: [
             Text(
               label,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
+              style: AppTextStyles.tableHeaderBold.copyWith(
                 color: isActive ? SemanticColors.info : null,
               ),
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/styles/app_colors.dart';
 import '../data/task_models.dart';
 
 /// A bottom action bar for updating task status.
@@ -137,7 +138,7 @@ class _StatusActionBarState extends State<StatusActionBar> {
                       height: 20,
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
-                        color: Colors.white,
+                        color: AppColors.white,
                       ),
                     )
                   : const Text('Update Status'),

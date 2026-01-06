@@ -57,6 +57,7 @@ class LocationsState {
   /// Create a new location.
   Future<Result<Location>> createLocation({
     required String name,
+    String? description,
     String? address,
     String? city,
     String? state,
@@ -66,6 +67,7 @@ class LocationsState {
     final result = await _client
         .createLocation(
           name: name,
+          description: description,
           address: address,
           city: city,
           state: state,

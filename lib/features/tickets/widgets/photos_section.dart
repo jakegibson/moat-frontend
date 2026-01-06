@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 
+import '../../../core/styles/app_colors.dart';
 import '../data/task_models.dart';
 
 /// A section for displaying task photos in a horizontal thumbnail grid.
@@ -139,13 +140,13 @@ class _PhotoThumbnail extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
-                    color: Colors.black54,
+                    color: AppColors.black.withAlpha(138),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: const Icon(
                     Icons.close,
                     size: 12,
-                    color: Colors.white,
+                    color: AppColors.white,
                   ),
                 ),
               ),

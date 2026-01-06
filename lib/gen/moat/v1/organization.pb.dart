@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: moat/v1/organization.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -15,6 +15,8 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import '../../google/protobuf/timestamp.pb.dart' as $0;
+
+export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
 class Member extends $pb.GeneratedMessage {
   factory Member({
@@ -108,7 +110,7 @@ class Member extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get email => $_getSZ(1);
@@ -117,7 +119,7 @@ class Member extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasEmail() => $_has(1);
   @$pb.TagNumber(2)
-  void clearEmail() => clearField(2);
+  void clearEmail() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get firstName => $_getSZ(2);
@@ -126,7 +128,7 @@ class Member extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasFirstName() => $_has(2);
   @$pb.TagNumber(3)
-  void clearFirstName() => clearField(3);
+  void clearFirstName() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.String get lastName => $_getSZ(3);
@@ -135,7 +137,7 @@ class Member extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasLastName() => $_has(3);
   @$pb.TagNumber(4)
-  void clearLastName() => clearField(4);
+  void clearLastName() => $_clearField(4);
 
   @$pb.TagNumber(5)
   $core.bool get hasAcceptedInvite => $_getBF(4);
@@ -144,7 +146,7 @@ class Member extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.bool hasHasAcceptedInvite() => $_has(4);
   @$pb.TagNumber(5)
-  void clearHasAcceptedInvite() => clearField(5);
+  void clearHasAcceptedInvite() => $_clearField(5);
 
   @$pb.TagNumber(6)
   $core.bool get deleted => $_getBF(5);
@@ -153,35 +155,35 @@ class Member extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   $core.bool hasDeleted() => $_has(5);
   @$pb.TagNumber(6)
-  void clearDeleted() => clearField(6);
+  void clearDeleted() => $_clearField(6);
 
   @$pb.TagNumber(7)
   $0.Timestamp get createdAt => $_getN(6);
   @$pb.TagNumber(7)
-  set createdAt($0.Timestamp v) { setField(7, v); }
+  set createdAt($0.Timestamp v) { $_setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasCreatedAt() => $_has(6);
   @$pb.TagNumber(7)
-  void clearCreatedAt() => clearField(7);
+  void clearCreatedAt() => $_clearField(7);
   @$pb.TagNumber(7)
   $0.Timestamp ensureCreatedAt() => $_ensure(6);
 
   @$pb.TagNumber(8)
   $0.Timestamp get updatedAt => $_getN(7);
   @$pb.TagNumber(8)
-  set updatedAt($0.Timestamp v) { setField(8, v); }
+  set updatedAt($0.Timestamp v) { $_setField(8, v); }
   @$pb.TagNumber(8)
   $core.bool hasUpdatedAt() => $_has(7);
   @$pb.TagNumber(8)
-  void clearUpdatedAt() => clearField(8);
+  void clearUpdatedAt() => $_clearField(8);
   @$pb.TagNumber(8)
   $0.Timestamp ensureUpdatedAt() => $_ensure(7);
 
   @$pb.TagNumber(9)
-  $core.List<MemberRole> get roles => $_getList(8);
+  $pb.PbList<MemberRole> get roles => $_getList(8);
 
   @$pb.TagNumber(10)
-  $core.List<$core.String> get locationIds => $_getList(9);
+  $pb.PbList<$core.String> get locationIds => $_getList(9);
 }
 
 class MemberRole extends $pb.GeneratedMessage {
@@ -246,7 +248,7 @@ class MemberRole extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get name => $_getSZ(1);
@@ -255,7 +257,7 @@ class MemberRole extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearName() => clearField(2);
+  void clearName() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.bool get isSystem => $_getBF(2);
@@ -264,10 +266,10 @@ class MemberRole extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasIsSystem() => $_has(2);
   @$pb.TagNumber(3)
-  void clearIsSystem() => clearField(3);
+  void clearIsSystem() => $_clearField(3);
 
   @$pb.TagNumber(4)
-  $core.List<$core.String> get locationIds => $_getList(3);
+  $pb.PbList<$core.String> get locationIds => $_getList(3);
 }
 
 class ListMembersRequest extends $pb.GeneratedMessage {
@@ -352,7 +354,7 @@ class ListMembersRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasSearch() => $_has(0);
   @$pb.TagNumber(1)
-  void clearSearch() => clearField(1);
+  void clearSearch() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.bool get includeDeleted => $_getBF(1);
@@ -361,7 +363,7 @@ class ListMembersRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasIncludeDeleted() => $_has(1);
   @$pb.TagNumber(2)
-  void clearIncludeDeleted() => clearField(2);
+  void clearIncludeDeleted() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.bool get includePending => $_getBF(2);
@@ -370,7 +372,7 @@ class ListMembersRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasIncludePending() => $_has(2);
   @$pb.TagNumber(3)
-  void clearIncludePending() => clearField(3);
+  void clearIncludePending() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.String get hasPermission => $_getSZ(3);
@@ -379,7 +381,7 @@ class ListMembersRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasHasPermission() => $_has(3);
   @$pb.TagNumber(4)
-  void clearHasPermission() => clearField(4);
+  void clearHasPermission() => $_clearField(4);
 
   @$pb.TagNumber(5)
   $core.int get limit => $_getIZ(4);
@@ -388,7 +390,7 @@ class ListMembersRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.bool hasLimit() => $_has(4);
   @$pb.TagNumber(5)
-  void clearLimit() => clearField(5);
+  void clearLimit() => $_clearField(5);
 
   @$pb.TagNumber(6)
   $core.int get offset => $_getIZ(5);
@@ -397,7 +399,7 @@ class ListMembersRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   $core.bool hasOffset() => $_has(5);
   @$pb.TagNumber(6)
-  void clearOffset() => clearField(6);
+  void clearOffset() => $_clearField(6);
 
   @$pb.TagNumber(7)
   $core.String get sortBy => $_getSZ(6);
@@ -406,7 +408,7 @@ class ListMembersRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(7)
   $core.bool hasSortBy() => $_has(6);
   @$pb.TagNumber(7)
-  void clearSortBy() => clearField(7);
+  void clearSortBy() => $_clearField(7);
 
   @$pb.TagNumber(8)
   $core.String get sortOrder => $_getSZ(7);
@@ -415,7 +417,7 @@ class ListMembersRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(8)
   $core.bool hasSortOrder() => $_has(7);
   @$pb.TagNumber(8)
-  void clearSortOrder() => clearField(8);
+  void clearSortOrder() => $_clearField(8);
 }
 
 class ListMembersResponse extends $pb.GeneratedMessage {
@@ -464,7 +466,7 @@ class ListMembersResponse extends $pb.GeneratedMessage {
   static ListMembersResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<Member> get members => $_getList(0);
+  $pb.PbList<Member> get members => $_getList(0);
 
   @$pb.TagNumber(2)
   $core.int get total => $_getIZ(1);
@@ -473,7 +475,7 @@ class ListMembersResponse extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasTotal() => $_has(1);
   @$pb.TagNumber(2)
-  void clearTotal() => clearField(2);
+  void clearTotal() => $_clearField(2);
 }
 
 class GetMemberRequest extends $pb.GeneratedMessage {
@@ -523,7 +525,7 @@ class GetMemberRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasMemberId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearMemberId() => clearField(1);
+  void clearMemberId() => $_clearField(1);
 }
 
 class CreateMemberRequest extends $pb.GeneratedMessage {
@@ -593,7 +595,7 @@ class CreateMemberRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasEmail() => $_has(0);
   @$pb.TagNumber(1)
-  void clearEmail() => clearField(1);
+  void clearEmail() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get firstName => $_getSZ(1);
@@ -602,7 +604,7 @@ class CreateMemberRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasFirstName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearFirstName() => clearField(2);
+  void clearFirstName() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get lastName => $_getSZ(2);
@@ -611,13 +613,13 @@ class CreateMemberRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasLastName() => $_has(2);
   @$pb.TagNumber(3)
-  void clearLastName() => clearField(3);
+  void clearLastName() => $_clearField(3);
 
   @$pb.TagNumber(4)
-  $core.List<$core.String> get roleIds => $_getList(3);
+  $pb.PbList<$core.String> get roleIds => $_getList(3);
 
   @$pb.TagNumber(5)
-  $core.List<$core.String> get locationIds => $_getList(4);
+  $pb.PbList<$core.String> get locationIds => $_getList(4);
 }
 
 class UpdateMemberRequest extends $pb.GeneratedMessage {
@@ -677,7 +679,7 @@ class UpdateMemberRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasMemberId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearMemberId() => clearField(1);
+  void clearMemberId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get firstName => $_getSZ(1);
@@ -686,7 +688,7 @@ class UpdateMemberRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasFirstName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearFirstName() => clearField(2);
+  void clearFirstName() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get lastName => $_getSZ(2);
@@ -695,7 +697,7 @@ class UpdateMemberRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasLastName() => $_has(2);
   @$pb.TagNumber(3)
-  void clearLastName() => clearField(3);
+  void clearLastName() => $_clearField(3);
 }
 
 class DeleteMemberRequest extends $pb.GeneratedMessage {
@@ -745,7 +747,7 @@ class DeleteMemberRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasMemberId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearMemberId() => clearField(1);
+  void clearMemberId() => $_clearField(1);
 }
 
 class DeleteMemberResponse extends $pb.GeneratedMessage {
@@ -784,6 +786,7 @@ class Location extends $pb.GeneratedMessage {
   factory Location({
     $core.String? id,
     $core.String? name,
+    $core.String? description,
     $core.String? address,
     $core.String? city,
     $core.String? state,
@@ -798,6 +801,9 @@ class Location extends $pb.GeneratedMessage {
     }
     if (name != null) {
       $result.name = name;
+    }
+    if (description != null) {
+      $result.description = description;
     }
     if (address != null) {
       $result.address = address;
@@ -829,13 +835,14 @@ class Location extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Location', package: const $pb.PackageName(_omitMessageNames ? '' : 'moat.v1'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'id')
     ..aOS(2, _omitFieldNames ? '' : 'name')
-    ..aOS(3, _omitFieldNames ? '' : 'address')
-    ..aOS(4, _omitFieldNames ? '' : 'city')
-    ..aOS(5, _omitFieldNames ? '' : 'state')
-    ..aOS(6, _omitFieldNames ? '' : 'zipCode')
-    ..aOS(7, _omitFieldNames ? '' : 'country')
-    ..aOM<$0.Timestamp>(8, _omitFieldNames ? '' : 'createdAt', subBuilder: $0.Timestamp.create)
-    ..aOM<$0.Timestamp>(9, _omitFieldNames ? '' : 'updatedAt', subBuilder: $0.Timestamp.create)
+    ..aOS(3, _omitFieldNames ? '' : 'description')
+    ..aOS(4, _omitFieldNames ? '' : 'address')
+    ..aOS(5, _omitFieldNames ? '' : 'city')
+    ..aOS(6, _omitFieldNames ? '' : 'state')
+    ..aOS(7, _omitFieldNames ? '' : 'zipCode')
+    ..aOS(8, _omitFieldNames ? '' : 'country')
+    ..aOM<$0.Timestamp>(9, _omitFieldNames ? '' : 'createdAt', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(10, _omitFieldNames ? '' : 'updatedAt', subBuilder: $0.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -867,7 +874,7 @@ class Location extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get name => $_getSZ(1);
@@ -876,74 +883,83 @@ class Location extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearName() => clearField(2);
+  void clearName() => $_clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get address => $_getSZ(2);
+  $core.String get description => $_getSZ(2);
   @$pb.TagNumber(3)
-  set address($core.String v) { $_setString(2, v); }
+  set description($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasAddress() => $_has(2);
+  $core.bool hasDescription() => $_has(2);
   @$pb.TagNumber(3)
-  void clearAddress() => clearField(3);
+  void clearDescription() => $_clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get city => $_getSZ(3);
+  $core.String get address => $_getSZ(3);
   @$pb.TagNumber(4)
-  set city($core.String v) { $_setString(3, v); }
+  set address($core.String v) { $_setString(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasCity() => $_has(3);
+  $core.bool hasAddress() => $_has(3);
   @$pb.TagNumber(4)
-  void clearCity() => clearField(4);
+  void clearAddress() => $_clearField(4);
 
   @$pb.TagNumber(5)
-  $core.String get state => $_getSZ(4);
+  $core.String get city => $_getSZ(4);
   @$pb.TagNumber(5)
-  set state($core.String v) { $_setString(4, v); }
+  set city($core.String v) { $_setString(4, v); }
   @$pb.TagNumber(5)
-  $core.bool hasState() => $_has(4);
+  $core.bool hasCity() => $_has(4);
   @$pb.TagNumber(5)
-  void clearState() => clearField(5);
+  void clearCity() => $_clearField(5);
 
   @$pb.TagNumber(6)
-  $core.String get zipCode => $_getSZ(5);
+  $core.String get state => $_getSZ(5);
   @$pb.TagNumber(6)
-  set zipCode($core.String v) { $_setString(5, v); }
+  set state($core.String v) { $_setString(5, v); }
   @$pb.TagNumber(6)
-  $core.bool hasZipCode() => $_has(5);
+  $core.bool hasState() => $_has(5);
   @$pb.TagNumber(6)
-  void clearZipCode() => clearField(6);
+  void clearState() => $_clearField(6);
 
   @$pb.TagNumber(7)
-  $core.String get country => $_getSZ(6);
+  $core.String get zipCode => $_getSZ(6);
   @$pb.TagNumber(7)
-  set country($core.String v) { $_setString(6, v); }
+  set zipCode($core.String v) { $_setString(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasCountry() => $_has(6);
+  $core.bool hasZipCode() => $_has(6);
   @$pb.TagNumber(7)
-  void clearCountry() => clearField(7);
+  void clearZipCode() => $_clearField(7);
 
   @$pb.TagNumber(8)
-  $0.Timestamp get createdAt => $_getN(7);
+  $core.String get country => $_getSZ(7);
   @$pb.TagNumber(8)
-  set createdAt($0.Timestamp v) { setField(8, v); }
+  set country($core.String v) { $_setString(7, v); }
   @$pb.TagNumber(8)
-  $core.bool hasCreatedAt() => $_has(7);
+  $core.bool hasCountry() => $_has(7);
   @$pb.TagNumber(8)
-  void clearCreatedAt() => clearField(8);
-  @$pb.TagNumber(8)
-  $0.Timestamp ensureCreatedAt() => $_ensure(7);
+  void clearCountry() => $_clearField(8);
 
   @$pb.TagNumber(9)
-  $0.Timestamp get updatedAt => $_getN(8);
+  $0.Timestamp get createdAt => $_getN(8);
   @$pb.TagNumber(9)
-  set updatedAt($0.Timestamp v) { setField(9, v); }
+  set createdAt($0.Timestamp v) { $_setField(9, v); }
   @$pb.TagNumber(9)
-  $core.bool hasUpdatedAt() => $_has(8);
+  $core.bool hasCreatedAt() => $_has(8);
   @$pb.TagNumber(9)
-  void clearUpdatedAt() => clearField(9);
+  void clearCreatedAt() => $_clearField(9);
   @$pb.TagNumber(9)
-  $0.Timestamp ensureUpdatedAt() => $_ensure(8);
+  $0.Timestamp ensureCreatedAt() => $_ensure(8);
+
+  @$pb.TagNumber(10)
+  $0.Timestamp get updatedAt => $_getN(9);
+  @$pb.TagNumber(10)
+  set updatedAt($0.Timestamp v) { $_setField(10, v); }
+  @$pb.TagNumber(10)
+  $core.bool hasUpdatedAt() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearUpdatedAt() => $_clearField(10);
+  @$pb.TagNumber(10)
+  $0.Timestamp ensureUpdatedAt() => $_ensure(9);
 }
 
 class ListLocationsRequest extends $pb.GeneratedMessage {
@@ -1019,7 +1035,7 @@ class ListLocationsResponse extends $pb.GeneratedMessage {
   static ListLocationsResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<Location> get locations => $_getList(0);
+  $pb.PbList<Location> get locations => $_getList(0);
 }
 
 class GetLocationRequest extends $pb.GeneratedMessage {
@@ -1069,12 +1085,13 @@ class GetLocationRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasLocationId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearLocationId() => clearField(1);
+  void clearLocationId() => $_clearField(1);
 }
 
 class CreateLocationRequest extends $pb.GeneratedMessage {
   factory CreateLocationRequest({
     $core.String? name,
+    $core.String? description,
     $core.String? address,
     $core.String? city,
     $core.String? state,
@@ -1084,6 +1101,9 @@ class CreateLocationRequest extends $pb.GeneratedMessage {
     final $result = create();
     if (name != null) {
       $result.name = name;
+    }
+    if (description != null) {
+      $result.description = description;
     }
     if (address != null) {
       $result.address = address;
@@ -1108,11 +1128,12 @@ class CreateLocationRequest extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CreateLocationRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'moat.v1'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'name')
-    ..aOS(2, _omitFieldNames ? '' : 'address')
-    ..aOS(3, _omitFieldNames ? '' : 'city')
-    ..aOS(4, _omitFieldNames ? '' : 'state')
-    ..aOS(5, _omitFieldNames ? '' : 'zipCode')
-    ..aOS(6, _omitFieldNames ? '' : 'country')
+    ..aOS(2, _omitFieldNames ? '' : 'description')
+    ..aOS(3, _omitFieldNames ? '' : 'address')
+    ..aOS(4, _omitFieldNames ? '' : 'city')
+    ..aOS(5, _omitFieldNames ? '' : 'state')
+    ..aOS(6, _omitFieldNames ? '' : 'zipCode')
+    ..aOS(7, _omitFieldNames ? '' : 'country')
     ..hasRequiredFields = false
   ;
 
@@ -1144,58 +1165,68 @@ class CreateLocationRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasName() => $_has(0);
   @$pb.TagNumber(1)
-  void clearName() => clearField(1);
+  void clearName() => $_clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get address => $_getSZ(1);
+  $core.String get description => $_getSZ(1);
   @$pb.TagNumber(2)
-  set address($core.String v) { $_setString(1, v); }
+  set description($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasAddress() => $_has(1);
+  $core.bool hasDescription() => $_has(1);
   @$pb.TagNumber(2)
-  void clearAddress() => clearField(2);
+  void clearDescription() => $_clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get city => $_getSZ(2);
+  $core.String get address => $_getSZ(2);
   @$pb.TagNumber(3)
-  set city($core.String v) { $_setString(2, v); }
+  set address($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasCity() => $_has(2);
+  $core.bool hasAddress() => $_has(2);
   @$pb.TagNumber(3)
-  void clearCity() => clearField(3);
+  void clearAddress() => $_clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get state => $_getSZ(3);
+  $core.String get city => $_getSZ(3);
   @$pb.TagNumber(4)
-  set state($core.String v) { $_setString(3, v); }
+  set city($core.String v) { $_setString(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasState() => $_has(3);
+  $core.bool hasCity() => $_has(3);
   @$pb.TagNumber(4)
-  void clearState() => clearField(4);
+  void clearCity() => $_clearField(4);
 
   @$pb.TagNumber(5)
-  $core.String get zipCode => $_getSZ(4);
+  $core.String get state => $_getSZ(4);
   @$pb.TagNumber(5)
-  set zipCode($core.String v) { $_setString(4, v); }
+  set state($core.String v) { $_setString(4, v); }
   @$pb.TagNumber(5)
-  $core.bool hasZipCode() => $_has(4);
+  $core.bool hasState() => $_has(4);
   @$pb.TagNumber(5)
-  void clearZipCode() => clearField(5);
+  void clearState() => $_clearField(5);
 
   @$pb.TagNumber(6)
-  $core.String get country => $_getSZ(5);
+  $core.String get zipCode => $_getSZ(5);
   @$pb.TagNumber(6)
-  set country($core.String v) { $_setString(5, v); }
+  set zipCode($core.String v) { $_setString(5, v); }
   @$pb.TagNumber(6)
-  $core.bool hasCountry() => $_has(5);
+  $core.bool hasZipCode() => $_has(5);
   @$pb.TagNumber(6)
-  void clearCountry() => clearField(6);
+  void clearZipCode() => $_clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get country => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set country($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasCountry() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearCountry() => $_clearField(7);
 }
 
 class UpdateLocationRequest extends $pb.GeneratedMessage {
   factory UpdateLocationRequest({
     $core.String? locationId,
     $core.String? name,
+    $core.String? description,
     $core.String? address,
     $core.String? city,
     $core.String? state,
@@ -1208,6 +1239,9 @@ class UpdateLocationRequest extends $pb.GeneratedMessage {
     }
     if (name != null) {
       $result.name = name;
+    }
+    if (description != null) {
+      $result.description = description;
     }
     if (address != null) {
       $result.address = address;
@@ -1233,11 +1267,12 @@ class UpdateLocationRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'UpdateLocationRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'moat.v1'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'locationId')
     ..aOS(2, _omitFieldNames ? '' : 'name')
-    ..aOS(3, _omitFieldNames ? '' : 'address')
-    ..aOS(4, _omitFieldNames ? '' : 'city')
-    ..aOS(5, _omitFieldNames ? '' : 'state')
-    ..aOS(6, _omitFieldNames ? '' : 'zipCode')
-    ..aOS(7, _omitFieldNames ? '' : 'country')
+    ..aOS(3, _omitFieldNames ? '' : 'description')
+    ..aOS(4, _omitFieldNames ? '' : 'address')
+    ..aOS(5, _omitFieldNames ? '' : 'city')
+    ..aOS(6, _omitFieldNames ? '' : 'state')
+    ..aOS(7, _omitFieldNames ? '' : 'zipCode')
+    ..aOS(8, _omitFieldNames ? '' : 'country')
     ..hasRequiredFields = false
   ;
 
@@ -1269,7 +1304,7 @@ class UpdateLocationRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasLocationId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearLocationId() => clearField(1);
+  void clearLocationId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get name => $_getSZ(1);
@@ -1278,52 +1313,61 @@ class UpdateLocationRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearName() => clearField(2);
+  void clearName() => $_clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get address => $_getSZ(2);
+  $core.String get description => $_getSZ(2);
   @$pb.TagNumber(3)
-  set address($core.String v) { $_setString(2, v); }
+  set description($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasAddress() => $_has(2);
+  $core.bool hasDescription() => $_has(2);
   @$pb.TagNumber(3)
-  void clearAddress() => clearField(3);
+  void clearDescription() => $_clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get city => $_getSZ(3);
+  $core.String get address => $_getSZ(3);
   @$pb.TagNumber(4)
-  set city($core.String v) { $_setString(3, v); }
+  set address($core.String v) { $_setString(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasCity() => $_has(3);
+  $core.bool hasAddress() => $_has(3);
   @$pb.TagNumber(4)
-  void clearCity() => clearField(4);
+  void clearAddress() => $_clearField(4);
 
   @$pb.TagNumber(5)
-  $core.String get state => $_getSZ(4);
+  $core.String get city => $_getSZ(4);
   @$pb.TagNumber(5)
-  set state($core.String v) { $_setString(4, v); }
+  set city($core.String v) { $_setString(4, v); }
   @$pb.TagNumber(5)
-  $core.bool hasState() => $_has(4);
+  $core.bool hasCity() => $_has(4);
   @$pb.TagNumber(5)
-  void clearState() => clearField(5);
+  void clearCity() => $_clearField(5);
 
   @$pb.TagNumber(6)
-  $core.String get zipCode => $_getSZ(5);
+  $core.String get state => $_getSZ(5);
   @$pb.TagNumber(6)
-  set zipCode($core.String v) { $_setString(5, v); }
+  set state($core.String v) { $_setString(5, v); }
   @$pb.TagNumber(6)
-  $core.bool hasZipCode() => $_has(5);
+  $core.bool hasState() => $_has(5);
   @$pb.TagNumber(6)
-  void clearZipCode() => clearField(6);
+  void clearState() => $_clearField(6);
 
   @$pb.TagNumber(7)
-  $core.String get country => $_getSZ(6);
+  $core.String get zipCode => $_getSZ(6);
   @$pb.TagNumber(7)
-  set country($core.String v) { $_setString(6, v); }
+  set zipCode($core.String v) { $_setString(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasCountry() => $_has(6);
+  $core.bool hasZipCode() => $_has(6);
   @$pb.TagNumber(7)
-  void clearCountry() => clearField(7);
+  void clearZipCode() => $_clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.String get country => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set country($core.String v) { $_setString(7, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasCountry() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearCountry() => $_clearField(8);
 }
 
 class DeleteLocationRequest extends $pb.GeneratedMessage {
@@ -1373,7 +1417,7 @@ class DeleteLocationRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasLocationId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearLocationId() => clearField(1);
+  void clearLocationId() => $_clearField(1);
 }
 
 class DeleteLocationResponse extends $pb.GeneratedMessage {
@@ -1523,7 +1567,7 @@ class RoleDetail extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get name => $_getSZ(1);
@@ -1532,7 +1576,7 @@ class RoleDetail extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearName() => clearField(2);
+  void clearName() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get description => $_getSZ(2);
@@ -1541,7 +1585,7 @@ class RoleDetail extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasDescription() => $_has(2);
   @$pb.TagNumber(3)
-  void clearDescription() => clearField(3);
+  void clearDescription() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.bool get isSystem => $_getBF(3);
@@ -1550,7 +1594,7 @@ class RoleDetail extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasIsSystem() => $_has(3);
   @$pb.TagNumber(4)
-  void clearIsSystem() => clearField(4);
+  void clearIsSystem() => $_clearField(4);
 
   @$pb.TagNumber(5)
   $core.bool get isAssignable => $_getBF(4);
@@ -1559,30 +1603,30 @@ class RoleDetail extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.bool hasIsAssignable() => $_has(4);
   @$pb.TagNumber(5)
-  void clearIsAssignable() => clearField(5);
+  void clearIsAssignable() => $_clearField(5);
 
   @$pb.TagNumber(6)
-  $core.List<Permission> get permissions => $_getList(5);
+  $pb.PbList<Permission> get permissions => $_getList(5);
 
   @$pb.TagNumber(7)
   $0.Timestamp get createdAt => $_getN(6);
   @$pb.TagNumber(7)
-  set createdAt($0.Timestamp v) { setField(7, v); }
+  set createdAt($0.Timestamp v) { $_setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasCreatedAt() => $_has(6);
   @$pb.TagNumber(7)
-  void clearCreatedAt() => clearField(7);
+  void clearCreatedAt() => $_clearField(7);
   @$pb.TagNumber(7)
   $0.Timestamp ensureCreatedAt() => $_ensure(6);
 
   @$pb.TagNumber(8)
   $0.Timestamp get updatedAt => $_getN(7);
   @$pb.TagNumber(8)
-  set updatedAt($0.Timestamp v) { setField(8, v); }
+  set updatedAt($0.Timestamp v) { $_setField(8, v); }
   @$pb.TagNumber(8)
   $core.bool hasUpdatedAt() => $_has(7);
   @$pb.TagNumber(8)
-  void clearUpdatedAt() => clearField(8);
+  void clearUpdatedAt() => $_clearField(8);
   @$pb.TagNumber(8)
   $0.Timestamp ensureUpdatedAt() => $_ensure(7);
 }
@@ -1649,7 +1693,7 @@ class Permission extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get resource => $_getSZ(1);
@@ -1658,7 +1702,7 @@ class Permission extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasResource() => $_has(1);
   @$pb.TagNumber(2)
-  void clearResource() => clearField(2);
+  void clearResource() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get action => $_getSZ(2);
@@ -1667,7 +1711,7 @@ class Permission extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasAction() => $_has(2);
   @$pb.TagNumber(3)
-  void clearAction() => clearField(3);
+  void clearAction() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.String get name => $_getSZ(3);
@@ -1676,7 +1720,7 @@ class Permission extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasName() => $_has(3);
   @$pb.TagNumber(4)
-  void clearName() => clearField(4);
+  void clearName() => $_clearField(4);
 }
 
 class ListRolesRequest extends $pb.GeneratedMessage {
@@ -1731,7 +1775,7 @@ class ListRolesRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasIncludeSystem() => $_has(0);
   @$pb.TagNumber(1)
-  void clearIncludeSystem() => clearField(1);
+  void clearIncludeSystem() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.bool get isAssignable => $_getBF(1);
@@ -1740,7 +1784,7 @@ class ListRolesRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasIsAssignable() => $_has(1);
   @$pb.TagNumber(2)
-  void clearIsAssignable() => clearField(2);
+  void clearIsAssignable() => $_clearField(2);
 }
 
 class ListRolesResponse extends $pb.GeneratedMessage {
@@ -1784,7 +1828,7 @@ class ListRolesResponse extends $pb.GeneratedMessage {
   static ListRolesResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<RoleDetail> get roles => $_getList(0);
+  $pb.PbList<RoleDetail> get roles => $_getList(0);
 }
 
 class GetRoleRequest extends $pb.GeneratedMessage {
@@ -1834,7 +1878,7 @@ class GetRoleRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasRoleId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearRoleId() => clearField(1);
+  void clearRoleId() => $_clearField(1);
 }
 
 class CreateRoleRequest extends $pb.GeneratedMessage {
@@ -1899,7 +1943,7 @@ class CreateRoleRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasName() => $_has(0);
   @$pb.TagNumber(1)
-  void clearName() => clearField(1);
+  void clearName() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get description => $_getSZ(1);
@@ -1908,7 +1952,7 @@ class CreateRoleRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasDescription() => $_has(1);
   @$pb.TagNumber(2)
-  void clearDescription() => clearField(2);
+  void clearDescription() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.bool get isAssignable => $_getBF(2);
@@ -1917,10 +1961,10 @@ class CreateRoleRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasIsAssignable() => $_has(2);
   @$pb.TagNumber(3)
-  void clearIsAssignable() => clearField(3);
+  void clearIsAssignable() => $_clearField(3);
 
   @$pb.TagNumber(4)
-  $core.List<$core.String> get permissionIds => $_getList(3);
+  $pb.PbList<$core.String> get permissionIds => $_getList(3);
 }
 
 class UpdateRoleRequest extends $pb.GeneratedMessage {
@@ -1990,7 +2034,7 @@ class UpdateRoleRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasRoleId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearRoleId() => clearField(1);
+  void clearRoleId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get name => $_getSZ(1);
@@ -1999,7 +2043,7 @@ class UpdateRoleRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearName() => clearField(2);
+  void clearName() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get description => $_getSZ(2);
@@ -2008,7 +2052,7 @@ class UpdateRoleRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasDescription() => $_has(2);
   @$pb.TagNumber(3)
-  void clearDescription() => clearField(3);
+  void clearDescription() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.bool get isAssignable => $_getBF(3);
@@ -2017,10 +2061,10 @@ class UpdateRoleRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasIsAssignable() => $_has(3);
   @$pb.TagNumber(4)
-  void clearIsAssignable() => clearField(4);
+  void clearIsAssignable() => $_clearField(4);
 
   @$pb.TagNumber(5)
-  $core.List<$core.String> get permissionIds => $_getList(4);
+  $pb.PbList<$core.String> get permissionIds => $_getList(4);
 }
 
 class DeleteRoleRequest extends $pb.GeneratedMessage {
@@ -2070,7 +2114,7 @@ class DeleteRoleRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasRoleId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearRoleId() => clearField(1);
+  void clearRoleId() => $_clearField(1);
 }
 
 class DeleteRoleResponse extends $pb.GeneratedMessage {
@@ -2162,7 +2206,7 @@ class AssignRoleRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasMemberId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearMemberId() => clearField(1);
+  void clearMemberId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get roleId => $_getSZ(1);
@@ -2171,10 +2215,10 @@ class AssignRoleRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasRoleId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearRoleId() => clearField(2);
+  void clearRoleId() => $_clearField(2);
 
   @$pb.TagNumber(3)
-  $core.List<$core.String> get locationIds => $_getList(2);
+  $pb.PbList<$core.String> get locationIds => $_getList(2);
 }
 
 class AssignRoleResponse extends $pb.GeneratedMessage {
@@ -2266,7 +2310,7 @@ class RevokeRoleRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasMemberId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearMemberId() => clearField(1);
+  void clearMemberId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get roleId => $_getSZ(1);
@@ -2275,7 +2319,7 @@ class RevokeRoleRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasRoleId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearRoleId() => clearField(2);
+  void clearRoleId() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get reason => $_getSZ(2);
@@ -2284,7 +2328,7 @@ class RevokeRoleRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasReason() => $_has(2);
   @$pb.TagNumber(3)
-  void clearReason() => clearField(3);
+  void clearReason() => $_clearField(3);
 }
 
 class RevokeRoleResponse extends $pb.GeneratedMessage {
@@ -2366,7 +2410,7 @@ class GetMemberLocationsRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasMemberId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearMemberId() => clearField(1);
+  void clearMemberId() => $_clearField(1);
 }
 
 class AssignMemberLocationRequest extends $pb.GeneratedMessage {
@@ -2421,7 +2465,7 @@ class AssignMemberLocationRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasMemberId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearMemberId() => clearField(1);
+  void clearMemberId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get locationId => $_getSZ(1);
@@ -2430,7 +2474,7 @@ class AssignMemberLocationRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasLocationId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearLocationId() => clearField(2);
+  void clearLocationId() => $_clearField(2);
 }
 
 class AssignMemberLocationResponse extends $pb.GeneratedMessage {
@@ -2522,7 +2566,7 @@ class RevokeMemberLocationRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasMemberId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearMemberId() => clearField(1);
+  void clearMemberId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get locationId => $_getSZ(1);
@@ -2531,7 +2575,7 @@ class RevokeMemberLocationRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasLocationId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearLocationId() => clearField(2);
+  void clearLocationId() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get reason => $_getSZ(2);
@@ -2540,7 +2584,7 @@ class RevokeMemberLocationRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasReason() => $_has(2);
   @$pb.TagNumber(3)
-  void clearReason() => clearField(3);
+  void clearReason() => $_clearField(3);
 }
 
 class RevokeMemberLocationResponse extends $pb.GeneratedMessage {
@@ -2653,10 +2697,10 @@ class ListPermissionsResponse extends $pb.GeneratedMessage {
   static ListPermissionsResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<Permission> get permissions => $_getList(0);
+  $pb.PbList<Permission> get permissions => $_getList(0);
 
   @$pb.TagNumber(2)
-  $core.List<ConditionType> get conditionTypes => $_getList(1);
+  $pb.PbList<ConditionType> get conditionTypes => $_getList(1);
 }
 
 class ConditionType extends $pb.GeneratedMessage {
@@ -2716,7 +2760,7 @@ class ConditionType extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get name => $_getSZ(1);
@@ -2725,7 +2769,7 @@ class ConditionType extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearName() => clearField(2);
+  void clearName() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get description => $_getSZ(2);
@@ -2734,7 +2778,7 @@ class ConditionType extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasDescription() => $_has(2);
   @$pb.TagNumber(3)
-  void clearDescription() => clearField(3);
+  void clearDescription() => $_clearField(3);
 }
 
 class ValidateInvitationRequest extends $pb.GeneratedMessage {
@@ -2789,7 +2833,7 @@ class ValidateInvitationRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasCompanyId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearCompanyId() => clearField(1);
+  void clearCompanyId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get memberId => $_getSZ(1);
@@ -2798,7 +2842,7 @@ class ValidateInvitationRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasMemberId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearMemberId() => clearField(2);
+  void clearMemberId() => $_clearField(2);
 }
 
 class InvitationInfo extends $pb.GeneratedMessage {
@@ -2883,7 +2927,7 @@ class InvitationInfo extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get companyId => $_getSZ(1);
@@ -2892,7 +2936,7 @@ class InvitationInfo extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasCompanyId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearCompanyId() => clearField(2);
+  void clearCompanyId() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get companyName => $_getSZ(2);
@@ -2901,7 +2945,7 @@ class InvitationInfo extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasCompanyName() => $_has(2);
   @$pb.TagNumber(3)
-  void clearCompanyName() => clearField(3);
+  void clearCompanyName() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.String get email => $_getSZ(3);
@@ -2910,7 +2954,7 @@ class InvitationInfo extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasEmail() => $_has(3);
   @$pb.TagNumber(4)
-  void clearEmail() => clearField(4);
+  void clearEmail() => $_clearField(4);
 
   @$pb.TagNumber(5)
   $core.String get firstName => $_getSZ(4);
@@ -2919,7 +2963,7 @@ class InvitationInfo extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.bool hasFirstName() => $_has(4);
   @$pb.TagNumber(5)
-  void clearFirstName() => clearField(5);
+  void clearFirstName() => $_clearField(5);
 
   @$pb.TagNumber(6)
   $core.String get lastName => $_getSZ(5);
@@ -2928,7 +2972,7 @@ class InvitationInfo extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   $core.bool hasLastName() => $_has(5);
   @$pb.TagNumber(6)
-  void clearLastName() => clearField(6);
+  void clearLastName() => $_clearField(6);
 
   @$pb.TagNumber(7)
   $core.String get status => $_getSZ(6);
@@ -2937,16 +2981,16 @@ class InvitationInfo extends $pb.GeneratedMessage {
   @$pb.TagNumber(7)
   $core.bool hasStatus() => $_has(6);
   @$pb.TagNumber(7)
-  void clearStatus() => clearField(7);
+  void clearStatus() => $_clearField(7);
 
   @$pb.TagNumber(8)
   $0.Timestamp get createdAt => $_getN(7);
   @$pb.TagNumber(8)
-  set createdAt($0.Timestamp v) { setField(8, v); }
+  set createdAt($0.Timestamp v) { $_setField(8, v); }
   @$pb.TagNumber(8)
   $core.bool hasCreatedAt() => $_has(7);
   @$pb.TagNumber(8)
-  void clearCreatedAt() => clearField(8);
+  void clearCreatedAt() => $_clearField(8);
   @$pb.TagNumber(8)
   $0.Timestamp ensureCreatedAt() => $_ensure(7);
 }
@@ -3008,7 +3052,7 @@ class AcceptInvitationRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasCompanyId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearCompanyId() => clearField(1);
+  void clearCompanyId() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get memberId => $_getSZ(1);
@@ -3017,7 +3061,7 @@ class AcceptInvitationRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasMemberId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearMemberId() => clearField(2);
+  void clearMemberId() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get firebaseUid => $_getSZ(2);
@@ -3026,82 +3070,107 @@ class AcceptInvitationRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasFirebaseUid() => $_has(2);
   @$pb.TagNumber(3)
-  void clearFirebaseUid() => clearField(3);
+  void clearFirebaseUid() => $_clearField(3);
 }
 
+/// OrganizationService handles organization, member, location, and role management.
 class OrganizationServiceApi {
   $pb.RpcClient _client;
   OrganizationServiceApi(this._client);
 
+  /// ListMembers returns paginated list of members in the company.
   $async.Future<ListMembersResponse> listMembers($pb.ClientContext? ctx, ListMembersRequest request) =>
     _client.invoke<ListMembersResponse>(ctx, 'OrganizationService', 'ListMembers', request, ListMembersResponse())
   ;
+  /// GetMember returns details for a specific member.
   $async.Future<Member> getMember($pb.ClientContext? ctx, GetMemberRequest request) =>
     _client.invoke<Member>(ctx, 'OrganizationService', 'GetMember', request, Member())
   ;
+  /// CreateMember creates a new member (invitation flow).
   $async.Future<Member> createMember($pb.ClientContext? ctx, CreateMemberRequest request) =>
     _client.invoke<Member>(ctx, 'OrganizationService', 'CreateMember', request, Member())
   ;
+  /// UpdateMember updates a member's profile.
   $async.Future<Member> updateMember($pb.ClientContext? ctx, UpdateMemberRequest request) =>
     _client.invoke<Member>(ctx, 'OrganizationService', 'UpdateMember', request, Member())
   ;
+  /// DeleteMember soft-deletes a member.
   $async.Future<DeleteMemberResponse> deleteMember($pb.ClientContext? ctx, DeleteMemberRequest request) =>
     _client.invoke<DeleteMemberResponse>(ctx, 'OrganizationService', 'DeleteMember', request, DeleteMemberResponse())
   ;
+  /// ListLocations returns all locations for the company.
   $async.Future<ListLocationsResponse> listLocations($pb.ClientContext? ctx, ListLocationsRequest request) =>
     _client.invoke<ListLocationsResponse>(ctx, 'OrganizationService', 'ListLocations', request, ListLocationsResponse())
   ;
+  /// GetLocation returns details for a specific location.
   $async.Future<Location> getLocation($pb.ClientContext? ctx, GetLocationRequest request) =>
     _client.invoke<Location>(ctx, 'OrganizationService', 'GetLocation', request, Location())
   ;
+  /// CreateLocation creates a new location.
   $async.Future<Location> createLocation($pb.ClientContext? ctx, CreateLocationRequest request) =>
     _client.invoke<Location>(ctx, 'OrganizationService', 'CreateLocation', request, Location())
   ;
+  /// UpdateLocation updates a location.
   $async.Future<Location> updateLocation($pb.ClientContext? ctx, UpdateLocationRequest request) =>
     _client.invoke<Location>(ctx, 'OrganizationService', 'UpdateLocation', request, Location())
   ;
+  /// DeleteLocation deletes a location.
   $async.Future<DeleteLocationResponse> deleteLocation($pb.ClientContext? ctx, DeleteLocationRequest request) =>
     _client.invoke<DeleteLocationResponse>(ctx, 'OrganizationService', 'DeleteLocation', request, DeleteLocationResponse())
   ;
+  /// GetMyLocations returns locations the current user has access to.
   $async.Future<ListLocationsResponse> getMyLocations($pb.ClientContext? ctx, GetMyLocationsRequest request) =>
     _client.invoke<ListLocationsResponse>(ctx, 'OrganizationService', 'GetMyLocations', request, ListLocationsResponse())
   ;
+  /// ListRoles returns all roles for the company.
   $async.Future<ListRolesResponse> listRoles($pb.ClientContext? ctx, ListRolesRequest request) =>
     _client.invoke<ListRolesResponse>(ctx, 'OrganizationService', 'ListRoles', request, ListRolesResponse())
   ;
+  /// GetRole returns details for a specific role.
   $async.Future<RoleDetail> getRole($pb.ClientContext? ctx, GetRoleRequest request) =>
     _client.invoke<RoleDetail>(ctx, 'OrganizationService', 'GetRole', request, RoleDetail())
   ;
+  /// CreateRole creates a new role.
   $async.Future<RoleDetail> createRole($pb.ClientContext? ctx, CreateRoleRequest request) =>
     _client.invoke<RoleDetail>(ctx, 'OrganizationService', 'CreateRole', request, RoleDetail())
   ;
+  /// UpdateRole updates a role.
   $async.Future<RoleDetail> updateRole($pb.ClientContext? ctx, UpdateRoleRequest request) =>
     _client.invoke<RoleDetail>(ctx, 'OrganizationService', 'UpdateRole', request, RoleDetail())
   ;
+  /// DeleteRole deletes a role.
   $async.Future<DeleteRoleResponse> deleteRole($pb.ClientContext? ctx, DeleteRoleRequest request) =>
     _client.invoke<DeleteRoleResponse>(ctx, 'OrganizationService', 'DeleteRole', request, DeleteRoleResponse())
   ;
+  /// AssignRole assigns a role to a member.
   $async.Future<AssignRoleResponse> assignRole($pb.ClientContext? ctx, AssignRoleRequest request) =>
     _client.invoke<AssignRoleResponse>(ctx, 'OrganizationService', 'AssignRole', request, AssignRoleResponse())
   ;
+  /// RevokeRole revokes a role from a member.
   $async.Future<RevokeRoleResponse> revokeRole($pb.ClientContext? ctx, RevokeRoleRequest request) =>
     _client.invoke<RevokeRoleResponse>(ctx, 'OrganizationService', 'RevokeRole', request, RevokeRoleResponse())
   ;
+  /// GetMemberLocations returns locations a member has access to.
   $async.Future<ListLocationsResponse> getMemberLocations($pb.ClientContext? ctx, GetMemberLocationsRequest request) =>
     _client.invoke<ListLocationsResponse>(ctx, 'OrganizationService', 'GetMemberLocations', request, ListLocationsResponse())
   ;
+  /// AssignMemberLocation assigns a location to a member.
   $async.Future<AssignMemberLocationResponse> assignMemberLocation($pb.ClientContext? ctx, AssignMemberLocationRequest request) =>
     _client.invoke<AssignMemberLocationResponse>(ctx, 'OrganizationService', 'AssignMemberLocation', request, AssignMemberLocationResponse())
   ;
+  /// RevokeMemberLocation revokes a location from a member.
   $async.Future<RevokeMemberLocationResponse> revokeMemberLocation($pb.ClientContext? ctx, RevokeMemberLocationRequest request) =>
     _client.invoke<RevokeMemberLocationResponse>(ctx, 'OrganizationService', 'RevokeMemberLocation', request, RevokeMemberLocationResponse())
   ;
+  /// ListPermissions returns all available permissions.
   $async.Future<ListPermissionsResponse> listPermissions($pb.ClientContext? ctx, ListPermissionsRequest request) =>
     _client.invoke<ListPermissionsResponse>(ctx, 'OrganizationService', 'ListPermissions', request, ListPermissionsResponse())
   ;
+  /// ValidateInvitation validates an invitation link.
   $async.Future<InvitationInfo> validateInvitation($pb.ClientContext? ctx, ValidateInvitationRequest request) =>
     _client.invoke<InvitationInfo>(ctx, 'OrganizationService', 'ValidateInvitation', request, InvitationInfo())
   ;
+  /// AcceptInvitation accepts an invitation.
   $async.Future<Member> acceptInvitation($pb.ClientContext? ctx, AcceptInvitationRequest request) =>
     _client.invoke<Member>(ctx, 'OrganizationService', 'AcceptInvitation', request, Member())
   ;

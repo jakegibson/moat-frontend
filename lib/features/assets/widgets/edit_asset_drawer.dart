@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../common_widgets/drawer_shell.dart';
 import '../../../core/di/injection.dart';
 import '../../../core/styles/app_colors.dart';
 import '../../../core/styles/app_sizes.dart';
@@ -155,203 +156,161 @@ class _EditAssetDrawerState extends State<EditAssetDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 500,
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        border: Border(
-          left: BorderSide(color: AppColors.borderPrimary),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.black.withValues(alpha: 0.1),
-            blurRadius: 10,
-            offset: const Offset(-2, 0),
-          ),
-        ],
-      ),
-      child: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 200),
-        child: _editingField != null
-            ? _buildEditForm(_editingField!)
-            : _buildFieldList(),
-      ),
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 200),
+      child: _editingField != null
+          ? _buildEditForm(_editingField!)
+          : _buildFieldList(),
     );
   }
 
   Widget _buildFieldList() {
-    return Column(
+    return DrawerShell(
       key: const ValueKey('list'),
-      children: [
-        // Header
-        Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: AppColors.bgSecondary,
-            border: Border(
-              bottom: BorderSide(color: AppColors.borderPrimary),
-            ),
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  'Edit Asset',
-                  style: AppTextStyles.textLGSemibold,
-                ),
+      title: 'Edit Asset',
+      onClose: widget.onClose,
+      width: 500,
+      scrollableBody: true,
+      bodyPadding: EdgeInsets.all(AppSizes.spacing2XL),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Error banner
+          if (_error != null) ...[
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.all(AppSizes.spacingLG),
+              decoration: BoxDecoration(
+                color: AppColors.utilityError500.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(AppSizes.radiusMD),
               ),
-              IconButton(
-                onPressed: widget.onClose,
-                icon: const Icon(Icons.close),
-                iconSize: 20,
-                style: IconButton.styleFrom(
-                  foregroundColor: AppColors.textSecondary,
-                ),
-              ),
-            ],
-          ),
-        ),
-        // Error banner
-        if (_error != null)
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(12),
-            color: AppColors.error.withValues(alpha: 0.1),
-            child: Row(
-              children: [
-                Icon(Icons.error_outline, color: AppColors.error, size: 18),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    _error!,
-                    style: AppTextStyles.textSM.copyWith(color: AppColors.error),
+              child: Row(
+                children: [
+                  Icon(Icons.error_outline, color: AppColors.utilityError500, size: 18),
+                  SizedBox(width: AppSizes.spacingMD),
+                  Expanded(
+                    child: Text(
+                      _error!,
+                      style: AppTextStyles.textSM.copyWith(color: AppColors.utilityError500),
+                    ),
                   ),
-                ),
-                IconButton(
-                  onPressed: () => setState(() => _error = null),
-                  icon: const Icon(Icons.close, size: 16),
-                  iconSize: 16,
-                  color: AppColors.error,
-                ),
-              ],
+                  IconButton(
+                    onPressed: () => setState(() => _error = null),
+                    icon: const Icon(Icons.close, size: 16),
+                    iconSize: 16,
+                    color: AppColors.utilityError500,
+                  ),
+                ],
+              ),
             ),
+            SizedBox(height: AppSizes.spacingXL),
+          ],
+          // Details Section
+          _buildSectionHeader('Details'),
+          SizedBox(height: AppSizes.spacingLG),
+          _buildFieldRow(
+            label: 'Asset Name',
+            value: _editedAsset.name,
+            fieldName: 'name',
+            isRequired: true,
           ),
-        // Scrollable field list
-        Expanded(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Details Section
-                _buildSectionHeader('Details'),
-                const SizedBox(height: 12),
-                _buildFieldRow(
-                  label: 'Asset Name',
-                  value: _editedAsset.name,
-                  fieldName: 'name',
-                  isRequired: true,
-                ),
-                _buildFieldRow(
-                  label: 'Asset Value',
-                  value: _editedAsset.priceValue != null
-                      ? '\$${_editedAsset.priceValue!.toStringAsFixed(2)}'
-                      : null,
-                  fieldName: 'priceValue',
-                ),
-                _buildFieldRow(
-                  label: 'Manufacturer',
-                  value: _editedAsset.manufacturer,
-                  fieldName: 'manufacturer',
-                ),
-                _buildFieldRow(
-                  label: 'Model #',
-                  value: _editedAsset.modelNumber,
-                  fieldName: 'modelNumber',
-                ),
-                _buildFieldRow(
-                  label: 'Serial #',
-                  value: _editedAsset.serialNumber,
-                  fieldName: 'serialNumber',
-                ),
-
-                const SizedBox(height: 24),
-
-                // Location Section
-                _buildSectionHeader('Location'),
-                const SizedBox(height: 12),
-                _buildFieldRow(
-                  label: 'Site Location',
-                  value: _editedAsset.locationName,
-                  fieldName: 'locationId',
-                  isEditable: false, // Location requires dropdown
-                ),
-                _buildFieldRow(
-                  label: 'Floor Location',
-                  value: _editedAsset.floorLocation,
-                  fieldName: 'floorLocation',
-                ),
-                _buildFieldRow(
-                  label: 'Service Area',
-                  value: _editedAsset.serviceArea,
-                  fieldName: 'serviceArea',
-                ),
-
-                const SizedBox(height: 24),
-
-                // Dates Section
-                _buildSectionHeader('Dates'),
-                const SizedBox(height: 12),
-                _buildDateFieldRow(
-                  label: 'Purchase Date',
-                  value: _editedAsset.purchaseDate,
-                  fieldName: 'purchaseDate',
-                ),
-                _buildDateFieldRow(
-                  label: 'Warranty Start',
-                  value: _editedAsset.warrantyStartDate,
-                  fieldName: 'warrantyStartDate',
-                ),
-                _buildDateFieldRow(
-                  label: 'Substantial Completion',
-                  value: _editedAsset.substantialCompletionDate,
-                  fieldName: 'substantialCompletionDate',
-                ),
-
-                const SizedBox(height: 24),
-
-                // Internal ID Section
-                _buildSectionHeader('Internal ID'),
-                const SizedBox(height: 12),
-                _buildFieldRow(
-                  label: 'Internal ID',
-                  value: _editedAsset.internalId,
-                  fieldName: 'internalId',
-                ),
-
-                const SizedBox(height: 24),
-
-                // Notes Section
-                _buildSectionHeader('Notes'),
-                const SizedBox(height: 12),
-                _buildFieldRow(
-                  label: 'Notes',
-                  value: _editedAsset.notes,
-                  fieldName: 'notes',
-                  isMultiline: true,
-                ),
-
-                const SizedBox(height: 24),
-
-                // Status Section
-                _buildSectionHeader('Status'),
-                const SizedBox(height: 12),
-                _buildStatusSelector(),
-              ],
-            ),
+          _buildFieldRow(
+            label: 'Asset Value',
+            value: _editedAsset.priceValue != null
+                ? '\$${_editedAsset.priceValue!.toStringAsFixed(2)}'
+                : null,
+            fieldName: 'priceValue',
           ),
-        ),
-      ],
+          _buildFieldRow(
+            label: 'Manufacturer',
+            value: _editedAsset.manufacturer,
+            fieldName: 'manufacturer',
+          ),
+          _buildFieldRow(
+            label: 'Model #',
+            value: _editedAsset.modelNumber,
+            fieldName: 'modelNumber',
+          ),
+          _buildFieldRow(
+            label: 'Serial #',
+            value: _editedAsset.serialNumber,
+            fieldName: 'serialNumber',
+          ),
+
+          SizedBox(height: AppSizes.spacing3XL),
+
+          // Location Section
+          _buildSectionHeader('Location'),
+          SizedBox(height: AppSizes.spacingLG),
+          _buildFieldRow(
+            label: 'Site Location',
+            value: _editedAsset.locationName,
+            fieldName: 'locationId',
+            isEditable: false, // Location requires dropdown
+          ),
+          _buildFieldRow(
+            label: 'Floor Location',
+            value: _editedAsset.floorLocation,
+            fieldName: 'floorLocation',
+          ),
+          _buildFieldRow(
+            label: 'Service Area',
+            value: _editedAsset.serviceArea,
+            fieldName: 'serviceArea',
+          ),
+
+          SizedBox(height: AppSizes.spacing3XL),
+
+          // Dates Section
+          _buildSectionHeader('Dates'),
+          SizedBox(height: AppSizes.spacingLG),
+          _buildDateFieldRow(
+            label: 'Purchase Date',
+            value: _editedAsset.purchaseDate,
+            fieldName: 'purchaseDate',
+          ),
+          _buildDateFieldRow(
+            label: 'Warranty Start',
+            value: _editedAsset.warrantyStartDate,
+            fieldName: 'warrantyStartDate',
+          ),
+          _buildDateFieldRow(
+            label: 'Substantial Completion',
+            value: _editedAsset.substantialCompletionDate,
+            fieldName: 'substantialCompletionDate',
+          ),
+
+          SizedBox(height: AppSizes.spacing3XL),
+
+          // Internal ID Section
+          _buildSectionHeader('Internal ID'),
+          SizedBox(height: AppSizes.spacingLG),
+          _buildFieldRow(
+            label: 'Internal ID',
+            value: _editedAsset.internalId,
+            fieldName: 'internalId',
+          ),
+
+          SizedBox(height: AppSizes.spacing3XL),
+
+          // Notes Section
+          _buildSectionHeader('Notes'),
+          SizedBox(height: AppSizes.spacingLG),
+          _buildFieldRow(
+            label: 'Notes',
+            value: _editedAsset.notes,
+            fieldName: 'notes',
+            isMultiline: true,
+          ),
+
+          SizedBox(height: AppSizes.spacing3XL),
+
+          // Status Section
+          _buildSectionHeader('Status'),
+          SizedBox(height: AppSizes.spacingLG),
+          _buildStatusSelector(),
+        ],
+      ),
     );
   }
 
@@ -376,9 +335,12 @@ class _EditAssetDrawerState extends State<EditAssetDrawer> {
       onTap: isEditable
           ? () => setState(() => _editingField = fieldName)
           : null,
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(AppSizes.radiusMD),
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
+        padding: EdgeInsets.symmetric(
+          vertical: AppSizes.spacingLG,
+          horizontal: AppSizes.spacingXS,
+        ),
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(color: AppColors.borderPrimary),
@@ -395,7 +357,7 @@ class _EditAssetDrawerState extends State<EditAssetDrawer> {
                     Text(
                       ' *',
                       style:
-                          AppTextStyles.textSM.copyWith(color: AppColors.error),
+                          AppTextStyles.textSM.copyWith(color: AppColors.utilityError500),
                     ),
                 ],
               ),
@@ -418,7 +380,7 @@ class _EditAssetDrawerState extends State<EditAssetDrawer> {
                     ),
                   ),
                   if (isEditable) ...[
-                    const SizedBox(width: 8),
+                    SizedBox(width: AppSizes.spacingMD),
                     Icon(
                       Icons.chevron_right,
                       size: 18,
@@ -451,9 +413,12 @@ class _EditAssetDrawerState extends State<EditAssetDrawer> {
           await _saveField(fieldName, picked);
         }
       },
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(AppSizes.radiusMD),
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
+        padding: EdgeInsets.symmetric(
+          vertical: AppSizes.spacingLG,
+          horizontal: AppSizes.spacingXS,
+        ),
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(color: AppColors.borderPrimary),
@@ -479,7 +444,7 @@ class _EditAssetDrawerState extends State<EditAssetDrawer> {
                         : AppTextStyles.textSM
                             .copyWith(color: AppColors.primary),
                   ),
-                  const SizedBox(width: 8),
+                  SizedBox(width: AppSizes.spacingMD),
                   Icon(
                     Icons.calendar_today,
                     size: 16,
@@ -496,8 +461,8 @@ class _EditAssetDrawerState extends State<EditAssetDrawer> {
 
   Widget _buildStatusSelector() {
     return Wrap(
-      spacing: 8,
-      runSpacing: 8,
+      spacing: AppSizes.spacingMD,
+      runSpacing: AppSizes.spacingMD,
       children: AssetStatus.all.map((status) {
         final isSelected = _editedAsset.status == status;
         return ChoiceChip(
@@ -576,157 +541,87 @@ class _EditAssetDrawerState extends State<EditAssetDrawer> {
         return const SizedBox.shrink();
     }
 
-    return Column(
+    return DrawerShell(
       key: ValueKey('edit_$fieldName'),
-      children: [
-        // Header
-        Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: AppColors.bgSecondary,
-            border: Border(
-              bottom: BorderSide(color: AppColors.borderPrimary),
-            ),
-          ),
-          child: Row(
-            children: [
-              IconButton(
-                onPressed: () => setState(() => _editingField = null),
-                icon: const Icon(Icons.arrow_back),
-                iconSize: 20,
-                style: IconButton.styleFrom(
-                  foregroundColor: AppColors.textSecondary,
-                ),
+      title: label,
+      width: 500,
+      onClose: () => setState(() => _editingField = null),
+      scrollableBody: false,
+      bodyPadding: EdgeInsets.all(AppSizes.spacing2XL),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // Error banner
+          if (_error != null) ...[
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.all(AppSizes.spacingLG),
+              decoration: BoxDecoration(
+                color: AppColors.utilityError500.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(AppSizes.radiusMD),
               ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  label,
-                  style: AppTextStyles.textLGSemibold,
-                ),
+              child: Text(
+                _error!,
+                style: AppTextStyles.textSM.copyWith(color: AppColors.utilityError500),
               ),
-            ],
-          ),
-        ),
-        // Error banner
-        if (_error != null)
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(12),
-            color: AppColors.error.withValues(alpha: 0.1),
-            child: Text(
-              _error!,
-              style: AppTextStyles.textSM.copyWith(color: AppColors.error),
+            ),
+            SizedBox(height: AppSizes.spacingXL),
+          ],
+          TextFormField(
+            controller: controller,
+            autofocus: true,
+            keyboardType: keyboardType,
+            inputFormatters: inputFormatters,
+            maxLines: maxLines,
+            decoration: InputDecoration(
+              labelText: label,
+              labelStyle: AppTextStyles.textSMSecondary,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(AppSizes.radiusMD),
+                borderSide: BorderSide(color: AppColors.borderPrimary),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(AppSizes.radiusMD),
+                borderSide: BorderSide(color: AppColors.primary),
+              ),
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: AppSizes.spacingXL,
+                vertical: AppSizes.spacingLG + 2,
+              ),
             ),
           ),
-        // Form content
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                TextFormField(
-                  controller: controller,
-                  autofocus: true,
-                  keyboardType: keyboardType,
-                  inputFormatters: inputFormatters,
-                  maxLines: maxLines,
-                  decoration: InputDecoration(
-                    labelText: label,
-                    labelStyle: AppTextStyles.textSMSecondary,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(AppSizes.radiusMD),
-                      borderSide: BorderSide(color: AppColors.borderPrimary),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(AppSizes.radiusMD),
-                      borderSide: BorderSide(color: AppColors.primary),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 14,
-                    ),
-                  ),
-                ),
-                const Spacer(),
-                // Action buttons
-                Row(
-                  children: [
-                    Expanded(
-                      child: OutlinedButton(
-                        onPressed: _isLoading
-                            ? null
-                            : () {
-                                _initControllers();
-                                setState(() => _editingField = null);
-                              },
-                        style: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          side: BorderSide(color: AppColors.borderPrimary),
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(AppSizes.radiusMD),
-                          ),
-                        ),
-                        child: const Text('Cancel'),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: _isLoading
-                            ? null
-                            : () {
-                                // Validate if needed
-                                if (validator != null) {
-                                  final error = validator(controller.text);
-                                  if (error != null) {
-                                    setState(() => _error = error);
-                                    return;
-                                  }
-                                }
-                                // Parse value based on field type
-                                dynamic value;
-                                if (fieldName == 'priceValue') {
-                                  value = controller.text.isEmpty
-                                      ? null
-                                      : double.tryParse(controller.text);
-                                } else {
-                                  value = controller.text.isEmpty
-                                      ? null
-                                      : controller.text;
-                                }
-                                _saveField(fieldName, value);
-                              },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primary,
-                          foregroundColor: AppColors.white,
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(AppSizes.radiusMD),
-                          ),
-                        ),
-                        child: _isLoading
-                            ? const SizedBox(
-                                width: 20,
-                                height: 20,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  color: AppColors.white,
-                                ),
-                              )
-                            : const Text('Save'),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
+          const Spacer(),
+        ],
+      ),
+      footer: DrawerShellActions(
+        cancelText: 'Cancel',
+        submitText: 'Save',
+        isSubmitting: _isLoading,
+        onCancel: () {
+          _initControllers();
+          setState(() => _editingField = null);
+        },
+        onSubmit: () {
+          // Validate if needed
+          if (validator != null) {
+            final error = validator(controller.text);
+            if (error != null) {
+              setState(() => _error = error);
+              return;
+            }
+          }
+          // Parse value based on field type
+          dynamic value;
+          if (fieldName == 'priceValue') {
+            value = controller.text.isEmpty
+                ? null
+                : double.tryParse(controller.text);
+          } else {
+            value = controller.text.isEmpty ? null : controller.text;
+          }
+          _saveField(fieldName, value);
+        },
+      ),
     );
   }
 }
